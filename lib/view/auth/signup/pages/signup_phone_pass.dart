@@ -71,9 +71,6 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
 
             Container(
                 margin: const EdgeInsets.only(bottom: 19),
-                decoration: BoxDecoration(
-                    border: Border.all(color: cc.inputFieldBorderColor),
-                    borderRadius: BorderRadius.circular(globalBorderRadius)),
                 child: TextFormField(
                   controller: widget.passController,
                   textInputAction: TextInputAction.next,
@@ -120,8 +117,9 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                       ),
                       enabledBorder: OutlineInputBorder(
                           borderSide:
-                              const BorderSide(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(9)),
+                              BorderSide(color: cc.inputFieldBorderColor),
+                          borderRadius:
+                              BorderRadius.circular(globalBorderRadius)),
                       focusedBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: ConstantColors().primaryColor)),
@@ -144,9 +142,6 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
 
             Container(
                 margin: const EdgeInsets.only(bottom: 19),
-                decoration: BoxDecoration(
-                    border: Border.all(color: cc.inputFieldBorderColor),
-                    borderRadius: BorderRadius.circular(globalBorderRadius)),
                 child: TextFormField(
                   controller: widget.confirmPassController,
                   textInputAction: TextInputAction.next,
@@ -194,7 +189,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                       ),
                       enabledBorder: OutlineInputBorder(
                           borderSide:
-                              const BorderSide(color: Colors.transparent),
+                              BorderSide(color: cc.inputFieldBorderColor),
                           borderRadius:
                               BorderRadius.circular(globalBorderRadius)),
                       focusedBorder: OutlineInputBorder(

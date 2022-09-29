@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/view/auth/login/login.dart';
 import 'package:no_name_ecommerce/view/intro/intro_helper.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -50,7 +51,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                         Container(
                           width: double.infinity,
                           height:
-                              screenHeight < fourinchScreenHeight ? 130 : 260,
+                              screenHeight < fourinchScreenHeight ? 60 : 180,
                           margin: const EdgeInsets.only(bottom: 24),
                           decoration: BoxDecoration(
                             image: DecorationImage(
@@ -121,10 +122,10 @@ class _IntroductionPageState extends State<IntroductionPage> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    // Navigator.of(context).pushAndRemoveUntil(
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const LoginPage()),
-                    //     (Route<dynamic> route) => false);
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                        (Route<dynamic> route) => false);
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -150,10 +151,10 @@ class _IntroductionPageState extends State<IntroductionPage> {
                 child: InkWell(
                   onTap: () {
                     if (_selectedSlide == 2) {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => const LoginPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
                     } else {
                       _pageController.animateToPage(_selectedSlide + 1,
                           duration: const Duration(milliseconds: 300),

@@ -39,9 +39,6 @@ class CustomInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(bottom: marginBottom),
-        decoration: BoxDecoration(
-            border: Border.all(color: ConstantColors().inputFieldBorderColor),
-            borderRadius: BorderRadius.circular(borderRadius)),
         child: TextFormField(
           controller: controller,
           keyboardType:
@@ -70,18 +67,23 @@ class CustomInput extends StatelessWidget {
                     )
                   : null,
               enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.transparent),
+                  borderSide:
+                      BorderSide(color: ConstantColors().inputFieldBorderColor),
                   borderRadius: BorderRadius.circular(borderRadius)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: ConstantColors().primaryColor),
                   borderRadius: BorderRadius.circular(borderRadius)),
               errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius),
                   borderSide: BorderSide(color: ConstantColors().warningColor)),
               focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: ConstantColors().primaryColor)),
+                  borderSide: BorderSide(color: ConstantColors().primaryColor),
+                  borderRadius: BorderRadius.circular(borderRadius)),
               hintText: hintText,
               contentPadding: EdgeInsets.symmetric(
-                  horizontal: paddingHorizontal, vertical: paddingVertical)),
+                horizontal: paddingHorizontal,
+                vertical: paddingVertical,
+              )),
         ));
   }
 }

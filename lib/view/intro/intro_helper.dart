@@ -5,18 +5,18 @@ class IntroHelper {
 
   geTitle(int i) {
     List title = [
-      "House Cleaning Service",
-      "Repairing Services",
-      "Home Shifting Service"
+      "Order Your Favourites",
+      "Get Fast Delivery",
+      "Happiness Guarranted"
     ];
     return title[i];
   }
 
   geSubTitle(int i) {
     List subTitle = [
-      "Get house cleaning services from expert cleaners",
-      "Get repaired anything from our thousands of experts",
-      "Take our home shifting service to get best service"
+      "Order your favourite items from our app and receive discount",
+      "Get items delivered at your doorstep within 2-3 from the order days",
+      "We make sure our every items has the top quality. We guarrantee you the happiness"
     ];
     return subTitle[i];
   }

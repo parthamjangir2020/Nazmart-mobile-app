@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/google_sign_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/login.dart';
+import 'package:no_name_ecommerce/view/intro/introduction_page.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,7 @@ class SplashService {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const LoginPage(),
+            builder: (BuildContext context) => const IntroductionPage(),
           ),
         );
       });

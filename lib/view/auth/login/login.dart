@@ -99,11 +99,6 @@ class _LoginPageState extends State<LoginPage> {
 
                       Container(
                           margin: const EdgeInsets.only(bottom: 19),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.grey.withOpacity(.4)),
-                              borderRadius:
-                                  BorderRadius.circular(globalBorderRadius)),
                           child: TextFormField(
                             controller: passwordController,
                             textInputAction: TextInputAction.next,
@@ -150,8 +145,8 @@ class _LoginPageState extends State<LoginPage> {
                                   },
                                 ),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.transparent),
+                                    borderSide: BorderSide(
+                                        color: cc.inputFieldBorderColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 focusedBorder: OutlineInputBorder(
@@ -160,11 +155,15 @@ class _LoginPageState extends State<LoginPage> {
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius),
                                     borderSide: BorderSide(
                                         color: ConstantColors().warningColor)),
                                 focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor)),
+                                        color: ConstantColors().primaryColor),
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius)),
                                 hintText: 'Enter password',
                                 contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 8, vertical: 18)),

@@ -3,7 +3,6 @@ import 'package:no_name_ecommerce/services/auth_services/reset_password_service.
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
-import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 
 import 'package:provider/provider.dart';
 
@@ -83,9 +82,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
                       Container(
                           margin: const EdgeInsets.only(bottom: 19),
-                          decoration: BoxDecoration(
-                              color: ConstantColors().greyFour,
-                              borderRadius: BorderRadius.circular(8)),
                           child: TextFormField(
                             controller: newPasswordController,
                             textInputAction: TextInputAction.next,
@@ -133,18 +129,26 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   },
                                 ),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderSide: BorderSide(
+                                        color: ConstantColors()
+                                            .inputFieldBorderColor),
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius)),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor)),
+                                        color: ConstantColors().primaryColor),
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius)),
                                 errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius),
                                     borderSide: BorderSide(
                                         color: ConstantColors().warningColor)),
                                 focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor)),
+                                        color: ConstantColors().primaryColor),
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius)),
                                 hintText: 'New password',
                                 contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 8, vertical: 18)),
@@ -155,9 +159,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
                       Container(
                           margin: const EdgeInsets.only(bottom: 19),
-                          decoration: BoxDecoration(
-                              color: ConstantColors().greyFour,
-                              borderRadius: BorderRadius.circular(8)),
                           child: TextFormField(
                             controller: repeatNewPasswordController,
                             textInputAction: TextInputAction.next,
@@ -205,18 +206,26 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   },
                                 ),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(9)),
+                                    borderSide: BorderSide(
+                                        color: ConstantColors()
+                                            .inputFieldBorderColor),
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius)),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor)),
+                                        color: ConstantColors().primaryColor),
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius)),
                                 errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius),
                                     borderSide: BorderSide(
                                         color: ConstantColors().warningColor)),
                                 focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor)),
+                                        color: ConstantColors().primaryColor),
+                                    borderRadius: BorderRadius.circular(
+                                        globalBorderRadius)),
                                 hintText: 'Retype new password',
                                 contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 8, vertical: 18)),
