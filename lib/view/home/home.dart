@@ -4,6 +4,7 @@ import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/home/homepage_helper.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,7 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
-            physics: physicsCommon,
+            physics: globalPhysics,
             child: Consumer<AppStringService>(
               builder: (context, asProvider, child) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

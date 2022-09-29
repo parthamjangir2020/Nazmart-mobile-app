@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/change_pass_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/email_verify_service.dart';
@@ -10,11 +11,18 @@ import 'package:no_name_ecommerce/services/auth_services/reset_password_service.
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
-import 'package:no_name_ecommerce/view/home/home.dart';
+import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/intro/splash.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
+  );
+
   runApp(const MyApp());
 }
 
@@ -36,12 +44,23 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AppStringService()),
         ChangeNotifierProvider(create: (_) => GoogleSignInService()),
         ChangeNotifierProvider(create: (_) => FacebookLoginService()),
+        ChangeNotifierProvider(create: (_) => RtlService()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          pageTransitionsTheme: const PageTransitionsTheme(builders: {
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          }),
           primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+          buttonTheme:
+              ButtonThemeData(buttonColor: ConstantColors().primaryColor),
+          textSelectionTheme: TextSelectionThemeData(
+              cursorColor: ConstantColors().primaryColor),
         ),
         home: const SplashScreen(),
       ),

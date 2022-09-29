@@ -34,9 +34,6 @@ class EmailNameFields extends StatelessWidget {
           icon: 'assets/icons/user.png',
           textInputAction: TextInputAction.next,
         ),
-        const SizedBox(
-          height: 8,
-        ),
 
         //User name ============>
         CommonHelper().labelCommon("Username"),
@@ -52,9 +49,6 @@ class EmailNameFields extends StatelessWidget {
           hintText: "Enter your username",
           icon: 'assets/icons/user.png',
           textInputAction: TextInputAction.next,
-        ),
-        const SizedBox(
-          height: 8,
         ),
 
         //Email ============>

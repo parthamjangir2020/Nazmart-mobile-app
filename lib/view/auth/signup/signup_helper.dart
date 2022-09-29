@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/view/auth/login/login.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 class SignupHelper {
@@ -40,13 +41,13 @@ class SignupHelper {
     return InputDecoration(
         labelText: 'Phone Number',
         filled: true,
-        fillColor: ConstantColors().greyFour,
+        fillColor: Colors.transparent,
 
         // hintTextDirection: TextDirection.rtl,
         labelStyle: TextStyle(color: cc.greyFour, fontSize: 14),
         enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(7)),
+            borderSide: BorderSide(color: cc.inputFieldBorderColor),
+            borderRadius: BorderRadius.circular(globalBorderRadius)),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: ConstantColors().primaryColor)),
         errorBorder: OutlineInputBorder(

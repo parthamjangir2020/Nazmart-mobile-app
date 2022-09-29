@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
+import 'package:no_name_ecommerce/services/rtl_service.dart';
+import 'package:no_name_ecommerce/view/auth/signup/signup_helper.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +38,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
   }
 
   final _formKey = GlobalKey<FormState>();
-
+  final cc = ConstantColors();
   bool keepLoggedIn = true;
 
   @override
@@ -46,25 +50,21 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Phone number field
-            // CommonHelper().labelCommon("Phone"),
-            // Consumer<RtlService>(
-            //   builder: (context, rtlP, child) => IntlPhoneField(
-            //     controller: widget.phoneController,
-            //     decoration: SignupHelper().phoneFieldDecoration(),
-            //     initialCountryCode: provider.countryCode,
-            //     textAlign:
-            //         rtlP.direction == 'ltr' ? TextAlign.left : TextAlign.right,
-            //     onChanged: (phone) {
-            //       provider.setCountryCode(phone.countryISOCode);
+            CommonHelper().labelCommon("Phone"),
+            Consumer<RtlService>(
+              builder: (context, rtlP, child) => IntlPhoneField(
+                controller: widget.phoneController,
+                decoration: SignupHelper().phoneFieldDecoration(),
+                initialCountryCode: provider.countryCode,
+                textAlign:
+                    rtlP.direction == 'ltr' ? TextAlign.left : TextAlign.right,
+                onChanged: (phone) {
+                  provider.setCountryCode(phone.countryISOCode);
 
-            //       provider.setPhone(phone.number);
-            //     },
-            //   ),
-            // ),
-
-            // const SizedBox(
-            //   height: 8,
-            // ),
+                  provider.setPhone(phone.number);
+                },
+              ),
+            ),
 
             //New password =========================>
             CommonHelper().labelCommon("Password"),
@@ -72,8 +72,8 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
             Container(
                 margin: const EdgeInsets.only(bottom: 19),
                 decoration: BoxDecoration(
-                    color: ConstantColors().greySecondary,
-                    borderRadius: BorderRadius.circular(8)),
+                    border: Border.all(color: cc.inputFieldBorderColor),
+                    borderRadius: BorderRadius.circular(globalBorderRadius)),
                 child: TextFormField(
                   controller: widget.passController,
                   textInputAction: TextInputAction.next,
@@ -90,7 +90,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            height: 22.0,
+                            height: 20.0,
                             width: 40.0,
                             decoration: const BoxDecoration(
                               image: DecorationImage(
@@ -137,7 +137,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                 )),
 
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             //Confirm New password =========================>
             CommonHelper().labelCommon("Confirm Password"),
@@ -145,8 +145,8 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
             Container(
                 margin: const EdgeInsets.only(bottom: 19),
                 decoration: BoxDecoration(
-                    color: ConstantColors().greySecondary,
-                    borderRadius: BorderRadius.circular(8)),
+                    border: Border.all(color: cc.inputFieldBorderColor),
+                    borderRadius: BorderRadius.circular(globalBorderRadius)),
                 child: TextFormField(
                   controller: widget.confirmPassController,
                   textInputAction: TextInputAction.next,
@@ -163,7 +163,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            height: 22.0,
+                            height: 20.0,
                             width: 40.0,
                             decoration: const BoxDecoration(
                               image: DecorationImage(
@@ -195,7 +195,8 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                       enabledBorder: OutlineInputBorder(
                           borderSide:
                               const BorderSide(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(9)),
+                          borderRadius:
+                              BorderRadius.circular(globalBorderRadius)),
                       focusedBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: ConstantColors().primaryColor)),

@@ -40,7 +40,7 @@ class CustomInput extends StatelessWidget {
     return Container(
         margin: EdgeInsets.only(bottom: marginBottom),
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.withOpacity(.4)),
+            border: Border.all(color: ConstantColors().inputFieldBorderColor),
             borderRadius: BorderRadius.circular(borderRadius)),
         child: TextFormField(
           controller: controller,

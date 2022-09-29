@@ -1,10 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
+import 'package:no_name_ecommerce/view/auth/login/components/login_slider.dart';
 import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
 import 'package:no_name_ecommerce/view/auth/signup/pages/signup_phone_pass.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:provider/provider.dart';
@@ -47,9 +50,6 @@ class _SignupPageState extends State<SignupPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('Register to join us', context, () {
-        Navigator.pop(context);
-      }),
       body: Listener(
         onPointerDown: (_) {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -58,6 +58,7 @@ class _SignupPageState extends State<SignupPage> {
           }
         },
         child: SingleChildScrollView(
+          physics: globalPhysics,
           child: Listener(
             onPointerDown: (_) {
               FocusScopeNode currentFocus = FocusScope.of(context);
@@ -68,6 +69,9 @@ class _SignupPageState extends State<SignupPage> {
             child: Consumer<SignupService>(
               builder: (context, provider, child) => Column(
                 children: [
+                  const LoginSlider(
+                    title: 'Sign up to continue',
+                  ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Form(
@@ -82,6 +86,7 @@ class _SignupPageState extends State<SignupPage> {
                           const SizedBox(
                             height: 19,
                           ),
+
                           EmailNameFields(
                             fullNameController: fullNameController,
                             userNameController: userNameController,
@@ -89,11 +94,13 @@ class _SignupPageState extends State<SignupPage> {
                           ),
 
                           const SizedBox(
-                            height: 8,
+                            height: 4,
                           ),
 
                           //Country dropdown =====>
-                          CountryStatesDropdowns(),
+                          const CountryStatesDropdowns(),
+
+                          sizedboxCustom(20),
 
                           SignupPhonePass(
                             passController: passwordController,
@@ -174,11 +181,7 @@ class _SignupPageState extends State<SignupPage> {
                                     TextSpan(
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const LoginPage()));
+                                            Navigator.pop(context);
                                           },
                                         text: 'Login',
                                         style: TextStyle(

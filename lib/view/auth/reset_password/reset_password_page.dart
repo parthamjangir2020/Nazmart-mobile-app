@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/reset_password_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 
@@ -49,7 +50,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           }
         },
         child: SingleChildScrollView(
-          physics: physicsCommon,
+          physics: globalPhysics,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             height: MediaQuery.of(context).size.height - 120,

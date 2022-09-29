@@ -11,22 +11,22 @@ import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:provider/provider.dart';
 
 class CountryStatesService with ChangeNotifier {
-  var countryDropdownList = [];
-  var countryDropdownIndexList = [];
-  var selectedCountry;
-  var selectedCountryId;
+  var countryDropdownList = ['Bangladesh', 'America'];
+  var countryDropdownIndexList = ['1', '2'];
+  var selectedCountry = 'Bangladesh';
+  var selectedCountryId = '1';
 
-  var statesDropdownList = [];
-  var statesDropdownIndexList = [];
+  var statesDropdownList = ['Bangladesh', 'America'];
+  var statesDropdownIndexList = ['1', '2'];
   // var oldStateDropdownList;
   // var oldStatesDropdownIndexList = [];
-  var selectedState;
-  var selectedStateId;
+  var selectedState = 'Bangladesh';
+  var selectedStateId = '1';
 
-  var areaDropdownList = [];
-  var areaDropdownIndexList = [];
-  var selectedArea;
-  var selectedAreaId;
+  var areaDropdownList = ['Bangladesh', 'America'];
+  var areaDropdownIndexList = ['1', '2'];
+  var selectedArea = 'Bangladesh';
+  var selectedAreaId = '1';
 
   bool isLoading = false;
 
@@ -155,8 +155,9 @@ class CountryStatesService with ChangeNotifier {
         print(response.body);
         var data = CountryDropdownModel.fromJson(jsonDecode(response.body));
         for (int i = 0; i < data.countries.length; i++) {
-          countryDropdownList.add(data.countries[i].name);
-          countryDropdownIndexList.add(data.countries[i].id);
+          //TODO uncomment here
+          // countryDropdownList.add(data.countries[i].name);
+          // countryDropdownIndexList.add(data.countries[i].id);
         }
 
         setCountry(context, data: data);
@@ -196,8 +197,9 @@ class CountryStatesService with ChangeNotifier {
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = StatesDropdownModel.fromJson(jsonDecode(response.body));
       for (int i = 0; i < data.serviceCities.length; i++) {
-        statesDropdownList.add(data.serviceCities[i].serviceCity);
-        statesDropdownIndexList.add(data.serviceCities[i].id);
+        //TODO uncomment here
+        // statesDropdownList.add(data.serviceCities[i].serviceCity);
+        // statesDropdownIndexList.add(data.serviceCities[i].id);
       }
 
       //keeping the data
@@ -230,8 +232,9 @@ class CountryStatesService with ChangeNotifier {
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = AreaDropdownModel.fromJson(jsonDecode(response.body));
       for (int i = 0; i < data.serviceAreas.length; i++) {
-        areaDropdownList.add(data.serviceAreas[i].serviceArea);
-        areaDropdownIndexList.add(data.serviceAreas[i].id);
+        //TODO uncomment here
+        // areaDropdownList.add(data.serviceAreas[i].serviceArea);
+        // areaDropdownIndexList.add(data.serviceAreas[i].id);
       }
 
       setArea(context, data: data);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +22,8 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
   @override
   Widget build(BuildContext context) {
     //fetch country
-    Provider.of<CountryStatesService>(context, listen: false)
-        .fetchCountries(context);
+    // Provider.of<CountryStatesService>(context, listen: false)
+    //     .fetchCountries(context);
 
     ConstantColors cc = ConstantColors();
     return Consumer<CountryStatesService>(
@@ -42,7 +43,8 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                           border: Border.all(color: cc.greyFive),
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius:
+                              BorderRadius.circular(globalBorderRadius),
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
@@ -61,7 +63,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                               provider.setSelectedCountryId(
                                   provider.countryDropdownIndexList[provider
                                       .countryDropdownList
-                                      .indexOf(newValue)]);
+                                      .indexOf(newValue!)]);
 
                               //fetch states based on selected country
                               provider.fetchStates(
@@ -97,7 +99,8 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                           border: Border.all(color: cc.greyFive),
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius:
+                              BorderRadius.circular(globalBorderRadius),
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
@@ -116,7 +119,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                               provider.setSelectedStatesId(
                                   provider.statesDropdownIndexList[provider
                                       .statesDropdownList
-                                      .indexOf(newValue)]);
+                                      .indexOf(newValue!)]);
                               // //fetch area based on selected country and state
 
                               provider.fetchArea(provider.selectedCountryId,
@@ -157,7 +160,8 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                           border: Border.all(color: cc.greyFive),
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius:
+                              BorderRadius.circular(globalBorderRadius),
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
@@ -173,9 +177,10 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                               provider.setAreaValue(newValue);
 
                               //setting the id of selected value
-                              provider.setSelectedAreaId(provider
-                                      .areaDropdownIndexList[
-                                  provider.areaDropdownList.indexOf(newValue)]);
+                              provider.setSelectedAreaId(
+                                  provider.areaDropdownIndexList[provider
+                                      .areaDropdownList
+                                      .indexOf(newValue!)]);
                             },
                             items: provider.areaDropdownList
                                 .map<DropdownMenuItem<String>>((value) {

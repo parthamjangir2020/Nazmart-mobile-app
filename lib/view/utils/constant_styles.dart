@@ -7,8 +7,6 @@ ConstantColors cc = ConstantColors();
 
 double screenPadHorizontal = 25;
 
-var physicsCommon = const BouncingScrollPhysics();
-
 sizedboxCustom(double value) {
   return SizedBox(
     height: value,
