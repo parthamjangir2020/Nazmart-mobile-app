@@ -294,38 +294,50 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(
                         height: 30,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                              child: Container(
-                            height: 1,
-                            color: cc.greyFive,
+                      SizedBox(
+                          height: 50,
+                          child: Stack(
+                            children: [
+                              Container(
+                                height: 1,
+                                margin: const EdgeInsets.only(top: 12),
+                                width: double.infinity,
+                                color: cc.borderColor,
+                              ),
+
+                              //or
+                              Positioned.fill(
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Container(
+                                    width: 47,
+                                    height: 30,
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.only(bottom: 25),
+                                    // padding: const EdgeInsets.symmetric(
+                                    //     horizontal: 7, vertical: 3),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border:
+                                            Border.all(color: cc.borderColor),
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: Text(
+                                      "OR",
+                                      style: TextStyle(
+                                          color: cc.greyParagraph,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           )),
-                          Container(
-                            width: 40,
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(bottom: 25),
-                            child: Text(
-                              "OR",
-                              style: TextStyle(
-                                  color: cc.greyPrimary,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                          Expanded(
-                              child: Container(
-                            height: 1,
-                            color: cc.greyFive,
-                          )),
-                        ],
-                      ),
 
                       // login with google, facebook button ===========>
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Consumer<GoogleSignInService>(
                         builder: (context, gProvider, child) => InkWell(
