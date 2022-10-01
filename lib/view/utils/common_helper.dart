@@ -35,29 +35,6 @@ class CommonHelper {
     );
   }
 
-  //common orange button =======>
-  buttonPrimary(String title, VoidCallback pressed, {isloading = false}) {
-    return InkWell(
-      onTap: pressed,
-      child: Container(
-          width: double.infinity,
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          decoration: BoxDecoration(
-              color: cc.primaryColor,
-              borderRadius: BorderRadius.circular(globalBorderRadius)),
-          child: isloading == false
-              ? Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
-                )
-              : OthersHelper().showLoading(Colors.white)),
-    );
-  }
-
   labelCommon(String title) {
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
@@ -72,21 +49,57 @@ class CommonHelper {
     );
   }
 
-  borderButtonPrimary(String title, VoidCallback pressed) {
+  //common orange button =======>
+  buttonPrimary(String title, VoidCallback pressed,
+      {isloading = false,
+      bgColor,
+      double paddingVertical = 18,
+      double borderRadius = 8,
+      double fontsize = 14,
+      Color fontColor = Colors.white}) {
     return InkWell(
       onTap: pressed,
       child: Container(
           width: double.infinity,
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 17),
+          padding: EdgeInsets.symmetric(vertical: paddingVertical),
           decoration: BoxDecoration(
-              border: Border.all(color: cc.primaryColor),
-              borderRadius: BorderRadius.circular(8)),
+              color: bgColor ?? cc.primaryColor,
+              borderRadius: BorderRadius.circular(borderRadius)),
+          child: isloading == false
+              ? Text(
+                  title,
+                  style: TextStyle(
+                    color: fontColor,
+                    fontSize: fontsize,
+                  ),
+                )
+              : OthersHelper().showLoading(Colors.white)),
+    );
+  }
+
+  borderButtonPrimary(
+    String title,
+    VoidCallback pressed, {
+    double paddingVertical = 17,
+    double fontsize = 14,
+    double borderRadius = 8,
+    Color color = Colors.grey,
+  }) {
+    return InkWell(
+      onTap: pressed,
+      child: Container(
+          width: double.infinity,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: paddingVertical),
+          decoration: BoxDecoration(
+              border: Border.all(color: color.withOpacity(.3)),
+              borderRadius: BorderRadius.circular(borderRadius)),
           child: Text(
             title,
             style: TextStyle(
-              color: cc.primaryColor,
-              fontSize: 14,
+              color: color,
+              fontSize: fontsize,
             ),
           )),
     );

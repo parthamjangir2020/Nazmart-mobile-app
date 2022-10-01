@@ -16,4 +16,5 @@ class ConstantColors {
   final Color greySecondary = const Color.fromARGB(255, 240, 241, 244);
   final inputFieldBorderColor = Colors.grey.withOpacity(.4);
   final Color blackCustomColor = const Color(0xff1D2939);
+  final Color orangeColor = const Color(0xffFF9F29);
 }
