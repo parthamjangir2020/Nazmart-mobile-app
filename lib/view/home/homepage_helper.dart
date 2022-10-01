@@ -28,7 +28,7 @@ class HomepageHelper {
               width: 10,
             ),
             Text(
-              asProvider.getString("Search services"),
+              asProvider.getString("Search products"),
               style: const TextStyle(
                 color: Color.fromARGB(255, 126, 126, 126),
                 fontSize: 14,

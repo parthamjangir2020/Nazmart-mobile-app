@@ -15,4 +15,5 @@ class ConstantColors {
   final Color dividerColor = const Color(0xffF0F0F0);
   final Color greySecondary = const Color.fromARGB(255, 240, 241, 244);
   final inputFieldBorderColor = Colors.grey.withOpacity(.4);
+  final Color blackCustomColor = const Color(0xff1D2939);
 }

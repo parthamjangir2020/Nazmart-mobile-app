@@ -1,53 +1,82 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:no_name_ecommerce/view/home/home.dart';
-import '../utils/others_helper.dart';
-import 'bottom_nav.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({Key? key}) : super(key: key);
-
   @override
-  _HomePageState createState() => _HomePageState();
+  _LandingPageState createState() => _LandingPageState();
 }
 
-class _HomePageState extends State<LandingPage> {
-  DateTime? currentBackPressTime;
-
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
-  int _currentIndex = 0;
-  //Bottom nav pages
-  final List<Widget> _children = [
-    const Homepage(),
-    const Homepage(),
-    const Homepage(),
-    const Homepage(),
-    const Homepage(),
+class _LandingPageState extends State<LandingPage> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Homepage(),
+    Homepage(),
+    Homepage(),
+    Homepage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: WillPopScope(
-          onWillPop: () {
-            DateTime now = DateTime.now();
-            if (currentBackPressTime == null ||
-                now.difference(currentBackPressTime!) >
-                    const Duration(seconds: 2)) {
-              currentBackPressTime = now;
-              OthersHelper().showToast("Press again to exit", Colors.black);
-              return Future.value(false);
-            }
-            return Future.value(true);
-          },
-          child: _children[_currentIndex]),
-      bottomNavigationBar: BottomNav(
-        currentIndex: _currentIndex,
-        onTabTapped: onTabTapped,
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 20,
+              color: Colors.black.withOpacity(.1),
+            )
+          ],
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            child: GNav(
+              rippleColor: Colors.grey[300]!,
+              hoverColor: Colors.grey[100]!,
+              gap: 8,
+              activeColor: Colors.black,
+              iconSize: 24,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: const Duration(milliseconds: 400),
+              tabBackgroundColor: Colors.grey[100]!,
+              color: Colors.black,
+              tabs: const [
+                GButton(
+                  icon: Icons.home,
+                  text: 'Home',
+                ),
+                GButton(
+                  icon: Icons.favorite_outline,
+                  text: 'Likes',
+                ),
+                GButton(
+                  icon: Icons.search,
+                  text: 'Search',
+                ),
+                GButton(
+                  icon: Icons.settings,
+                  text: 'Profile',
+                ),
+              ],
+              selectedIndex: _selectedIndex,
+              onTabChange: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+            ),
+          ),
+        ),
       ),
     );
   }

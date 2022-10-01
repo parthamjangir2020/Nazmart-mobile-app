@@ -96,7 +96,7 @@ class EmailVerifyService with ChangeNotifier {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute<void>(
-              builder: (BuildContext context) => const LandingPage(),
+              builder: (BuildContext context) => LandingPage(),
             ),
           );
 

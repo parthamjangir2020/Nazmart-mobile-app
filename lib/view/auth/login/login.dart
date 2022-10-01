@@ -6,6 +6,7 @@ import 'package:no_name_ecommerce/services/auth_services/google_sign_service.dar
 import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/components/login_slider.dart';
 import 'package:no_name_ecommerce/view/auth/login/login_helper.dart';
+import 'package:no_name_ecommerce/view/home/landing_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -236,22 +237,22 @@ class _LoginPageState extends State<LoginPage> {
                       Consumer<LoginService>(
                         builder: (context, provider, child) => CommonHelper()
                             .buttonPrimary("Login", () {
-                          if (provider.isloading == false) {
-                            if (_formKey.currentState!.validate()) {
-                              provider.login(
-                                  emailController.text.trim(),
-                                  passwordController.text,
-                                  context,
-                                  keepLoggedIn);
-                            }
-                            // Navigator.pushReplacement<void, void>(
-                            //   context,
-                            //   MaterialPageRoute<void>(
-                            //     builder: (BuildContext context) =>
-                            //         const LandingPage(),
-                            //   ),
-                            // );
-                          }
+                          // if (provider.isloading == false) {
+                          //   if (_formKey.currentState!.validate()) {
+                          //     provider.login(
+                          //         emailController.text.trim(),
+                          //         passwordController.text,
+                          //         context,
+                          //         keepLoggedIn);
+                          //   }
+
+                          // }
+                          Navigator.pushReplacement<void, void>(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => LandingPage(),
+                            ),
+                          );
                         },
                                 isloading:
                                     provider.isloading == false ? false : true),
