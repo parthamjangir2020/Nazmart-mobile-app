@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:no_name_ecommerce/view/home/home.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+  final cc = ConstantColors();
+
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
@@ -44,28 +47,28 @@ class _LandingPageState extends State<LandingPage> {
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
               gap: 8,
-              activeColor: Colors.black,
+              activeColor: Colors.white,
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: const Duration(milliseconds: 400),
-              tabBackgroundColor: Colors.grey[100]!,
+              tabBackgroundColor: cc.primaryColor,
               color: Colors.black,
               tabs: const [
                 GButton(
-                  icon: Icons.home,
+                  icon: Icons.home_outlined,
                   text: 'Home',
+                ),
+                GButton(
+                  icon: Icons.album_outlined,
+                  text: 'Discover',
                 ),
                 GButton(
                   icon: Icons.favorite_outline,
                   text: 'Likes',
                 ),
                 GButton(
-                  icon: Icons.search,
-                  text: 'Search',
-                ),
-                GButton(
-                  icon: Icons.settings,
-                  text: 'Profile',
+                  icon: Icons.settings_outlined,
+                  text: 'Settings',
                 ),
               ],
               selectedIndex: _selectedIndex,

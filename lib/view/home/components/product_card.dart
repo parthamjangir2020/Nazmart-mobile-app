@@ -121,7 +121,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  sizedboxCustom(14),
+                  sizedboxCustom(10),
 
                   //Donate button
                   CommonHelper().borderButtonPrimary('Add to cart', () {
