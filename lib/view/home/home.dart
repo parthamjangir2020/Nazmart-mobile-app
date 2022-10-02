@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/view/checkout/cart_page.dart';
 import 'package:no_name_ecommerce/view/home/components/categories.dart';
 import 'package:no_name_ecommerce/view/home/components/featured_products.dart';
 import 'package:no_name_ecommerce/view/home/components/slider_home.dart';
@@ -50,70 +52,84 @@ class _HomepageState extends State<Homepage> {
                     //         // profileProvider.profileDetails != null
                     //         //     ? profileProvider.profileDetails != 'error'
                     //         //         ?
-                    //         InkWell(
-                    //           onTap: () {
-                    //             // Navigator.push(
-                    //             //   context,
-                    //             //   MaterialPageRoute<void>(
-                    //             //     builder: (BuildContext context) =>
-                    //             //         const ProfileEditPage(),
-                    //             //   ),
-                    //             // );
-                    //           },
-                    //           child: Container(
-                    //             padding:
-                    //                 const EdgeInsets.symmetric(horizontal: 25),
-                    //             child: Row(
-                    //               children: [
-                    //                 //name
-                    //                 Expanded(
-                    //                     child: Column(
-                    //                   crossAxisAlignment:
-                    //                       CrossAxisAlignment.start,
-                    //                   children: [
-                    //                     Text(
-                    //                       '${asProvider.getString('Welcome')}!',
-                    //                       style: TextStyle(
-                    //                         color: cc.greyParagraph,
-                    //                         fontSize: 14,
-                    //                       ),
-                    //                     ),
-                    //                     const SizedBox(
-                    //                       height: 5,
-                    //                     ),
-                    //                     Text(
-                    //                       'Saleheen',
-                    //                       style: TextStyle(
-                    //                         color: cc.blackCustomColor,
-                    //                         fontSize: 18,
-                    //                         fontWeight: FontWeight.bold,
-                    //                       ),
-                    //                     ),
-                    //                   ],
-                    //                 )),
+                    InkWell(
+                      onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute<void>(
+                        //     builder: (BuildContext context) =>
+                        //         const ProfileEditPage(),
+                        //   ),
+                        // );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Row(
+                          children: [
+                            //name
+                            Expanded(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${asProvider.getString('Welcome')}!',
+                                  style: TextStyle(
+                                    color: cc.greyParagraph,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Saleheen',
+                                  style: TextStyle(
+                                    color: cc.blackCustomColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )),
 
-                    //                 //profile image
-                    //                 // profileProvider.profileImage != null
-                    //                 //     ? CommonHelper().profileImage(
-                    //                 //         profileProvider
-                    //                 //             .profileImage,
-                    //                 //         52,
-                    //                 //         52)
-                    //                 //     :
+                            //profile image
+                            // profileProvider.profileImage != null
+                            //     ? CommonHelper().profileImage(
+                            //         profileProvider
+                            //             .profileImage,
+                            //         52,
+                            //         52)
+                            //     :
 
-                    //                 ClipRRect(
-                    //                   borderRadius: BorderRadius.circular(8),
-                    //                   child: Image.asset(
-                    //                     'assets/images/avatar.png',
-                    //                     height: 52,
-                    //                     width: 52,
-                    //                     fit: BoxFit.cover,
-                    //                   ),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ),
-                    //         )
+                            // ClipRRect(
+                            //   borderRadius: BorderRadius.circular(8),
+                            //   child: Image.asset(
+                            //     'assets/images/avatar.png',
+                            //     height: 52,
+                            //     width: 52,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            // ),
+
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        const Cartpage(),
+                                  ),
+                                );
+                              },
+                              child: SvgPicture.asset(
+                                'assets/svg/cart.svg',
+                                height: 27,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                     //     //     : Text(asProvider.getString(
                     //     //         'Could not load user profile info'))
                     //     // : Container(),
