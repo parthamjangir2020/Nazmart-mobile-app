@@ -55,7 +55,7 @@ class _CartpageState extends State<Cartpage> {
 
                 Column(children: [
               sizedboxCustom(13),
-              for (int i = 0; i < 5; i++)
+              for (int i = 0; i < 3; i++)
                 Column(
                   children: [
                     Row(

@@ -53,15 +53,15 @@ class _HomepageState extends State<Homepage> {
                     //         //     ? profileProvider.profileDetails != 'error'
                     //         //         ?
                     InkWell(
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute<void>(
-                        //     builder: (BuildContext context) =>
-                        //         const ProfileEditPage(),
-                        //   ),
-                        // );
-                      },
+                      // onTap: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute<void>(
+                      //     builder: (BuildContext context) =>
+                      //         const ProfileEditPage(),
+                      //   ),
+                      // );
+                      // },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 25),
                         child: Row(
@@ -72,7 +72,7 @@ class _HomepageState extends State<Homepage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${asProvider.getString('Welcome')}!',
+                                  '${asProvider.getString('Hi,')}',
                                   style: TextStyle(
                                     color: cc.greyParagraph,
                                     fontSize: 14,
@@ -85,7 +85,7 @@ class _HomepageState extends State<Homepage> {
                                   'Saleheen',
                                   style: TextStyle(
                                     color: cc.blackCustomColor,
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -121,9 +121,13 @@ class _HomepageState extends State<Homepage> {
                                   ),
                                 );
                               },
-                              child: SvgPicture.asset(
-                                'assets/svg/cart.svg',
-                                height: 27,
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                    left: 70, top: 5, bottom: 5),
+                                child: SvgPicture.asset(
+                                  'assets/svg/cart.svg',
+                                  height: 27,
+                                ),
                               ),
                             )
                           ],

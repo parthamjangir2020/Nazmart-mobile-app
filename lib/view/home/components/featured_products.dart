@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
+import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 import 'package:provider/provider.dart';
@@ -47,7 +48,15 @@ class FeaturedProducts extends StatelessWidget {
                     title: 'Black T-Shirt',
                     width: 180,
                     marginRight: 20,
-                    pressed: () {},
+                    pressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const ProductDetailsPage(),
+                        ),
+                      );
+                    },
                     price: 32.99,
                     camapaignId: 1)
             ],
