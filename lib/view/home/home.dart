@@ -45,6 +45,7 @@ class _HomepageState extends State<Homepage> {
               builder: (context, asProvider, child) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    sizedboxCustom(10),
                     // co
                     //name and profile image
                     // Consumer<ProfileService>(

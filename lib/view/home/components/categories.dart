@@ -6,7 +6,7 @@ import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 
-class Categories extends StatelessWidget {
+class Categories extends StatefulWidget {
   const Categories({
     Key? key,
     required this.cc,
@@ -15,6 +15,15 @@ class Categories extends StatelessWidget {
   final ConstantColors cc;
 
   final double marginRight;
+
+  @override
+  State<Categories> createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> {
+  int selectedCategory = -1;
+
+  final cc = ConstantColors();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +37,7 @@ class Categories extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SectionTitle(
-                    cc: cc,
+                    cc: widget.cc,
                     title: 'Categories',
                     pressed: () {
                       // Navigator.push(
@@ -56,6 +65,8 @@ class Categories extends StatelessWidget {
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () {
+                              selectedCategory = i;
+                              setState(() {});
                               // Navigator.push(
                               //   context,
                               //   MaterialPageRoute<void>(
@@ -73,12 +84,21 @@ class Categories extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 4),
                               margin: EdgeInsets.only(
-                                right:
-                                    rtlP.direction == 'ltr' ? marginRight : 0,
-                                left: rtlP.direction == 'ltr' ? 0 : marginRight,
+                                right: rtlP.direction == 'ltr'
+                                    ? widget.marginRight
+                                    : 0,
+                                left: rtlP.direction == 'ltr'
+                                    ? 0
+                                    : widget.marginRight,
                               ),
                               decoration: BoxDecoration(
-                                  border: Border.all(color: cc.borderColor),
+                                  color: selectedCategory == i
+                                      ? cc.primaryColor
+                                      : Colors.white,
+                                  border: Border.all(
+                                      color: selectedCategory == i
+                                          ? Colors.transparent
+                                          : widget.cc.borderColor),
                                   borderRadius: BorderRadius.circular(100)),
                               child: Container(
                                 margin: const EdgeInsets.symmetric(
@@ -108,7 +128,9 @@ class Categories extends StatelessWidget {
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                        color: cc.greyParagraph,
+                                        color: selectedCategory == i
+                                            ? Colors.white
+                                            : widget.cc.greyParagraph,
                                         fontSize: 14,
                                       ),
                                     ),
