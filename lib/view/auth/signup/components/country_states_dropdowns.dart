@@ -89,7 +89,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                       ),
 
                 const SizedBox(
-                  height: 25,
+                  height: 22,
                 ),
                 // States dropdown ===============>
                 CommonHelper().labelCommon("Choose states"),
@@ -149,7 +149,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                       ),
 
                 const SizedBox(
-                  height: 25,
+                  height: 22,
                 ),
 
                 // Area dropdown ===============>

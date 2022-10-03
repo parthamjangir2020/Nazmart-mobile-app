@@ -1,9 +1,12 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/profile_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
-
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,8 +14,6 @@ class ProfileService with ChangeNotifier {
   bool isloading = false;
 
   var profileDetails;
-
-  List ordersList = [];
 
   setLoadingTrue() {
     isloading = true;
@@ -26,8 +27,6 @@ class ProfileService with ChangeNotifier {
 
   setEverythingToDefault() {
     profileDetails = null;
-
-    ordersList = [];
     notifyListeners();
   }
 
@@ -48,6 +47,7 @@ class ProfileService with ChangeNotifier {
   }
 
   fetchData() async {
+    print('fetching profile data');
     var connection = await checkConnection();
     if (connection) {
       //internet connection is on
@@ -66,16 +66,18 @@ class ProfileService with ChangeNotifier {
       var response =
           await http.get(Uri.parse('$baseApi/user/profile'), headers: header);
 
-      if (response.statusCode == 200) {
-        print(response.body);
+      if (response.statusCode == 201) {
         var data = ProfileModel.fromJson(jsonDecode(response.body));
-        profileDetails = data.userDetails;
+        profileDetails = data;
 
+        print('profile details is $profileDetails');
+
+        setLoadingFalse();
         notifyListeners();
       } else {
-        print('profile fetch error ' + response.body);
         profileDetails == 'error';
         setLoadingFalse();
+        OthersHelper().showToast('Something went wrong', Colors.black);
         notifyListeners();
       }
     }

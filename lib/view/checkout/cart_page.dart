@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/view/checkout/components/coupon_field.dart';
+import 'package:no_name_ecommerce/view/checkout/components/shipping_select.dart';
 import 'package:no_name_ecommerce/view/order/payment_choose_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
@@ -234,6 +235,11 @@ class _CartpageState extends State<Cartpage> {
               detailsRow('Vat', 0, '(+${5}%) ${20}'),
               sizedboxCustom(15),
               detailsRow('Shipping', 0, '70'),
+
+              sizedboxCustom(15),
+
+              //shipping select
+              const ShippingSelect(),
 
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),

@@ -9,9 +9,11 @@ import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/logout_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/reset_password_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
+import 'package:no_name_ecommerce/services/cart_service.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/services/coupon_service.dart';
+import 'package:no_name_ecommerce/services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
@@ -53,6 +55,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SliderService()),
         ChangeNotifierProvider(create: (_) => CouponService()),
         ChangeNotifierProvider(create: (_) => PaymentGatewayListService()),
+        ChangeNotifierProvider(create: (_) => DeliveryAddressService()),
+        ChangeNotifierProvider(create: (_) => CartService()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
