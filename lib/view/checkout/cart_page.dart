@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/view/checkout/components/coupon_field.dart';
+import 'package:no_name_ecommerce/view/order/payment_choose_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -276,13 +277,13 @@ class _CartpageState extends State<Cartpage> {
                 //       Colors.black);
                 //   return;
                 // }
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute<void>(
-                //     builder: (BuildContext context) =>
-                //         const CheckoutPage(),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) =>
+                        const PaymentChoosePage(),
+                  ),
+                );
               }, borderRadius: 100),
 
               sizedboxCustom(30)
