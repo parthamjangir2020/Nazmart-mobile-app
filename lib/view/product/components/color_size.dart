@@ -31,7 +31,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
                 ),
                 paragraphStyleTitle('Size:'),
                 const SizedBox(
-                  height: 8,
+                  height: 12,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -84,7 +84,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 paragraphStyleTitle('Color:'),
-                sizedboxCustom(5),
+                sizedboxCustom(12),
                 // Container(
                 //   margin: const EdgeInsets.only(top: 5),
                 //   height: 37,

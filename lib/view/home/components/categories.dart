@@ -9,10 +9,8 @@ import 'package:provider/provider.dart';
 class Categories extends StatefulWidget {
   const Categories({
     Key? key,
-    required this.cc,
     required this.marginRight,
   }) : super(key: key);
-  final ConstantColors cc;
 
   final double marginRight;
 
@@ -22,7 +20,6 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   int selectedCategory = -1;
-
   final cc = ConstantColors();
 
   @override
@@ -36,22 +33,6 @@ class _CategoriesState extends State<Categories> {
               builder: (context, rtlP, child) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SectionTitle(
-                    cc: widget.cc,
-                    title: 'Categories',
-                    pressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute<void>(
-                      //     builder: (BuildContext context) =>
-                      //         const AllCategoriesPage(),
-                      //   ),
-                      // );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     height: 41,
@@ -98,7 +79,7 @@ class _CategoriesState extends State<Categories> {
                                   border: Border.all(
                                       color: selectedCategory == i
                                           ? Colors.transparent
-                                          : widget.cc.borderColor),
+                                          : cc.borderColor),
                                   borderRadius: BorderRadius.circular(100)),
                               child: Container(
                                 margin: const EdgeInsets.symmetric(
@@ -130,7 +111,7 @@ class _CategoriesState extends State<Categories> {
                                       style: TextStyle(
                                         color: selectedCategory == i
                                             ? Colors.white
-                                            : widget.cc.greyParagraph,
+                                            : cc.greyParagraph,
                                         fontSize: 14,
                                       ),
                                     ),

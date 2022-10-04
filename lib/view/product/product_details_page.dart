@@ -275,7 +275,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ),
 
           //=======>
-          ProductDetailsBottom()
+          const ProductDetailsBottom()
         ],
       ),
     );

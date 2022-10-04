@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
+import 'package:no_name_ecommerce/view/search/components/product_filter.dart';
+import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constant_colors.dart';
@@ -59,16 +62,24 @@ class SearchBar extends StatelessWidget {
               ),
             ),
 
-            Container(
-                padding: const EdgeInsets.all(12),
-                margin: const EdgeInsets.only(left: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(color: cc.inputFieldBorderColor)),
-                child: SvgPicture.asset(
-                  'assets/svg/filter.svg',
-                  height: 23,
-                )),
+            InkWell(
+              onTap: () {
+                showMaterialModalBottomSheet(
+                  context: context,
+                  builder: (context) => const ProductFilter(),
+                );
+              },
+              child: Container(
+                  padding: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7),
+                      border: Border.all(color: cc.inputFieldBorderColor)),
+                  child: SvgPicture.asset(
+                    'assets/svg/filter.svg',
+                    height: 23,
+                  )),
+            ),
           ],
         ),
       ),

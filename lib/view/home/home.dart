@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/checkout/cart_page.dart';
 import 'package:no_name_ecommerce/view/home/components/categories.dart';
 import 'package:no_name_ecommerce/view/home/components/featured_products.dart';
+import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/home/components/slider_home.dart';
 import 'package:no_name_ecommerce/view/home/homepage_helper.dart';
 import 'package:no_name_ecommerce/view/search/search_page.dart';
@@ -164,9 +165,30 @@ class _HomepageState extends State<Homepage> {
 
                     ///============>
                     ///Categories
+
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Categories(cc: cc, marginRight: 20),
+                      child: Column(
+                        children: [
+                          SectionTitle(
+                            cc: cc,
+                            title: 'Categories',
+                            pressed: () {
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute<void>(
+                              //     builder: (BuildContext context) =>
+                              //         const AllCategoriesPage(),
+                              //   ),
+                              // );
+                            },
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          const Categories(marginRight: 20),
+                        ],
+                      ),
                     ),
 
                     sizedboxCustom(24),
