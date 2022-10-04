@@ -17,6 +17,7 @@ import 'package:no_name_ecommerce/services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
+import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/view/intro/splash.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PaymentGatewayListService()),
         ChangeNotifierProvider(create: (_) => DeliveryAddressService()),
         ChangeNotifierProvider(create: (_) => CartService()),
+        ChangeNotifierProvider(create: (_) => SearchProductService()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

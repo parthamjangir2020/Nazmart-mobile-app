@@ -85,6 +85,7 @@ class CommonHelper {
     double fontsize = 14,
     double borderRadius = 8,
     Color color = Colors.grey,
+    Color borderColor = Colors.grey,
   }) {
     return InkWell(
       onTap: pressed,
@@ -93,7 +94,7 @@ class CommonHelper {
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(vertical: paddingVertical),
           decoration: BoxDecoration(
-              border: Border.all(color: color.withOpacity(.3)),
+              border: Border.all(color: borderColor),
               borderRadius: BorderRadius.circular(borderRadius)),
           child: Text(
             title,

@@ -137,6 +137,7 @@ class ProductCard extends StatelessWidget {
                       paddingVertical: 11,
                       borderRadius: 7,
                       color: cc.greyFour,
+                      borderColor: cc.inputFieldBorderColor,
                       fontsize: 13)
                 ],
               ),

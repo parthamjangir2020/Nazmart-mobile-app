@@ -7,6 +7,7 @@ import 'package:no_name_ecommerce/view/home/components/categories.dart';
 import 'package:no_name_ecommerce/view/home/components/featured_products.dart';
 import 'package:no_name_ecommerce/view/home/components/slider_home.dart';
 import 'package:no_name_ecommerce/view/home/homepage_helper.dart';
+import 'package:no_name_ecommerce/view/search/search_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -147,13 +148,13 @@ class _HomepageState extends State<Homepage> {
                       margin: const EdgeInsets.only(bottom: 15),
                       child: InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     PageTransition(
-                            //         type: PageTransitionType.rightToLeft,
-                            //         child: SearchBarPageWithDropdown(
-                            //           cc: cc,
-                            //         )));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) =>
+                                    const SearchPage(),
+                              ),
+                            );
                           },
                           child:
                               HomepageHelper().searchbar(asProvider, context)),

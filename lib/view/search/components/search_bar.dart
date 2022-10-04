@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:provider/provider.dart';
-import 'package:zaika/search/service/search_product_service.dart';
 
 import '../../utils/constant_colors.dart';
 
@@ -14,43 +15,59 @@ class SearchBar extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       child: Consumer<SearchProductService>(
-        builder: (context, provider, child) => Column(
+        builder: (context, provider, child) => Row(
           children: [
             //Search bar and dropdown
+            Expanded(
+              child: TextFormField(
+                controller: searchController,
+                autofocus: false,
+                onFieldSubmitted: (value) {
+                  if (value.isNotEmpty) {
+                    provider.searchProducts(context, isSearching: true);
+                  }
+                },
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    provider.setSearchText(value);
+                    provider.searchProducts(context, isSearching: true);
+                  }
+                },
+                style: const TextStyle(fontSize: 14),
+                decoration: InputDecoration(
+                  suffixIcon: const Icon(Icons.search),
+                  hintText: "Search",
+                  hintStyle: TextStyle(color: cc.greyPrimary.withOpacity(.8)),
+                  contentPadding: const EdgeInsets.fromLTRB(18, 15, 10, 15),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: ConstantColors().inputFieldBorderColor),
+                      borderRadius: BorderRadius.circular(7)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: ConstantColors().primaryColor),
+                      borderRadius: BorderRadius.circular(7)),
+                  errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(7),
+                      borderSide:
+                          BorderSide(color: ConstantColors().warningColor)),
+                  focusedErrorBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: ConstantColors().primaryColor),
+                      borderRadius: BorderRadius.circular(7)),
+                ),
+              ),
+            ),
+
             Container(
+                padding: const EdgeInsets.all(12),
+                margin: const EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
-                    color: const Color(0xffF5F5F5),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.01),
-                          spreadRadius: -2,
-                          blurRadius: 13,
-                          offset: const Offset(0, 13)),
-                    ],
-                    borderRadius: BorderRadius.circular(3)),
-                child: TextFormField(
-                  controller: searchController,
-                  autofocus: false,
-                  onFieldSubmitted: (value) {
-                    if (value.isNotEmpty) {
-                      provider.searchProducts(context, isSearching: true);
-                    }
-                  },
-                  onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      provider.setSearchText(value);
-                      provider.searchProducts(context, isSearching: true);
-                    }
-                  },
-                  style: const TextStyle(fontSize: 14),
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: const Icon(Icons.search),
-                      hintText: "Search",
-                      hintStyle:
-                          TextStyle(color: cc.greyPrimary.withOpacity(.8)),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 15)),
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(color: cc.inputFieldBorderColor)),
+                child: SvgPicture.asset(
+                  'assets/svg/filter.svg',
+                  height: 23,
                 )),
           ],
         ),
