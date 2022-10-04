@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:no_name_ecommerce/view/discover/discover_page.dart';
 import 'package:no_name_ecommerce/view/home/home.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
@@ -18,7 +19,7 @@ class _LandingPageState extends State<LandingPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
     Homepage(),
-    Homepage(),
+    DiscoverPage(),
     Homepage(),
     Homepage(),
   ];
