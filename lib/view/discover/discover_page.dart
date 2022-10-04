@@ -46,13 +46,6 @@ class _DiscoverPageState extends State<DiscoverPage> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: InkWell(
-          onTap: () {},
-          child: const Icon(
-            Icons.arrow_back_ios,
-            size: 18,
-          ),
-        ),
         actions: [
           InkWell(
             onTap: () {
