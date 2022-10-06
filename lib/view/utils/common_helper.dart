@@ -1,12 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
-import 'package:provider/provider.dart';
 
 class CommonHelper {
   ConstantColors cc = ConstantColors();
@@ -47,6 +44,24 @@ class CommonHelper {
         ),
       ),
     );
+  }
+
+  //==========>
+  greyButton(String title, {double verticalPadding = 20}) {
+    return Container(
+        width: double.infinity,
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(vertical: verticalPadding),
+        decoration: BoxDecoration(
+            color: const Color(0xffEAECF0),
+            borderRadius: BorderRadius.circular(100)),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Color(0xff667085),
+            fontSize: 14,
+          ),
+        ));
   }
 
   //common orange button =======>

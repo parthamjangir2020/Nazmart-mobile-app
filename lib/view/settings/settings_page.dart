@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/view/order/my_orders_page.dart';
 import 'package:no_name_ecommerce/view/settings/components/settings_helper.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -190,14 +191,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                   SettingsHelper().settingOption(
                                       'assets/svg/message-circle.svg',
                                       asProvider.getString("My orders"), () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute<void>(
-                                    //     builder:
-                                    //         (BuildContext context) =>
-                                    //             const MyTicketsPage(),
-                                    //   ),
-                                    // );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            const MyOrdersPage(),
+                                      ),
+                                    );
                                   }),
                                   CommonHelper().dividerCommon(),
                                   SettingsHelper().settingOption(

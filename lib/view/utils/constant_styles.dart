@@ -160,3 +160,31 @@ bRow(String icon, String title, String text, {bool lastItem = false}) {
     ],
   );
 }
+
+capsule(String capsuleText) {
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 11),
+    decoration: BoxDecoration(
+        color: getCapsuleColor(capsuleText).withOpacity(.1),
+        borderRadius: BorderRadius.circular(4)),
+    child: Text(
+      capsuleText,
+      style: TextStyle(
+          color: getCapsuleColor(capsuleText),
+          fontWeight: FontWeight.w600,
+          fontSize: 12),
+    ),
+  );
+}
+
+getCapsuleColor(String status) {
+  ConstantColors cc = ConstantColors();
+
+  if (status.toLowerCase() == 'pending') {
+    return Color(0xff5463FF);
+  } else if (status.toLowerCase() == 'cancel') {
+    return Colors.red;
+  } else {
+    return cc.primaryColor;
+  }
+}

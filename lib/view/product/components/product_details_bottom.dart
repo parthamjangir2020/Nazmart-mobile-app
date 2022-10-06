@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
-import 'package:provider/provider.dart';
 
 class ProductDetailsBottom extends StatefulWidget {
   const ProductDetailsBottom({
@@ -39,20 +37,7 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
           Expanded(
               child: InkWell(
             onTap: () {},
-            child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 18),
-                decoration: BoxDecoration(
-                    color: const Color(0xffEAECF0),
-                    borderRadius: BorderRadius.circular(100)),
-                child: const Text(
-                  'Buy now',
-                  style: TextStyle(
-                    color: Color(0xff667085),
-                    fontSize: 14,
-                  ),
-                )),
+            child: CommonHelper().greyButton('Buy now'),
           )),
           const SizedBox(
             width: 15,
