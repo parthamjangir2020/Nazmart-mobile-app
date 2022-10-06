@@ -17,6 +17,7 @@ class FavouriteItemListPage extends StatefulWidget {
 }
 
 class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
+  @override
   void initState() {
     super.initState();
     Provider.of<FavService>(context, listen: false).fetchFavProducts();
@@ -39,7 +40,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                   //     ?
                   Consumer<CurrencyService>(
                     builder: (context, cP, child) => Column(children: [
-                      sizedboxCustom(20),
+                      sizedboxCustom(10),
                       for (int i = 0; i < 3; i++)
                         InkWell(
                           onTap: () {

@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 ConstantColors cc = ConstantColors();
@@ -101,5 +103,60 @@ paragraphStyleTitle(String title) {
       color: cc.greyFour,
       fontSize: 13,
     ),
+  );
+}
+
+bRow(String icon, String title, String text, {bool lastItem = false}) {
+  return Column(
+    children: [
+      Row(
+        children: [
+          //icon
+          SizedBox(
+            width: 125,
+            child: Row(children: [
+              icon != 'null'
+                  ? Row(
+                      children: [
+                        SvgPicture.asset(
+                          icon,
+                          height: 19,
+                        ),
+                        const SizedBox(
+                          width: 7,
+                        ),
+                      ],
+                    )
+                  : Container(),
+              Text(
+                title,
+                style: TextStyle(
+                  color: cc.greyFour,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              )
+            ]),
+          ),
+
+          Flexible(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: cc.greyFour,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          )
+        ],
+      ),
+      lastItem == false
+          ? Container(
+              margin: const EdgeInsets.symmetric(vertical: 14),
+              child: CommonHelper().dividerCommon(),
+            )
+          : Container()
+    ],
   );
 }
