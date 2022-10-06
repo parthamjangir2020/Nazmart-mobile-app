@@ -13,7 +13,9 @@ import 'package:no_name_ecommerce/services/cart_service.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/services/coupon_service.dart';
+import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/delivery_address_service.dart';
+import 'package:no_name_ecommerce/services/fav_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
@@ -59,6 +61,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DeliveryAddressService()),
         ChangeNotifierProvider(create: (_) => CartService()),
         ChangeNotifierProvider(create: (_) => SearchProductService()),
+        ChangeNotifierProvider(create: (_) => FavService()),
+        ChangeNotifierProvider(create: (_) => CurrencyService()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

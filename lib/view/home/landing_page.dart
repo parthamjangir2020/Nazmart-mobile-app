@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:no_name_ecommerce/view/discover/discover_page.dart';
+import 'package:no_name_ecommerce/view/favourite/favourite_item_list_page.dart';
 import 'package:no_name_ecommerce/view/home/home.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
@@ -20,7 +21,7 @@ class _LandingPageState extends State<LandingPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     Homepage(),
     DiscoverPage(),
-    Homepage(),
+    FavouriteItemListPage(),
     Homepage(),
   ];
 
