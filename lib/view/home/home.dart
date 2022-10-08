@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
-import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/view/checkout/cart_page.dart';
+import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/home/all_categories_page.dart';
 import 'package:no_name_ecommerce/view/home/components/categories.dart';
 import 'package:no_name_ecommerce/view/product/components/featured_products.dart';
@@ -10,7 +11,6 @@ import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/home/components/slider_home.dart';
 import 'package:no_name_ecommerce/view/home/homepage_helper.dart';
 import 'package:no_name_ecommerce/view/search/search_page.dart';
-import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -57,15 +57,10 @@ class _HomepageState extends State<Homepage> {
                     //         //     ? profileProvider.profileDetails != 'error'
                     //         //         ?
                     InkWell(
-                      // onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute<void>(
-                      //     builder: (BuildContext context) =>
-                      //         const ProfileEditPage(),
-                      //   ),
-                      // );
-                      // },
+                      onTap: () {
+                        Provider.of<BottomNavService>(context, listen: false)
+                            .setCurrentIndex(3);
+                      },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 25),
                         child: Row(
@@ -115,25 +110,8 @@ class _HomepageState extends State<Homepage> {
                             //   ),
                             // ),
 
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        const Cartpage(),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.only(
-                                    left: 70, top: 5, bottom: 5),
-                                child: SvgPicture.asset(
-                                  'assets/svg/cart.svg',
-                                  height: 27,
-                                ),
-                              ),
-                            )
+                            //Cart icon
+                            CartIcon()
                           ],
                         ),
                       ),

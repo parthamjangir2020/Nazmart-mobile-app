@@ -16,7 +16,7 @@ class HomepageHelper {
                   blurRadius: 13,
                   offset: const Offset(0, 13)),
             ],
-            borderRadius: BorderRadius.circular(3)),
+            borderRadius: BorderRadius.circular(8)),
         child: Row(
           children: [
             const Icon(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:no_name_ecommerce/view/checkout/cart_page.dart';
+import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/product/components/color_size.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_bottom.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_slider.dart';
-import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 
@@ -36,23 +36,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ),
         ),
         actions: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => const Cartpage(),
-                ),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.only(left: 30, right: 20),
-              child: SvgPicture.asset(
-                'assets/svg/cart.svg',
-                height: 27,
-              ),
-            ),
-          ),
+          Container(
+            margin: EdgeInsets.only(right: 25, top: 10),
+            child: CartIcon(),
+          )
         ],
       ),
       body: Column(

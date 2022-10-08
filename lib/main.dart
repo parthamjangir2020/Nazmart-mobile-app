@@ -9,6 +9,7 @@ import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/logout_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/reset_password_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
+import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/cart_service.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FavService()),
         ChangeNotifierProvider(create: (_) => CurrencyService()),
         ChangeNotifierProvider(create: (_) => ProfileEditService()),
+        ChangeNotifierProvider(create: (_) => BottomNavService()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
