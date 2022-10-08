@@ -6,19 +6,21 @@ import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/search/components/product_filter.dart';
+import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class DiscoverPage extends StatefulWidget {
-  const DiscoverPage({Key? key}) : super(key: key);
+class AllFeaturedProductsPage extends StatefulWidget {
+  const AllFeaturedProductsPage({Key? key}) : super(key: key);
 
   @override
-  State<DiscoverPage> createState() => _DiscoverPageState();
+  State<AllFeaturedProductsPage> createState() =>
+      _AllFeaturedProductsPageState();
 }
 
-class _DiscoverPageState extends State<DiscoverPage> {
+class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
   @override
   void initState() {
     // Provider.of<CategoryDropdownService>(context, listen: false)
@@ -34,42 +36,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
     ConstantColors cc = ConstantColors();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        iconTheme: IconThemeData(color: cc.greyPrimary),
-        title: Text(
-          'Discover',
-          style: TextStyle(
-              color: cc.greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          InkWell(
-            onTap: () {
-              showMaterialModalBottomSheet(
-                context: context,
-                builder: (context) => const ProductFilter(),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.only(right: 25),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        border: Border.all(color: cc.inputFieldBorderColor)),
-                    child: SvgPicture.asset(
-                      'assets/svg/filter.svg',
-                      height: 21,
-                    )),
-              ],
-            ),
-          ),
-        ],
-      ),
+      appBar: CommonHelper().appbarCommon('All featured products', context, () {
+        Navigator.pop(context);
+      }),
       body: SmartRefresher(
         controller: refreshController,
         // enablePullUp: true,

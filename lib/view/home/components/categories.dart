@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
+import 'package:no_name_ecommerce/view/home/all_categories_page.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
@@ -48,17 +49,6 @@ class _CategoriesState extends State<Categories> {
                             onTap: () {
                               selectedCategory = i;
                               setState(() {});
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute<void>(
-                              //     builder: (BuildContext context) =>
-                              //         CampaignByCategoryPage(
-                              //       categoryId: provider.categoryList[i].id,
-                              //       categoryName:
-                              //           provider.categoryList[i].title,
-                              //     ),
-                              //   ),
-                              // );
                             },
                             child: Container(
                               alignment: Alignment.center,

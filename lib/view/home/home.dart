@@ -3,8 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/checkout/cart_page.dart';
+import 'package:no_name_ecommerce/view/home/all_categories_page.dart';
 import 'package:no_name_ecommerce/view/home/components/categories.dart';
-import 'package:no_name_ecommerce/view/home/components/featured_products.dart';
+import 'package:no_name_ecommerce/view/product/components/featured_products.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/home/components/slider_home.dart';
 import 'package:no_name_ecommerce/view/home/homepage_helper.dart';
@@ -174,13 +175,12 @@ class _HomepageState extends State<Homepage> {
                             cc: cc,
                             title: 'Categories',
                             pressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute<void>(
-                              //     builder: (BuildContext context) =>
-                              //         const AllCategoriesPage(),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        const AllCategoriesPage()),
+                              );
                             },
                           ),
                           const SizedBox(

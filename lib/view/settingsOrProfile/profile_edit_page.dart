@@ -111,7 +111,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         children: [
                           const ProfileImagePick(),
 
-                          //
                           // change image icon
                           Container(
                             decoration: BoxDecoration(
@@ -131,7 +130,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                 )
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
 
