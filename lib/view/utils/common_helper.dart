@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -9,9 +10,9 @@ class CommonHelper {
   ConstantColors cc = ConstantColors();
   //common appbar
   appbarCommon(String title, BuildContext context, VoidCallback pressed,
-      {bool hasBackButton = true}) {
+      {bool hasBackButton = true, bool centerTitle = true}) {
     return AppBar(
-      centerTitle: true,
+      centerTitle: centerTitle ? true : false,
       iconTheme: IconThemeData(color: cc.greyPrimary),
       title: Text(
         title,
@@ -23,9 +24,12 @@ class CommonHelper {
       leading: hasBackButton
           ? InkWell(
               onTap: pressed,
-              child: const Icon(
-                Icons.arrow_back_ios,
-                size: 18,
+              child: Container(
+                margin: const EdgeInsets.only(left: 20),
+                child: SvgPicture.asset(
+                  'assets/svg/arrow-back-circle.svg',
+                  height: 40,
+                ),
               ),
             )
           : Container(),
@@ -168,7 +172,7 @@ class CommonHelper {
 
   profileImage(String imageLink, double height, double width) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(500),
       child: CachedNetworkImage(
         imageUrl: imageLink,
         placeholder: (context, url) {

@@ -255,7 +255,8 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         },
                                 isloading:
-                                    provider.isloading == false ? false : true),
+                                    provider.isloading == false ? false : true,
+                                borderRadius: 100),
                       ),
 
                       const SizedBox(

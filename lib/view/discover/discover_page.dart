@@ -135,7 +135,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                         itemBuilder: (context, i) {
                           return ProductCard(
                               imageLink:
-                                  'https://images.unsplash.com/photo-1617537230936-bb8c9327e84f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODN8fHByb2R1Y3R8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+                                  'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80',
                               title: 'Black T-Shirt',
                               width: 180,
                               marginRight: 0,

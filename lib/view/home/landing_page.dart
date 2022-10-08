@@ -5,7 +5,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:no_name_ecommerce/view/discover/discover_page.dart';
 import 'package:no_name_ecommerce/view/favourite/favourite_item_list_page.dart';
 import 'package:no_name_ecommerce/view/home/home.dart';
-import 'package:no_name_ecommerce/view/settings/settings_page.dart';
+import 'package:no_name_ecommerce/view/settingsOrProfile/settings_page.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 class LandingPage extends StatefulWidget {
@@ -17,8 +17,6 @@ class _LandingPageState extends State<LandingPage> {
   final cc = ConstantColors();
 
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
     Homepage(),
     DiscoverPage(),
