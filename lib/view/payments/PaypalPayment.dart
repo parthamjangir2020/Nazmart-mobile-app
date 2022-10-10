@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/payment_services/paypal_service.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -78,8 +79,8 @@ class PaypalPaymentState extends State<PaypalPayment> {
             },
           ),
         );
-        // ignore: deprecated_member_use
-        _scaffoldKey.currentState!.showSnackBar(snackBar);
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
   }
