@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:no_name_ecommerce/model/ticket_list_model.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/support_messages_service.dart';
+import 'package:no_name_ecommerce/view/support_ticket/ticket_chat_page.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:zaika/profile/profile_home/ticket/model/ticket_list_model.dart';
-import 'package:zaika/profile/profile_home/ticket/service/support_messages_service.dart';
-import 'package:zaika/profile/profile_home/ticket/ticket_chat_page.dart';
-import 'package:zaika/utils/common_service.dart';
 
 class SupportTicketService with ChangeNotifier {
   var ticketList = [];
@@ -24,15 +25,13 @@ class SupportTicketService with ChangeNotifier {
     notifyListeners();
   }
 
-  addNewDataToTicketList(
-      id, title, subject, priority, description, departments, status) {
+  addNewDataToTicketList(id, title, subject, priority, description, status) {
     ticketList.add({
       'id': id,
       'title': title,
       'subject': subject,
       'priority': priority,
       'description': description,
-      'departments': departments,
       'status': status
     });
     notifyListeners();

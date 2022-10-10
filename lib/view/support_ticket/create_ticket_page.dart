@@ -23,8 +23,6 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<CreateTicketService>(context, listen: false)
-        .fetchDepartment(context);
   }
 
   TextEditingController descController = TextEditingController();
@@ -108,87 +106,6 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                           ],
                         ),
 
-                        //Department dropdown =======>
-                        provider.hasError == false
-                            ? provider.departmentDropdownList.isNotEmpty
-                                ? Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      sizedboxCustom(22),
-                                      CommonHelper().labelCommon("Department"),
-                                      Container(
-                                        width: double.infinity,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15),
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: cc.greyFive),
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton<String>(
-                                            // menuMaxHeight: 200,
-                                            // isExpanded: true,
-                                            value: provider.selectedDepartment
-                                                .toString(),
-                                            icon: Icon(
-                                                Icons
-                                                    .keyboard_arrow_down_rounded,
-                                                color: cc.greyFour),
-                                            iconSize: 26,
-                                            elevation: 17,
-                                            style:
-                                                TextStyle(color: cc.greyFour),
-                                            onChanged: (newValue) {
-                                              provider
-                                                  .setDepartmentValue(newValue);
-
-                                              //setting the id of selected value
-                                              provider.setSelectedDepartmentId(
-                                                  provider.departmentDropdownIndexList[
-                                                      provider
-                                                          .departmentDropdownList
-                                                          .indexOf(newValue!)]);
-                                            },
-                                            items: provider
-                                                .departmentDropdownList
-                                                .map<DropdownMenuItem<String>>(
-                                                    (value) {
-                                              return DropdownMenuItem(
-                                                value: value.toString(),
-                                                child: Text(
-                                                  value.toString(),
-                                                  style: TextStyle(
-                                                      color: cc.greyPrimary
-                                                          .withOpacity(.8)),
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                : Container(
-                                    margin: const EdgeInsets.only(top: 20),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        OthersHelper()
-                                            .showLoading(cc.primaryColor)
-                                      ],
-                                    ),
-                                  )
-                            : Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                child: Text(
-                                  'Failed loading department list',
-                                  style: TextStyle(color: cc.warningColor),
-                                )),
-
                         sizedboxCustom(20),
 
                         //================>
@@ -238,11 +155,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                           height: 30,
                         ),
                         CommonHelper().buttonPrimary('Create ticket', () {
-                          if (provider.departmentDropdownList.isEmpty) {
-                            OthersHelper().showToast(
-                                'Error fetching department. Please try again later',
-                                Colors.black);
-                          } else if (_formKey.currentState!.validate()) {
+                          if (_formKey.currentState!.validate()) {
                             if (provider.isLoading == false &&
                                 provider.hasError == false) {
                               provider.createTicket(
@@ -250,7 +163,6 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                                 subjectController.text,
                                 provider.selectedPriorityId,
                                 descController.text,
-                                provider.selectedDepartmentId,
                                 context,
                               );
                             }

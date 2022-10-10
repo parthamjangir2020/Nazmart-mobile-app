@@ -1,5 +1,11 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/support_messages_service.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TicketChatPage extends StatefulWidget {
   const TicketChatPage({Key? key, required this.title, required this.ticketId})
