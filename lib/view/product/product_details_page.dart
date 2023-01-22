@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:no_name_ecommerce/view/checkout/cart_page.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/product/components/color_size.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_bottom.dart';
@@ -37,8 +35,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         ),
         actions: [
           Container(
-            margin: EdgeInsets.only(right: 25, top: 10),
-            child: CartIcon(),
+            margin: const EdgeInsets.only(right: 25, top: 10),
+            child: const CartIcon(),
           )
         ],
       ),
@@ -49,9 +47,25 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //Slider =============>
                     const ProductDetailsSlider(),
+
+// category, subcategory
+//====================>
+
+                    // sizedboxCustom(18),
+
+                    // paragraphCommon(
+                    //   'Furniture | Tables | Chair',
+                    // ),
+
+                    //
+                    sizedboxCustom(16),
+
+                    //
+                    paragraphCommon('Unit: 1 Pcs  |  SKU: bbs15'),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +73,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            sizedboxCustom(20),
+                            sizedboxCustom(5),
                             //Title
                             Row(
                               children: [
@@ -250,8 +264,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           child: dividerCommon(),
                         ),
                         paragraphCommon(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting',
-                            TextAlign.left),
+                          'Lorem Ipsum is simply dummy text of the printing and typesetting',
+                        ),
                         sizedboxCustom(30)
                       ],
                     )

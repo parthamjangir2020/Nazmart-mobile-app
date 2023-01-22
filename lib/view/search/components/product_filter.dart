@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:no_name_ecommerce/view/home/components/categories.dart';
+import 'package:no_name_ecommerce/view/home/components/child_categories.dart';
+import 'package:no_name_ecommerce/view/home/components/sub_categories.dart';
 import 'package:no_name_ecommerce/view/product/components/color_size.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -36,6 +38,18 @@ class _ProductFilterState extends State<ProductFilter> {
             paragraphStyleTitle('Category:'),
             sizedboxCustom(12),
             const Categories(marginRight: 20),
+
+            //Sub Category =====>
+            sizedboxCustom(20),
+            paragraphStyleTitle('Sub Category:'),
+            sizedboxCustom(12),
+            const SubCategories(marginRight: 20),
+
+            //Child Category =====>
+            sizedboxCustom(20),
+            paragraphStyleTitle('Child Category:'),
+            sizedboxCustom(12),
+            const ChildCategories(marginRight: 20),
 
             //Color ========>
 

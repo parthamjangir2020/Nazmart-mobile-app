@@ -5,8 +5,6 @@ import 'package:no_name_ecommerce/view/product/all_featured_products_page.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
-import 'package:provider/provider.dart';
-
 class FeaturedProducts extends StatelessWidget {
   const FeaturedProducts({
     Key? key,
@@ -32,7 +30,7 @@ class FeaturedProducts extends StatelessWidget {
           },
         ),
         const SizedBox(
-          height: 14,
+          height: 18,
         ),
         Container(
           margin: const EdgeInsets.only(top: 5),

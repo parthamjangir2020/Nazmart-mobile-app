@@ -4,8 +4,8 @@ import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 
-class Categories extends StatefulWidget {
-  const Categories({
+class ChildCategories extends StatefulWidget {
+  const ChildCategories({
     Key? key,
     required this.marginRight,
   }) : super(key: key);
@@ -13,10 +13,10 @@ class Categories extends StatefulWidget {
   final double marginRight;
 
   @override
-  State<Categories> createState() => _CategoriesState();
+  State<ChildCategories> createState() => _ChildCategoriesState();
 }
 
-class _CategoriesState extends State<Categories> {
+class _ChildCategoriesState extends State<ChildCategories> {
   int selectedCategory = -1;
   final cc = ConstantColors();
 

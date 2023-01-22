@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
-import 'package:no_name_ecommerce/view/checkout/cart_page.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
-import 'package:no_name_ecommerce/view/home/all_categories_page.dart';
-import 'package:no_name_ecommerce/view/home/components/categories.dart';
+import 'package:no_name_ecommerce/view/product/components/campaign_products.dart';
 import 'package:no_name_ecommerce/view/product/components/featured_products.dart';
-import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/home/components/slider_home.dart';
 import 'package:no_name_ecommerce/view/home/homepage_helper.dart';
 import 'package:no_name_ecommerce/view/search/search_page.dart';
@@ -111,7 +107,7 @@ class _HomepageState extends State<Homepage> {
                             // ),
 
                             //Cart icon
-                            CartIcon()
+                            const CartIcon()
                           ],
                         ),
                       ),
@@ -125,7 +121,6 @@ class _HomepageState extends State<Homepage> {
                     sizedboxCustom(23),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
-                      margin: const EdgeInsets.only(bottom: 15),
                       child: InkWell(
                           onTap: () {
                             Navigator.push(
@@ -140,34 +135,32 @@ class _HomepageState extends State<Homepage> {
                               HomepageHelper().searchbar(asProvider, context)),
                     ),
 
-                    sizedboxCustom(10),
-
                     ///============>
                     ///Categories
 
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Column(
-                        children: [
-                          SectionTitle(
-                            cc: cc,
-                            title: 'Categories',
-                            pressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        const AllCategoriesPage()),
-                              );
-                            },
-                          ),
-                          const SizedBox(
-                            height: 14,
-                          ),
-                          const Categories(marginRight: 20),
-                        ],
-                      ),
-                    ),
+                    // Container(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 25),
+                    //   child: Column(
+                    //     children: [
+                    //       SectionTitle(
+                    //         cc: cc,
+                    //         title: 'Categories',
+                    //         pressed: () {
+                    //           Navigator.push(
+                    //             context,
+                    //             MaterialPageRoute<void>(
+                    //                 builder: (BuildContext context) =>
+                    //                     const AllCategoriesPage()),
+                    //           );
+                    //         },
+                    //       ),
+                    //       const SizedBox(
+                    //         height: 14,
+                    //       ),
+                    //       const Categories(marginRight: 20),
+                    //     ],
+                    //   ),
+                    // ),
 
                     sizedboxCustom(24),
 
@@ -179,9 +172,14 @@ class _HomepageState extends State<Homepage> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       margin: const EdgeInsets.only(bottom: 25),
-                      child: Column(children: const [
+                      child: Column(children: [
                         //Featured product
-                        FeaturedProducts()
+                        const FeaturedProducts(),
+
+                        sizedboxCustom(20),
+
+                        //Featured product
+                        const CampaignProducts(),
                       ]),
                     )
                   ]),

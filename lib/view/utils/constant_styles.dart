@@ -23,12 +23,12 @@ dividerCommon() {
   );
 }
 
-paragraphCommon(String title, TextAlign textAlign) {
+paragraphCommon(String title, {textAlign = TextAlign.left, color}) {
   return Text(
     title,
     textAlign: textAlign,
     style: TextStyle(
-      color: cc.greyParagraph,
+      color: color ?? cc.greyParagraph,
       height: 1.5,
       fontSize: 14,
       fontWeight: FontWeight.w400,
@@ -181,7 +181,7 @@ getCapsuleColor(String status) {
   ConstantColors cc = ConstantColors();
 
   if (status.toLowerCase() == 'pending') {
-    return Color(0xff5463FF);
+    return const Color(0xff5463FF);
   } else if (status.toLowerCase() == 'cancel') {
     return Colors.red;
   } else {

@@ -1,18 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:no_name_ecommerce/services/auth_services/facebook_login_service.dart';
-import 'package:no_name_ecommerce/services/auth_services/google_sign_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/components/login_slider.dart';
-import 'package:no_name_ecommerce/view/auth/login/login_helper.dart';
 import 'package:no_name_ecommerce/view/home/landing_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
-import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
-import 'package:no_name_ecommerce/view/utils/responsive.dart';
 
 import 'package:provider/provider.dart';
 
@@ -293,88 +287,88 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                       // Divider (or)
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      SizedBox(
-                          height: 50,
-                          child: Stack(
-                            children: [
-                              Container(
-                                height: 1,
-                                margin: const EdgeInsets.only(top: 12),
-                                width: double.infinity,
-                                color: cc.borderColor,
-                              ),
+                      // const SizedBox(
+                      //   height: 30,
+                      // ),
+                      // SizedBox(
+                      //     height: 50,
+                      //     child: Stack(
+                      //       children: [
+                      //         Container(
+                      //           height: 1,
+                      //           margin: const EdgeInsets.only(top: 12),
+                      //           width: double.infinity,
+                      //           color: cc.borderColor,
+                      //         ),
 
-                              //or
-                              Positioned.fill(
-                                child: Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Container(
-                                    width: 47,
-                                    height: 30,
-                                    alignment: Alignment.center,
-                                    margin: const EdgeInsets.only(bottom: 25),
-                                    // padding: const EdgeInsets.symmetric(
-                                    //     horizontal: 7, vertical: 3),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border:
-                                            Border.all(color: cc.borderColor),
-                                        borderRadius:
-                                            BorderRadius.circular(30)),
-                                    child: Text(
-                                      "OR",
-                                      style: TextStyle(
-                                          color: cc.greyParagraph,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
+                      //         //or
+                      //         Positioned.fill(
+                      //           child: Align(
+                      //             alignment: Alignment.topCenter,
+                      //             child: Container(
+                      //               width: 47,
+                      //               height: 30,
+                      //               alignment: Alignment.center,
+                      //               margin: const EdgeInsets.only(bottom: 25),
+                      //               // padding: const EdgeInsets.symmetric(
+                      //               //     horizontal: 7, vertical: 3),
+                      //               decoration: BoxDecoration(
+                      //                   color: Colors.white,
+                      //                   border:
+                      //                       Border.all(color: cc.borderColor),
+                      //                   borderRadius:
+                      //                       BorderRadius.circular(30)),
+                      //               child: Text(
+                      //                 "OR",
+                      //                 style: TextStyle(
+                      //                     color: cc.greyParagraph,
+                      //                     fontSize: 16,
+                      //                     fontWeight: FontWeight.w600),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     )),
 
-                      // login with google, facebook button ===========>
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Consumer<GoogleSignInService>(
-                        builder: (context, gProvider, child) => InkWell(
-                            onTap: () {
-                              if (gProvider.isloading == false) {
-                                gProvider.googleLogin(context);
-                              }
-                            },
-                            child: LoginHelper().commonButton(
-                                'assets/icons/google.png', "Login with Google",
-                                isloading: gProvider.isloading == false
-                                    ? false
-                                    : true)),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Consumer<FacebookLoginService>(
-                        builder: (context, fProvider, child) => InkWell(
-                          onTap: () {
-                            if (fProvider.isloading == false) {
-                              fProvider.checkIfLoggedIn(context);
-                            }
-                          },
-                          child: LoginHelper().commonButton(
-                              'assets/icons/facebook.png',
-                              "Login with Facebook",
-                              isloading:
-                                  fProvider.isloading == false ? false : true),
-                        ),
-                      ),
+                      // // login with google, facebook button ===========>
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Consumer<GoogleSignInService>(
+                      //   builder: (context, gProvider, child) => InkWell(
+                      //       onTap: () {
+                      //         if (gProvider.isloading == false) {
+                      //           gProvider.googleLogin(context);
+                      //         }
+                      //       },
+                      //       child: LoginHelper().commonButton(
+                      //           'assets/icons/google.png', "Login with Google",
+                      //           isloading: gProvider.isloading == false
+                      //               ? false
+                      //               : true)),
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      // Consumer<FacebookLoginService>(
+                      //   builder: (context, fProvider, child) => InkWell(
+                      //     onTap: () {
+                      //       if (fProvider.isloading == false) {
+                      //         fProvider.checkIfLoggedIn(context);
+                      //       }
+                      //     },
+                      //     child: LoginHelper().commonButton(
+                      //         'assets/icons/facebook.png',
+                      //         "Login with Facebook",
+                      //         isloading:
+                      //             fProvider.isloading == false ? false : true),
+                      //   ),
+                      // ),
 
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      // const SizedBox(
+                      //   height: 30,
+                      // ),
                     ],
                   ),
                 ),
