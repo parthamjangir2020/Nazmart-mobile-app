@@ -36,19 +36,19 @@ class _ProductFilterState extends State<ProductFilter> {
             sizedboxCustom(20),
 
             //Category =====>
-            paragraphStyleTitle('Category:'),
+            paragraphCommon('Category:'),
             sizedboxCustom(12),
             const Categories(marginRight: 20),
 
             //Sub Category =====>
             sizedboxCustom(20),
-            paragraphStyleTitle('Sub Category:'),
+            paragraphCommon('Sub Category:'),
             sizedboxCustom(12),
             const SubCategories(marginRight: 20),
 
             //Child Category =====>
             sizedboxCustom(20),
-            paragraphStyleTitle('Child Category:'),
+            paragraphCommon('Child Category:'),
             sizedboxCustom(12),
             const ChildCategories(marginRight: 20),
 
@@ -62,10 +62,10 @@ class _ProductFilterState extends State<ProductFilter> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                paragraphStyleTitle('Price range:'),
+                paragraphCommon('Price range:'),
                 Text(
                   '\$${_currentRangeValues.start.round().toString()} - \$${_currentRangeValues.end.round().toString()}',
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: greyFour,
                       fontSize: 15,
                       fontWeight: FontWeight.w600),
@@ -98,7 +98,7 @@ class _ProductFilterState extends State<ProductFilter> {
             const SizedBox(
               height: 10,
             ),
-            paragraphStyleTitle('Ratings:'),
+            paragraphCommon('Ratings:'),
             sizedboxCustom(10),
             RatingBar.builder(
               initialRating: 1,

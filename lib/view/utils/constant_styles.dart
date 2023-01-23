@@ -36,7 +36,7 @@ detailsRow(String title, int quantity, String price) {
         flex: 3,
         child: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             color: greyParagraph,
             fontSize: 14,
             fontWeight: FontWeight.w400,
@@ -49,7 +49,7 @@ detailsRow(String title, int quantity, String price) {
               child: Text(
                 'x$quantity',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: greyFour,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -62,7 +62,7 @@ detailsRow(String title, int quantity, String price) {
           price,
           maxLines: 1,
           textAlign: TextAlign.right,
-          style: TextStyle(
+          style: const TextStyle(
             color: greyFour,
             fontSize: 15,
             fontWeight: FontWeight.w600,
@@ -73,17 +73,7 @@ detailsRow(String title, int quantity, String price) {
   );
 }
 
-paragraphStyleTitle(String title) {
-  return Text(
-    title,
-    style: TextStyle(
-      color: greyFour,
-      fontSize: 13,
-    ),
-  );
-}
-
-bRow(String icon, String title, String text, {bool lastItem = false}) {
+bRow(String title, String text, {bool lastItem = false, icon}) {
   return Column(
     children: [
       Row(
@@ -92,7 +82,7 @@ bRow(String icon, String title, String text, {bool lastItem = false}) {
           SizedBox(
             width: 125,
             child: Row(children: [
-              icon != 'null'
+              icon != null
                   ? Row(
                       children: [
                         SvgPicture.asset(
@@ -107,7 +97,7 @@ bRow(String icon, String title, String text, {bool lastItem = false}) {
                   : Container(),
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: greyFour,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -119,7 +109,7 @@ bRow(String icon, String title, String text, {bool lastItem = false}) {
           Flexible(
             child: Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 color: greyFour,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,

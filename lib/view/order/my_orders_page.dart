@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/view/order/order_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -48,7 +49,7 @@ class MyOrdersPage extends StatelessWidget {
                                 const SizedBox(
                                   width: 17,
                                 ),
-                                AutoSizeText(
+                                const AutoSizeText(
                                   '#545121',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -106,7 +107,7 @@ class MyOrdersPage extends StatelessWidget {
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
-                                              children: [
+                                              children: const [
                                                 Text(
                                                   'Casual summer dress',
                                                   textAlign: TextAlign.left,
@@ -122,7 +123,7 @@ class MyOrdersPage extends StatelessWidget {
                                                 ),
 
                                                 //Price and stock
-                                                const SizedBox(
+                                                SizedBox(
                                                   height: 6,
                                                 ),
                                                 Text(
@@ -152,7 +153,7 @@ class MyOrdersPage extends StatelessWidget {
                                           border:
                                               Border.all(color: borderColor),
                                         ),
-                                        child: Text(
+                                        child: const Text(
                                           'x3',
                                           style:
                                               TextStyle(color: greyParagraph),
@@ -162,7 +163,18 @@ class MyOrdersPage extends StatelessWidget {
                                   ),
                                 ),
                               sizedboxCustom(20),
-                              greyButton('Details', verticalPadding: 14),
+                              buttonPrimary('Details', (() {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        const OrderDetailsPage(),
+                                  ),
+                                );
+                              }),
+                                  borderRadius: 100,
+                                  bgColor: Colors.grey[200],
+                                  fontColor: Colors.grey[800])
                             ],
                           ),
                         ),

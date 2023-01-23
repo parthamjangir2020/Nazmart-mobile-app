@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/view/auth/reset_password/change_password_page.dart';
 import 'package:no_name_ecommerce/view/order/my_orders_page.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/settings_helper.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/profile_edit_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
-import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
 
@@ -158,21 +158,23 @@ class _SettingsPageState extends State<SettingsPage> {
                                     children: [
                                       sizedboxCustom(30),
                                       bRow(
-                                          'assets/svg/phone.svg',
-                                          asProvider.getString("Phone"),
-                                          '01246852511'),
+                                        asProvider.getString("Phone"),
+                                        '01246852511',
+                                        icon: 'assets/svg/phone.svg',
+                                      ),
                                       bRow(
-                                          'assets/svg/email.svg',
-                                          asProvider.getString("Email"),
-                                          'es@email.com'),
+                                        asProvider.getString("Email"),
+                                        'es@email.com',
+                                        icon: 'assets/svg/email.svg',
+                                      ),
                                       bRow(
-                                          'assets/svg/location.svg',
-                                          asProvider.getString("Country"),
-                                          'Bangladesh'),
-                                      bRow(
-                                          'assets/svg/location.svg',
-                                          asProvider.getString("Post code"),
+                                        asProvider.getString("Country"),
+                                        'Bangladesh',
+                                        icon: 'assets/svg/location.svg',
+                                      ),
+                                      bRow(asProvider.getString("Post code"),
                                           '1020',
+                                          icon: 'assets/svg/location.svg',
                                           lastItem: true),
                                     ]),
                               ),
@@ -203,9 +205,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                     // Navigator.push(
                                     //   context,
                                     //   MaterialPageRoute<void>(
-                                    //     builder:
-                                    //         (BuildContext context) =>
-                                    //             const MyTicketsPage(),
+                                    //     builder: (BuildContext context) =>
+                                    //         const MyTicketsPage(),
                                     //   ),
                                     // );
                                   }),
@@ -213,28 +214,26 @@ class _SettingsPageState extends State<SettingsPage> {
                                   SettingsHelper().settingOption(
                                       'assets/svg/profile-edit.svg',
                                       asProvider.getString("Edit Profile"), () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute<void>(
-                                    //     builder:
-                                    //         (BuildContext context) =>
-                                    //             const ProfileEditPage(),
-                                    //   ),
-                                    // );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            const ProfileEditPage(),
+                                      ),
+                                    );
                                   }),
                                   dividerCommon(),
                                   SettingsHelper().settingOption(
                                       'assets/svg/lock-circle.svg',
                                       asProvider.getString("Change Password"),
                                       () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute<void>(
-                                    //     builder: (BuildContext
-                                    //             context) =>
-                                    //         const ChangePasswordPage(),
-                                    //   ),
-                                    // );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            const ChangePasswordPage(),
+                                      ),
+                                    );
                                   }),
                                 ]),
                               ),

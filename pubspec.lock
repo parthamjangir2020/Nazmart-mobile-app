@@ -78,6 +78,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  colorlizer:
+    dependency: "direct main"
+    description:
+      name: colorlizer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   connectivity:
     dependency: "direct main"
     description:

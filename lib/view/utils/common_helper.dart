@@ -11,10 +11,10 @@ appbarCommon(String title, BuildContext context, VoidCallback pressed,
     {bool hasBackButton = true, bool centerTitle = true}) {
   return AppBar(
     centerTitle: centerTitle ? true : false,
-    iconTheme: IconThemeData(color: greyPrimary),
+    iconTheme: const IconThemeData(color: greyPrimary),
     title: Text(
       title,
-      style: TextStyle(
+      style: const TextStyle(
           color: greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
     ),
     backgroundColor: Colors.transparent,
@@ -39,7 +39,7 @@ labelCommon(String title) {
     margin: const EdgeInsets.only(bottom: 15),
     child: Text(
       title,
-      style: TextStyle(
+      style: const TextStyle(
         color: greyThree,
         fontSize: 14,
         fontWeight: FontWeight.w600,
@@ -48,32 +48,14 @@ labelCommon(String title) {
   );
 }
 
-//==========>
-greyButton(String title, {double verticalPadding = 20}) {
-  return Container(
-      width: double.infinity,
-      alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(vertical: verticalPadding),
-      decoration: BoxDecoration(
-          color: const Color(0xffEAECF0),
-          borderRadius: BorderRadius.circular(100)),
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Color(0xff667085),
-          fontSize: 14,
-        ),
-      ));
-}
-
-//common orange button =======>
+//common primary button =======>
 buttonPrimary(String title, VoidCallback pressed,
     {isloading = false,
     bgColor,
     double paddingVertical = 18,
     double borderRadius = 8,
     double fontsize = 14,
-    Color fontColor = Colors.white}) {
+    fontColor = Colors.white}) {
   return InkWell(
     onTap: pressed,
     child: Container(
@@ -127,13 +109,14 @@ paragraphCommon(String title,
     {TextAlign textAlign = TextAlign.center,
     double fontsize = 14,
     fontweight = FontWeight.w400,
+    lineHeight = 1.4,
     color}) {
   return Text(
     title,
     textAlign: textAlign,
     style: TextStyle(
       color: color ?? greyParagraph,
-      height: 1.4,
+      height: lineHeight,
       fontSize: fontsize,
       fontWeight: fontweight,
     ),
@@ -141,16 +124,18 @@ paragraphCommon(String title,
 }
 
 titleCommon(String title,
-    {double fontsize = 18, fontweight = FontWeight.bold}) {
+    {double fontsize = 18, fontweight = FontWeight.bold, color}) {
   return Text(
     title,
     style: TextStyle(
-        color: greyPrimary, fontSize: fontsize, fontWeight: fontweight),
+        color: color ?? greyPrimary,
+        fontSize: fontsize,
+        fontWeight: fontweight),
   );
 }
 
 dividerCommon() {
-  return Divider(
+  return const Divider(
     thickness: 1,
     height: 2,
     color: borderColor,
@@ -160,7 +145,8 @@ dividerCommon() {
 checkCircle() {
   return Container(
     padding: const EdgeInsets.all(3),
-    decoration: BoxDecoration(shape: BoxShape.circle, color: primaryColor),
+    decoration:
+        const BoxDecoration(shape: BoxShape.circle, color: primaryColor),
     child: const Icon(
       Icons.check,
       size: 13,
@@ -192,7 +178,7 @@ nothingfound(BuildContext context, String title) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.hourglass_empty,
           color: greyFour,
         ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/product/components/color_size.dart';
+import 'package:no_name_ecommerce/view/product/components/description_tab.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_bottom.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_slider.dart';
+import 'package:no_name_ecommerce/view/product/components/review_tab.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -39,7 +41,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_handleTabSelection);
 
     // Provider.of<ServiceDetailsService>(context, listen: false)
@@ -53,7 +55,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        iconTheme: IconThemeData(color: greyFour),
+        iconTheme: const IconThemeData(color: greyFour),
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -108,16 +110,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                             Row(
                               children: [
                                 Expanded(
-                                  child: Text(
-                                    'Red T-Shirt',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: blackCustomColor,
-                                        fontSize: 16,
-                                        height: 1.3,
-                                        fontWeight: FontWeight.w600),
-                                  ),
+                                  child: titleCommon('Red T-Shirt'),
                                 ),
 
                                 //favourite icon
@@ -141,30 +134,17 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                             ),
 
                             //Price
-                            Text(
-                              '\$200',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: primaryColor,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600),
-                            ),
+                            titleCommon('\$200',
+                                color: primaryColor, fontsize: 16),
 
                             sizedboxCustom(5),
 
                             //Rating
                             Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.star_rounded,
                                   color: orangeColor,
-                                ),
-                                const SizedBox(
-                                  width: 2,
-                                ),
-                                const SizedBox(
-                                  width: 5,
                                 ),
                                 paragraphCommon('(29)')
                               ],
@@ -183,13 +163,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                                 decoration: BoxDecoration(
                                     border: Border.all(color: successColor),
                                     borderRadius: BorderRadius.circular(20)),
-                                child: Text(
-                                  'In stock',
-                                  style: TextStyle(
-                                      color: successColor,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600),
-                                )),
+                                child: paragraphCommon('In stock',
+                                    fontsize: 11,
+                                    lineHeight: 1.1,
+                                    fontweight: FontWeight.w600,
+                                    color: successColor)),
                           ],
                         ),
 
@@ -198,7 +176,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
 
                         //increase decrease button
                         sizedboxCustom(17),
-                        paragraphStyleTitle('Quantity:'),
+                        paragraphCommon('Quantity:'),
                         sizedboxCustom(10),
                         Row(
                           children: [
@@ -239,7 +217,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                                   //Quantity text
                                   Container(
                                       alignment: Alignment.center,
-                                      child: Text(
+                                      child: const Text(
                                         '2',
                                         style: TextStyle(
                                             color: greyPrimary,
@@ -271,15 +249,36 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                           ],
                         ),
 
-                        //Description
+                        //========>
+                        // tab
+                        sizedboxCustom(15),
+
+                        TabBar(
+                          onTap: (value) {
+                            setState(() {
+                              currentTab = value;
+                            });
+                          },
+                          labelColor: primaryColor,
+                          unselectedLabelColor: greyFour,
+                          indicatorColor: primaryColor,
+                          unselectedLabelStyle: const TextStyle(
+                              color: greyParagraph,
+                              fontWeight: FontWeight.normal),
+                          controller: _tabController,
+                          tabs: const [
+                            Tab(text: 'Description'),
+                            Tab(text: 'Review'),
+                          ],
+                        ),
+
                         Container(
-                          margin: const EdgeInsets.symmetric(vertical: 15),
-                          child: dividerCommon(),
+                          margin: const EdgeInsets.only(top: 15, bottom: 30),
+                          child: [
+                            const DescriptionTab(),
+                            const ReviewTab()
+                          ][_tabIndex],
                         ),
-                        paragraphCommon(
-                          'Lorem Ipsum is simply dummy text of the printing and typesetting',
-                        ),
-                        sizedboxCustom(30)
                       ],
                     )
                   ],
@@ -289,7 +288,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
           ),
 
           //=======>
-          const ProductDetailsBottom()
+          ProductDetailsBottom(
+            tabIndex: currentTab,
+          )
         ],
       ),
     );

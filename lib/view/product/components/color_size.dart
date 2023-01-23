@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
                 const SizedBox(
                   height: 18,
                 ),
-                paragraphStyleTitle('Size:'),
+                paragraphCommon('Size:'),
                 const SizedBox(
                   height: 12,
                 ),
@@ -83,7 +84,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                paragraphStyleTitle('Color:'),
+                paragraphCommon('Color:'),
                 sizedboxCustom(12),
                 // Container(
                 //   margin: const EdgeInsets.only(top: 5),
@@ -155,7 +156,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
                         margin: EdgeInsets.only(right: i != 2 ? 10 : 0),
                         height: 35,
                         width: 35,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Color(0xff8479E1), shape: BoxShape.circle),
                         child: selectedColor == i
                             ? const Icon(
