@@ -5,7 +5,6 @@ import 'package:no_name_ecommerce/view/utils/custom_input.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/common_helper.dart';
-import '../../utils/constant_colors.dart';
 
 class CouponField extends StatelessWidget {
   const CouponField(
@@ -22,7 +21,7 @@ class CouponField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           sizedboxCustom(20),
-          CommonHelper().labelCommon("Coupon code"),
+          labelCommon("Coupon code"),
           Row(
             children: [
               Expanded(
@@ -34,7 +33,7 @@ class CouponField extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(left: 10),
                 width: 100,
-                child: CommonHelper().buttonPrimary('Apply', () {
+                child: buttonPrimary('Apply', () {
                   // if (couponController.text.isNotEmpty) {
                   //   if (couponProvider.isloading == false) {
                   //     couponProvider.getCouponDiscount(

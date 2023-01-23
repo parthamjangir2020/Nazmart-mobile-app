@@ -8,10 +8,10 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     ConstantColors cc = ConstantColors();
+//     
 //     return Scaffold(
 //       backgroundColor: Colors.white,
-//       appBar: CommonHelper().appbarCommon('Select Location', context, () {
+//       appBar: appbarCommon('Select Location', context, () {
 //         Navigator.pop(context);
 //       }),
 //       body: SingleChildScrollView(
@@ -29,7 +29,7 @@
 //                 height: 30,
 //               ),
 
-//               CommonHelper().buttonOrange("Login", () {
+//               buttonOrange("Login", () {
 //                 Navigator.pushReplacement<void, void>(
 //                   context,
 //                   MaterialPageRoute<void>(

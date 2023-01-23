@@ -2,9 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/view/order/delivery_address_page.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
-
-import '../../utils/constant_styles.dart';
 
 class ShippingSelect extends StatelessWidget {
   const ShippingSelect({
@@ -23,10 +22,10 @@ class ShippingSelect extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Shipping option',
                   style: TextStyle(
-                    color: cc.greyParagraph,
+                    color: greyParagraph,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -43,10 +42,10 @@ class ShippingSelect extends StatelessWidget {
                   },
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(0, 12, 20, 9),
-                    child: Text(
+                    child: const Text(
                       'Add delivery address',
                       style: TextStyle(
-                        color: cc.primaryColor,
+                        color: primaryColor,
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         // decoration: TextDecoration.underline,
@@ -63,8 +62,8 @@ class ShippingSelect extends StatelessWidget {
               dProvider.selectedShipName,
               maxLines: 1,
               textAlign: TextAlign.right,
-              style: TextStyle(
-                color: cc.greyFour,
+              style: const TextStyle(
+                color: greyFour,
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
               ),

@@ -7,6 +7,7 @@ import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dro
 import 'package:no_name_ecommerce/view/order/components/free_ship_option.dart';
 import 'package:no_name_ecommerce/view/order/components/shipping_option.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -89,7 +90,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('Delivery address', context, () {
+      appBar: appbarCommon('Delivery address', context, () {
         Navigator.pop(context);
       }),
       body: Listener(
@@ -114,7 +115,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
 
                         sizedboxCustom(20),
                         //Name ============>
-                        CommonHelper().labelCommon("Full name"),
+                        labelCommon("Full name"),
 
                         CustomInput(
                           controller: fullNameController,
@@ -132,7 +133,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                         sizedboxCustom(5),
 
                         //Email ============>
-                        CommonHelper().labelCommon("Email"),
+                        labelCommon("Email"),
 
                         CustomInput(
                           controller: emailController,
@@ -150,7 +151,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                         sizedboxCustom(5),
 
                         //Phone ============>
-                        CommonHelper().labelCommon("Phone"),
+                        labelCommon("Phone"),
 
                         CustomInput(
                           controller: phoneController,
@@ -170,7 +171,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                         sizedboxCustom(10),
 
                         //City /town ============>
-                        CommonHelper().labelCommon("City/Town"),
+                        labelCommon("City/Town"),
 
                         CustomInput(
                           controller: cityController,
@@ -189,7 +190,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                         sizedboxCustom(5),
 
                         //Zip code ============>
-                        CommonHelper().labelCommon("Zip code"),
+                        labelCommon("Zip code"),
 
                         CustomInput(
                           controller: zipController,
@@ -208,7 +209,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                         sizedboxCustom(5),
 
                         //Zip code ============>
-                        CommonHelper().labelCommon("Address"),
+                        labelCommon("Address"),
 
                         CustomInput(
                           controller: addressController,
@@ -276,7 +277,6 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                           selectedShipping:
                                               dProvider.selectedShippingIndex,
                                           dProvider: dProvider,
-                                          cc: cc,
                                         ),
                                       ),
 
@@ -340,18 +340,17 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                   )
                                 : Container(
                                     margin: const EdgeInsets.only(bottom: 15),
-                                    child: Text(
+                                    child: const Text(
                                       'No shipping option available',
-                                      style: TextStyle(color: cc.warningColor),
+                                      style: TextStyle(color: warningColor),
                                     ),
                                   )
                             : Container(
                                 margin: const EdgeInsets.only(bottom: 10),
-                                child:
-                                    OthersHelper().showLoading(cc.primaryColor),
+                                child: OthersHelper().showLoading(primaryColor),
                               ),
                         sizedboxCustom(10),
-                        CommonHelper().buttonPrimary("Save", () {
+                        buttonPrimary("Save", () {
                           if (_formKey.currentState!.validate()) {
                             if (dProvider.vatLoading == true) {
                               return;

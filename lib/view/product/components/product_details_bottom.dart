@@ -21,11 +21,10 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 5, 20, 17),
       decoration: const BoxDecoration(
-        // color: cc.blackColor,
+        // color: blackColor,
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(20),
@@ -37,15 +36,14 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
           Expanded(
               child: InkWell(
             onTap: () {},
-            child: CommonHelper().greyButton('Buy now'),
+            child: greyButton('Buy now'),
           )),
           const SizedBox(
             width: 15,
           ),
           //======>
           Expanded(
-            child: CommonHelper()
-                .buttonPrimary('Add to cart', () {}, borderRadius: 100),
+            child: buttonPrimary('Add to cart', () {}, borderRadius: 100),
           ),
         ],
       ),

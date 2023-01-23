@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
@@ -33,7 +32,6 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return InkWell(
       onTap: pressed,
       child: Consumer<RtlService>(
@@ -68,7 +66,7 @@ class ProductCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: cc.blackCustomColor,
+                        color: blackCustomColor,
                         fontSize: 14,
                         height: 1.3,
                         fontWeight: FontWeight.w600),
@@ -81,7 +79,7 @@ class ProductCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: cc.primaryColor,
+                        color: primaryColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w600),
                   ),
@@ -93,7 +91,7 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.star_rounded,
-                        color: cc.orangeColor,
+                        color: orangeColor,
                       ),
                       const SizedBox(
                         width: 2,
@@ -103,7 +101,7 @@ class ProductCard extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: cc.greyParagraph,
+                            color: greyParagraph,
                             fontSize: 13,
                             fontWeight: FontWeight.w600),
                       ),
@@ -115,7 +113,7 @@ class ProductCard extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: cc.greyParagraph,
+                          color: greyParagraph,
                           fontSize: 13,
                         ),
                       ),
@@ -124,7 +122,7 @@ class ProductCard extends StatelessWidget {
                   sizedboxCustom(10),
 
                   //Donate button
-                  CommonHelper().borderButtonPrimary('Add to cart', () {
+                  borderButtonPrimary('Add to cart', () {
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute<void>(
@@ -136,8 +134,8 @@ class ProductCard extends StatelessWidget {
                   },
                       paddingVertical: 11,
                       borderRadius: 7,
-                      color: cc.greyFour,
-                      borderColor: cc.inputFieldBorderColor,
+                      color: greyFour,
+                      borderColor: inputFieldBorderColor,
                       fontsize: 13)
                 ],
               ),

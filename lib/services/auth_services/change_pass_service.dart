@@ -52,8 +52,8 @@ class ChangePassService with ChangeNotifier {
             body: data);
 
         if (response.statusCode == 200) {
-          OthersHelper().showToast(
-              "Password changed successfully", ConstantColors().primaryColor);
+          OthersHelper()
+              .showToast("Password changed successfully", primaryColor);
           setLoadingFalse();
 
           prefs.setString("pass", newPass);

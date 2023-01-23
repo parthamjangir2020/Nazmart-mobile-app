@@ -38,8 +38,8 @@ class CouponService with ChangeNotifier {
     var connection = await checkConnection();
     if (connection) {
       if (couponCode == appliedCoupon) {
-        OthersHelper().showToast(
-            'You already applied this coupon', ConstantColors().primaryColor);
+        OthersHelper()
+            .showToast('You already applied this coupon', primaryColor);
         return false;
       }
 

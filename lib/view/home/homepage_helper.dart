@@ -3,7 +3,6 @@ import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 class HomepageHelper {
   Widget searchbar(asProvider, BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),

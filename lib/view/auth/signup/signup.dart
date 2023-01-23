@@ -12,7 +12,6 @@ import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:provider/provider.dart';
 
-import '../login/login.dart';
 import 'components/email_name_fields.dart';
 
 class SignupPage extends StatefulWidget {
@@ -46,8 +45,6 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Listener(
@@ -82,7 +79,7 @@ class _SignupPageState extends State<SignupPage> {
                           // const SizedBox(
                           //   height: 33,
                           // ),
-                          // CommonHelper().titleCommon("Register to join us"),
+                          // titleCommon("Register to join us"),
                           const SizedBox(
                             height: 19,
                           ),
@@ -112,14 +109,14 @@ class _SignupPageState extends State<SignupPage> {
 
                           CheckboxListTile(
                             checkColor: Colors.white,
-                            activeColor: ConstantColors().primaryColor,
+                            activeColor: primaryColor,
                             contentPadding: const EdgeInsets.all(0),
                             title: Container(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: Text(
                                 "I agree with the terms and conditons",
                                 style: TextStyle(
-                                    color: ConstantColors().greyFour,
+                                    color: greyFour,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14),
                               ),
@@ -136,7 +133,7 @@ class _SignupPageState extends State<SignupPage> {
                           const SizedBox(
                             height: 10,
                           ),
-                          CommonHelper().buttonPrimary("Sign up", () {
+                          buttonPrimary("Sign up", () {
                             if (_formKey.currentState!.validate()) {
                               if (termsAgree == false) {
                                 OthersHelper().showToast(
@@ -187,7 +184,7 @@ class _SignupPageState extends State<SignupPage> {
                                         style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 14,
-                                          color: cc.primaryColor,
+                                          color: primaryColor,
                                         )),
                                   ],
                                 ),

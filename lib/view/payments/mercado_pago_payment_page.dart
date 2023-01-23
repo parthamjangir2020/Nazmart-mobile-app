@@ -31,7 +31,6 @@ class _MercadopagoPaymentPageState extends State<MercadopagoPaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    final cc = ConstantColors();
     return Scaffold(
       appBar: AppBar(title: const Text('Mercado pago')),
       body: FutureBuilder(

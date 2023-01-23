@@ -8,6 +8,7 @@ import 'package:no_name_ecommerce/view/checkout/components/shipping_select.dart'
 import 'package:no_name_ecommerce/view/order/payment_choose_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class _CartpageState extends State<Cartpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('Cart', context, () {
+      appBar: appbarCommon('Cart', context, () {
         Navigator.pop(context);
       }, hasBackButton: true),
       body: SafeArea(
@@ -79,21 +80,21 @@ class _CartpageState extends State<Cartpage> {
                             Flexible(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text(
                                     'Rice bowl',
                                     textAlign: TextAlign.left,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        color: cc.blackCustomColor,
+                                        color: blackCustomColor,
                                         fontSize: 13,
                                         height: 1.4,
                                         fontWeight: FontWeight.w600),
                                   ),
 
                                   //Price and stock
-                                  const SizedBox(
+                                  SizedBox(
                                     height: 6,
                                   ),
                                   Text(
@@ -102,7 +103,7 @@ class _CartpageState extends State<Cartpage> {
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        color: cc.primaryColor,
+                                        color: primaryColor,
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -124,8 +125,8 @@ class _CartpageState extends State<Cartpage> {
                                     const EdgeInsets.symmetric(horizontal: 3),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  border: Border.all(
-                                      color: cc.borderColor, width: 1),
+                                  border:
+                                      Border.all(color: borderColor, width: 1),
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: Row(
@@ -154,10 +155,10 @@ class _CartpageState extends State<Cartpage> {
                                     //Quantity text
                                     Container(
                                         alignment: Alignment.center,
-                                        child: Text(
+                                        child: const Text(
                                           '2',
                                           style: TextStyle(
-                                              color: cc.greyPrimary,
+                                              color: greyPrimary,
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold),
                                         )),
@@ -216,7 +217,7 @@ class _CartpageState extends State<Cartpage> {
                             child: Divider(
                               thickness: 1,
                               height: 2,
-                              color: cc.borderColor.withOpacity(.8),
+                              color: borderColor.withOpacity(.8),
                             ),
                           )
                         : Container()
@@ -249,11 +250,11 @@ class _CartpageState extends State<Cartpage> {
               //Total price
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     'Total',
                     style: TextStyle(
-                      color: cc.greyFour,
+                      color: greyFour,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
@@ -261,7 +262,7 @@ class _CartpageState extends State<Cartpage> {
                   Text(
                     '\$${200}',
                     style: TextStyle(
-                      color: cc.blackCustomColor,
+                      color: blackCustomColor,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
@@ -271,12 +272,12 @@ class _CartpageState extends State<Cartpage> {
 
               //Apply promo ===========>
               CouponField(
-                cartItemList: [],
+                cartItemList: const [],
                 couponController: couponController,
               ),
 
               sizedboxCustom(25),
-              CommonHelper().buttonPrimary('Checkout', () {
+              buttonPrimary('Checkout', () {
                 // if (dProvider.enteredDeliveryAddress == null) {
                 //   OthersHelper().showToast(
                 //       'Please enter the delivery address and save it',

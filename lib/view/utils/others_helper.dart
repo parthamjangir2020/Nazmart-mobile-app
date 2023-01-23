@@ -5,7 +5,6 @@ import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 //===========================>
 class OthersHelper with ChangeNotifier {
-  ConstantColors cc = ConstantColors();
   int deliveryCharge = 60;
 
   showLoading(Color color) {

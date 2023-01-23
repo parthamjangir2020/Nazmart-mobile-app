@@ -23,9 +23,8 @@ class _ResetPassEmailPageState extends State<ResetPassEmailPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
-      appBar: CommonHelper().appbarCommon('Reset password', context, () {
+      appBar: appbarCommon('Reset password', context, () {
         Navigator.pop(context);
       }),
       backgroundColor: Colors.white,
@@ -52,17 +51,17 @@ class _ResetPassEmailPageState extends State<ResetPassEmailPage> {
                       const SizedBox(
                         height: 33,
                       ),
-                      Text(
+                      const Text(
                         "Reset password",
                         style: TextStyle(
-                            color: cc.greyPrimary,
+                            color: greyPrimary,
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 13,
                       ),
-                      CommonHelper().paragraphCommon(
+                      paragraphCommon(
                           "Enter the email you used to creat account and we’ll send instruction for restting password",
                           textAlign: TextAlign.start),
 
@@ -71,7 +70,7 @@ class _ResetPassEmailPageState extends State<ResetPassEmailPage> {
                       ),
 
                       //Name ============>
-                      CommonHelper().labelCommon("Enter Email"),
+                      labelCommon("Enter Email"),
 
                       CustomInput(
                         controller: emailController,
@@ -91,8 +90,8 @@ class _ResetPassEmailPageState extends State<ResetPassEmailPage> {
                         height: 13,
                       ),
                       Consumer<ResetPasswordService>(
-                        builder: (context, provider, child) => CommonHelper()
-                            .buttonPrimary("Send Instructions", () {
+                        builder: (context, provider, child) =>
+                            buttonPrimary("Send Instructions", () {
                           Navigator.push(
                             context,
                             MaterialPageRoute<void>(

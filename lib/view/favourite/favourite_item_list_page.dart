@@ -4,9 +4,8 @@ import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/fav_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
-import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
 
 class FavouriteItemListPage extends StatefulWidget {
@@ -27,8 +26,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper()
-          .appbarCommon('Favourite', context, () {}, hasBackButton: false),
+      appBar: appbarCommon('Favourite', context, () {}, hasBackButton: false),
       body: SafeArea(
         child: SingleChildScrollView(
             child: Container(
@@ -86,7 +84,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
-                                                  color: cc.blackCustomColor,
+                                                  color: blackCustomColor,
                                                   fontSize: 13,
                                                   height: 1.4,
                                                   fontWeight: FontWeight.w600),
@@ -102,7 +100,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
-                                                  color: cc.primaryColor,
+                                                  color: primaryColor,
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -149,7 +147,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
               //       children: [
               //         Icon(
               //           Icons.hourglass_empty,
-              //           color: cc.greyFour,
+              //           color: greyFour,
               //         ),
               //         sizedboxCustom(10),
               //         const Text("No products added to favourite"),

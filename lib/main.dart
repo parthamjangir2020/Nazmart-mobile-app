@@ -79,10 +79,9 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
-          buttonTheme:
-              ButtonThemeData(buttonColor: ConstantColors().primaryColor),
-          textSelectionTheme: TextSelectionThemeData(
-              cursorColor: ConstantColors().primaryColor),
+          buttonTheme: const ButtonThemeData(buttonColor: primaryColor),
+          textSelectionTheme:
+              const TextSelectionThemeData(cursorColor: primaryColor),
         ),
         home: const SplashScreen(),
       ),

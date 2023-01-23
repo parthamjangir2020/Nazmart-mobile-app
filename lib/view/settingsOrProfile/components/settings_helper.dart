@@ -8,14 +8,13 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SettingsHelper {
-  ConstantColors cc = ConstantColors();
   borderBold(double marginTop, double marginBottom) {
     return Container(
       margin: EdgeInsets.only(top: marginTop, bottom: marginBottom),
       child: Divider(
         height: 0,
         thickness: 4,
-        color: cc.borderColor,
+        color: borderColor,
       ),
     );
   }
@@ -36,7 +35,7 @@ class SettingsHelper {
       ),
       title: Text(
         title,
-        style: TextStyle(color: cc.greyFour, fontSize: 14),
+        style: TextStyle(color: greyFour, fontSize: 14),
       ),
       trailing: const Icon(
         Icons.arrow_forward_ios,
@@ -80,7 +79,7 @@ class SettingsHelper {
               children: [
                 Text(
                   '${asProvider.getString('Are you sure')}?',
-                  style: TextStyle(color: cc.greyPrimary, fontSize: 17),
+                  style: TextStyle(color: greyPrimary, fontSize: 17),
                 ),
                 const SizedBox(
                   height: 25,
@@ -88,7 +87,7 @@ class SettingsHelper {
                 Row(
                   children: [
                     Expanded(
-                        child: CommonHelper().borderButtonPrimary(
+                        child: borderButtonPrimary(
                             asProvider.getString('Cancel'), () {
                       Navigator.pop(context);
                     })),
@@ -97,8 +96,8 @@ class SettingsHelper {
                     ),
                     Consumer<LogoutService>(
                       builder: (context, provider, child) => Expanded(
-                          child: CommonHelper().buttonPrimary(
-                              asProvider.getString('Logout'), () {
+                          child: buttonPrimary(asProvider.getString('Logout'),
+                              () {
                         if (provider.isloading == false) {
                           provider.logout(context);
                           //if logged in by google then logout from it

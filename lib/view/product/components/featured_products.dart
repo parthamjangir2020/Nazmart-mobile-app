@@ -3,7 +3,6 @@ import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/product/all_featured_products_page.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
-import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 class FeaturedProducts extends StatelessWidget {
   const FeaturedProducts({
@@ -12,12 +11,10 @@ class FeaturedProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cc = ConstantColors();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionTitle(
-          cc: cc,
           title: 'Featured products',
           pressed: () {
             Navigator.push(

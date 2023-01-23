@@ -3,6 +3,7 @@ import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/product/components/color_size.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_bottom.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_slider.dart';
+import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 
@@ -15,15 +16,44 @@ class ProductDetailsPage extends StatefulWidget {
   _ProductDetailsPageState createState() => _ProductDetailsPageState();
 }
 
-class _ProductDetailsPageState extends State<ProductDetailsPage> {
+class _ProductDetailsPageState extends State<ProductDetailsPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  int _tabIndex = 0;
+
+  _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      setState(() {
+        _tabIndex = _tabController.index;
+      });
+    }
+  }
+
+  int currentTab = 0;
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+
+    // Provider.of<ServiceDetailsService>(context, listen: false)
+    //     .fetchServiceDetails(widget.serviceId);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        iconTheme: IconThemeData(color: cc.greyFour),
+        iconTheme: IconThemeData(color: greyFour),
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -83,7 +113,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        color: cc.blackCustomColor,
+                                        color: blackCustomColor,
                                         fontSize: 16,
                                         height: 1.3,
                                         fontWeight: FontWeight.w600),
@@ -98,8 +128,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                   child: Container(
                                       decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          border: Border.all(
-                                              color: cc.borderColor)),
+                                          border:
+                                              Border.all(color: borderColor)),
                                       padding: const EdgeInsets.all(8),
                                       margin: const EdgeInsets.only(left: 20),
                                       child: const Icon(
@@ -116,7 +146,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  color: cc.primaryColor,
+                                  color: primaryColor,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600),
                             ),
@@ -128,32 +158,15 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               children: [
                                 Icon(
                                   Icons.star_rounded,
-                                  color: cc.orangeColor,
+                                  color: orangeColor,
                                 ),
                                 const SizedBox(
                                   width: 2,
                                 ),
-                                Text(
-                                  '4.5',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: cc.greyParagraph,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600),
-                                ),
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Text(
-                                  '(29)',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: cc.greyParagraph,
-                                    fontSize: 14,
-                                  ),
-                                ),
+                                paragraphCommon('(29)')
                               ],
                             ),
                           ],
@@ -168,12 +181,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     vertical: 5, horizontal: 10),
                                 margin: const EdgeInsets.only(top: 10),
                                 decoration: BoxDecoration(
-                                    border: Border.all(color: cc.successColor),
+                                    border: Border.all(color: successColor),
                                     borderRadius: BorderRadius.circular(20)),
                                 child: Text(
                                   'In stock',
                                   style: TextStyle(
-                                      color: cc.successColor,
+                                      color: successColor,
                                       fontSize: 11,
                                       fontWeight: FontWeight.w600),
                                 )),
@@ -197,7 +210,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 border:
-                                    Border.all(color: cc.borderColor, width: 1),
+                                    Border.all(color: borderColor, width: 1),
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: Row(
@@ -229,7 +242,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                       child: Text(
                                         '2',
                                         style: TextStyle(
-                                            color: cc.greyPrimary,
+                                            color: greyPrimary,
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       )),

@@ -38,7 +38,7 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     ConstantColors cc = ConstantColors();
+//     
 //     return Container(
 //       padding: const EdgeInsets.symmetric(horizontal: 25),
 //       child: Form(
@@ -60,7 +60,7 @@
 //             ),
 //             Consumer<SignupService>(
 //               builder: (context, provider, child) =>
-//                   CommonHelper().borderButtonPrimary("Continue", () {
+//                   borderButtonPrimary("Continue", () {
 //                 if (_formKey.currentState!.validate()) {
 //                   provider.pagecontroller.animateToPage(
 //                       provider.selectedPage + 1,

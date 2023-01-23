@@ -87,7 +87,7 @@ class ProductDbService {
 
       print('Added to cart');
 
-      showSnackBar(context, 'Added to cart', ConstantColors().successColor);
+      showSnackBar(context, 'Added to cart', successColor);
       return true;
     } else {
       //product already added to cart, so increase quantity
@@ -95,8 +95,7 @@ class ProductDbService {
       Provider.of<CartService>(context, listen: false)
           .increaseQtandPrice(productId, title, context);
 
-      showSnackBar(
-          context, 'Quantity increased', ConstantColors().successColor);
+      showSnackBar(context, 'Quantity increased', successColor);
 
       //product already added to cart so remove from cart
 
@@ -106,7 +105,7 @@ class ProductDbService {
 
       // print('removed from cart');
 
-      // showSnackBar(context, 'Removed from cart', ConstantColors().primaryColor);
+      // showSnackBar(context, 'Removed from cart', primaryColor);
 
       return false;
     }
@@ -121,7 +120,7 @@ class ProductDbService {
 
     print('removed from cart');
 
-    showSnackBar(context, 'Removed from cart', ConstantColors().primaryColor);
+    showSnackBar(context, 'Removed from cart', primaryColor);
   }
 
   allCartProducts() async {
@@ -204,8 +203,7 @@ class ProductDbService {
       await connection.insert('fav_table', favObj.favouriteMap());
       print('added to favourite');
 
-      showSnackBar(
-          context, 'Added to favourite', ConstantColors().successColor);
+      showSnackBar(context, 'Added to favourite', successColor);
 
       return true;
     } else {
@@ -217,8 +215,7 @@ class ProductDbService {
 
       print('removed from favourite');
 
-      showSnackBar(
-          context, 'Removed from favourite', ConstantColors().primaryColor);
+      showSnackBar(context, 'Removed from favourite', primaryColor);
 
       return false;
     }

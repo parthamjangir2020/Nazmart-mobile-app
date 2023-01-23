@@ -14,7 +14,7 @@ class ProfileImagePick extends StatefulWidget {
 
 class _ProfileImagePickState extends State<ProfileImagePick> {
   XFile? pickedImage;
-  ConstantColors cc = ConstantColors();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileEditService>(
@@ -47,7 +47,7 @@ class _ProfileImagePickState extends State<ProfileImagePick> {
                                   //                 .userDetails
                                   //                 .profileImageUrl !=
                                   //             null
-                                  //         ? CommonHelper().profileImage(
+                                  //         ? profileImage(
                                   //             profileProvider
                                   //                 .profileDetails
                                   //                 .userDetails
@@ -83,7 +83,7 @@ class _ProfileImagePickState extends State<ProfileImagePick> {
                         //     child: ClipRRect(
                         //         child: Icon(
                         //       Icons.camera,
-                        //       color: cc.greyPrimary,
+                        //       color: greyPrimary,
                         //     )),
                         //   ),
                         // )
@@ -95,7 +95,7 @@ class _ProfileImagePickState extends State<ProfileImagePick> {
           // : Container(
           //     alignment: Alignment.center,
           //     height: MediaQuery.of(context).size.height - 150,
-          //     child: OthersHelper().showLoading(cc.primaryColor),
+          //     child: OthersHelper().showLoading(primaryColor),
           //   ),
           ),
     );

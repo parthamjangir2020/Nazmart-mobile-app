@@ -25,8 +25,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
-
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -118,17 +116,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                                           ),
 
                                                           //user name
-                                                          CommonHelper()
-                                                              .titleCommon(
-                                                                  'Saleheen'),
+                                                          titleCommon(
+                                                              'Saleheen'),
 
                                                           //phone
-                                                          CommonHelper()
-                                                              .paragraphCommon(
-                                                                  'Member since 2022',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center),
+                                                          paragraphCommon(
+                                                              'Member since 2022',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center),
                                                         ],
                                                       ),
 
@@ -199,7 +195,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       ),
                                     );
                                   }),
-                                  CommonHelper().dividerCommon(),
+                                  dividerCommon(),
                                   SettingsHelper().settingOption(
                                       'assets/svg/message-circle.svg',
                                       asProvider.getString("Support Ticket"),
@@ -213,7 +209,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     //   ),
                                     // );
                                   }),
-                                  CommonHelper().dividerCommon(),
+                                  dividerCommon(),
                                   SettingsHelper().settingOption(
                                       'assets/svg/profile-edit.svg',
                                       asProvider.getString("Edit Profile"), () {
@@ -226,7 +222,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     //   ),
                                     // );
                                   }),
-                                  CommonHelper().dividerCommon(),
+                                  dividerCommon(),
                                   SettingsHelper().settingOption(
                                       'assets/svg/lock-circle.svg',
                                       asProvider.getString("Change Password"),
@@ -265,7 +261,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       //     height:
                       //         MediaQuery.of(context).size.height - 150,
                       //     child:
-                      //         OthersHelper().showLoading(cc.primaryColor),
+                      //         OthersHelper().showLoading(primaryColor),
                       //   ),
                       ),
                 ),

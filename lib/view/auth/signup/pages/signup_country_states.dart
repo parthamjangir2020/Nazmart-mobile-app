@@ -36,7 +36,7 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     ConstantColors cc = ConstantColors();
+//     
 //     return Container(
 //         padding: const EdgeInsets.symmetric(horizontal: 25),
 //         child: Column(
@@ -48,14 +48,14 @@
 //             ),
 //             CheckboxListTile(
 //               checkColor: Colors.white,
-//               activeColor: ConstantColors().primaryColor,
+//               activeColor: primaryColor,
 //               contentPadding: const EdgeInsets.all(0),
 //               title: Container(
 //                 padding: const EdgeInsets.symmetric(vertical: 5),
 //                 child: Text(
 //                   "I agree with the terms and conditons",
 //                   style: TextStyle(
-//                       color: ConstantColors().greyFour,
+//                       color: greyFour,
 //                       fontWeight: FontWeight.w400,
 //                       fontSize: 14),
 //                 ),
@@ -74,7 +74,7 @@
 //             ),
 //             Consumer<SignupService>(
 //               builder: (context, provider, child) =>
-//                   CommonHelper().buttonPrimary("Sign Up", () {
+//                   buttonPrimary("Sign Up", () {
 //                 if (termsAgree == false) {
 //                   OthersHelper().showToast(
 //                       'You must agree with the terms and conditions to register',

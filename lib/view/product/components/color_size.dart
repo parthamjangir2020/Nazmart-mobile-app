@@ -13,7 +13,7 @@ class ColorAndSize extends StatefulWidget {
 class _ColorAndSizeState extends State<ColorAndSize> {
   int selectedColor = -1;
   int selectedSize = -1;
-  ConstantColors cc = ConstantColors();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -55,19 +55,19 @@ class _ColorAndSizeState extends State<ColorAndSize> {
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
                                 color: selectedSize == i
-                                    ? cc.primaryColor
+                                    ? primaryColor
                                     : Colors.white,
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                     color: selectedSize == i
                                         ? Colors.transparent
-                                        : cc.greyFive)),
+                                        : greyFive)),
                             child: Text(
                               "X",
                               style: TextStyle(
                                   color: selectedSize == i
                                       ? Colors.white
-                                      : cc.greyParagraph,
+                                      : greyParagraph,
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600),
                             ),
@@ -108,19 +108,19 @@ class _ColorAndSizeState extends State<ColorAndSize> {
                 //                 horizontal: 10, vertical: 2),
                 //             decoration: BoxDecoration(
                 //                 color: selectedColor == i
-                //                     ? cc.primaryColor
+                //                     ? primaryColor
                 //                     : Colors.white,
                 //                 borderRadius: BorderRadius.circular(7),
                 //                 border: Border.all(
                 //                     color: selectedColor == i
                 //                         ? Colors.transparent
-                //                         : cc.greyFive)),
+                //                         : greyFive)),
                 //             child: Text(
                 //               "Red",
                 //               style: TextStyle(
                 //                   color: selectedColor == i
                 //                       ? Colors.white
-                //                       : cc.greyParagraph,
+                //                       : greyParagraph,
                 //                   fontSize: 13,
                 //                   fontWeight: FontWeight.w600),
                 //             ),

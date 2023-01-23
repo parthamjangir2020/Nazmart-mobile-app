@@ -38,7 +38,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Listener(
@@ -71,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                       //Name ============>
-                      CommonHelper().labelCommon("Email or username"),
+                      labelCommon("Email or username"),
 
                       CustomInput(
                         controller: emailController,
@@ -90,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                       //password ===========>
-                      CommonHelper().labelCommon("Password"),
+                      labelCommon("Password"),
 
                       Container(
                           margin: const EdgeInsets.only(bottom: 19),
@@ -141,22 +140,22 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: cc.inputFieldBorderColor),
+                                        color: inputFieldBorderColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor),
+                                    borderSide:
+                                        const BorderSide(color: primaryColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius),
-                                    borderSide: BorderSide(
-                                        color: ConstantColors().warningColor)),
+                                    borderSide:
+                                        const BorderSide(color: warningColor)),
                                 focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor),
+                                    borderSide:
+                                        const BorderSide(color: primaryColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 hintText: 'Enter password',
@@ -172,15 +171,15 @@ class _LoginPageState extends State<LoginPage> {
                           Expanded(
                             child: CheckboxListTile(
                               checkColor: Colors.white,
-                              activeColor: ConstantColors().primaryColor,
+                              activeColor: primaryColor,
                               contentPadding: const EdgeInsets.all(0),
                               title: Container(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5),
-                                child: Text(
+                                child: const Text(
                                   "Remember me",
                                   style: TextStyle(
-                                      color: ConstantColors().greyFour,
+                                      color: greyFour,
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14),
                                 ),
@@ -211,10 +210,10 @@ class _LoginPageState extends State<LoginPage> {
                               alignment: Alignment.center,
                               width: 122,
                               height: 40,
-                              child: Text(
+                              child: const Text(
                                 "Forgot Password?",
                                 style: TextStyle(
-                                    color: cc.primaryColor,
+                                    color: primaryColor,
                                     fontSize: 13,
                                     fontWeight: FontWeight.w600),
                               ),
@@ -229,8 +228,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                       Consumer<LoginService>(
-                        builder: (context, provider, child) => CommonHelper()
-                            .buttonPrimary("Login", () {
+                        builder: (context, provider, child) =>
+                            buttonPrimary("Login", () {
                           // if (provider.isloading == false) {
                           //   if (_formKey.currentState!.validate()) {
                           //     provider.login(
@@ -275,10 +274,10 @@ class _LoginPageState extends State<LoginPage> {
                                                     const SignupPage()));
                                       },
                                     text: 'Register',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14,
-                                      color: cc.primaryColor,
+                                      color: primaryColor,
                                     )),
                               ],
                             ),
@@ -298,7 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                       //           height: 1,
                       //           margin: const EdgeInsets.only(top: 12),
                       //           width: double.infinity,
-                      //           color: cc.borderColor,
+                      //           color: borderColor,
                       //         ),
 
                       //         //or
@@ -315,13 +314,13 @@ class _LoginPageState extends State<LoginPage> {
                       //               decoration: BoxDecoration(
                       //                   color: Colors.white,
                       //                   border:
-                      //                       Border.all(color: cc.borderColor),
+                      //                       Border.all(color: borderColor),
                       //                   borderRadius:
                       //                       BorderRadius.circular(30)),
                       //               child: Text(
                       //                 "OR",
                       //                 style: TextStyle(
-                      //                     color: cc.greyParagraph,
+                      //                     color: greyParagraph,
                       //                     fontSize: 16,
                       //                     fontWeight: FontWeight.w600),
                       //               ),

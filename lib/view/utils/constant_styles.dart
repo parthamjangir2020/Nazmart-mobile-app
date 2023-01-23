@@ -5,34 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
-ConstantColors cc = ConstantColors();
-
 double screenPadHorizontal = 25;
 
 sizedboxCustom(double value) {
   return SizedBox(
     height: value,
-  );
-}
-
-dividerCommon() {
-  return Divider(
-    thickness: 1,
-    height: 2,
-    color: cc.borderColor,
-  );
-}
-
-paragraphCommon(String title, {textAlign = TextAlign.left, color}) {
-  return Text(
-    title,
-    textAlign: textAlign,
-    style: TextStyle(
-      color: color ?? cc.greyParagraph,
-      height: 1.5,
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-    ),
   );
 }
 
@@ -60,7 +37,7 @@ detailsRow(String title, int quantity, String price) {
         child: Text(
           title,
           style: TextStyle(
-            color: cc.greyParagraph,
+            color: greyParagraph,
             fontSize: 14,
             fontWeight: FontWeight.w400,
           ),
@@ -73,7 +50,7 @@ detailsRow(String title, int quantity, String price) {
                 'x$quantity',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: cc.greyFour,
+                  color: greyFour,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -86,7 +63,7 @@ detailsRow(String title, int quantity, String price) {
           maxLines: 1,
           textAlign: TextAlign.right,
           style: TextStyle(
-            color: cc.greyFour,
+            color: greyFour,
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
@@ -100,7 +77,7 @@ paragraphStyleTitle(String title) {
   return Text(
     title,
     style: TextStyle(
-      color: cc.greyFour,
+      color: greyFour,
       fontSize: 13,
     ),
   );
@@ -131,7 +108,7 @@ bRow(String icon, String title, String text, {bool lastItem = false}) {
               Text(
                 title,
                 style: TextStyle(
-                  color: cc.greyFour,
+                  color: greyFour,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
@@ -143,7 +120,7 @@ bRow(String icon, String title, String text, {bool lastItem = false}) {
             child: Text(
               text,
               style: TextStyle(
-                color: cc.greyFour,
+                color: greyFour,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
@@ -154,7 +131,7 @@ bRow(String icon, String title, String text, {bool lastItem = false}) {
       lastItem == false
           ? Container(
               margin: const EdgeInsets.symmetric(vertical: 14),
-              child: CommonHelper().dividerCommon(),
+              child: dividerCommon(),
             )
           : Container()
     ],
@@ -178,13 +155,11 @@ capsule(String capsuleText) {
 }
 
 getCapsuleColor(String status) {
-  ConstantColors cc = ConstantColors();
-
   if (status.toLowerCase() == 'pending') {
     return const Color(0xff5463FF);
   } else if (status.toLowerCase() == 'cancel') {
     return Colors.red;
   } else {
-    return cc.primaryColor;
+    return primaryColor;
   }
 }

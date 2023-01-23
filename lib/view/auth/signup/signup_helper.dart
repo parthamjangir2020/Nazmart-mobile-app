@@ -5,7 +5,6 @@ import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 class SignupHelper {
-  ConstantColors cc = ConstantColors();
   haveAccount(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +26,7 @@ class SignupHelper {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
-                    color: cc.primaryColor,
+                    color: primaryColor,
                   )),
             ],
           ),
@@ -44,16 +43,16 @@ class SignupHelper {
         fillColor: Colors.transparent,
 
         // hintTextDirection: TextDirection.rtl,
-        labelStyle: TextStyle(color: cc.greyFour, fontSize: 14),
+        labelStyle: TextStyle(color: greyFour, fontSize: 14),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: cc.inputFieldBorderColor),
+            borderSide: BorderSide(color: inputFieldBorderColor),
             borderRadius: BorderRadius.circular(globalBorderRadius)),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ConstantColors().primaryColor)),
-        errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ConstantColors().warningColor)),
-        focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ConstantColors().primaryColor)),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: primaryColor)),
+        errorBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: warningColor)),
+        focusedErrorBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: primaryColor)),
         hintText: 'Enter phone number',
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 8, vertical: 18));

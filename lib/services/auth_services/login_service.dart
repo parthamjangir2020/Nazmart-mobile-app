@@ -47,7 +47,7 @@ class LoginService with ChangeNotifier {
       if (response.statusCode == 200) {
         // if (isFromLoginPage) {
         //   OthersHelper()
-        //       .showToast("Login successful", ConstantColors().successColor);
+        //       .showToast("Login successful", successColor);
         // }
         setLoadingFalse();
 
@@ -77,8 +77,7 @@ class LoginService with ChangeNotifier {
         print(response.body);
         //Login unsuccessful ==========>
         if (isFromLoginPage) {
-          OthersHelper().showToast(
-              "Invalid Email or Password", ConstantColors().warningColor);
+          OthersHelper().showToast("Invalid Email or Password", warningColor);
         }
         setLoadingFalse();
         return false;

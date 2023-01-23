@@ -20,7 +20,7 @@ class EmailNameFields extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //Name ============>
-        CommonHelper().labelCommon("Full name"),
+        labelCommon("Full name"),
 
         CustomInput(
           controller: fullNameController,
@@ -36,7 +36,7 @@ class EmailNameFields extends StatelessWidget {
         ),
 
         //User name ============>
-        CommonHelper().labelCommon("Username"),
+        labelCommon("Username"),
 
         CustomInput(
           controller: userNameController,
@@ -52,7 +52,7 @@ class EmailNameFields extends StatelessWidget {
         ),
 
         //Email ============>
-        CommonHelper().labelCommon("Email"),
+        labelCommon("Email"),
 
         CustomInput(
           controller: emailController,

@@ -10,7 +10,6 @@ class CartIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cc = ConstantColors();
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -35,8 +34,8 @@ class CartIcon extends StatelessWidget {
               right: -10,
               child: Container(
                 padding: const EdgeInsets.all(7),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: cc.primaryColor),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: primaryColor),
                 child: const Text(
                   '1',
                   style: TextStyle(color: Colors.white, fontSize: 13),

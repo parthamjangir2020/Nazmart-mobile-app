@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
-import 'package:no_name_ecommerce/view/search/components/product_filter.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -33,10 +30,9 @@ class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('All featured products', context, () {
+      appBar: appbarCommon('All featured products', context, () {
         Navigator.pop(context);
       }),
       body: SmartRefresher(
@@ -122,7 +118,7 @@ class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
                     //         alignment: Alignment.center,
                     //         margin: const EdgeInsets.only(top: 60),
                     //         child:
-                    //             OthersHelper().showLoading(cc.primaryColor),
+                    //             OthersHelper().showLoading(primaryColor),
                     //       )
                     // : Container(
                     //     alignment: Alignment.center,

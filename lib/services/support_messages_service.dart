@@ -38,8 +38,7 @@ class SupportMessagesService with ChangeNotifier {
 
   // final ImagePicker _picker = ImagePicker();
   Future pickFile() async {
-    OthersHelper()
-        .showToast('Only zip file is supported', ConstantColors().primaryColor);
+    OthersHelper().showToast('Only zip file is supported', primaryColor);
 
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.custom, allowedExtensions: ['zip']);

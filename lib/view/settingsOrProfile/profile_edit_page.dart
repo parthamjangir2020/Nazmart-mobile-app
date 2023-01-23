@@ -75,11 +75,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
-
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('Edit profile', context, () {
+      appBar: appbarCommon('Edit profile', context, () {
         Provider.of<ProfileEditService>(context, listen: false).setDefault();
         Navigator.pop(context);
       }, centerTitle: false),
@@ -115,7 +113,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: cc.primaryColor),
+                                color: primaryColor),
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 13),
                             child: Row(
@@ -136,7 +134,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
                       sizedboxCustom(25),
                       //Name ============>
-                      CommonHelper().labelCommon("Full name"),
+                      labelCommon("Full name"),
 
                       CustomInput(
                         controller: fullNameController,
@@ -151,7 +149,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         textInputAction: TextInputAction.next,
                       ),
 
-                      CommonHelper().labelCommon("Email"),
+                      labelCommon("Email"),
                       CustomInput(
                         controller: emailController,
                         validation: (value) {
@@ -166,7 +164,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       ),
 
                       //Phone
-                      CommonHelper().labelCommon("Phone"),
+                      labelCommon("Phone"),
 
                       IntlPhoneField(
                         controller: phoneController,
@@ -183,7 +181,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
                       // Zip ======>
                       sizedboxCustom(18),
-                      CommonHelper().labelCommon("Zipcode"),
+                      labelCommon("Zipcode"),
                       CustomInput(
                         controller: zipCodeController,
                         validation: (value) {
@@ -198,7 +196,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       ),
 
                       // Address ======>
-                      CommonHelper().labelCommon("Address"),
+                      labelCommon("Address"),
                       CustomInput(
                         controller: addressController,
                         validation: (value) {
@@ -215,7 +213,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         height: 8,
                       ),
 
-                      CommonHelper().buttonPrimary('Save', () async {
+                      buttonPrimary('Save', () async {
                         if (provider.isloading == false) {
                           showTopSnackBar(
                               context,

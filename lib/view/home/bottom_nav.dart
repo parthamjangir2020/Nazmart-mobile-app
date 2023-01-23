@@ -12,7 +12,6 @@ class BottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return SizedBox(
       height: isIos ? 90 : 70,
       child: BottomNavigationBar(
@@ -20,8 +19,8 @@ class BottomNav extends StatelessWidget {
         showSelectedLabels: true,
         showUnselectedLabels: true,
         selectedLabelStyle: const TextStyle(fontSize: 12),
-        selectedItemColor: ConstantColors().primaryColor,
-        unselectedItemColor: ConstantColors().greyFour,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: greyFour,
         onTap: onTabTapped, // new
         currentIndex: currentIndex, // new
         items: [
@@ -29,7 +28,7 @@ class BottomNav extends StatelessWidget {
             icon: Container(
               margin: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset('assets/svg/home-icon.svg',
-                  color: currentIndex == 0 ? cc.primaryColor : cc.greyFour,
+                  color: currentIndex == 0 ? primaryColor : greyFour,
                   semanticsLabel: 'Acme Logo'),
             ),
             label: 'Home',
@@ -38,7 +37,7 @@ class BottomNav extends StatelessWidget {
             icon: Container(
               margin: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset('assets/svg/orders-icon.svg',
-                  color: currentIndex == 1 ? cc.primaryColor : cc.greyFour,
+                  color: currentIndex == 1 ? primaryColor : greyFour,
                   semanticsLabel: 'Acme Logo'),
             ),
             label: 'Orders',
@@ -47,7 +46,7 @@ class BottomNav extends StatelessWidget {
             icon: Container(
               margin: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset('assets/svg/saved-icon.svg',
-                  color: currentIndex == 2 ? cc.primaryColor : cc.greyFour,
+                  color: currentIndex == 2 ? primaryColor : greyFour,
                   semanticsLabel: 'Acme Logo'),
             ),
             label: 'Saved',
@@ -56,7 +55,7 @@ class BottomNav extends StatelessWidget {
             icon: Container(
               margin: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset('assets/svg/search-icon.svg',
-                  color: currentIndex == 3 ? cc.primaryColor : cc.greyFour,
+                  color: currentIndex == 3 ? primaryColor : greyFour,
                   semanticsLabel: 'Acme Logo'),
             ),
             label: 'Search',
@@ -65,7 +64,7 @@ class BottomNav extends StatelessWidget {
             icon: Container(
               margin: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset('assets/svg/settings-icon.svg',
-                  color: currentIndex == 4 ? cc.primaryColor : cc.greyFour,
+                  color: currentIndex == 4 ? primaryColor : greyFour,
                   semanticsLabel: 'Acme Logo'),
             ),
             label: 'Settings',

@@ -16,10 +16,10 @@ class OrderSuccessPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var orderId =
         Provider.of<PlaceOrderService>(context, listen: false).orderId;
-    ConstantColors cc = ConstantColors();
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('', context, () {
+      appBar: appbarCommon('', context, () {
         Provider.of<BottomNavService>(context, listen: false)
             .setCurrentIndex(0);
         Navigator.pop(context);
@@ -40,7 +40,7 @@ class OrderSuccessPage extends StatelessWidget {
               Text(
                 'Order successful!',
                 style: TextStyle(
-                    color: cc.greyPrimary,
+                    color: greyPrimary,
                     fontSize: 24,
                     fontWeight: FontWeight.w600),
               ),
@@ -51,13 +51,12 @@ class OrderSuccessPage extends StatelessWidget {
                   text:
                       'Your order has been successfully Placed!  Your order ID is  ',
                   style: TextStyle(
-                      color: cc.greyParagraph, fontSize: 15, height: 1.4),
+                      color: greyParagraph, fontSize: 15, height: 1.4),
                   children: <TextSpan>[
                     TextSpan(
                         text: '#$orderId',
                         style: TextStyle(
-                            color: cc.primaryColor,
-                            fontWeight: FontWeight.bold)),
+                            color: primaryColor, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
@@ -70,7 +69,7 @@ class OrderSuccessPage extends StatelessWidget {
           Expanded(
               child: Container(
             margin: const EdgeInsets.only(left: 20, bottom: 20),
-            child: CommonHelper().borderButtonPrimary('Back to home', () {
+            child: borderButtonPrimary('Back to home', () {
               Provider.of<BottomNavService>(context, listen: false)
                   .setCurrentIndex(0);
 
@@ -85,7 +84,7 @@ class OrderSuccessPage extends StatelessWidget {
           Expanded(
               child: Container(
             margin: const EdgeInsets.only(right: 20, bottom: 20),
-            child: CommonHelper().buttonPrimary('See order details', () {
+            child: buttonPrimary('See order details', () {
               // Provider.of<OrderDetailsService>(context, listen: false)
               //     .fetchOrderDetails(orderId);
               // Navigator.push(

@@ -37,10 +37,9 @@ class LoginSlider extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CommonHelper().titleCommon('Welcome,',
+              titleCommon('Welcome,',
                   fontsize: 18, fontweight: FontWeight.w600),
-              CommonHelper().titleCommon(title,
-                  fontsize: 20, fontweight: FontWeight.w600),
+              titleCommon(title, fontsize: 20, fontweight: FontWeight.w600),
             ],
           )
         ],

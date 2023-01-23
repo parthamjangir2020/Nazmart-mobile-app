@@ -38,7 +38,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  final cc = ConstantColors();
+
   bool keepLoggedIn = true;
 
   @override
@@ -50,7 +50,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Phone number field
-            CommonHelper().labelCommon("Phone"),
+            labelCommon("Phone"),
             Consumer<RtlService>(
               builder: (context, rtlP, child) => IntlPhoneField(
                 controller: widget.phoneController,
@@ -67,7 +67,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
             ),
 
             //New password =========================>
-            CommonHelper().labelCommon("Password"),
+            labelCommon("Password"),
 
             Container(
                 margin: const EdgeInsets.only(bottom: 19),
@@ -116,19 +116,15 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                         },
                       ),
                       enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: cc.inputFieldBorderColor),
+                          borderSide: BorderSide(color: inputFieldBorderColor),
                           borderRadius:
                               BorderRadius.circular(globalBorderRadius)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: ConstantColors().primaryColor)),
+                          borderSide: BorderSide(color: primaryColor)),
                       errorBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: ConstantColors().warningColor)),
+                          borderSide: BorderSide(color: warningColor)),
                       focusedErrorBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: ConstantColors().primaryColor)),
+                          borderSide: BorderSide(color: primaryColor)),
                       hintText: 'Enter password',
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 18)),
@@ -138,7 +134,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
               height: 5,
             ),
             //Confirm New password =========================>
-            CommonHelper().labelCommon("Confirm Password"),
+            labelCommon("Confirm Password"),
 
             Container(
                 margin: const EdgeInsets.only(bottom: 19),
@@ -188,19 +184,15 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                         },
                       ),
                       enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: cc.inputFieldBorderColor),
+                          borderSide: BorderSide(color: inputFieldBorderColor),
                           borderRadius:
                               BorderRadius.circular(globalBorderRadius)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: ConstantColors().primaryColor)),
+                          borderSide: BorderSide(color: primaryColor)),
                       errorBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: ConstantColors().warningColor)),
+                          borderSide: BorderSide(color: warningColor)),
                       focusedErrorBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: ConstantColors().primaryColor)),
+                          borderSide: BorderSide(color: primaryColor)),
                       hintText: 'Retype password',
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 18)),

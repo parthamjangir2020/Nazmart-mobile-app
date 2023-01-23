@@ -13,7 +13,6 @@ class SliderHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cc = ConstantColors();
     return Consumer<SliderService>(
         builder: (context, sliderProvider, child) =>
             //  sliderProvider
@@ -64,7 +63,7 @@ class SliderHome extends StatelessWidget {
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      color: cc.greyFour,
+                                      color: greyFour,
                                       fontSize: 19,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -79,7 +78,7 @@ class SliderHome extends StatelessWidget {
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    color: cc.greyFour,
+                                    color: greyFour,
                                     fontSize: 13,
                                   ),
                                 ),
@@ -89,7 +88,7 @@ class SliderHome extends StatelessWidget {
                               ),
                               ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    primary: cc.primaryColor,
+                                    primary: primaryColor,
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),

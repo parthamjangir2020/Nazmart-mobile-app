@@ -6,203 +6,201 @@ import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
 
-class CommonHelper {
-  ConstantColors cc = ConstantColors();
-  //common appbar
-  appbarCommon(String title, BuildContext context, VoidCallback pressed,
-      {bool hasBackButton = true, bool centerTitle = true}) {
-    return AppBar(
-      centerTitle: centerTitle ? true : false,
-      iconTheme: IconThemeData(color: cc.greyPrimary),
-      title: Text(
-        title,
-        style: TextStyle(
-            color: cc.greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
-      ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: hasBackButton
-          ? InkWell(
-              onTap: pressed,
-              child: Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: SvgPicture.asset(
-                  'assets/svg/arrow-back-circle.svg',
-                  height: 40,
-                ),
+//common appbar
+appbarCommon(String title, BuildContext context, VoidCallback pressed,
+    {bool hasBackButton = true, bool centerTitle = true}) {
+  return AppBar(
+    centerTitle: centerTitle ? true : false,
+    iconTheme: IconThemeData(color: greyPrimary),
+    title: Text(
+      title,
+      style: TextStyle(
+          color: greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
+    ),
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    leading: hasBackButton
+        ? InkWell(
+            onTap: pressed,
+            child: Container(
+              margin: const EdgeInsets.only(left: 20),
+              child: SvgPicture.asset(
+                'assets/svg/arrow-back-circle.svg',
+                height: 40,
               ),
-            )
-          : Container(),
-    );
-  }
+            ),
+          )
+        : Container(),
+  );
+}
 
-  labelCommon(String title) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 15),
+labelCommon(String title) {
+  return Container(
+    margin: const EdgeInsets.only(bottom: 15),
+    child: Text(
+      title,
+      style: TextStyle(
+        color: greyThree,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
+}
+
+//==========>
+greyButton(String title, {double verticalPadding = 20}) {
+  return Container(
+      width: double.infinity,
+      alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(vertical: verticalPadding),
+      decoration: BoxDecoration(
+          color: const Color(0xffEAECF0),
+          borderRadius: BorderRadius.circular(100)),
       child: Text(
         title,
-        style: TextStyle(
-          color: cc.greyThree,
+        style: const TextStyle(
+          color: Color(0xff667085),
           fontSize: 14,
-          fontWeight: FontWeight.w600,
         ),
-      ),
-    );
-  }
+      ));
+}
 
-  //==========>
-  greyButton(String title, {double verticalPadding = 20}) {
-    return Container(
+//common orange button =======>
+buttonPrimary(String title, VoidCallback pressed,
+    {isloading = false,
+    bgColor,
+    double paddingVertical = 18,
+    double borderRadius = 8,
+    double fontsize = 14,
+    Color fontColor = Colors.white}) {
+  return InkWell(
+    onTap: pressed,
+    child: Container(
         width: double.infinity,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: verticalPadding),
+        padding: EdgeInsets.symmetric(vertical: paddingVertical),
         decoration: BoxDecoration(
-            color: const Color(0xffEAECF0),
-            borderRadius: BorderRadius.circular(100)),
+            color: bgColor ?? primaryColor,
+            borderRadius: BorderRadius.circular(borderRadius)),
+        child: isloading == false
+            ? Text(
+                title,
+                style: TextStyle(
+                  color: fontColor,
+                  fontSize: fontsize,
+                ),
+              )
+            : OthersHelper().showLoading(Colors.white)),
+  );
+}
+
+borderButtonPrimary(
+  String title,
+  VoidCallback pressed, {
+  double paddingVertical = 17,
+  double fontsize = 14,
+  double borderRadius = 8,
+  Color color = Colors.grey,
+  Color borderColor = Colors.grey,
+}) {
+  return InkWell(
+    onTap: pressed,
+    child: Container(
+        width: double.infinity,
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(vertical: paddingVertical),
+        decoration: BoxDecoration(
+            border: Border.all(color: borderColor),
+            borderRadius: BorderRadius.circular(borderRadius)),
         child: Text(
           title,
-          style: const TextStyle(
-            color: Color(0xff667085),
-            fontSize: 14,
+          style: TextStyle(
+            color: color,
+            fontSize: fontsize,
           ),
-        ));
-  }
+        )),
+  );
+}
 
-  //common orange button =======>
-  buttonPrimary(String title, VoidCallback pressed,
-      {isloading = false,
-      bgColor,
-      double paddingVertical = 18,
-      double borderRadius = 8,
-      double fontsize = 14,
-      Color fontColor = Colors.white}) {
-    return InkWell(
-      onTap: pressed,
-      child: Container(
-          width: double.infinity,
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(vertical: paddingVertical),
-          decoration: BoxDecoration(
-              color: bgColor ?? cc.primaryColor,
-              borderRadius: BorderRadius.circular(borderRadius)),
-          child: isloading == false
-              ? Text(
-                  title,
-                  style: TextStyle(
-                    color: fontColor,
-                    fontSize: fontsize,
-                  ),
-                )
-              : OthersHelper().showLoading(Colors.white)),
-    );
-  }
-
-  borderButtonPrimary(
-    String title,
-    VoidCallback pressed, {
-    double paddingVertical = 17,
+paragraphCommon(String title,
+    {TextAlign textAlign = TextAlign.center,
     double fontsize = 14,
-    double borderRadius = 8,
-    Color color = Colors.grey,
-    Color borderColor = Colors.grey,
-  }) {
-    return InkWell(
-      onTap: pressed,
-      child: Container(
-          width: double.infinity,
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(vertical: paddingVertical),
-          decoration: BoxDecoration(
-              border: Border.all(color: borderColor),
-              borderRadius: BorderRadius.circular(borderRadius)),
-          child: Text(
-            title,
-            style: TextStyle(
-              color: color,
-              fontSize: fontsize,
-            ),
-          )),
-    );
-  }
+    fontweight = FontWeight.w400,
+    color}) {
+  return Text(
+    title,
+    textAlign: textAlign,
+    style: TextStyle(
+      color: color ?? greyParagraph,
+      height: 1.4,
+      fontSize: fontsize,
+      fontWeight: fontweight,
+    ),
+  );
+}
 
-  paragraphCommon(String title,
-      {TextAlign textAlign = TextAlign.center,
-      double fontsize = 14,
-      fontweight = FontWeight.w400}) {
-    return Text(
-      title,
-      textAlign: textAlign,
-      style: TextStyle(
-        color: cc.greyParagraph,
-        height: 1.4,
-        fontSize: fontsize,
-        fontWeight: fontweight,
-      ),
-    );
-  }
+titleCommon(String title,
+    {double fontsize = 18, fontweight = FontWeight.bold}) {
+  return Text(
+    title,
+    style: TextStyle(
+        color: greyPrimary, fontSize: fontsize, fontWeight: fontweight),
+  );
+}
 
-  titleCommon(String title,
-      {double fontsize = 18, fontweight = FontWeight.bold}) {
-    return Text(
-      title,
-      style: TextStyle(
-          color: cc.greyPrimary, fontSize: fontsize, fontWeight: fontweight),
-    );
-  }
+dividerCommon() {
+  return Divider(
+    thickness: 1,
+    height: 2,
+    color: borderColor,
+  );
+}
 
-  dividerCommon() {
-    return Divider(
-      thickness: 1,
-      height: 2,
-      color: cc.borderColor,
-    );
-  }
+checkCircle() {
+  return Container(
+    padding: const EdgeInsets.all(3),
+    decoration: BoxDecoration(shape: BoxShape.circle, color: primaryColor),
+    child: const Icon(
+      Icons.check,
+      size: 13,
+      color: Colors.white,
+    ),
+  );
+}
 
-  checkCircle() {
-    return Container(
-      padding: const EdgeInsets.all(3),
-      child: const Icon(
-        Icons.check,
-        size: 13,
-        color: Colors.white,
-      ),
-      decoration: BoxDecoration(shape: BoxShape.circle, color: cc.primaryColor),
-    );
-  }
+profileImage(String imageLink, double height, double width) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(500),
+    child: CachedNetworkImage(
+      imageUrl: imageLink,
+      placeholder: (context, url) {
+        return Image.asset('assets/images/placeholder.png');
+      },
+      height: height,
+      width: width,
+      fit: BoxFit.cover,
+    ),
+  );
+}
 
-  profileImage(String imageLink, double height, double width) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(500),
-      child: CachedNetworkImage(
-        imageUrl: imageLink,
-        placeholder: (context, url) {
-          return Image.asset('assets/images/placeholder.png');
-        },
-        height: height,
-        width: width,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
-  //no order found
-  nothingfound(BuildContext context, String title) {
-    return Container(
-      alignment: Alignment.center,
-      height: screenHeight - 140,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.hourglass_empty,
-            color: cc.greyFour,
-          ),
-          sizedboxCustom(10),
-          Text(title),
-        ],
-      ),
-    );
-  }
+//no order found
+nothingfound(BuildContext context, String title) {
+  return Container(
+    alignment: Alignment.center,
+    height: screenHeight - 140,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.hourglass_empty,
+          color: greyFour,
+        ),
+        sizedboxCustom(10),
+        Text(title),
+      ],
+    ),
+  );
 }
 
 // snackbar

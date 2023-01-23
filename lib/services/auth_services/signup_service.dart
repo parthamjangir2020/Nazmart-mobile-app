@@ -78,8 +78,7 @@ class SignupService with ChangeNotifier {
       print(response.body);
       if (response.statusCode == 200) {
         print(response.statusCode);
-        OthersHelper().showToast(
-            "Registration successful", ConstantColors().successColor);
+        OthersHelper().showToast("Registration successful", successColor);
 
         print('token is ${jsonDecode(response.body)['token']}');
         String token = jsonDecode(response.body)['token'];

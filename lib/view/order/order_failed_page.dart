@@ -11,10 +11,9 @@ class OrderFailedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('', context, () {
+      appBar: appbarCommon('', context, () {
         Navigator.pop(context);
       }),
       body: Container(
@@ -33,7 +32,7 @@ class OrderFailedPage extends StatelessWidget {
               Text(
                 'Oops!',
                 style: TextStyle(
-                    color: cc.greyPrimary,
+                    color: greyPrimary,
                     fontSize: 24,
                     fontWeight: FontWeight.w600),
               ),
@@ -44,12 +43,12 @@ class OrderFailedPage extends StatelessWidget {
                   text:
                       'We’re getting problems with your payment methods and we couldn’t proceed your order',
                   style: TextStyle(
-                      color: cc.greyParagraph, fontSize: 15, height: 1.4),
+                      color: greyParagraph, fontSize: 15, height: 1.4),
                   // children: <TextSpan>[
                   //   // TextSpan(
                   //   //     text: '#2385489',
                   //   //     style: TextStyle(
-                  //   //         color: cc.primaryColor,
+                  //   //         color: primaryColor,
                   //   //         fontWeight: FontWeight.bold)),
                   // ],
                 ),
@@ -64,7 +63,7 @@ class OrderFailedPage extends StatelessWidget {
           right: 20,
           bottom: 20,
         ),
-        child: CommonHelper().buttonPrimary('Back to home', () {
+        child: buttonPrimary('Back to home', () {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => LandingPage()),
               (Route<dynamic> route) => false);

@@ -16,8 +16,6 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  final cc = ConstantColors();
-
   static const List<Widget> _widgetOptions = <Widget>[
     Homepage(),
     DiscoverPage(),
@@ -58,28 +56,28 @@ class _LandingPageState extends State<LandingPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 400),
-                tabBackgroundColor: cc.primaryColor,
+                tabBackgroundColor: primaryColor,
                 color: Colors.black,
-                tabs: [
+                tabs: const [
                   GButton(
                     icon: Icons.home_outlined,
                     text: 'Home',
-                    iconColor: cc.greyParagraph,
+                    iconColor: greyParagraph,
                   ),
                   GButton(
                     icon: Icons.album_outlined,
                     text: 'Discover',
-                    iconColor: cc.greyParagraph,
+                    iconColor: greyParagraph,
                   ),
                   GButton(
                     icon: Icons.favorite_outline,
                     text: 'Likes',
-                    iconColor: cc.greyParagraph,
+                    iconColor: greyParagraph,
                   ),
                   GButton(
                     icon: Icons.settings_outlined,
                     text: 'Settings',
-                    iconColor: cc.greyParagraph,
+                    iconColor: greyParagraph,
                   ),
                 ],
                 selectedIndex: bottomNavProvider.currentIndex,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/product/all_featured_products_page.dart';
+import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
@@ -34,12 +35,10 @@ class _CampaignProductsState extends State<CampaignProducts> {
     final remaining = DateTime.now().add(const Duration(days: 7));
     final timeLeft = remaining.difference(todayDate).inDays;
 
-    final cc = ConstantColors();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionTitle(
-          cc: cc,
           title: 'Campaign products',
           pressed: () {
             Navigator.push(
@@ -99,7 +98,7 @@ class _CampaignProductsState extends State<CampaignProducts> {
                                   right: 6,
                                   top: 6,
                                   child: Container(
-                                    color: cc.primaryColor,
+                                    color: primaryColor,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 3),
                                     child: paragraphCommon('74% off',
@@ -112,12 +111,12 @@ class _CampaignProductsState extends State<CampaignProducts> {
                             children: [
                               sizedboxCustom(10),
                               //Title
-                              Text(
+                              const Text(
                                 'This is title',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    color: cc.blackCustomColor,
+                                    color: blackCustomColor,
                                     fontSize: 14,
                                     height: 1.3,
                                     fontWeight: FontWeight.w600),
@@ -125,12 +124,12 @@ class _CampaignProductsState extends State<CampaignProducts> {
 
                               sizedboxCustom(5),
                               //Price
-                              Text(
+                              const Text(
                                 '\$200',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    color: cc.primaryColor,
+                                    color: primaryColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               ),
@@ -156,7 +155,7 @@ class _CampaignProductsState extends State<CampaignProducts> {
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(8),
-                                                color: cc.primaryColor),
+                                                color: primaryColor),
                                             child: TimerCard(
                                               i: i,
                                               time: time,

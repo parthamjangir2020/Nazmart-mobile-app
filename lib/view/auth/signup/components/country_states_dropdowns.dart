@@ -25,7 +25,6 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
     // Provider.of<CountryStatesService>(context, listen: false)
     //     .fetchCountries(context);
 
-    ConstantColors cc = ConstantColors();
     return Consumer<CountryStatesService>(
         builder: (context, provider, child) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,13 +35,13 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                 ),
 
                 // Country dropdown ===============>
-                CommonHelper().labelCommon("Choose country"),
+                labelCommon("Choose country"),
                 provider.countryDropdownList.isNotEmpty
                     ? Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
-                          border: Border.all(color: cc.greyFive),
+                          border: Border.all(color: greyFive),
                           borderRadius:
                               BorderRadius.circular(globalBorderRadius),
                         ),
@@ -52,10 +51,10 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                             // isExpanded: true,
                             value: provider.selectedCountry,
                             icon: Icon(Icons.keyboard_arrow_down_rounded,
-                                color: cc.greyFour),
+                                color: greyFour),
                             iconSize: 26,
                             elevation: 17,
-                            style: TextStyle(color: cc.greyFour),
+                            style: TextStyle(color: greyFour),
                             onChanged: (newValue) {
                               provider.setCountryValue(newValue);
 
@@ -76,7 +75,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                                 child: Text(
                                   value,
                                   style: TextStyle(
-                                      color: cc.greyPrimary.withOpacity(.8)),
+                                      color: greyPrimary.withOpacity(.8)),
                                 ),
                               );
                             }).toList(),
@@ -85,20 +84,20 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [OthersHelper().showLoading(cc.primaryColor)],
+                        children: [OthersHelper().showLoading(primaryColor)],
                       ),
 
                 const SizedBox(
                   height: 22,
                 ),
                 // States dropdown ===============>
-                CommonHelper().labelCommon("Choose states"),
+                labelCommon("Choose states"),
                 provider.statesDropdownList.isNotEmpty
                     ? Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
-                          border: Border.all(color: cc.greyFive),
+                          border: Border.all(color: greyFive),
                           borderRadius:
                               BorderRadius.circular(globalBorderRadius),
                         ),
@@ -108,10 +107,10 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                             // isExpanded: true,
                             value: provider.selectedState,
                             icon: Icon(Icons.keyboard_arrow_down_rounded,
-                                color: cc.greyFour),
+                                color: greyFour),
                             iconSize: 26,
                             elevation: 17,
-                            style: TextStyle(color: cc.greyFour),
+                            style: TextStyle(color: greyFour),
                             onChanged: (newValue) {
                               provider.setStatesValue(newValue);
 
@@ -136,7 +135,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                                 child: Text(
                                   value,
                                   style: TextStyle(
-                                      color: cc.greyPrimary.withOpacity(.8)),
+                                      color: greyPrimary.withOpacity(.8)),
                                 ),
                               );
                             }).toList(),
@@ -145,7 +144,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [OthersHelper().showLoading(cc.primaryColor)],
+                        children: [OthersHelper().showLoading(primaryColor)],
                       ),
 
                 const SizedBox(
@@ -153,13 +152,13 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                 ),
 
                 // Area dropdown ===============>
-                CommonHelper().labelCommon("Choose area"),
+                labelCommon("Choose area"),
                 provider.areaDropdownList.isNotEmpty
                     ? Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
-                          border: Border.all(color: cc.greyFive),
+                          border: Border.all(color: greyFive),
                           borderRadius:
                               BorderRadius.circular(globalBorderRadius),
                         ),
@@ -169,10 +168,10 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                             // isExpanded: true,
                             value: provider.selectedArea,
                             icon: Icon(Icons.keyboard_arrow_down_rounded,
-                                color: cc.greyFour),
+                                color: greyFour),
                             iconSize: 26,
                             elevation: 17,
-                            style: TextStyle(color: cc.greyFour),
+                            style: TextStyle(color: greyFour),
                             onChanged: (newValue) {
                               provider.setAreaValue(newValue);
 
@@ -189,7 +188,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                                 child: Text(
                                   value,
                                   style: TextStyle(
-                                      color: cc.greyPrimary.withOpacity(.8)),
+                                      color: greyPrimary.withOpacity(.8)),
                                 ),
                               );
                             }).toList(),
@@ -198,7 +197,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [OthersHelper().showLoading(cc.primaryColor)],
+                        children: [OthersHelper().showLoading(primaryColor)],
                       ),
               ],
             ));

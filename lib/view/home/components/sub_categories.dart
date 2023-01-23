@@ -18,7 +18,6 @@ class SubCategories extends StatefulWidget {
 
 class _SubCategoriesState extends State<SubCategories> {
   int selectedCategory = -1;
-  final cc = ConstantColors();
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +60,12 @@ class _SubCategoriesState extends State<SubCategories> {
                               ),
                               decoration: BoxDecoration(
                                   color: selectedCategory == i
-                                      ? cc.primaryColor
+                                      ? primaryColor
                                       : Colors.white,
                                   border: Border.all(
                                       color: selectedCategory == i
                                           ? Colors.transparent
-                                          : cc.borderColor),
+                                          : borderColor),
                                   borderRadius: BorderRadius.circular(100)),
                               child: Container(
                                 margin: const EdgeInsets.symmetric(
@@ -98,7 +97,7 @@ class _SubCategoriesState extends State<SubCategories> {
                                       style: TextStyle(
                                         color: selectedCategory == i
                                             ? Colors.white
-                                            : cc.greyParagraph,
+                                            : greyParagraph,
                                         fontSize: 14,
                                       ),
                                     ),

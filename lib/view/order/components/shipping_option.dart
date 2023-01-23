@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constant_styles.dart';
@@ -25,9 +26,9 @@ class ShippingOption extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           selectedShipping == i
-              ? Icon(
+              ? const Icon(
                   Icons.check_box,
-                  color: cc.primaryColor,
+                  color: primaryColor,
                 )
               : const Icon(Icons.check_box_outline_blank_outlined),
           const SizedBox(
@@ -40,8 +41,8 @@ class ShippingOption extends StatelessWidget {
                 Text(
                   dProvider.shippingCostDetails.shippingOptions[i].name +
                       " (${cP.currency}${dProvider.shippingCostDetails.shippingOptions[i].options.cost})",
-                  style: TextStyle(
-                    color: cc.greyFour,
+                  style: const TextStyle(
+                    color: greyFour,
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
                   ),
@@ -53,8 +54,8 @@ class ShippingOption extends StatelessWidget {
                           .settingPreset,
                       dProvider.shippingCostDetails.shippingOptions[i].options
                           .minimumOrderAmount),
-                  style: TextStyle(
-                      color: cc.greyParagraph, fontSize: 14, height: 1.4),
+                  style: const TextStyle(
+                      color: greyParagraph, fontSize: 14, height: 1.4),
                 ),
                 sizedboxCustom(20),
               ],

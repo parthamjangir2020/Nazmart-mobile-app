@@ -31,16 +31,15 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        iconTheme: IconThemeData(color: cc.greyPrimary),
+        iconTheme: IconThemeData(color: greyPrimary),
         title: Text(
           'Discover',
           style: TextStyle(
-              color: cc.greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
+              color: greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -60,7 +59,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     margin: const EdgeInsets.only(right: 25),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7),
-                        border: Border.all(color: cc.inputFieldBorderColor)),
+                        border: Border.all(color: inputFieldBorderColor)),
                     child: SvgPicture.asset(
                       'assets/svg/filter.svg',
                       height: 21,
@@ -153,7 +152,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     //         alignment: Alignment.center,
                     //         margin: const EdgeInsets.only(top: 60),
                     //         child:
-                    //             OthersHelper().showLoading(cc.primaryColor),
+                    //             OthersHelper().showLoading(primaryColor),
                     //       )
                     // : Container(
                     //     alignment: Alignment.center,

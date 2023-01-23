@@ -7,7 +7,6 @@ import 'package:no_name_ecommerce/view/search/components/search_bar.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
-import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -31,10 +30,9 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('Search', context, () {
+      appBar: appbarCommon('Search', context, () {
         Navigator.pop(context);
       }),
       body: SmartRefresher(
@@ -123,7 +121,7 @@ class _SearchPageState extends State<SearchPage> {
                     //         alignment: Alignment.center,
                     //         margin: const EdgeInsets.only(top: 60),
                     //         child:
-                    //             OthersHelper().showLoading(cc.primaryColor),
+                    //             OthersHelper().showLoading(primaryColor),
                     //       )
                     // : Container(
                     //     alignment: Alignment.center,

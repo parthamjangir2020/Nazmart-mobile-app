@@ -29,10 +29,9 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('All Categories', context, () {
+      appBar: appbarCommon('All Categories', context, () {
         Navigator.pop(context);
       }),
       body: SmartRefresher(
@@ -106,7 +105,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                                   const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  border: Border.all(color: cc.borderColor),
+                                  border: Border.all(color: borderColor),
                                   borderRadius: BorderRadius.circular(100)),
                               child: Container(
                                 margin: const EdgeInsets.symmetric(
@@ -138,7 +137,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        color: cc.greyParagraph,
+                                        color: greyParagraph,
                                         fontSize: 14,
                                       ),
                                     ),
@@ -152,7 +151,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                     //         alignment: Alignment.center,
                     //         margin: const EdgeInsets.only(top: 60),
                     //         child:
-                    //             OthersHelper().showLoading(cc.primaryColor),
+                    //             OthersHelper().showLoading(primaryColor),
                     //       )
                     // : Container(
                     //     alignment: Alignment.center,

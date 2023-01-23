@@ -13,7 +13,6 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     TextEditingController searchController = TextEditingController();
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -40,23 +39,19 @@ class SearchBar extends StatelessWidget {
                 decoration: InputDecoration(
                   suffixIcon: const Icon(Icons.search),
                   hintText: "Search",
-                  hintStyle: TextStyle(color: cc.greyPrimary.withOpacity(.8)),
+                  hintStyle: TextStyle(color: greyPrimary.withOpacity(.8)),
                   contentPadding: const EdgeInsets.fromLTRB(18, 15, 10, 15),
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: ConstantColors().inputFieldBorderColor),
+                      borderSide: BorderSide(color: inputFieldBorderColor),
                       borderRadius: BorderRadius.circular(7)),
                   focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: ConstantColors().primaryColor),
+                      borderSide: BorderSide(color: primaryColor),
                       borderRadius: BorderRadius.circular(7)),
                   errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(7),
-                      borderSide:
-                          BorderSide(color: ConstantColors().warningColor)),
+                      borderSide: BorderSide(color: warningColor)),
                   focusedErrorBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: ConstantColors().primaryColor),
+                      borderSide: BorderSide(color: primaryColor),
                       borderRadius: BorderRadius.circular(7)),
                 ),
               ),
@@ -74,7 +69,7 @@ class SearchBar extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(7),
-                      border: Border.all(color: cc.inputFieldBorderColor)),
+                      border: Border.all(color: inputFieldBorderColor)),
                   child: SvgPicture.asset(
                     'assets/svg/filter.svg',
                     height: 23,

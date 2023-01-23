@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 import '../../utils/constant_styles.dart';
 
@@ -7,12 +8,10 @@ class FreeShipOption extends StatelessWidget {
     Key? key,
     required this.selectedShipping,
     required this.dProvider,
-    required this.cc,
   }) : super(key: key);
 
   final int selectedShipping;
   final dProvider;
-  final cc;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +19,9 @@ class FreeShipOption extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         selectedShipping == -1
-            ? Icon(
+            ? const Icon(
                 Icons.check_box,
-                color: cc.primaryColor,
+                color: primaryColor,
               )
             : const Icon(Icons.check_box_outline_blank_outlined),
         const SizedBox(
@@ -33,8 +32,8 @@ class FreeShipOption extends StatelessWidget {
           children: [
             Text(
               dProvider.shippingCostDetails.defaultShipping.name,
-              style: TextStyle(
-                color: cc.greyFour,
+              style: const TextStyle(
+                color: greyFour,
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
               ),

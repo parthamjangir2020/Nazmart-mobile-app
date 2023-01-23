@@ -36,8 +36,6 @@ class _TicketChatPageState extends State<TicketChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -52,9 +50,9 @@ class _TicketChatPageState extends State<TicketChatPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios,
-                    color: cc.greyParagraph,
+                    color: greyParagraph,
                   ),
                 ),
                 const SizedBox(
@@ -94,7 +92,8 @@ class _TicketChatPageState extends State<TicketChatPage> {
                       ),
                       Text(
                         "#${widget.ticketId}",
-                        style: TextStyle(color: cc.primaryColor, fontSize: 13),
+                        style:
+                            const TextStyle(color: primaryColor, fontSize: 13),
                       ),
                     ],
                   ),
@@ -202,7 +201,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                                         ['type'] ==
                                                     "admin"
                                                 ? Colors.grey.shade200
-                                                : cc.primaryColor),
+                                                : primaryColor),
                                           ),
                                           padding: const EdgeInsets.all(16),
                                           //message =====>
@@ -238,7 +237,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                                               index]['type'] ==
                                                           "admin"
                                                       ? Colors.grey.shade200
-                                                      : cc.primaryColor),
+                                                      : primaryColor),
                                                 ),
                                                 child: provider.messagesList[
                                                                 index]
@@ -358,7 +357,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                         },
                       ),
                     )
-                  : OthersHelper().showLoading(cc.primaryColor),
+                  : OthersHelper().showLoading(primaryColor),
 
               //write message section======>
               Align(
@@ -376,7 +375,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                               height: 40,
                               width: 40,
                               decoration: BoxDecoration(
-                                  color: cc.primaryColor,
+                                  color: primaryColor,
                                   borderRadius: BorderRadius.circular(10)),
                               child: const Icon(
                                 Icons.file_copy,
@@ -434,6 +433,8 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                 'Please write a message first', Colors.black);
                           }
                         },
+                        backgroundColor: primaryColor,
+                        elevation: 0,
                         child: provider.sendLoading == false
                             ? const Icon(
                                 Icons.send,
@@ -448,8 +449,6 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                   strokeWidth: 1.5,
                                 ),
                               ),
-                        backgroundColor: cc.primaryColor,
-                        elevation: 0,
                       ),
                     ],
                   ),

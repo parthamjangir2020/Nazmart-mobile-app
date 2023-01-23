@@ -27,7 +27,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Listener(
       onPointerDown: (_) {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -69,7 +68,7 @@ class _HomepageState extends State<Homepage> {
                                 Text(
                                   '${asProvider.getString('Hi,')}',
                                   style: TextStyle(
-                                    color: cc.greyParagraph,
+                                    color: greyParagraph,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -79,7 +78,7 @@ class _HomepageState extends State<Homepage> {
                                 Text(
                                   'Saleheen',
                                   style: TextStyle(
-                                    color: cc.blackCustomColor,
+                                    color: blackCustomColor,
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -89,7 +88,7 @@ class _HomepageState extends State<Homepage> {
 
                             //profile image
                             // profileProvider.profileImage != null
-                            //     ? CommonHelper().profileImage(
+                            //     ? profileImage(
                             //         profileProvider
                             //             .profileImage,
                             //         52,

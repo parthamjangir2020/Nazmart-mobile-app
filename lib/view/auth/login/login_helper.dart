@@ -4,11 +4,10 @@ import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 class LoginHelper {
-  ConstantColors cc = ConstantColors();
   commonButton(String icon, String title, {isloading = false}) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: cc.greyFive),
+          border: Border.all(color: greyFive),
           borderRadius: BorderRadius.circular(globalBorderRadius)),
       alignment: Alignment.center,
       height: 50,
@@ -30,9 +29,9 @@ class LoginHelper {
           isloading == false
               ? Text(
                   title,
-                  style: TextStyle(color: cc.greyFour),
+                  style: TextStyle(color: greyFour),
                 )
-              : OthersHelper().showLoading(cc.primaryColor),
+              : OthersHelper().showLoading(primaryColor),
         ],
       ),
     );

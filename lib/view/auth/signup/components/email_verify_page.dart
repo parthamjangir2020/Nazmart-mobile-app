@@ -39,7 +39,6 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
   String currentText = "";
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Listener(
       onPointerDown: (_) {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -48,7 +47,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
         }
       },
       child: Scaffold(
-        appBar: CommonHelper().appbarCommon('Verify Email', context, () {
+        appBar: appbarCommon('Verify Email', context, () {
           Navigator.pop(context);
         }),
         body: Consumer<EmailVerifyService>(
@@ -68,11 +67,11 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                     ),
                   ),
                 ),
-                CommonHelper().titleCommon("Enter the 4 digit code"),
+                titleCommon("Enter the 4 digit code"),
                 const SizedBox(
                   height: 13,
                 ),
-                CommonHelper().paragraphCommon(
+                paragraphCommon(
                     'Enter the 4 digit code we sent to to your email in order verify your email',
                     textAlign: TextAlign.center),
                 const SizedBox(
@@ -86,7 +85,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                     obscureText: false,
                     animationType: AnimationType.fade,
                     showCursor: true,
-                    cursorColor: cc.greyFive,
+                    cursorColor: greyFive,
 
                     pinTheme: PinTheme(
                         shape: PinCodeFieldShape.box,
@@ -95,9 +94,9 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                         fieldWidth: 70,
                         activeFillColor: Colors.white,
                         borderWidth: 1.5,
-                        selectedColor: cc.primaryColor,
-                        activeColor: cc.primaryColor,
-                        inactiveColor: cc.greyFive),
+                        selectedColor: primaryColor,
+                        activeColor: primaryColor,
+                        inactiveColor: greyFive),
                     animationDuration: const Duration(milliseconds: 200),
                     // backgroundColor: Colors.white,
                     // enableActiveFill: true,
@@ -131,7 +130,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                     ? Container(
                         margin: const EdgeInsets.only(top: 15, bottom: 5),
                         alignment: Alignment.center,
-                        child: OthersHelper().showLoading(cc.primaryColor),
+                        child: OthersHelper().showLoading(primaryColor),
                       )
                     : Container(),
 
@@ -160,12 +159,12 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
-                                        color: cc.primaryColor,
+                                        color: primaryColor,
                                       )),
                                 ],
                               ),
                             )
-                          : OthersHelper().showLoading(cc.primaryColor),
+                          : OthersHelper().showLoading(primaryColor),
                     ],
                   ),
                 ),

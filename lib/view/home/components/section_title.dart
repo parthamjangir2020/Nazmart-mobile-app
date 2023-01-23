@@ -7,12 +7,10 @@ import '../../utils/constant_colors.dart';
 class SectionTitle extends StatelessWidget {
   const SectionTitle({
     Key? key,
-    required this.cc,
     required this.title,
     required this.pressed,
   }) : super(key: key);
 
-  final ConstantColors cc;
   final String title;
   final VoidCallback pressed;
 
@@ -23,8 +21,8 @@ class SectionTitle extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
-              color: cc.blackCustomColor,
+            style: const TextStyle(
+              color: blackCustomColor,
               fontSize: 17,
               fontWeight: FontWeight.bold,
             ),
@@ -39,8 +37,8 @@ class SectionTitle extends StatelessWidget {
                 children: [
                   Text(
                     asProvider.getString('See all'),
-                    style: TextStyle(
-                      color: cc.primaryColor,
+                    style: const TextStyle(
+                      color: primaryColor,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -48,9 +46,9 @@ class SectionTitle extends StatelessWidget {
                   const SizedBox(
                     width: 4,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios_rounded,
-                    color: cc.primaryColor,
+                    color: primaryColor,
                     size: 15,
                   )
                 ],

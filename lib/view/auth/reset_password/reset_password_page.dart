@@ -35,9 +35,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
-      appBar: CommonHelper().appbarCommon('Reset password', context, () {
+      appBar: appbarCommon('Reset password', context, () {
         Navigator.pop(context);
       }),
       backgroundColor: Colors.white,
@@ -65,11 +64,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       const SizedBox(
                         height: 33,
                       ),
-                      CommonHelper().titleCommon("Enter new password"),
+                      titleCommon("Enter new password"),
                       const SizedBox(
                         height: 13,
                       ),
-                      CommonHelper().paragraphCommon(
+                      paragraphCommon(
                           "Your new password should be different from previously used passwords",
                           textAlign: TextAlign.start),
 
@@ -78,7 +77,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       ),
 
 //New password =========================>
-                      CommonHelper().labelCommon("Enter new password"),
+                      labelCommon("Enter new password"),
 
                       Container(
                           margin: const EdgeInsets.only(bottom: 19),
@@ -130,23 +129,22 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ConstantColors()
-                                            .inputFieldBorderColor),
+                                        color: inputFieldBorderColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor),
+                                    borderSide:
+                                        const BorderSide(color: primaryColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius),
-                                    borderSide: BorderSide(
-                                        color: ConstantColors().warningColor)),
+                                    borderSide:
+                                        const BorderSide(color: warningColor)),
                                 focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor),
+                                    borderSide:
+                                        const BorderSide(color: primaryColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 hintText: 'New password',
@@ -155,7 +153,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           )),
 
                       //Repeat New password =========================>
-                      CommonHelper().labelCommon("Repeat new password"),
+                      labelCommon("Repeat new password"),
 
                       Container(
                           margin: const EdgeInsets.only(bottom: 19),
@@ -207,23 +205,22 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ConstantColors()
-                                            .inputFieldBorderColor),
+                                        color: inputFieldBorderColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor),
+                                    borderSide:
+                                        const BorderSide(color: primaryColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius),
-                                    borderSide: BorderSide(
-                                        color: ConstantColors().warningColor)),
+                                    borderSide:
+                                        const BorderSide(color: warningColor)),
                                 focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ConstantColors().primaryColor),
+                                    borderSide:
+                                        const BorderSide(color: primaryColor),
                                     borderRadius: BorderRadius.circular(
                                         globalBorderRadius)),
                                 hintText: 'Retype new password',
@@ -236,8 +233,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         height: 13,
                       ),
                       Consumer<ResetPasswordService>(
-                        builder: (context, provider, child) => CommonHelper()
-                            .buttonPrimary("Change password", () {
+                        builder: (context, provider, child) =>
+                            buttonPrimary("Change password", () {
                           if (provider.isloading == false) {
                             if (_formKey.currentState!.validate()) {
                               provider.resetPassword(

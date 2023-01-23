@@ -13,7 +13,6 @@ class IntroductionPage extends StatefulWidget {
 }
 
 class _IntroductionPageState extends State<IntroductionPage> {
-  ConstantColors cc = ConstantColors();
   int _selectedSlide = 0;
   final PageController _pageController = PageController();
 
@@ -63,7 +62,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                         Text(
                           IntroHelper().geTitle(i),
                           style: TextStyle(
-                              color: cc.greyPrimary,
+                              color: greyPrimary,
                               fontSize: 19,
                               fontWeight: FontWeight.bold),
                         ),
@@ -72,8 +71,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                         ),
 
                         // Subtitle =============>
-                        CommonHelper().paragraphCommon(
-                            IntroHelper().geSubTitle(i),
+                        paragraphCommon(IntroHelper().geSubTitle(i),
                             textAlign: TextAlign.center)
                       ],
                     ),
@@ -97,7 +95,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                   decoration: BoxDecoration(
                       border: Border.all(
                           color: _selectedSlide == i
-                              ? cc.primaryColor
+                              ? primaryColor
                               : Colors.transparent),
                       shape: BoxShape.circle),
                   child: Container(
@@ -105,7 +103,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                     width: 10,
                     decoration: BoxDecoration(
                         color: _selectedSlide == i
-                            ? cc.primaryColor
+                            ? primaryColor
                             : const Color(0xffD0D5DD),
                         shape: BoxShape.circle),
                   ),
@@ -132,12 +130,12 @@ class _IntroductionPageState extends State<IntroductionPage> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15, vertical: 16),
                     decoration: BoxDecoration(
-                        border: Border.all(color: cc.primaryColor, width: 1.5),
+                        border: Border.all(color: primaryColor, width: 1.5),
                         borderRadius: BorderRadius.circular(7)),
                     child: Text(
                       'Skip',
                       style: TextStyle(
-                          color: cc.primaryColor,
+                          color: primaryColor,
                           fontSize: 15,
                           fontWeight: FontWeight.w600),
                     ),
@@ -166,7 +164,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(vertical: 18),
                       decoration: BoxDecoration(
-                          color: cc.primaryColor,
+                          color: primaryColor,
                           borderRadius: BorderRadius.circular(8)),
                       child: const Text(
                         'Continue',

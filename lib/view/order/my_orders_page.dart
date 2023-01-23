@@ -10,10 +10,9 @@ class MyOrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonHelper().appbarCommon('My orders', context, () {
+      appBar: appbarCommon('My orders', context, () {
         Navigator.pop(context);
       }),
       body: SingleChildScrollView(
@@ -34,7 +33,7 @@ class MyOrdersPage extends StatelessWidget {
                           horizontal: 15, vertical: 18),
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(color: cc.borderColor),
+                          border: Border.all(color: borderColor),
                           borderRadius: BorderRadius.circular(10)),
                       child: Column(children: [
                         Row(
@@ -54,7 +53,7 @@ class MyOrdersPage extends StatelessWidget {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      color: cc.greyFour,
+                                      color: greyFour,
                                       // height: 2.2,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -77,7 +76,7 @@ class MyOrdersPage extends StatelessWidget {
                               horizontal: 20, vertical: 20),
                           decoration: BoxDecoration(
                               color: Colors.white,
-                              border: Border.all(color: cc.borderColor),
+                              border: Border.all(color: borderColor),
                               borderRadius: BorderRadius.circular(15)),
                           child: Column(
                             children: [
@@ -115,8 +114,7 @@ class MyOrdersPage extends StatelessWidget {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: TextStyle(
-                                                      color:
-                                                          cc.blackCustomColor,
+                                                      color: blackCustomColor,
                                                       fontSize: 13,
                                                       height: 1.4,
                                                       fontWeight:
@@ -134,7 +132,7 @@ class MyOrdersPage extends StatelessWidget {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: TextStyle(
-                                                      color: cc.primaryColor,
+                                                      color: primaryColor,
                                                       fontSize: 13,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -152,20 +150,19 @@ class MyOrdersPage extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           border:
-                                              Border.all(color: cc.borderColor),
+                                              Border.all(color: borderColor),
                                         ),
                                         child: Text(
                                           'x3',
-                                          style: TextStyle(
-                                              color: cc.greyParagraph),
+                                          style:
+                                              TextStyle(color: greyParagraph),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               sizedboxCustom(20),
-                              CommonHelper()
-                                  .greyButton('Details', verticalPadding: 14),
+                              greyButton('Details', verticalPadding: 14),
                             ],
                           ),
                         ),

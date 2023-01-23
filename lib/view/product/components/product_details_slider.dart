@@ -14,7 +14,7 @@ class ProductDetailsSlider extends StatefulWidget {
 class _ProductDetailsSliderState extends State<ProductDetailsSlider> {
   final PageController _pageController = PageController();
   int _selectedSlide = 0;
-  ConstantColors cc = ConstantColors();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,7 +62,7 @@ class _ProductDetailsSliderState extends State<ProductDetailsSlider> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         color: _selectedSlide == i
-                            ? cc.primaryColor // change color here to see active dot color
+                            ? primaryColor // change color here to see active dot color
                             : Colors.white,
                       ),
                       width: _selectedSlide == i ? 15 : 6,

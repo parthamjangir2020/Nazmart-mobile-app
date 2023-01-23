@@ -27,18 +27,14 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
-
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          iconTheme: IconThemeData(color: cc.greyPrimary),
+          iconTheme: IconThemeData(color: greyPrimary),
           title: Text(
             'Support tickets',
             style: TextStyle(
-                color: cc.greyPrimary,
-                fontSize: 16,
-                fontWeight: FontWeight.w600),
+                color: greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -74,7 +70,7 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                     alignment: Alignment.center,
                     // padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
-                        color: cc.primaryColor,
+                        color: primaryColor,
                         borderRadius: BorderRadius.circular(8)),
                     child: const AutoSizeText(
                       'Create',
@@ -149,7 +145,7 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15, vertical: 15),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: cc.borderColor),
+                                      border: Border.all(color: borderColor),
                                       borderRadius: BorderRadius.circular(5)),
                                   child: Column(
                                       crossAxisAlignment:
@@ -164,7 +160,7 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
-                                                color: cc.primaryColor,
+                                                color: primaryColor,
                                               ),
                                             ),
                                             // put the hamburger icon here
@@ -199,14 +195,14 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                                         const SizedBox(
                                           height: 7,
                                         ),
-                                        CommonHelper().titleCommon(
+                                        titleCommon(
                                             provider.ticketList[i]['subject']),
 
                                         //Divider
                                         Container(
                                           margin: const EdgeInsets.only(
                                               top: 17, bottom: 12),
-                                          child: CommonHelper().dividerCommon(),
+                                          child: dividerCommon(),
                                         ),
                                         //Capsules
                                         Row(
@@ -224,7 +220,7 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                           ],
                         ),
                       )
-                    : CommonHelper().nothingfound(context, "No ticket")),
+                    : nothingfound(context, "No ticket")),
           ),
         ));
   }

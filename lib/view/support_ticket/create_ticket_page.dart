@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/create_ticket_service.dart';
 import 'package:no_name_ecommerce/view/support_ticket/components/textarea_field.dart';
@@ -7,7 +5,6 @@ import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
-import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
 class CreateTicketPage extends StatefulWidget {
@@ -31,11 +28,9 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
-
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: CommonHelper().appbarCommon('Create ticket', context, () {
+        appBar: appbarCommon('Create ticket', context, () {
           Navigator.pop(context);
         }),
         body: Listener(
@@ -60,13 +55,13 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CommonHelper().labelCommon("Priority"),
+                            labelCommon("Priority"),
                             Container(
                               width: double.infinity,
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15),
                               decoration: BoxDecoration(
-                                border: Border.all(color: cc.greyFive),
+                                border: Border.all(color: greyFive),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: DropdownButtonHideUnderline(
@@ -75,10 +70,10 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                                   // isExpanded: true,
                                   value: provider.selectedPriority,
                                   icon: Icon(Icons.keyboard_arrow_down_rounded,
-                                      color: cc.greyFour),
+                                      color: greyFour),
                                   iconSize: 26,
                                   elevation: 17,
-                                  style: TextStyle(color: cc.greyFour),
+                                  style: TextStyle(color: greyFour),
                                   onChanged: (newValue) {
                                     provider.setPriorityValue(newValue);
 
@@ -95,8 +90,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                                       child: Text(
                                         value,
                                         style: TextStyle(
-                                            color:
-                                                cc.greyPrimary.withOpacity(.8)),
+                                            color: greyPrimary.withOpacity(.8)),
                                       ),
                                     );
                                   }).toList(),
@@ -109,7 +103,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                         sizedboxCustom(20),
 
                         //================>
-                        CommonHelper().labelCommon("Title"),
+                        labelCommon("Title"),
                         CustomInput(
                           controller: titleController,
                           validation: (value) {
@@ -125,7 +119,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                         ),
 
                         //================>
-                        CommonHelper().labelCommon("Subject"),
+                        labelCommon("Subject"),
                         CustomInput(
                           controller: subjectController,
                           validation: (value) {
@@ -143,7 +137,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                         const SizedBox(
                           height: 7,
                         ),
-                        CommonHelper().labelCommon("Description"),
+                        labelCommon("Description"),
                         TextareaField(
                           hintText: 'Describe your problem',
                           notesController: descController,
@@ -154,7 +148,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                         const SizedBox(
                           height: 30,
                         ),
-                        CommonHelper().buttonPrimary('Create ticket', () {
+                        buttonPrimary('Create ticket', () {
                           if (_formKey.currentState!.validate()) {
                             if (provider.isLoading == false &&
                                 provider.hasError == false) {

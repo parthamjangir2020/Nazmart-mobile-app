@@ -67,17 +67,16 @@ class CustomInput extends StatelessWidget {
                     )
                   : null,
               enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: ConstantColors().inputFieldBorderColor),
+                  borderSide: BorderSide(color: inputFieldBorderColor),
                   borderRadius: BorderRadius.circular(borderRadius)),
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: ConstantColors().primaryColor),
+                  borderSide: BorderSide(color: primaryColor),
                   borderRadius: BorderRadius.circular(borderRadius)),
               errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(borderRadius),
-                  borderSide: BorderSide(color: ConstantColors().warningColor)),
+                  borderSide: BorderSide(color: warningColor)),
               focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: ConstantColors().primaryColor),
+                  borderSide: BorderSide(color: primaryColor),
                   borderRadius: BorderRadius.circular(borderRadius)),
               hintText: hintText,
               contentPadding: EdgeInsets.symmetric(

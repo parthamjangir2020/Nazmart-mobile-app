@@ -32,15 +32,13 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
   bool termsAgree = false;
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
-
     //fetch payment gateway list
     Provider.of<PaymentGatewayListService>(context, listen: false)
         .fetchGatewayList();
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: CommonHelper().appbarCommon('Payment', context, () {
+        appBar: appbarCommon('Payment', context, () {
           Navigator.pop(context);
         }),
         body: SingleChildScrollView(
@@ -63,17 +61,17 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                               //border
                               Container(
                                 margin: const EdgeInsets.only(bottom: 20),
-                                child: CommonHelper().dividerCommon(),
+                                child: dividerCommon(),
                               ),
 
                               //border
                               Container(
                                 margin:
                                     const EdgeInsets.only(top: 20, bottom: 20),
-                                child: CommonHelper().dividerCommon(),
+                                child: dividerCommon(),
                               ),
 
-                              CommonHelper().titleCommon(asProvider
+                              titleCommon(asProvider
                                   .getString('Choose payment method')),
 
                               //payment method card
@@ -113,8 +111,8 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                                 BorderRadius.circular(8),
                                             border: Border.all(
                                                 color: selectedMethod == index
-                                                    ? cc.primaryColor
-                                                    : cc.borderColor),
+                                                    ? primaryColor
+                                                    : borderColor),
                                           ),
                                           child: CachedNetworkImage(
                                             imageUrl:
@@ -131,8 +129,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                             ? Positioned(
                                                 right: -7,
                                                 top: -9,
-                                                child: CommonHelper()
-                                                    .checkCircle())
+                                                child: checkCircle())
                                             : Container()
                                       ],
                                     ),
@@ -155,7 +152,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                                       const SizedBox(
                                                         height: 30,
                                                       ),
-                                                      CommonHelper().buttonPrimary(
+                                                      buttonPrimary(
                                                           asProvider.getString(
                                                               'Choose images'),
                                                           () {
@@ -225,7 +222,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                               ),
                               CheckboxListTile(
                                 checkColor: Colors.white,
-                                activeColor: ConstantColors().primaryColor,
+                                activeColor: primaryColor,
                                 contentPadding: const EdgeInsets.all(0),
                                 title: Container(
                                   padding:
@@ -234,7 +231,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                     asProvider.getString(
                                         'I agree with terms and conditions'),
                                     style: TextStyle(
-                                        color: ConstantColors().greyFour,
+                                        color: greyFour,
                                         fontWeight: FontWeight.w400,
                                         fontSize: 14),
                                   ),
@@ -253,7 +250,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              CommonHelper().buttonPrimary(
+                              buttonPrimary(
                                   asProvider.getString('Pay & Confirm order'),
                                   () {
                                 if (termsAgree == false) {
@@ -291,7 +288,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                       )
                     : Container(
                         margin: const EdgeInsets.only(top: 60),
-                        child: OthersHelper().showLoading(cc.primaryColor),
+                        child: OthersHelper().showLoading(primaryColor),
                       ),
               ),
             ),

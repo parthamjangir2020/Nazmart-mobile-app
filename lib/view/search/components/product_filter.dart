@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/view/home/components/child_categories.dart';
 import 'package:no_name_ecommerce/view/home/components/sub_categories.dart';
 import 'package:no_name_ecommerce/view/product/components/color_size.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
 
@@ -31,7 +32,7 @@ class _ProductFilterState extends State<ProductFilter> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CommonHelper().titleCommon('Filter by:'),
+            titleCommon('Filter by:'),
             sizedboxCustom(20),
 
             //Category =====>
@@ -65,7 +66,7 @@ class _ProductFilterState extends State<ProductFilter> {
                 Text(
                   '\$${_currentRangeValues.start.round().toString()} - \$${_currentRangeValues.end.round().toString()}',
                   style: TextStyle(
-                      color: cc.greyFour,
+                      color: greyFour,
                       fontSize: 15,
                       fontWeight: FontWeight.w600),
                 )
@@ -80,7 +81,7 @@ class _ProductFilterState extends State<ProductFilter> {
 
                 max: 100,
                 // divisions: 5,
-                activeColor: cc.primaryColor,
+                activeColor: primaryColor,
                 inactiveColor: Colors.grey.withOpacity(.2),
                 labels: RangeLabels(
                   _currentRangeValues.start.round().toString(),
@@ -107,7 +108,7 @@ class _ProductFilterState extends State<ProductFilter> {
               itemCount: 5,
               itemPadding: const EdgeInsets.symmetric(horizontal: 3.0),
               itemSize: 30,
-              unratedColor: cc.greyFive,
+              unratedColor: greyFive,
               itemBuilder: (context, _) => const Icon(
                 Icons.star_rounded,
                 color: Colors.amber,
@@ -144,7 +145,7 @@ class _ProductFilterState extends State<ProductFilter> {
                   width: 20,
                 ),
                 Expanded(
-                  child: CommonHelper().buttonPrimary('Apply filter', () {
+                  child: buttonPrimary('Apply filter', () {
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute<void>(

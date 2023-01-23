@@ -15,8 +15,6 @@ class PaystackPaymentPage extends StatelessWidget {
   String? url;
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
-
     return Scaffold(
       appBar: AppBar(title: const Text('Paystack')),
       body: WillPopScope(
@@ -37,7 +35,7 @@ class PaystackPaymentPage extends StatelessWidget {
                       },
                       child: Text(
                         'Yes',
-                        style: TextStyle(color: cc.primaryColor),
+                        style: TextStyle(color: primaryColor),
                       ),
                     )
                   ],
@@ -106,7 +104,7 @@ class PaystackPaymentPage extends StatelessWidget {
                                 onPressed: () => Navigator.pop(context),
                                 child: Text(
                                   'Ok',
-                                  style: TextStyle(color: cc.primaryColor),
+                                  style: TextStyle(color: primaryColor),
                                 ),
                               )
                             ],
