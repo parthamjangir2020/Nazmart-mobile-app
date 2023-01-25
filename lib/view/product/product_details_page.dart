@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/view/product/components/description_tab.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_bottom.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_slider.dart';
 import 'package:no_name_ecommerce/view/product/components/review_tab.dart';
+import 'package:no_name_ecommerce/view/product/components/ship_return_tab.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -41,7 +42,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabSelection);
 
     // Provider.of<ServiceDetailsService>(context, listen: false)
@@ -269,6 +270,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                           tabs: const [
                             Tab(text: 'Description'),
                             Tab(text: 'Review'),
+                            Tab(text: 'Ship & return'),
                           ],
                         ),
 
@@ -276,7 +278,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                           margin: const EdgeInsets.only(top: 15, bottom: 30),
                           child: [
                             const DescriptionTab(),
-                            const ReviewTab()
+                            const ReviewTab(),
+                            const ShipReturnTab(),
                           ][_tabIndex],
                         ),
                       ],

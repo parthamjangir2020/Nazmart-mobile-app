@@ -4,6 +4,7 @@ import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/auth/reset_password/change_password_page.dart';
 import 'package:no_name_ecommerce/view/order/my_orders_page.dart';
+import 'package:no_name_ecommerce/view/refund_products/refund_products_list_page.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/settings_helper.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/profile_edit_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
@@ -198,6 +199,24 @@ class _SettingsPageState extends State<SettingsPage> {
                                     );
                                   }),
                                   dividerCommon(),
+
+                                  //
+
+                                  SettingsHelper().settingOption(
+                                      'assets/svg/message-circle.svg',
+                                      asProvider.getString("Refund products"),
+                                      () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            const RefundProductsListPage(),
+                                      ),
+                                    );
+                                  }),
+                                  dividerCommon(),
+
+                                  //
                                   SettingsHelper().settingOption(
                                       'assets/svg/message-circle.svg',
                                       asProvider.getString("Support Ticket"),

@@ -109,7 +109,7 @@ paragraphCommon(String title,
     {TextAlign textAlign = TextAlign.center,
     double fontsize = 14,
     fontweight = FontWeight.w400,
-    lineHeight = 1.4,
+    double lineHeight = 1.4,
     color}) {
   return Text(
     title,
