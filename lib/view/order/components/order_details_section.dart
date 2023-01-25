@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 
-class AmountDetails extends StatelessWidget {
-  const AmountDetails({Key? key}) : super(key: key);
+class OrderDetailsSection extends StatelessWidget {
+  const OrderDetailsSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class AmountDetails extends StatelessWidget {
               color: Colors.white, borderRadius: BorderRadius.circular(9)),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            titleCommon('Amount Details'),
+            titleCommon('Order Details'),
             const SizedBox(
               height: 25,
             ),
@@ -24,7 +24,7 @@ class AmountDetails extends StatelessWidget {
 
             bRow('Date', 'Jan 12, 2023'),
 
-            bRow('Subtota', '\$750'),
+            bRow('Subtotal', '\$750'),
 
             bRow('Coupon Discount', '\$0'),
 
