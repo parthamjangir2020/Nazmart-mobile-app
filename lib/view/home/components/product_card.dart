@@ -65,7 +65,7 @@ class ProductCard extends StatelessWidget {
                     title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: blackCustomColor,
                         fontSize: 14,
                         height: 1.3,
@@ -74,14 +74,26 @@ class ProductCard extends StatelessWidget {
 
                   sizedboxCustom(5),
                   //Price
-                  Text(
-                    '\$$price',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600),
+                  Row(
+                    children: [
+                      paragraphCommon('\$$price',
+                          lineHeight: 1.2,
+                          fontsize: 14,
+                          color: primaryColor,
+                          fontweight: FontWeight.w600),
+
+                      const SizedBox(
+                        width: 7,
+                      ),
+
+                      //old price
+                      Text(
+                        '\$$price',
+                        style: TextStyle(
+                            color: Colors.grey[600],
+                            decoration: TextDecoration.lineThrough),
+                      )
+                    ],
                   ),
 
                   sizedboxCustom(5),
@@ -89,34 +101,22 @@ class ProductCard extends StatelessWidget {
                   //Rating
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.star_rounded,
                         color: orangeColor,
                       ),
                       const SizedBox(
                         width: 2,
                       ),
-                      Text(
-                        '4.5',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: greyParagraph,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600),
-                      ),
+                      paragraphCommon('4.5',
+                          lineHeight: 1,
+                          fontsize: 13,
+                          color: greyParagraph,
+                          fontweight: FontWeight.bold),
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(
-                        '(29)',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: greyParagraph,
-                          fontSize: 13,
-                        ),
-                      ),
+                      paragraphCommon('(29)', lineHeight: 1, fontsize: 13)
                     ],
                   ),
                   sizedboxCustom(10),

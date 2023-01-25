@@ -135,9 +135,26 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                               ],
                             ),
 
-                            //Price
-                            titleCommon('\$200',
-                                color: primaryColor, fontsize: 16),
+                            Row(
+                              children: [
+                                //Price
+                                titleCommon('\$200',
+                                    color: primaryColor, fontsize: 16),
+
+                                const SizedBox(
+                                  width: 10,
+                                ),
+
+                                //old price
+                                Text(
+                                  '\$220',
+                                  style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 15,
+                                      decoration: TextDecoration.lineThrough),
+                                )
+                              ],
+                            ),
 
                             sizedboxCustom(5),
 
