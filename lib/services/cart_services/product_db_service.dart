@@ -1,14 +1,11 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/model/add_to_cart_model.dart';
 import 'package:no_name_ecommerce/model/favourite_product_model.dart';
-import 'package:no_name_ecommerce/services/cart_service.dart';
-import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
-import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ProductDbService {
@@ -23,7 +20,7 @@ class ProductDbService {
 
   _dbOnCreate(Database database, int version) async {
     await database.execute(
-        "CREATE TABLE cart_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId INTEGER, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL,totalWithQty REAL, qty INTEGER, color TEXT,size TEXT,colorPrice REAL,sizePrice REAL)");
+        "CREATE TABLE cart_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId TEXT, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL,totalWithQty REAL, qty INTEGER, color TEXT,size TEXT,colorPrice REAL,sizePrice REAL)");
 
     await database.execute(
         "CREATE TABLE fav_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId INTEGER, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL)");
@@ -53,64 +50,6 @@ class ProductDbService {
     }
   }
 
-  Future<bool> addorRemoveFromCart(
-      int productId,
-      String title,
-      String thumbnail,
-      double discountPrice,
-      double oldPrice,
-      int qty,
-      String color,
-      double colorPrice,
-      String size,
-      double sizePrice,
-      BuildContext context) async {
-    var connection = await getdatabase;
-    var prod = await connection.rawQuery(
-        "SELECT * FROM cart_table WHERE productId=? and title =?",
-        [productId, title]);
-    if (prod.isEmpty) {
-      //if product is not already added to cart
-      var cartObj = AddtocartModel();
-      cartObj.productId = productId;
-      cartObj.title = title;
-      cartObj.thumbnail = thumbnail;
-      cartObj.discountPrice = discountPrice;
-      cartObj.oldPrice = oldPrice;
-      cartObj.qty = qty;
-      cartObj.totalWithQty = discountPrice * qty;
-      cartObj.color = color;
-      cartObj.colorPrice = colorPrice;
-      cartObj.size = size;
-      cartObj.sizePrice = sizePrice;
-      await connection.insert('cart_table', cartObj.cartMap());
-
-      print('Added to cart');
-
-      showSnackBar(context, 'Added to cart', successColor);
-      return true;
-    } else {
-      //product already added to cart, so increase quantity
-
-      Provider.of<CartService>(context, listen: false)
-          .increaseQtandPrice(productId, title, context);
-
-      showSnackBar(context, 'Quantity increased', successColor);
-
-      //product already added to cart so remove from cart
-
-      // await connection.rawDelete(
-      //     "DELETE FROM cart_table WHERE productId=? and title=?",
-      //     [productId, title]);
-
-      // print('removed from cart');
-
-      // showSnackBar(context, 'Removed from cart', primaryColor);
-
-      return false;
-    }
-  }
-
   removeFromCart(productId, title, BuildContext context) async {
     var connection = await getdatabase;
 
@@ -129,7 +68,7 @@ class ProductDbService {
   }
 
   //single product
-  getSingleProduct(int productId, String title) async {
+  getSingleProduct(String productId, String title) async {
     var connection = await getdatabase;
     var prod = connection.rawQuery(
         "SELECT * FROM cart_table WHERE productId=? and title =?",
@@ -137,8 +76,8 @@ class ProductDbService {
     return prod;
   }
 
-  Future<bool> updateQtandPrice(int productId, String title, int qty,
-      double totalWithQty, BuildContext context) async {
+  Future<bool> updateQtandPrice(String productId, String title, int qty,
+      totalWithQty, BuildContext context) async {
     var connection = await getdatabase;
     connection.rawUpdate(
         "UPDATE cart_table SET qty=?, totalWithQty=? WHERE productId=? and title =?",
@@ -151,16 +90,6 @@ class ProductDbService {
     connection.rawQuery("DELETE FROM cart_table");
     return true;
   }
-
-  //Single product cart functions =============>
-
-  // addSingleProductTocart() {}
-
-  // increaseSingleProductQty() {}
-
-  // decreaseSingleProductQty() {}
-
-  //End of Single product cart functions =============>
 
 //Favourite table functionalities ======================>
 

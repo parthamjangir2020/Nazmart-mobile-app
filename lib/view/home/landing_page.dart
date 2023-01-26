@@ -20,6 +20,7 @@ class _LandingPageState extends State<LandingPage> {
     Homepage(),
     DiscoverPage(),
     FavouriteItemListPage(),
+    // Cartpage(),
     SettingsPage()
   ];
 
@@ -74,9 +75,14 @@ class _LandingPageState extends State<LandingPage> {
                     text: 'Likes',
                     iconColor: greyParagraph,
                   ),
+                  // GButton(
+                  //   icon: Icons.shopping_bag_outlined,
+                  //   text: 'Cart',
+                  //   iconColor: greyParagraph,
+                  // ),
                   GButton(
                     icon: Icons.settings_outlined,
-                    text: 'Settings',
+                    text: 'Menu',
                     iconColor: greyParagraph,
                   ),
                 ],

@@ -152,7 +152,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     //         alignment: Alignment.center,
                     //         margin: const EdgeInsets.only(top: 60),
                     //         child:
-                    //             OthersHelper().showLoading(primaryColor),
+                    //             showLoading(primaryColor),
                     //       )
                     // : Container(
                     //     alignment: Alignment.center,

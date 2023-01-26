@@ -10,13 +10,10 @@ import 'package:no_name_ecommerce/services/auth_services/logout_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/reset_password_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
-import 'package:no_name_ecommerce/services/cart_service.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
-import 'package:no_name_ecommerce/services/coupon_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
-import 'package:no_name_ecommerce/services/delivery_address_service.dart';
-import 'package:no_name_ecommerce/services/fav_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/fav_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
@@ -26,6 +23,10 @@ import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/view/intro/splash.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
+
+import 'services/cart_services/cart_service.dart';
+import 'services/cart_services/coupon_service.dart';
+import 'services/cart_services/delivery_address_service.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -69,7 +70,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BottomNavService()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Nazmart',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           pageTransitionsTheme: const PageTransitionsTheme(builders: {

@@ -38,7 +38,7 @@ class SupportMessagesService with ChangeNotifier {
 
   // final ImagePicker _picker = ImagePicker();
   Future pickFile() async {
-    OthersHelper().showToast('Only zip file is supported', primaryColor);
+    showToast('Only zip file is supported', primaryColor);
 
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.custom, allowedExtensions: ['zip']);
@@ -83,8 +83,7 @@ class SupportMessagesService with ChangeNotifier {
         print(response.body);
       }
     } else {
-      OthersHelper()
-          .showToast('Please check your internet connection', Colors.black);
+      showToast('Please check your internet connection', Colors.black);
     }
   }
 
@@ -112,7 +111,7 @@ class SupportMessagesService with ChangeNotifier {
     dio.options.headers['Content-Type'] = 'multipart/form-data';
     dio.options.headers['Accept'] = 'application/json';
     dio.options.headers['Authorization'] = "Bearer $token";
-    var formData;
+    FormData formData;
     if (filePath != null) {
       formData = FormData.fromMap({
         'user_type': 'customer',
@@ -145,13 +144,12 @@ class SupportMessagesService with ChangeNotifier {
         addNewMessage(message, filePath);
         return true;
       } else {
-        OthersHelper().showToast('Something went wrong', Colors.black);
+        showToast('Something went wrong', Colors.black);
         print(response.data);
         return false;
       }
     } else {
-      OthersHelper()
-          .showToast('Please check your internet connection', Colors.black);
+      showToast('Please check your internet connection', Colors.black);
       return false;
     }
   }

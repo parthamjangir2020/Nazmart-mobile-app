@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MercadopagoPaymentPage extends StatefulWidget {
-  MercadopagoPaymentPage({Key? key}) : super(key: key);
+  const MercadopagoPaymentPage({Key? key}) : super(key: key);
 
   @override
   State<MercadopagoPaymentPage> createState() => _MercadopagoPaymentPageState();
@@ -76,8 +76,7 @@ class _MercadopagoPaymentPageState extends State<MercadopagoPaymentPage> {
                 }
                 if (request.url.contains('https://www.facebook.com/')) {
                   print('payment failed');
-                  OthersHelper()
-                      .showSnackBar(context, 'Payment failed', Colors.red);
+                  showSnackBar(context, 'Payment failed', Colors.red);
                   Navigator.pop(context);
 
                   return NavigationDecision.prevent;
@@ -147,7 +146,7 @@ class _MercadopagoPaymentPageState extends State<MercadopagoPaymentPage> {
 
     // print(response.body);
     if (response.statusCode == 201) {
-      this.url = jsonDecode(response.body)['init_point'];
+      url = jsonDecode(response.body)['init_point'];
 
       return;
     }

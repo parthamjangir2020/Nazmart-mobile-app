@@ -31,8 +31,7 @@ class EmailVerifyService with ChangeNotifier {
       email, BuildContext context, token) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      OthersHelper()
-          .showToast("Please turn on your internet connection", Colors.black);
+      showToast("Please turn on your internet connection", Colors.black);
       return false;
     } else {
       var header = {
@@ -57,8 +56,7 @@ class EmailVerifyService with ChangeNotifier {
         return true;
       } else {
         print(response.body);
-        OthersHelper()
-            .showToast(jsonDecode(response.body)['message'], Colors.black);
+        showToast(jsonDecode(response.body)['message'], Colors.black);
 
         return false;
       }
@@ -104,15 +102,15 @@ class EmailVerifyService with ChangeNotifier {
           LoginService().saveDetails(email, password, token, userId, countryId);
         } else {
           print(response.body);
-          OthersHelper().showToast(
+          showToast(
               'Your entered the otp correctly but something went wrong. Please try again later',
               Colors.black);
         }
       } else {
-        OthersHelper().showToast('Otp didn\'t match', Colors.black);
+        showToast('Otp didn\'t match', Colors.black);
       }
     } else {
-      OthersHelper().showToast('Otp is null', Colors.black);
+      showToast('Otp is null', Colors.black);
     }
   }
 }

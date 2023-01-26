@@ -1,7 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
-import 'package:no_name_ecommerce/services/coupon_service.dart';
-import 'package:no_name_ecommerce/services/delivery_address_service.dart';
-import 'package:no_name_ecommerce/services/product_db_service.dart';
+import 'package:no_name_ecommerce/model/add_to_cart_model.dart';
+import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/product_db_service.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
 class CartService with ChangeNotifier {
@@ -37,31 +42,11 @@ class CartService with ChangeNotifier {
       String size,
       double sizePrice,
       BuildContext context) async {
-    // await ProductDbService().addorRemoveFromCart(
-    //     productId,
-    //     title,
-    //     thumbnail,
-    //     discountPrice,
-    //     oldPrice,
-    //     quantity,
-    //     color,
-    //     colorPrice,
-    //     size,
-    //     sizePrice,
-    //     context);
-
     await ProductDbService().removeFromCart(productId, title, context);
 
     //==============>
     fetchCartProducts();
     calculateSubtotal();
-
-//This class is only responsible for
-//favourite product page
-    // cartRemoveCartFromOtherPage(productId, title, whichProductList[0],
-    //     context); // whichProductlist 0 means best sold product
-    // cartRemoveCartFromOtherPage(productId, title, whichProductList[1],
-    //     context); // whichProductlist 1 means recent product
 
     //user needs to enter coupon again
     resetCoupon(context);
@@ -147,5 +132,57 @@ class CartService with ChangeNotifier {
     List products = await ProductDbService().allCartProducts();
     cartProductsNumber = products.length;
     notifyListeners();
+  }
+
+//Add to cart or update qty
+// =================>
+
+  Future<bool> addToCartOrUpdateQty(
+    BuildContext context, {
+    required String productId,
+    required String title,
+    required String thumbnail,
+    required String discountPrice,
+    required String oldPrice,
+    required int qty,
+    required String color,
+    required String colorPrice,
+    required String size,
+    required String sizePrice,
+  }) async {
+    var connection = await ProductDbService().getdatabase;
+    var prod = await connection.rawQuery(
+        "SELECT * FROM cart_table WHERE productId=? and title =?",
+        [productId, title]);
+    if (prod.isEmpty) {
+      //if product is not already added to cart
+      var cartObj = AddtocartModel();
+      cartObj.productId = productId;
+      cartObj.title = title;
+      cartObj.thumbnail = thumbnail;
+      cartObj.discountPrice = discountPrice;
+      cartObj.oldPrice = oldPrice;
+      cartObj.qty = qty;
+      cartObj.totalWithQty = discountPrice * qty;
+      cartObj.color = color;
+      cartObj.colorPrice = colorPrice;
+      cartObj.size = size;
+      cartObj.sizePrice = sizePrice;
+      await connection.insert('cart_table', cartObj.cartMap());
+
+      print('Added to cart');
+
+      showSnackBar(context, 'Added to cart', successColor);
+      return true;
+    } else {
+      //product already added to cart, so increase quantity
+
+      Provider.of<CartService>(context, listen: false)
+          .increaseQtandPrice(productId, title, context);
+
+      showSnackBar(context, 'Quantity increased', successColor);
+
+      return false;
+    }
   }
 }

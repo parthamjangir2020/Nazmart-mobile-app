@@ -121,7 +121,7 @@ class _SearchPageState extends State<SearchPage> {
                     //         alignment: Alignment.center,
                     //         margin: const EdgeInsets.only(top: 60),
                     //         child:
-                    //             OthersHelper().showLoading(primaryColor),
+                    //             showLoading(primaryColor),
                     //       )
                     // : Container(
                     //     alignment: Alignment.center,

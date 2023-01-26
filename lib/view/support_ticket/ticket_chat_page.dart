@@ -357,7 +357,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                         },
                       ),
                     )
-                  : OthersHelper().showLoading(primaryColor),
+                  : showLoading(primaryColor),
 
               //write message section======>
               Align(
@@ -429,7 +429,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                               pickedFile = null;
                             });
                           } else {
-                            OthersHelper().showToast(
+                            showToast(
                                 'Please write a message first', Colors.black);
                           }
                         },

@@ -254,7 +254,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                   asProvider.getString('Pay & Confirm order'),
                                   () {
                                 if (termsAgree == false) {
-                                  OthersHelper().showToast(
+                                  showToast(
                                       asProvider.getString(
                                           'You must agree with the terms and conditions to place the order'),
                                       Colors.black);
@@ -288,7 +288,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                       )
                     : Container(
                         margin: const EdgeInsets.only(top: 60),
-                        child: OthersHelper().showLoading(primaryColor),
+                        child: showLoading(primaryColor),
                       ),
               ),
             ),

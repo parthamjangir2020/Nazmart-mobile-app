@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:no_name_ecommerce/services/product_db_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/product_db_service.dart';
 
 class FavService with ChangeNotifier {
 //This class is only responsible for

@@ -8,8 +8,7 @@ import 'package:provider/provider.dart';
 Future<bool> checkConnection() async {
   var connectivityResult = await (Connectivity().checkConnectivity());
   if (connectivityResult == ConnectivityResult.none) {
-    OthersHelper()
-        .showToast("Please turn on your internet connection", Colors.black);
+    showToast("Please turn on your internet connection", Colors.black);
     return false;
   } else {
     return true;

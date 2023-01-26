@@ -130,7 +130,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                     ? Container(
                         margin: const EdgeInsets.only(top: 15, bottom: 5),
                         alignment: Alignment.center,
-                        child: OthersHelper().showLoading(primaryColor),
+                        child: showLoading(primaryColor),
                       )
                     : Container(),
 
@@ -164,7 +164,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                                 ],
                               ),
                             )
-                          : OthersHelper().showLoading(primaryColor),
+                          : showLoading(primaryColor),
                     ],
                   ),
                 ),

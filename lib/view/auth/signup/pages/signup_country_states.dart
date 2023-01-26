@@ -76,7 +76,7 @@
 //               builder: (context, provider, child) =>
 //                   buttonPrimary("Sign Up", () {
 //                 if (termsAgree == false) {
-//                   OthersHelper().showToast(
+//                   showToast(
 //                       'You must agree with the terms and conditions to register',
 //                       Colors.black);
 //                 } else {

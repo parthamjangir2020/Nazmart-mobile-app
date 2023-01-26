@@ -27,8 +27,7 @@ class ChangePassService with ChangeNotifier {
   changePassword(
       currentPass, newPass, repeatNewPass, BuildContext context) async {
     if (newPass != repeatNewPass) {
-      OthersHelper().showToast(
-          'Make sure you repeated new password correctly', Colors.black);
+      showToast('Make sure you repeated new password correctly', Colors.black);
     } else {
       //check internet connection
       var connection = await checkConnection();
@@ -52,8 +51,7 @@ class ChangePassService with ChangeNotifier {
             body: data);
 
         if (response.statusCode == 200) {
-          OthersHelper()
-              .showToast("Password changed successfully", primaryColor);
+          showToast("Password changed successfully", primaryColor);
           setLoadingFalse();
 
           prefs.setString("pass", newPass);
@@ -62,8 +60,7 @@ class ChangePassService with ChangeNotifier {
         } else {
           print(response.body);
 
-          OthersHelper()
-              .showToast(jsonDecode(response.body)['message'], Colors.black);
+          showToast(jsonDecode(response.body)['message'], Colors.black);
 
           setLoadingFalse();
         }

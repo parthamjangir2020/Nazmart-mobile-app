@@ -130,8 +130,7 @@ payAction(String method, BuildContext context, imagePath) {
 
     case 'manual_payment':
       if (imagePath == null) {
-        OthersHelper()
-            .showToast('You must upload the cheque image', Colors.black);
+        showToast('You must upload the cheque image', Colors.black);
       } else {
         Provider.of<PlaceOrderService>(context, listen: false)
             .placeOrder(context, imagePath.path, isManualOrCod: true);

@@ -73,7 +73,7 @@ buttonPrimary(String title, VoidCallback pressed,
                   fontSize: fontsize,
                 ),
               )
-            : OthersHelper().showLoading(Colors.white)),
+            : showLoading(Colors.white)),
   );
 }
 
@@ -187,16 +187,4 @@ nothingfound(BuildContext context, String title) {
       ],
     ),
   );
-}
-
-// snackbar
-showSnackBar(BuildContext context, String msg, color) {
-  var snackBar = SnackBar(
-    content: Text(msg),
-    backgroundColor: color,
-    duration: const Duration(milliseconds: 900),
-  );
-
-  ScaffoldMessenger.of(context).removeCurrentSnackBar();
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

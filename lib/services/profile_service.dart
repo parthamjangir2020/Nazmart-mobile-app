@@ -77,7 +77,7 @@ class ProfileService with ChangeNotifier {
       } else {
         profileDetails == 'error';
         setLoadingFalse();
-        OthersHelper().showToast('Something went wrong', Colors.black);
+        showToast('Something went wrong', Colors.black);
         notifyListeners();
       }
     }

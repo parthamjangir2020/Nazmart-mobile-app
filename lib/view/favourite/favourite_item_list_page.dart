@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
-import 'package:no_name_ecommerce/services/fav_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/fav_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -77,7 +77,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: [
+                                          children: const [
                                             Text(
                                               'Black Shirt',
                                               textAlign: TextAlign.left,
@@ -91,7 +91,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                                             ),
 
                                             //Price and stock
-                                            const SizedBox(
+                                            SizedBox(
                                               height: 6,
                                             ),
                                             Text(

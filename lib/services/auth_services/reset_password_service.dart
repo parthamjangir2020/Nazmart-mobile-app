@@ -33,8 +33,7 @@ class ResetPasswordService with ChangeNotifier {
   sendOtp(email, BuildContext context, {isFromOtpPage = false}) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      OthersHelper()
-          .showToast("Please turn on your internet connection", Colors.black);
+      showToast("Please turn on your internet connection", Colors.black);
       return false;
     } else {
       var header = {
@@ -65,8 +64,7 @@ class ResetPasswordService with ChangeNotifier {
         }
         setLoadingFalse();
       } else {
-        OthersHelper()
-            .showToast(jsonDecode(response.body)['message'], Colors.black);
+        showToast(jsonDecode(response.body)['message'], Colors.black);
         setLoadingFalse();
       }
     }
@@ -74,14 +72,13 @@ class ResetPasswordService with ChangeNotifier {
 
   resetPassword(newPass, repeatNewPass, email, BuildContext context) async {
     if (newPass != repeatNewPass) {
-      OthersHelper().showToast('Password didn\'t match', Colors.black);
+      showToast('Password didn\'t match', Colors.black);
     } else {
       //check internet connection
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.none) {
         //internet off
-        OthersHelper()
-            .showToast("Please turn on your internet connection", Colors.black);
+        showToast("Please turn on your internet connection", Colors.black);
         return false;
       } else {
         //internet connection is on
@@ -100,8 +97,7 @@ class ResetPasswordService with ChangeNotifier {
 
         print(response.body);
         if (response.statusCode == 200) {
-          OthersHelper()
-              .showToast("Password updated successfully", Colors.black);
+          showToast("Password updated successfully", Colors.black);
           setLoadingFalse();
 
           Navigator.pushReplacement(
@@ -111,8 +107,7 @@ class ResetPasswordService with ChangeNotifier {
             ),
           );
         } else {
-          OthersHelper()
-              .showToast(jsonDecode(response.body)['message'], Colors.black);
+          showToast(jsonDecode(response.body)['message'], Colors.black);
           setLoadingFalse();
         }
       }

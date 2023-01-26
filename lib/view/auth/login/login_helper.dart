@@ -31,7 +31,7 @@ class LoginHelper {
                   title,
                   style: TextStyle(color: greyFour),
                 )
-              : OthersHelper().showLoading(primaryColor),
+              : showLoading(primaryColor),
         ],
       ),
     );

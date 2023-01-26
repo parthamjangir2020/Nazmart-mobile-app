@@ -77,7 +77,7 @@ class LoginService with ChangeNotifier {
         print(response.body);
         //Login unsuccessful ==========>
         if (isFromLoginPage) {
-          OthersHelper().showToast("Invalid Email or Password", warningColor);
+          showToast("Invalid Email or Password", warningColor);
         }
         setLoadingFalse();
         return false;

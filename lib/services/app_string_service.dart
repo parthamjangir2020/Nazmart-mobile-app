@@ -54,7 +54,7 @@ class AppStringService with ChangeNotifier {
         tStrings = jsonDecode(response.body)['strings'];
         notifyListeners();
       } else {
-        OthersHelper().showToast('Something went wrong', Colors.black);
+        showToast('Something went wrong', Colors.black);
         notifyListeners();
       }
     }

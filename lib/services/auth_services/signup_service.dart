@@ -78,7 +78,7 @@ class SignupService with ChangeNotifier {
       print(response.body);
       if (response.statusCode == 200) {
         print(response.statusCode);
-        OthersHelper().showToast("Registration successful", successColor);
+        showToast("Registration successful", successColor);
 
         print('token is ${jsonDecode(response.body)['token']}');
         String token = jsonDecode(response.body)['token'];
@@ -104,7 +104,7 @@ class SignupService with ChangeNotifier {
             ),
           );
         } else {
-          OthersHelper().showToast('Otp send failed', Colors.black);
+          showToast('Otp send failed', Colors.black);
         }
 
         return true;
@@ -115,8 +115,7 @@ class SignupService with ChangeNotifier {
         if (jsonDecode(response.body).containsKey('validation_errors')) {
           showError(jsonDecode(response.body)['validation_errors']);
         } else {
-          OthersHelper()
-              .showToast(jsonDecode(response.body)['message'], Colors.black);
+          showToast(jsonDecode(response.body)['message'], Colors.black);
         }
 
         setLoadingFalse();
@@ -130,17 +129,17 @@ class SignupService with ChangeNotifier {
 
   showError(error) {
     if (error.containsKey('email')) {
-      OthersHelper().showToast(error['email'][0], Colors.black);
+      showToast(error['email'][0], Colors.black);
     } else if (error.containsKey('username')) {
-      OthersHelper().showToast(error['username'][0], Colors.black);
+      showToast(error['username'][0], Colors.black);
     } else if (error.containsKey('phone')) {
-      OthersHelper().showToast(error['phone'][0], Colors.black);
+      showToast(error['phone'][0], Colors.black);
     } else if (error.containsKey('password')) {
-      OthersHelper().showToast(error['password'][0], Colors.black);
+      showToast(error['password'][0], Colors.black);
     } else if (error.containsKey('message')) {
-      OthersHelper().showToast(error['password'][0], Colors.black);
+      showToast(error['password'][0], Colors.black);
     } else {
-      OthersHelper().showToast('Something went wrong', Colors.black);
+      showToast('Something went wrong', Colors.black);
     }
   }
 }

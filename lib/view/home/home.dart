@@ -67,7 +67,7 @@ class _HomepageState extends State<Homepage> {
                               children: [
                                 Text(
                                   '${asProvider.getString('Hi,')}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: greyParagraph,
                                     fontSize: 14,
                                   ),
@@ -75,7 +75,7 @@ class _HomepageState extends State<Homepage> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                Text(
+                                const Text(
                                   'Saleheen',
                                   style: TextStyle(
                                     color: blackCustomColor,

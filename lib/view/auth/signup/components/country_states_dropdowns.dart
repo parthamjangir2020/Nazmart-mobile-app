@@ -84,7 +84,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [OthersHelper().showLoading(primaryColor)],
+                        children: [showLoading(primaryColor)],
                       ),
 
                 const SizedBox(
@@ -144,7 +144,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [OthersHelper().showLoading(primaryColor)],
+                        children: [showLoading(primaryColor)],
                       ),
 
                 const SizedBox(
@@ -197,7 +197,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [OthersHelper().showLoading(primaryColor)],
+                        children: [showLoading(primaryColor)],
                       ),
               ],
             ));

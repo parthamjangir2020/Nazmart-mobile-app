@@ -96,7 +96,7 @@ class ProfileEditService with ChangeNotifier {
 
     if (response.statusCode == 201) {
       setLoadingFalse();
-      OthersHelper().showToast('Profile updated successfully', Colors.black);
+      showToast('Profile updated successfully', Colors.black);
       print(response.data);
       Navigator.pop(context);
 
@@ -107,7 +107,7 @@ class ProfileEditService with ChangeNotifier {
     } else {
       setLoadingFalse();
       print('error updating profile' + response.data);
-      OthersHelper().showToast('Something went wrong', Colors.black);
+      showToast('Something went wrong', Colors.black);
       return false;
     }
   }
@@ -160,7 +160,7 @@ class ProfileEditService with ChangeNotifier {
   //     Navigator.pop(context);
   //     Provider.of<ProfileService>(context, listen: false).getProfileDetails();
   //   } else {
-  //     OthersHelper().showToast(
+  //     showToast(
   //         'Something went wrong. status code ${res.statusCode}', Colors.black);
   //   }
   //   return true;

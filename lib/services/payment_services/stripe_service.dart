@@ -44,7 +44,7 @@ class StripeService with ChangeNotifier {
         // print('payment amount' + paymentIntentData!['amount'].toString());
         // print('payment intent full data' + paymentIntentData.toString());
         //orderPlaceApi(paymentIntentData!['id'].toString());
-        // OthersHelper().showToast("Payment Successful", Colors.black);
+        // showToast("Payment Successful", Colors.black);
 
         //payment successs ================>
 
@@ -54,7 +54,7 @@ class StripeService with ChangeNotifier {
       });
     } on StripeException {
       // print('Exception/DISPLAYPAYMENTSHEET==> $e');
-      OthersHelper().showToast("Payment cancelled", Colors.red);
+      showToast("Payment cancelled", Colors.red);
     } catch (e) {
       debugPrint('$e');
     }

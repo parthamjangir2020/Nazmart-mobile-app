@@ -21,10 +21,10 @@ class ResetPasswordOtpService {
           ),
         );
       } else {
-        OthersHelper().showToast('Otp didn\'t match', Colors.black);
+        showToast('Otp didn\'t match', Colors.black);
       }
     } else {
-      OthersHelper().showToast('Something went wrong', Colors.black);
+      showToast('Something went wrong', Colors.black);
     }
   }
 }

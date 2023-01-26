@@ -64,7 +64,7 @@ class CashfreeService {
       cashFreePay(jsonDecode(response.body)['cftoken'], orderId, orderCurrency,
           context, '100', 'name', 'phone', 'email');
     } else {
-      OthersHelper().showToast('Something went wrong', Colors.black);
+      showToast('Something went wrong', Colors.black);
     }
     // if()
   }

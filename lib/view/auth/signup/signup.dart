@@ -136,15 +136,15 @@ class _SignupPageState extends State<SignupPage> {
                           buttonPrimary("Sign up", () {
                             if (_formKey.currentState!.validate()) {
                               if (termsAgree == false) {
-                                OthersHelper().showToast(
+                                showToast(
                                     'You must agree with the terms and conditions to register',
                                     Colors.black);
                               } else if (passwordController.text !=
                                   confirmPasswordController.text) {
-                                OthersHelper().showToast(
+                                showToast(
                                     'Password didn\'t match', Colors.black);
                               } else if (passwordController.text.length < 6) {
-                                OthersHelper().showToast(
+                                showToast(
                                     'Password must be at least 6 characters',
                                     Colors.black);
                               } else {

@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
               const SizedBox(
                 height: 15,
               ),
-              OthersHelper().showLoading(primaryColor)
+              showLoading(primaryColor)
             ],
           ),
         ));

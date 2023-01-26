@@ -77,8 +77,7 @@ class _ZitopayPaymentPageState extends State<ZitopayPaymentPage> {
               }
               if (request.url.contains('https://pub.dev/')) {
                 print('payment failed');
-                OthersHelper()
-                    .showSnackBar(context, 'Payment failed', Colors.red);
+                showSnackBar(context, 'Payment failed', Colors.red);
                 Navigator.pop(context);
 
                 return NavigationDecision.prevent;

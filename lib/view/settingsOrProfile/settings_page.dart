@@ -273,13 +273,13 @@ class _SettingsPageState extends State<SettingsPage> {
                               )
                             ],
                           )
-                      //     : OthersHelper().showError(context)
+                      //     : showError(context)
                       // : Container(
                       //     alignment: Alignment.center,
                       //     height:
                       //         MediaQuery.of(context).size.height - 150,
                       //     child:
-                      //         OthersHelper().showLoading(primaryColor),
+                      //         showLoading(primaryColor),
                       //   ),
                       ),
                 ),

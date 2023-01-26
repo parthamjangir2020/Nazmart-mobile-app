@@ -1,14 +1,14 @@
 class AddtocartModel {
-  late int productId;
+  late String productId;
   late String title;
   late String thumbnail;
   late String color;
   late String size;
-  late double colorPrice;
-  late double sizePrice;
-  late double discountPrice;
-  late double oldPrice;
-  late double totalWithQty;
+  late var colorPrice;
+  late var sizePrice;
+  late var discountPrice;
+  late var oldPrice;
+  late var totalWithQty;
   late int qty;
 
   cartMap() {

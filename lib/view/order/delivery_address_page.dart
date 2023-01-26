@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/cart_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
-import 'package:no_name_ecommerce/services/delivery_address_service.dart';
-import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
 import 'package:no_name_ecommerce/view/order/components/free_ship_option.dart';
 import 'package:no_name_ecommerce/view/order/components/shipping_option.dart';
@@ -249,7 +248,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                       .coupon,
                                                   context);
                                           if (cProvider.subTotal < minOrder) {
-                                            OthersHelper().showToast(
+                                            showToast(
                                                 'Minimum \$$minOrder order is needed',
                                                 Colors.black);
                                             return;
@@ -302,13 +301,12 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                         .coupon,
                                                     context);
                                             if (cProvider.subTotal < minOrder) {
-                                              OthersHelper().showToast(
+                                              showToast(
                                                   'Minimum \$$minOrder order is needed',
                                                   Colors.black);
                                               return;
                                             } else if (couponNeeded) {
-                                              OthersHelper().showToast(
-                                                  'Coupon is needed',
+                                              showToast('Coupon is needed',
                                                   Colors.black);
 
                                               return;
@@ -347,7 +345,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                   )
                             : Container(
                                 margin: const EdgeInsets.only(bottom: 10),
-                                child: OthersHelper().showLoading(primaryColor),
+                                child: showLoading(primaryColor),
                               ),
                         sizedboxCustom(10),
                         buttonPrimary("Save", () {
@@ -361,8 +359,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                     listen: false)
                                 .selectedStateId;
                             if (stateId == '0') {
-                              OthersHelper().showToast(
-                                  'Please select a state', Colors.black);
+                              showToast('Please select a state', Colors.black);
                               return;
                             }
                             dProvider.enteredDeliveryAddress = {

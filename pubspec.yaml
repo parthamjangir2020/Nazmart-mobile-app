@@ -60,7 +60,7 @@ dependencies:
   intl_phone_field: ^3.1.0
   modal_bottom_sheet: ^2.0.1
   page_transition: ^2.0.5
-  path_provider: ^2.0.9
+  path_provider: ^2.0.12
   pin_code_fields: ^7.4.0
   provider: ^6.0.2
   pull_to_refresh: ^2.0.0

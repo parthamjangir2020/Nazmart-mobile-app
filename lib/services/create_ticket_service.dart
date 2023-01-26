@@ -60,7 +60,7 @@ class CreateTicketService with ChangeNotifier {
       isLoading = false;
       notifyListeners();
       if (response.statusCode == 201) {
-        OthersHelper().showToast('Ticket created successfully', Colors.black);
+        showToast('Ticket created successfully', Colors.black);
 
         //add ticket to ticket list
         Provider.of<SupportTicketService>(context, listen: false)
@@ -70,7 +70,7 @@ class CreateTicketService with ChangeNotifier {
         //======>
         Navigator.pop(context);
       } else {
-        OthersHelper().showToast('Something went wrong', Colors.black);
+        showToast('Something went wrong', Colors.black);
         print('ticket create failed ${response.body}');
       }
     }

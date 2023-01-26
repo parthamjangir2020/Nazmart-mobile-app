@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
+// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/country_shipping_cost_model.dart';
 import 'package:no_name_ecommerce/model/states_shipping_cost_model.dart';
-import 'package:no_name_ecommerce/services/cart_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
-import 'package:no_name_ecommerce/services/coupon_service.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -167,12 +167,12 @@ class DeliveryAddressService with ChangeNotifier {
     var appliedCoupon =
         Provider.of<CouponService>(context, listen: false).appliedCoupon;
     if (appliedCoupon == null && shippingCoupon != null) {
-      OthersHelper().showToast('Coupon is needed', Colors.black);
+      showToast('Coupon is needed', Colors.black);
       return true;
     } else if (appliedCoupon != null && shippingCoupon != null) {
       //check if applied coupon matches the shipping coupon
       if (appliedCoupon != shippingCoupon) {
-        OthersHelper().showToast(
+        showToast(
             'You applied a coupon which is not eligible for this shipping',
             Colors.black);
         return true;
@@ -216,14 +216,15 @@ class DeliveryAddressService with ChangeNotifier {
     vatLoading = false;
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+
       print('vat' + data['tax_amount']);
       setVatAndincreaseTotal(
           double.parse(data['tax_amount'].toString()), context);
       Navigator.pop(context);
     } else {
-      OthersHelper().showToast(
+      showToast(
           'Error fetching vat amount. Please try again later', Colors.black);
-      print('error fetching vat ' + response.body);
+      print('error fetching vat ${response.body}');
     }
 
     notifyListeners();

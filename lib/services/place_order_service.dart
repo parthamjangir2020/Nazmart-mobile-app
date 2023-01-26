@@ -1,13 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class PlaceOrderService with ChangeNotifier {
   bool isloading = false;
@@ -290,7 +283,7 @@ class PlaceOrderService with ChangeNotifier {
     // } else {
     //   setLoadingFalse();
     //   print(response.data);
-    //   OthersHelper().showToast('Something went wrong', Colors.black);
+    //   showToast('Something went wrong', Colors.black);
     //   return false;
     // }
 
@@ -324,16 +317,16 @@ class PlaceOrderService with ChangeNotifier {
     //       body: data);
     //   setLoadingFalse();
     //   if (response.statusCode == 201) {
-    //     OthersHelper().showToast('Order placed successfully', Colors.black);
+    //     showToast('Order placed successfully', Colors.black);
     //     doNext(context, 'Complete');
     //   } else {
     //     print(response.body);
-    //     OthersHelper().showToast(
+    //     showToast(
     //         'Failed to make payment status successfull', Colors.black);
     //     doNext(context, 'Pending');
     //   }
     // } else {
-    //   OthersHelper().showToast(
+    //   showToast(
     //       'Check your internet connection and try again', Colors.black);
     // }
   }

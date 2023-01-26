@@ -64,7 +64,7 @@ class _PaytmPaymentState extends State<PaytmPayment> {
           }
           if (request.url.contains('order-cancel-static')) {
             print('payment failed');
-            OthersHelper().showSnackBar(context, 'Payment failed', Colors.red);
+            showSnackBar(context, 'Payment failed', Colors.red);
             Navigator.pop(context);
 
             return NavigationDecision.prevent;

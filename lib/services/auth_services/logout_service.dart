@@ -67,7 +67,7 @@ class LogoutService with ChangeNotifier {
         clear();
       } else {
         print(response.body);
-        OthersHelper().showToast('Something went wrong', Colors.black);
+        showToast('Something went wrong', Colors.black);
       }
     }
   }

@@ -142,7 +142,7 @@ class _ResetPassOtpPageState extends State<ResetPassOtpPage> {
                               ],
                             ),
                           )
-                        : OthersHelper().showLoading(primaryColor),
+                        : showLoading(primaryColor),
                   ],
                 ),
               ),

@@ -95,7 +95,7 @@ class _ProfileImagePickState extends State<ProfileImagePick> {
           // : Container(
           //     alignment: Alignment.center,
           //     height: MediaQuery.of(context).size.height - 150,
-          //     child: OthersHelper().showLoading(primaryColor),
+          //     child: showLoading(primaryColor),
           //   ),
           ),
     );

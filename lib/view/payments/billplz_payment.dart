@@ -139,7 +139,7 @@ Future verifyPayment(String url, BuildContext context) async {
     return;
   }
   if (response.body.contains('your payment was not')) {
-    OthersHelper().showSnackBar(context, 'Payment failed', Colors.red);
+    showSnackBar(context, 'Payment failed', Colors.red);
     Navigator.pop(context);
     return;
   }

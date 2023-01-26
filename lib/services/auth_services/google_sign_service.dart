@@ -48,7 +48,7 @@ class GoogleSignInService with ChangeNotifier {
 
       // _user.
     } else {
-      OthersHelper().showToast(
+      showToast(
           'Didnt get any user info after google sign in. visit google sign in service file',
           Colors.black);
     }
@@ -103,9 +103,9 @@ class GoogleSignInService with ChangeNotifier {
       } else {
         debugPrint(response.body);
         //Login unsuccessful ==========>
-        // OthersHelper().showToast(jsonDecode(response.body)['message'],
+        // showToast(jsonDecode(response.body)['message'],
         //     warningColor);
-        OthersHelper().showToast('Something went wrong', Colors.black);
+        showToast('Something went wrong', Colors.black);
 
         setLoadingFalse();
         return false;
