@@ -22,8 +22,8 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
   @override
   Widget build(BuildContext context) {
     //fetch country
-    // Provider.of<CountryStatesService>(context, listen: false)
-    //     .fetchCountries(context);
+    Provider.of<CountryStatesService>(context, listen: false)
+        .fetchCountries(context);
 
     return Consumer<CountryStatesService>(
         builder: (context, provider, child) => Column(
@@ -35,7 +35,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                 ),
 
                 // Country dropdown ===============>
-                labelCommon("Choose country"),
+                labelCommon("Choose city"),
                 provider.countryDropdownList.isNotEmpty
                     ? Container(
                         width: double.infinity,
@@ -50,11 +50,11 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                             // menuMaxHeight: 200,
                             // isExpanded: true,
                             value: provider.selectedCountry,
-                            icon: Icon(Icons.keyboard_arrow_down_rounded,
+                            icon: const Icon(Icons.keyboard_arrow_down_rounded,
                                 color: greyFour),
                             iconSize: 26,
                             elevation: 17,
-                            style: TextStyle(color: greyFour),
+                            style: const TextStyle(color: greyFour),
                             onChanged: (newValue) {
                               provider.setCountryValue(newValue);
 
@@ -65,7 +65,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                                       .indexOf(newValue!)]);
 
                               //fetch states based on selected country
-                              provider.fetchStates(
+                              provider.fetchState(
                                   provider.selectedCountryId, context);
                             },
                             items: provider.countryDropdownList
@@ -106,11 +106,11 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                             // menuMaxHeight: 200,
                             // isExpanded: true,
                             value: provider.selectedState,
-                            icon: Icon(Icons.keyboard_arrow_down_rounded,
+                            icon: const Icon(Icons.keyboard_arrow_down_rounded,
                                 color: greyFour),
                             iconSize: 26,
                             elevation: 17,
-                            style: TextStyle(color: greyFour),
+                            style: const TextStyle(color: greyFour),
                             onChanged: (newValue) {
                               provider.setStatesValue(newValue);
 
@@ -121,8 +121,8 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                                       .indexOf(newValue!)]);
                               // //fetch area based on selected country and state
 
-                              provider.fetchArea(provider.selectedCountryId,
-                                  provider.selectedStateId, context);
+                              // provider.fetchCity(provider.selectedCountryId,
+                              //     provider.selectedStateId, context);
 
                               // print(provider.statesDropdownIndexList[provider
                               //     .statesDropdownList
@@ -150,55 +150,6 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                 const SizedBox(
                   height: 22,
                 ),
-
-                // Area dropdown ===============>
-                labelCommon("Choose area"),
-                provider.areaDropdownList.isNotEmpty
-                    ? Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: greyFive),
-                          borderRadius:
-                              BorderRadius.circular(globalBorderRadius),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            // menuMaxHeight: 200,
-                            // isExpanded: true,
-                            value: provider.selectedArea,
-                            icon: Icon(Icons.keyboard_arrow_down_rounded,
-                                color: greyFour),
-                            iconSize: 26,
-                            elevation: 17,
-                            style: TextStyle(color: greyFour),
-                            onChanged: (newValue) {
-                              provider.setAreaValue(newValue);
-
-                              //setting the id of selected value
-                              provider.setSelectedAreaId(
-                                  provider.areaDropdownIndexList[provider
-                                      .areaDropdownList
-                                      .indexOf(newValue!)]);
-                            },
-                            items: provider.areaDropdownList
-                                .map<DropdownMenuItem<String>>((value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: TextStyle(
-                                      color: greyPrimary.withOpacity(.8)),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [showLoading(primaryColor)],
-                      ),
               ],
             ));
   }

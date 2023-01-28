@@ -7,7 +7,6 @@ import 'package:no_name_ecommerce/view/auth/signup/pages/signup_phone_pass.dart'
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
-import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:provider/provider.dart';
@@ -97,8 +96,6 @@ class _SignupPageState extends State<SignupPage> {
                           //Country dropdown =====>
                           const CountryStatesDropdowns(),
 
-                          sizedboxCustom(20),
-
                           SignupPhonePass(
                             passController: passwordController,
                             confirmPassController: confirmPasswordController,
@@ -113,7 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                             contentPadding: const EdgeInsets.all(0),
                             title: Container(
                               padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: Text(
+                              child: const Text(
                                 "I agree with the terms and conditons",
                                 style: TextStyle(
                                     color: greyFour,
@@ -181,7 +178,7 @@ class _SignupPageState extends State<SignupPage> {
                                             Navigator.pop(context);
                                           },
                                         text: 'Login',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 14,
                                           color: primaryColor,

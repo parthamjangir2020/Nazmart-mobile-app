@@ -8,6 +8,7 @@ import 'package:no_name_ecommerce/view/auth/signup/signup_helper.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
 
 class SignupPhonePass extends StatefulWidget {
@@ -54,6 +55,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
             Consumer<RtlService>(
               builder: (context, rtlP, child) => IntlPhoneField(
                 controller: widget.phoneController,
+                disableLengthCheck: true,
                 decoration: SignupHelper().phoneFieldDecoration(),
                 initialCountryCode: provider.countryCode,
                 textAlign:
@@ -65,6 +67,8 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                 },
               ),
             ),
+
+            sizedboxCustom(20),
 
             //New password =========================>
             labelCommon("Password"),
@@ -119,11 +123,11 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                           borderSide: BorderSide(color: inputFieldBorderColor),
                           borderRadius:
                               BorderRadius.circular(globalBorderRadius)),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: primaryColor)),
-                      errorBorder: OutlineInputBorder(
+                      errorBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: warningColor)),
-                      focusedErrorBorder: OutlineInputBorder(
+                      focusedErrorBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: primaryColor)),
                       hintText: 'Enter password',
                       contentPadding: const EdgeInsets.symmetric(
@@ -187,11 +191,11 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                           borderSide: BorderSide(color: inputFieldBorderColor),
                           borderRadius:
                               BorderRadius.circular(globalBorderRadius)),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: primaryColor)),
-                      errorBorder: OutlineInputBorder(
+                      errorBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: warningColor)),
-                      focusedErrorBorder: OutlineInputBorder(
+                      focusedErrorBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: primaryColor)),
                       hintText: 'Retype password',
                       contentPadding: const EdgeInsets.symmetric(
