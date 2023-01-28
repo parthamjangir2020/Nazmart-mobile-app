@@ -113,7 +113,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                                 ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
+                                  children: const [
                                     // ClipRRect(
                                     //   borderRadius: BorderRadius.circular(50),
                                     //   child: CachedNetworkImage(
