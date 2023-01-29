@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
@@ -63,8 +65,8 @@ class EmailVerifyService with ChangeNotifier {
     }
   }
 
-  verifyOtpAndLogin(enteredOtp, BuildContext context, email, password, token,
-      userId, countryId) async {
+  verifyOtpAndLogin(
+      enteredOtp, BuildContext context, email, password, token, userId) async {
     var otpNumber =
         Provider.of<ResetPasswordService>(context, listen: false).otpNumber;
     if (otpNumber != null) {
@@ -81,14 +83,14 @@ class EmailVerifyService with ChangeNotifier {
         };
         var data = jsonEncode({'user_id': userId, 'email_verified': 1});
 
-        var response = await http.post(
-            Uri.parse('$baseApi/user/send-otp-in-mail/success'),
-            headers: header,
-            body: data);
+        var response = await http.post(Uri.parse('$baseApi/otp-success'),
+            headers: header, body: data);
 
         //Set loading false
         verifyOtpLoading = false;
         notifyListeners();
+
+        print(response.body);
 
         if (response.statusCode == 200) {
           Navigator.pushReplacement(
@@ -99,7 +101,7 @@ class EmailVerifyService with ChangeNotifier {
           );
 
           //save the details for later login
-          LoginService().saveDetails(email, password, token, userId, countryId);
+          LoginService().saveDetails(email, password, token, userId);
         } else {
           print(response.body);
           showToast(
@@ -114,12 +116,3 @@ class EmailVerifyService with ChangeNotifier {
     }
   }
 }
-
-// Navigator.pushReplacement(
-//           context,
-//           MaterialPageRoute<void>(
-//             builder: (BuildContext context) => ResetPasswordPage(
-//               email: email,
-//             ),
-//           ),
-//         );

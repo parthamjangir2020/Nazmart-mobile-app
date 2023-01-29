@@ -57,14 +57,9 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                 controller: widget.phoneController,
                 disableLengthCheck: true,
                 decoration: SignupHelper().phoneFieldDecoration(),
-                initialCountryCode: provider.countryCode,
                 textAlign:
                     rtlP.direction == 'ltr' ? TextAlign.left : TextAlign.right,
-                onChanged: (phone) {
-                  provider.setCountryCode(phone.countryISOCode);
-
-                  provider.setPhone(phone.number);
-                },
+                onChanged: (phone) {},
               ),
             ),
 
@@ -87,20 +82,6 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                     return null;
                   },
                   decoration: InputDecoration(
-                      prefixIcon: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 20.0,
-                            width: 40.0,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/icons/lock.png'),
-                                  fit: BoxFit.fitHeight),
-                            ),
-                          ),
-                        ],
-                      ),
                       suffixIcon: IconButton(
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
@@ -131,7 +112,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                           borderSide: BorderSide(color: primaryColor)),
                       hintText: 'Enter password',
                       contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 18)),
+                          horizontal: 20, vertical: 18)),
                 )),
 
             const SizedBox(
@@ -154,20 +135,6 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                     return null;
                   },
                   decoration: InputDecoration(
-                      prefixIcon: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 20.0,
-                            width: 40.0,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/icons/lock.png'),
-                                  fit: BoxFit.fitHeight),
-                            ),
-                          ),
-                        ],
-                      ),
                       suffixIcon: IconButton(
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
@@ -199,7 +166,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
                           borderSide: BorderSide(color: primaryColor)),
                       hintText: 'Retype password',
                       contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 18)),
+                          horizontal: 20, vertical: 18)),
                 )),
           ],
         ),

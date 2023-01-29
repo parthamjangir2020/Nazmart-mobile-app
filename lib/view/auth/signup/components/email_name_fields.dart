@@ -24,6 +24,7 @@ class EmailNameFields extends StatelessWidget {
 
         CustomInput(
           controller: fullNameController,
+          paddingHorizontal: 20,
           validation: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter your full name';
@@ -31,7 +32,6 @@ class EmailNameFields extends StatelessWidget {
             return null;
           },
           hintText: "Enter your full name",
-          icon: 'assets/icons/user.png',
           textInputAction: TextInputAction.next,
         ),
 
@@ -40,6 +40,7 @@ class EmailNameFields extends StatelessWidget {
 
         CustomInput(
           controller: userNameController,
+          paddingHorizontal: 20,
           validation: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter your username';
@@ -47,7 +48,6 @@ class EmailNameFields extends StatelessWidget {
             return null;
           },
           hintText: "Enter your username",
-          icon: 'assets/icons/user.png',
           textInputAction: TextInputAction.next,
         ),
 
@@ -56,6 +56,7 @@ class EmailNameFields extends StatelessWidget {
 
         CustomInput(
           controller: emailController,
+          paddingHorizontal: 20,
           validation: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter your email';
@@ -63,7 +64,6 @@ class EmailNameFields extends StatelessWidget {
             return null;
           },
           hintText: "Enter your email",
-          icon: 'assets/icons/email-grey.png',
           textInputAction: TextInputAction.next,
         ),
       ],

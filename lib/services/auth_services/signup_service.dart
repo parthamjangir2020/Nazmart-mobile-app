@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -15,114 +17,95 @@ import 'email_verify_service.dart';
 class SignupService with ChangeNotifier {
   bool isloading = false;
 
-  String phoneNumber = '0';
-  String countryCode = 'IN';
-
-  setPhone(value) {
-    phoneNumber = value;
-    notifyListeners();
-  }
-
-  setCountryCode(code) {
-    countryCode = code;
-    notifyListeners();
-  }
-
-  setLoadingTrue() {
-    isloading = true;
-    notifyListeners();
-  }
-
-  setLoadingFalse() {
-    isloading = false;
+  setLoadingStatus(bool status) {
+    isloading = status;
     notifyListeners();
   }
 
   Future signup(
-    String fullName,
-    String userName,
-    String email,
-    String password,
-    String city,
-    BuildContext context,
-  ) async {
+    BuildContext context, {
+    required userName,
+    required password,
+    required fullName,
+    required email,
+    required mobile,
+    required cityName,
+  }) async {
     var connection = await checkConnection();
 
-    var selectedCountryId =
-        Provider.of<CountryStatesService>(context, listen: false)
-            .selectedCountryId;
-    // var selectedStateId =
-    //     Provider.of<CountryStatesService>(context, listen: false)
-    //         .selectedStateId;
-    // var selectedAreaId =
-    //     Provider.of<CountryStatesService>(context, listen: false)
-    //         .selectedAreaId;
-    if (connection) {
-      setLoadingTrue();
-      var data = jsonEncode({
-        'full_name': fullName,
-        'username': userName,
-        'email': email,
-        'city': city,
-        'password': password,
-        'country_id': selectedCountryId,
-      });
-      var header = {
-        //if header type is application/json then the data should be in jsonEncode method
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      };
+    var countryName = Provider.of<CountryStatesService>(context, listen: false)
+        .selectedCountry;
+    var stateName =
+        Provider.of<CountryStatesService>(context, listen: false).selectedState;
 
-      var response = await http.post(Uri.parse('$baseApi/register'),
-          body: data, headers: header);
-      print(response.body);
-      if (response.statusCode == 200) {
-        print(response.statusCode);
-        showToast("Registration successful", successColor);
+    if (!connection) return false;
 
-        print('token is ${jsonDecode(response.body)['token']}');
-        String token = jsonDecode(response.body)['token'];
+    setLoadingStatus(true);
 
-        int userId = jsonDecode(response.body)['users']['id'];
+    var data = jsonEncode({
+      'username': userName,
+      'password': password,
+      'full_name': fullName,
+      'email': email,
+      'mobile': mobile,
+      'country_name': countryName,
+      'city_name': cityName,
+      'state_name': stateName,
+      'terms_conditions': 'on'
+    });
+    var header = {
+      //if header type is application/json then the data should be in jsonEncode method
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    };
 
-        //Send otp
-        var isOtepSent =
-            await Provider.of<EmailVerifyService>(context, listen: false)
-                .sendOtpForEmailValidation(email, context, token);
-        setLoadingFalse();
-        if (isOtepSent) {
-          Navigator.pushReplacement<void, void>(
-            context,
-            MaterialPageRoute<void>(
-              builder: (BuildContext context) => EmailVerifyPage(
-                email: email,
-                pass: password,
-                token: token,
-                userId: userId,
-                countryId: selectedCountryId,
-              ),
+    var response = await http.post(Uri.parse('$baseApi/register'),
+        body: data, headers: header);
+
+    print(response.body);
+
+    setLoadingStatus(false);
+
+    if (response.statusCode == 200) {
+      showToast("Registration successful", successColor);
+
+      print('token is ${jsonDecode(response.body)['token']}');
+      String token = jsonDecode(response.body)['token'];
+
+      int userId = jsonDecode(response.body)['users']['id'];
+
+      //Send otp
+      var isOtepSent =
+          await Provider.of<EmailVerifyService>(context, listen: false)
+              .sendOtpForEmailValidation(email, context, token);
+
+      if (isOtepSent) {
+        Navigator.pushReplacement<void, void>(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => EmailVerifyPage(
+              email: email,
+              pass: password,
+              token: token,
+              userId: userId,
             ),
-          );
-        } else {
-          showToast('Otp send failed', Colors.black);
-        }
-
-        return true;
+          ),
+        );
       } else {
-        //Sign up unsuccessful ==========>
-        print(response.body);
-
-        if (jsonDecode(response.body).containsKey('validation_errors')) {
-          showError(jsonDecode(response.body)['validation_errors']);
-        } else {
-          showToast(jsonDecode(response.body)['message'], Colors.black);
-        }
-
-        setLoadingFalse();
-        return false;
+        showToast('Otp send failed', Colors.black);
       }
+
+      return true;
     } else {
-      //internet connection off
+      //Sign up unsuccessful ==========>
+      print(response.body);
+
+      if (jsonDecode(response.body).containsKey('validation_errors')) {
+        showError(jsonDecode(response.body)['validation_errors']);
+      } else {
+        showToast(jsonDecode(response.body)['message'], Colors.black);
+      }
+
       return false;
     }
   }
@@ -137,7 +120,7 @@ class SignupService with ChangeNotifier {
     } else if (error.containsKey('password')) {
       showToast(error['password'][0], Colors.black);
     } else if (error.containsKey('message')) {
-      showToast(error['password'][0], Colors.black);
+      showToast(error['message'][0], Colors.black);
     } else {
       showToast('Something went wrong', Colors.black);
     }

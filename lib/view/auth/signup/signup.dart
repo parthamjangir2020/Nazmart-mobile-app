@@ -7,6 +7,8 @@ import 'package:no_name_ecommerce/view/auth/signup/pages/signup_phone_pass.dart'
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
+import 'package:no_name_ecommerce/view/utils/custom_input.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:provider/provider.dart';
@@ -14,9 +16,9 @@ import 'package:provider/provider.dart';
 import 'components/email_name_fields.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key, this.hasBackButton = true}) : super(key: key);
-
-  final hasBackButton;
+  const SignupPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _SignupPageState createState() => _SignupPageState();
@@ -96,6 +98,26 @@ class _SignupPageState extends State<SignupPage> {
                           //Country dropdown =====>
                           const CountryStatesDropdowns(),
 
+                          sizedboxCustom(20),
+
+                          // ==============>
+
+                          //city ============>
+                          labelCommon("City"),
+
+                          CustomInput(
+                            controller: cityController,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your city';
+                              }
+                              return null;
+                            },
+                            hintText: "Enter your city",
+                            paddingHorizontal: 20,
+                            textInputAction: TextInputAction.next,
+                          ),
+
                           SignupPhonePass(
                             passController: passwordController,
                             confirmPassController: confirmPasswordController,
@@ -144,15 +166,18 @@ class _SignupPageState extends State<SignupPage> {
                                 showToast(
                                     'Password must be at least 6 characters',
                                     Colors.black);
+                              } else if (phoneController.text.trim().isEmpty) {
+                                showToast(
+                                    'You must enter a phone', Colors.black);
                               } else {
                                 if (provider.isloading == false) {
-                                  provider.signup(
-                                      fullNameController.text.trim(),
-                                      userNameController.text.trim(),
-                                      emailController.text.trim(),
-                                      passwordController.text,
-                                      cityController.text.trim(),
-                                      context);
+                                  provider.signup(context,
+                                      fullName: fullNameController.text,
+                                      userName: userNameController.text,
+                                      cityName: cityController.text,
+                                      email: emailController.text,
+                                      mobile: phoneController.text,
+                                      password: passwordController.text);
                                 }
                               }
                             }

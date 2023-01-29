@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/components/login_slider.dart';
-import 'package:no_name_ecommerce/view/home/landing_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -230,26 +229,23 @@ class _LoginPageState extends State<LoginPage> {
                       Consumer<LoginService>(
                         builder: (context, provider, child) =>
                             buttonPrimary("Login", () {
-                          // if (provider.isloading == false) {
-                          //   if (_formKey.currentState!.validate()) {
-                          //     provider.login(
-                          //         emailController.text.trim(),
-                          //         passwordController.text,
-                          //         context,
-                          //         keepLoggedIn);
-                          //   }
-
-                          // }
-                          Navigator.pushReplacement<void, void>(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) => LandingPage(),
-                            ),
-                          );
-                        },
-                                isloading:
-                                    provider.isloading == false ? false : true,
-                                borderRadius: 100),
+                          if (provider.isloading == false) {
+                            if (_formKey.currentState!.validate()) {
+                              provider.login(
+                                  emailController.text.trim(),
+                                  passwordController.text,
+                                  context,
+                                  keepLoggedIn);
+                            }
+                            // Navigator.pushReplacement<void, void>(
+                            //   context,
+                            //   MaterialPageRoute<void>(
+                            //     builder: (BuildContext context) =>
+                            //         const LandingPage(),
+                            //   ),
+                            // );
+                          }
+                        }, isloading: provider.isloading, borderRadius: 100),
                       ),
 
                       const SizedBox(

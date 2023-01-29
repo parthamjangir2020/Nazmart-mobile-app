@@ -12,21 +12,18 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 
 class EmailVerifyPage extends StatefulWidget {
-  const EmailVerifyPage(
-      {Key? key,
-      required this.email,
-      required this.pass,
-      required this.token,
-      required this.userId,
-      required this.countryId})
-      : super(key: key);
+  const EmailVerifyPage({
+    Key? key,
+    required this.email,
+    required this.pass,
+    required this.token,
+    required this.userId,
+  }) : super(key: key);
 
   final email;
   final pass;
   final token;
   final userId;
-
-  final countryId;
 
   @override
   _EmailVerifyPageState createState() => _EmailVerifyPageState();
@@ -104,13 +101,13 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                     controller: textEditingController,
                     onCompleted: (otp) {
                       provider.verifyOtpAndLogin(
-                          otp,
-                          context,
-                          widget.email,
-                          widget.pass,
-                          widget.token,
-                          widget.userId,
-                          widget.countryId);
+                        otp,
+                        context,
+                        widget.email,
+                        widget.pass,
+                        widget.token,
+                        widget.userId,
+                      );
                     },
                     onChanged: (value) {
                       setState(() {
@@ -156,7 +153,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                                               isFromOtpPage: true);
                                         },
                                       text: 'Send again',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                         color: primaryColor,

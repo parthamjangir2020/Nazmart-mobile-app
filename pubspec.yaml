@@ -58,7 +58,7 @@ dependencies:
   image_picker: ^0.8.5
   intl: ^0.17.0
   intl_phone_field: ^3.1.0
-  modal_bottom_sheet: ^2.0.1
+  modal_bottom_sheet: ^2.1.2
   page_transition: ^2.0.5
   path_provider: ^2.0.12
   pin_code_fields: ^7.4.0
@@ -72,6 +72,7 @@ dependencies:
   top_snackbar_flutter: ^2.0.0
   url_launcher: ^6.1.6
   webview_flutter: ^3.0.4
+  firebase_core_platform_interface: 4.5.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

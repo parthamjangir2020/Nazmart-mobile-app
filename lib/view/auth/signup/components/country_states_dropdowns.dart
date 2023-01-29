@@ -35,7 +35,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                 ),
 
                 // Country dropdown ===============>
-                labelCommon("Choose city"),
+                labelCommon("Choose country"),
                 provider.countryDropdownList.isNotEmpty
                     ? Container(
                         width: double.infinity,
@@ -146,10 +146,6 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [showLoading(primaryColor)],
                       ),
-
-                const SizedBox(
-                  height: 22,
-                ),
               ],
             ));
   }

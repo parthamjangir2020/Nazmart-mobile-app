@@ -32,7 +32,7 @@ class LoginService with ChangeNotifier {
     if (connection) {
       setLoadingTrue();
       var data = jsonEncode({
-        'email': email,
+        'username': email,
         'password': pass,
       });
       var header = {
@@ -45,10 +45,6 @@ class LoginService with ChangeNotifier {
           body: data, headers: header);
 
       if (response.statusCode == 200) {
-        // if (isFromLoginPage) {
-        //   OthersHelper()
-        //       .showToast("Login successful", successColor);
-        // }
         setLoadingFalse();
 
         Navigator.pushReplacement<void, void>(
@@ -60,12 +56,9 @@ class LoginService with ChangeNotifier {
 
         String token = jsonDecode(response.body)['token'];
         int userId = jsonDecode(response.body)['users']['id'];
-        // String state = jsonDecode(response.body)['users']['state'].toString();
-        String country_id =
-            jsonDecode(response.body)['users']['country_id'].toString();
 
         if (keepLoggedIn) {
-          saveDetails(email, pass, token, userId, country_id);
+          saveDetails(email, pass, token, userId);
         } else {
           setKeepLoggedInFalseSaveToken(token);
         }
@@ -88,14 +81,13 @@ class LoginService with ChangeNotifier {
     }
   }
 
-  saveDetails(String email, pass, String token, int userId, country_id) async {
+  saveDetails(String email, pass, String token, int userId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("email", email);
     prefs.setBool('keepLoggedIn', true);
     prefs.setString("pass", pass);
     prefs.setString("token", token);
     prefs.setInt('userId', userId);
-    prefs.setString("countryId", country_id.toString());
     print('token is $token');
     print('user id is $userId');
   }
