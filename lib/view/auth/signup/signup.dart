@@ -10,9 +10,7 @@ import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
-
 import 'package:provider/provider.dart';
-
 import 'components/email_name_fields.dart';
 
 class SignupPage extends StatefulWidget {
@@ -181,9 +179,7 @@ class _SignupPageState extends State<SignupPage> {
                                 }
                               }
                             }
-                          },
-                              isloading:
-                                  provider.isloading == false ? false : true),
+                          }, isloading: provider.isloading),
 
                           const SizedBox(
                             height: 25,
@@ -220,8 +216,6 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                   )
-                  // }
-                  // }),
                 ],
               ),
             ),
