@@ -1,119 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/category_service.dart';
-import 'package:no_name_ecommerce/services/rtl_service.dart';
+import 'package:no_name_ecommerce/services/child_category_service.dart';
+import 'package:no_name_ecommerce/services/subcategory_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
-class SubCategories extends StatefulWidget {
-  const SubCategories({
-    Key? key,
-    required this.marginRight,
-  }) : super(key: key);
-
-  final double marginRight;
-
-  @override
-  State<SubCategories> createState() => _SubCategoriesState();
-}
-
-class _SubCategoriesState extends State<SubCategories> {
-  int selectedCategory = -1;
+class SubCategories extends StatelessWidget {
+  const SubCategories({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CategoryService>(
-        builder: (context, provider, child) =>
-            //  provider.hasError != true
-            //     ? provider.categoryList.isNotEmpty
-            //         ?
-            Consumer<RtlService>(
-              builder: (context, rtlP, child) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 5),
-                    height: 41,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      clipBehavior: Clip.none,
-                      children: [
-                        for (int i = 0; i < 5; i++)
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () {
-                              selectedCategory = i;
-                              setState(() {});
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              margin: EdgeInsets.only(
-                                right: rtlP.direction == 'ltr'
-                                    ? widget.marginRight
-                                    : 0,
-                                left: rtlP.direction == 'ltr'
-                                    ? 0
-                                    : widget.marginRight,
-                              ),
-                              decoration: BoxDecoration(
-                                  color: selectedCategory == i
-                                      ? primaryColor
-                                      : Colors.white,
-                                  border: Border.all(
-                                      color: selectedCategory == i
-                                          ? Colors.transparent
-                                          : borderColor),
-                                  borderRadius: BorderRadius.circular(100)),
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 13,
-                                ),
-                                child: Row(
-                                  children: [
-                                    // ClipRRect(
-                                    //   borderRadius: BorderRadius.circular(50),
-                                    //   child: CachedNetworkImage(
-                                    //     height: 37,
-                                    //     width: 37,
-                                    //     imageUrl:
-                                    //         provider.categoryList[i].image,
-                                    //     errorWidget: (context, url, error) =>
-                                    //         const Icon(Icons.error),
-                                    //     fit: BoxFit.cover,
-                                    //   ),
-                                    // ),
+    return Consumer<SubCategoryService>(
+      builder: (context, provider, child) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          provider.subCategoryDropdownList.isNotEmpty
+              ? Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: greyFive),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      // menuMaxHeight: 200,
+                      isExpanded: true,
+                      value: provider.selectedSubCategory,
+                      icon: const Icon(Icons.keyboard_arrow_down_rounded,
+                          color: greyFour),
+                      iconSize: 26,
+                      elevation: 17,
+                      style: const TextStyle(color: greyFour),
+                      onChanged: (newValue) {
+                        provider.setSubCategoryValue(newValue);
 
-                                    // const SizedBox(
-                                    //   width: 10,
-                                    // ),
-                                    //Title
-                                    Text(
-                                      'Casual Shirt',
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: selectedCategory == i
-                                            ? Colors.white
-                                            : greyParagraph,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                      ],
+                        // setting the id of selected value
+                        provider.setSelectedSubCategoryId(
+                            provider.subCategoryDropdownIndexList[provider
+                                .subCategoryDropdownList
+                                .indexOf(newValue)]);
+
+                        //fetch states based on selected country
+                        Provider.of<ChildCategoryService>(context,
+                                listen: false)
+                            .fetchChildCategory(context);
+                      },
+                      items: provider.subCategoryDropdownList
+                          .map<DropdownMenuItem<String>>((value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(
+                            value,
+                            style:
+                                TextStyle(color: greyPrimary.withOpacity(.8)),
+                          ),
+                        );
+                      }).toList(),
                     ),
                   ),
-                ],
-              ),
-            )
-        //     : Container()
-        // : const Text('no category found'),
-        );
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [showLoading(primaryColor)],
+                ),
+        ],
+      ),
+    );
   }
 }

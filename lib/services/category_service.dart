@@ -1,101 +1,60 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/category_model.dart';
-import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/subcategory_service.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:provider/provider.dart';
 
 class CategoryService with ChangeNotifier {
-  List categoryList = [];
-  bool hasError = false;
+  var categoryDropdownList = [];
+  var categoryDropdownIndexList = [];
+  var selectedCategory;
+  var selectedCategoryId;
 
-  fetchCategory() async {
-    if (categoryList.isNotEmpty) return;
-
-    //==============>
-
-    var connection = await checkConnection();
-    if (connection) {
-      //if connection is ok
-      var response =
-          await http.get(Uri.parse('$baseApi/donation?type=category'));
-
-      if (response.statusCode == 200) {
-        hasError = false;
-        var data = CategoryModel.fromJson(jsonDecode(response.body));
-        categoryList = data.donationCategory.data;
-        notifyListeners();
-      } else {
-        //Something went wrong
-        hasError = true;
-        notifyListeners();
-      }
-    }
-  }
-
-  //All  feature campaign service
-  var allCategories = [];
-
-  late int totalPages;
-
-  int currentPage = 1;
-
-  setCurrentPage(newValue) {
-    currentPage = newValue;
+  setCategoryValue(value) {
+    selectedCategory = value;
+    print('selected category $selectedCategory');
     notifyListeners();
   }
 
-  setTotalPage(newPageNumber) {
-    totalPages = newPageNumber;
+  setSelectedCategoryId(value) {
+    selectedCategoryId = value;
+    print('selected Category id $value');
     notifyListeners();
   }
 
-  fetchAllCategories(context, {bool isrefresh = false}) async {
-    if (isrefresh) {
-      //making the list empty first to show loading bar (we are showing loading bar while the product list is empty)
-      //we are make the list empty when the sub category or brand is selected because then the refresh is true
-      allCategories = [];
-      notifyListeners();
+  fetchCategory(BuildContext context) async {
+    if (categoryDropdownList.isNotEmpty) return;
 
-      Provider.of<CategoryService>(context, listen: false)
-          .setCurrentPage(currentPage);
-    } else {}
+    if (categoryDropdownList.isEmpty) {
+      var response = await http.get(Uri.parse('$baseApi/category'));
+      print(response.body);
 
-    var connection = await checkConnection();
-    if (connection) {
-      //if connection is ok
-      var response = await http
-          .get(Uri.parse("$baseApi/donation?type=category&page=$currentPage"));
-
-      if (response.statusCode == 200 &&
-          jsonDecode(response.body)['donation_category']['data'].isNotEmpty) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var data = CategoryModel.fromJson(jsonDecode(response.body));
 
-        setTotalPage(data.donationCategory.lastPage);
-
-        if (isrefresh) {
-          print('refresh true');
-          //if refreshed, then remove all service from list and insert new data
-          allCategories = [];
-          allCategories = data.donationCategory.data;
-          notifyListeners();
-        } else {
-          print('add new data');
-
-          //else add more data to list
-          for (int i = 0; i < data.donationCategory.data.length; i++) {
-            allCategories.add(data.donationCategory.data[i]);
-          }
-          notifyListeners();
+        for (int i = 0; i < data.categories.length; i++) {
+          categoryDropdownList.add(data.categories[i].name);
+          categoryDropdownIndexList.add(data.categories[i].id);
         }
 
-        currentPage++;
-        setCurrentPage(currentPage);
-        return true;
+        selectedCategory = categoryDropdownList[0];
+        selectedCategoryId = categoryDropdownIndexList[0];
+
+        notifyListeners();
+        Provider.of<SubCategoryService>(context, listen: false)
+            .fetchSubCategory(context);
       } else {
-        return false;
+        //error fetching data
+        categoryDropdownList.add('Select Category');
+        categoryDropdownIndexList.add(null);
+        selectedCategory = 'Select Category';
+        selectedCategoryId = null;
+        notifyListeners();
       }
     }
   }

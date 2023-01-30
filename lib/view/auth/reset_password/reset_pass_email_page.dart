@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/reset_password_service.dart';
-import 'package:no_name_ecommerce/view/auth/reset_password/reset_pass_otp_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
@@ -92,30 +91,21 @@ class _ResetPassEmailPageState extends State<ResetPassEmailPage> {
                       Consumer<ResetPasswordService>(
                         builder: (context, provider, child) =>
                             buttonPrimary("Send Instructions", () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) =>
-                                  ResetPassOtpPage(
-                                email: emailController.text,
-                              ),
-                            ),
-                          );
-                          // if (provider.isloading == false) {
-                          //   if (_formKey.currentState!.validate()) {
-                          //     provider.sendOtp(
-                          //         emailController.text.trim(), context);
-                          //   }
-                          //   // Navigator.push(
-                          //   //   context,
-                          //   //   MaterialPageRoute<void>(
-                          //   //     builder: (BuildContext context) =>
-                          //   //         ResetPassOtpPage(
-                          //   //       email: emailController.text,
-                          //   //     ),
-                          //   //   ),
-                          //   // );
-                          // }
+                          if (provider.isloading == false) {
+                            if (_formKey.currentState!.validate()) {
+                              provider.sendOtp(
+                                  emailController.text.trim(), context);
+                            }
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute<void>(
+                            //     builder: (BuildContext context) =>
+                            //         ResetPassOtpPage(
+                            //       email: emailController.text,
+                            //     ),
+                            //   ),
+                            // );
+                          }
                         },
                                 isloading:
                                     provider.isloading == false ? false : true,

@@ -37,6 +37,9 @@ class SignupService with ChangeNotifier {
         .selectedCountry;
     var stateName =
         Provider.of<CountryStatesService>(context, listen: false).selectedState;
+    if (stateName == 'Select State') {
+      stateName = null;
+    }
 
     if (!connection) return false;
 

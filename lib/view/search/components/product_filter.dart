@@ -38,19 +38,19 @@ class _ProductFilterState extends State<ProductFilter> {
             //Category =====>
             paragraphCommon('Category:'),
             sizedboxCustom(12),
-            const Categories(marginRight: 20),
+            const Categories(),
 
             //Sub Category =====>
             sizedboxCustom(20),
             paragraphCommon('Sub Category:'),
             sizedboxCustom(12),
-            const SubCategories(marginRight: 20),
+            const SubCategories(),
 
             //Child Category =====>
             sizedboxCustom(20),
             paragraphCommon('Child Category:'),
             sizedboxCustom(12),
-            const ChildCategories(marginRight: 20),
+            const ChildCategories(),
 
             //Color ========>
 

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
@@ -87,6 +89,7 @@ class ResetPasswordService with ChangeNotifier {
           "Accept": "application/json",
           "Content-Type": "application/json"
         };
+
         var data = jsonEncode({'email': email, 'password': newPass});
 
         print(data);

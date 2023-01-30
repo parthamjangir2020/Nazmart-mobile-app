@@ -11,77 +11,49 @@ String categoryModelToJson(CategoryModel data) => json.encode(data.toJson());
 
 class CategoryModel {
   CategoryModel({
-    required this.donationCategory,
+    required this.categories,
+    this.success,
   });
 
-  DonationCategory donationCategory;
+  List<Category> categories;
+  bool? success;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
-        donationCategory: DonationCategory.fromJson(json["donation_category"]),
+        categories: List<Category>.from(
+            json["categories"].map((x) => Category.fromJson(x))),
+        success: json["success"],
       );
 
   Map<String, dynamic> toJson() => {
-        "donation_category": donationCategory.toJson(),
+        "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
+        "success": success,
       };
 }
 
-class DonationCategory {
-  DonationCategory({
-    this.currentPage,
-    this.lastPage,
-    this.perPage,
-    this.path,
-    required this.links,
-    required this.data,
-  });
-
-  int? currentPage;
-  int? lastPage;
-  int? perPage;
-  String? path;
-  List<String> links;
-  List<Datum> data;
-
-  factory DonationCategory.fromJson(Map<String, dynamic> json) =>
-      DonationCategory(
-        currentPage: json["current_page"],
-        lastPage: json["last_page"],
-        perPage: json["per_page"],
-        path: json["path"],
-        links: List<String>.from(json["links"].map((x) => x)),
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "current_page": currentPage,
-        "last_page": lastPage,
-        "per_page": perPage,
-        "path": path,
-        "links": List<dynamic>.from(links.map((x) => x)),
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
-}
-
-class Datum {
-  Datum({
+class Category {
+  Category({
     this.id,
-    this.title,
-    this.image,
+    this.name,
+    this.slug,
+    this.imageUrl,
   });
 
   int? id;
-  String? title;
-  String? image;
+  String? name;
+  String? slug;
+  String? imageUrl;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
-        title: json["title"],
-        image: json["image"],
+        name: json["name"],
+        slug: json["slug"],
+        imageUrl: json["image_url"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "title": title,
-        "image": image,
+        "name": name,
+        "slug": slug,
+        "image_url": imageUrl,
       };
 }
