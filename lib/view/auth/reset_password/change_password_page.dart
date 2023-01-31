@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/auth_services/change_pass_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:provider/provider.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);
@@ -277,7 +280,30 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       const SizedBox(
                         height: 13,
                       ),
-                      titleCommon('Change password'),
+                      Consumer<ChangePassService>(
+                        builder: (context, provider, child) =>
+                            buttonPrimary('Change password', () {
+                          if (newPasswordController.text.trim().length < 6 ||
+                              currentPasswordController.text.trim().length <
+                                  6 ||
+                              repeatNewPasswordController.text.trim().length <
+                                  6) {
+                            showToast('Password must be at least 6 characters',
+                                Colors.black);
+                            return;
+                          }
+
+                          if (provider.isloading == false) {
+                            provider.changePassword(
+                                currentPasswordController.text,
+                                newPasswordController.text,
+                                repeatNewPasswordController.text,
+                                context);
+                          }
+                        },
+                                isloading:
+                                    provider.isloading == false ? false : true),
+                      ),
 
                       const SizedBox(
                         height: 30,

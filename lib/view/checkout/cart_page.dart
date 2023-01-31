@@ -136,7 +136,12 @@ class _CartpageState extends State<Cartpage> {
                                             children: [
                                               //decrease quanity
                                               InkWell(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  cProvider.decreaseQtyAndPrice(
+                                                      '1',
+                                                      'product title',
+                                                      context);
+                                                },
                                                 child: Container(
                                                   height: 32,
                                                   width: 32,

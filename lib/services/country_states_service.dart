@@ -63,13 +63,14 @@ class CountryStatesService with ChangeNotifier {
     selectedCountry = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
             .userDetails
-            .country
-            .country ??
+            .userCountry
+            .name ??
         'Select Country';
     selectedCountryId = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
             .userDetails
-            .countryId ??
+            .userCountry
+            .id ??
         '0';
 
     Future.delayed(const Duration(milliseconds: 500), () {
@@ -83,13 +84,13 @@ class CountryStatesService with ChangeNotifier {
     selectedState = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
             .userDetails
-            .city
-            .serviceCity ??
+            .userState
+            .name ??
         'Select State';
     selectedStateId = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
             .userDetails
-            .city
+            .userState
             .id ??
         '0';
     print(statesDropdownList);
@@ -171,8 +172,7 @@ class CountryStatesService with ChangeNotifier {
     var profileData =
         Provider.of<ProfileService>(context, listen: false).profileDetails;
     //if profile of user loaded then show selected dropdown data based on the user profile
-    if (profileData != null &&
-        profileData.userDetails.country.country != null) {
+    if (profileData != null && profileData.userDetails.userCountry != null) {
       setCountryBasedOnUserProfile(context);
     } else {
       if (data != null) {
@@ -197,7 +197,7 @@ class CountryStatesService with ChangeNotifier {
           .countryId;
 
       if (userCountryId == selectedCountryId) {
-        //if user selected the country id which is save in his profile
+        //if user selected the country id which is saved in his profile
         //only then show state/area based on that
 
         setStateBasedOnUserProfile(context);

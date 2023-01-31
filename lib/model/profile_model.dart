@@ -30,73 +30,186 @@ class UserDetails {
     this.id,
     this.name,
     this.email,
-    this.phone,
-    this.image,
-    this.zipcode,
+    this.emailVerifiedAt,
+    this.username,
+    this.emailVerified,
+    this.emailVerifyToken,
+    this.mobile,
+    this.company,
+    this.address,
     this.city,
     this.state,
-    this.countryId,
-    this.address,
+    this.image,
     this.country,
+    this.createdAt,
+    this.updatedAt,
+    this.profileImageUrl,
+    this.userCountry,
+    this.userState,
+    this.deliveryAddress,
   });
 
   int? id;
   String? name;
   String? email;
-  String? phone;
-  dynamic image;
-  dynamic zipcode;
+  dynamic? emailVerifiedAt;
+  String? username;
+  int? emailVerified;
+  String? emailVerifyToken;
+  String? mobile;
+  String? company;
+  String? address;
   String? city;
   String? state;
-  String? countryId;
-  String? address;
-  Country? country;
+  String? image;
+  String? country;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? profileImageUrl;
+  User? userCountry;
+  User? userState;
+  DeliveryAddress? deliveryAddress;
 
-  factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
-        id: json["id"],
-        name: json["name"],
-        email: json["email"],
-        phone: json["phone"],
-        image: json["image"],
-        zipcode: json["zipcode"],
-        city: json["city"],
-        state: json["state"],
-        countryId: json["country_id"],
-        address: json["address"],
-        country: Country?.fromJson(json["country"]),
+  factory UserDetails.fromJson(Map<String, dynamic>? json) => UserDetails(
+        id: json?["id"],
+        name: json?["name"],
+        email: json?["email"],
+        emailVerifiedAt: json?["email_verified_at"],
+        username: json?["username"],
+        emailVerified: json?["email_verified"],
+        emailVerifyToken: json?["email_verify_token"],
+        mobile: json?["mobile"],
+        company: json?["company"],
+        address: json?["address"],
+        city: json?["city"],
+        state: json?["state"],
+        image: json?["image"],
+        country: json?["country"],
+        createdAt: DateTime.parse(json?["created_at"]),
+        updatedAt: DateTime.parse(json?["updated_at"]),
+        profileImageUrl: json?["profile_image_url"],
+        userCountry: User.fromJson(json?["user_country"]),
+        userState: json?["user_state"] != null
+            ? User.fromJson(json?["user_state"])
+            : null,
+        deliveryAddress: json?["delivery_address"] != null
+            ? DeliveryAddress.fromJson(json?["delivery_address"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "email": email,
-        "phone": phone,
-        "image": image,
-        "zipcode": zipcode,
+        "email_verified_at": emailVerifiedAt,
+        "username": username,
+        "email_verified": emailVerified,
+        "email_verify_token": emailVerifyToken,
+        "mobile": mobile,
+        "company": company,
+        "address": address,
         "city": city,
         "state": state,
-        "country_id": countryId,
-        "address": address,
-        "country": country?.toJson(),
+        "image": image,
+        "country": country,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "profile_image_url": profileImageUrl,
+        "user_country": userCountry?.toJson(),
+        "user_state": userState?.toJson(),
+        "delivery_address": deliveryAddress?.toJson(),
       };
 }
 
-class Country {
-  Country({
+class DeliveryAddress {
+  DeliveryAddress({
+    this.id,
+    this.userId,
+    this.countryId,
+    this.stateId,
+    this.fullName,
+    this.phone,
+    this.email,
+    this.city,
+    this.address,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  int? id;
+  int? userId;
+  int? countryId;
+  int? stateId;
+  String? fullName;
+  String? phone;
+  String? email;
+  String? city;
+  String? address;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  factory DeliveryAddress.fromJson(Map<String, dynamic> json) =>
+      DeliveryAddress(
+        id: json["id"],
+        userId: json["user_id"],
+        countryId: json["country_id"],
+        stateId: json["state_id"],
+        fullName: json["full_name"],
+        phone: json["phone"],
+        email: json["email"],
+        city: json["city"],
+        address: json["address"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId,
+        "country_id": countryId,
+        "state_id": stateId,
+        "full_name": fullName,
+        "phone": phone,
+        "email": email,
+        "city": city,
+        "address": address,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+      };
+}
+
+class User {
+  User({
     this.id,
     this.name,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.countryId,
   });
 
   int? id;
   String? name;
+  String? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? countryId;
 
-  factory Country.fromJson(Map<String, dynamic>? json) => Country(
-        id: json?["id"],
-        name: json?["name"],
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
+        name: json["name"],
+        status: json["status"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        countryId: json["country_id"],
       );
 
-  Map<String?, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "status": status,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "country_id": countryId,
       };
 }

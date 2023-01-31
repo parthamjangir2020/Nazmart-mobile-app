@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
-import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/auth/reset_password/change_password_page.dart';
 import 'package:no_name_ecommerce/view/order/my_orders_page.dart';
 import 'package:no_name_ecommerce/view/refund_products/refund_products_list_page.dart';
+import 'package:no_name_ecommerce/view/settingsOrProfile/components/profile_details.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/settings_helper.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/profile_edit_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
@@ -33,256 +32,100 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               SingleChildScrollView(
                 child: Consumer<AppStringService>(
-                  builder: (context, asProvider, child) => Consumer<
-                          ProfileService>(
-                      builder: (context, profileProvider, child) =>
-                          // profileProvider.profileDetails != null
-                          //     ? profileProvider.profileDetails != 'error'
-                          //         ?
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: screenPadHorizontal),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      //profile image, name ,desc
-                                      Column(
-                                        children: [
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          //Profile image section =======>
-                                          InkWell(
-                                            highlightColor: Colors.transparent,
-                                            splashColor: Colors.transparent,
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute<void>(
-                                                  builder: (BuildContext
-                                                          context) =>
-                                                      const ProfileEditPage(),
-                                                ),
-                                              );
-                                            },
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                //profile image
+                    builder: (context, asProvider, child) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const ProfileDetails(),
+                            //Other settings options ========>
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Column(children: [
+                                SettingsHelper().settingOption(
+                                    'assets/svg/message-circle.svg',
+                                    asProvider.getString("My orders"), () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const MyOrdersPage(),
+                                    ),
+                                  );
+                                }),
+                                dividerCommon(),
 
-                                                // profileProvider
-                                                //             .profileImage !=
-                                                //         null
-                                                //     ? CommonHelper()
-                                                //         .profileImage(
-                                                //             profileProvider
-                                                //                 .profileImage,
-                                                //             62,
-                                                //             62)
-                                                //     :
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                  child: Image.asset(
-                                                    'assets/images/avatar.png',
-                                                    height: 62,
-                                                    width: 62,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
+                                //
 
-                                                const SizedBox(
-                                                  width: 15,
-                                                ),
+                                SettingsHelper().settingOption(
+                                    'assets/svg/message-circle.svg',
+                                    asProvider.getString("Refund products"),
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const RefundProductsListPage(),
+                                    ),
+                                  );
+                                }),
+                                dividerCommon(),
 
-                                                Expanded(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          const SizedBox(
-                                                            height: 12,
-                                                          ),
+                                //
+                                SettingsHelper().settingOption(
+                                    'assets/svg/message-circle.svg',
+                                    asProvider.getString("Support Ticket"), () {
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute<void>(
+                                  //     builder: (BuildContext context) =>
+                                  //         const MyTicketsPage(),
+                                  //   ),
+                                  // );
+                                }),
+                                dividerCommon(),
+                                SettingsHelper().settingOption(
+                                    'assets/svg/profile-edit.svg',
+                                    asProvider.getString("Edit Profile"), () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const ProfileEditPage(),
+                                    ),
+                                  );
+                                }),
+                                dividerCommon(),
+                                SettingsHelper().settingOption(
+                                    'assets/svg/lock-circle.svg',
+                                    asProvider.getString("Change Password"),
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const ChangePasswordPage(),
+                                    ),
+                                  );
+                                }),
+                              ]),
+                            ),
 
-                                                          //user name
-                                                          titleCommon(
-                                                              'Saleheen'),
-
-                                                          //phone
-                                                          paragraphCommon(
-                                                              'Member since 2022',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center),
-                                                        ],
-                                                      ),
-
-                                                      const SizedBox(
-                                                        width: 15,
-                                                      ),
-
-                                                      //profile edit button
-                                                      SvgPicture.asset(
-                                                          'assets/svg/edit-orange.svg')
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-
-                                      //
-                                    ]),
-                              ),
-
-                              // Personal information ==========>
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: screenPadHorizontal),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      sizedboxCustom(30),
-                                      bRow(
-                                        asProvider.getString("Phone"),
-                                        '01246852511',
-                                        icon: 'assets/svg/phone.svg',
-                                      ),
-                                      bRow(
-                                        asProvider.getString("Email"),
-                                        'es@email.com',
-                                        icon: 'assets/svg/email.svg',
-                                      ),
-                                      bRow(
-                                        asProvider.getString("Country"),
-                                        'Bangladesh',
-                                        icon: 'assets/svg/location.svg',
-                                      ),
-                                      bRow(asProvider.getString("Post code"),
-                                          '1020',
-                                          icon: 'assets/svg/location.svg',
-                                          lastItem: true),
-                                    ]),
-                              ),
-
-                              SettingsHelper().borderBold(35, 8),
-
-                              //Other settings options ========>
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Column(children: [
-                                  SettingsHelper().settingOption(
-                                      'assets/svg/message-circle.svg',
-                                      asProvider.getString("My orders"), () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) =>
-                                            const MyOrdersPage(),
-                                      ),
-                                    );
-                                  }),
-                                  dividerCommon(),
-
-                                  //
-
-                                  SettingsHelper().settingOption(
-                                      'assets/svg/message-circle.svg',
-                                      asProvider.getString("Refund products"),
-                                      () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) =>
-                                            const RefundProductsListPage(),
-                                      ),
-                                    );
-                                  }),
-                                  dividerCommon(),
-
-                                  //
-                                  SettingsHelper().settingOption(
-                                      'assets/svg/message-circle.svg',
-                                      asProvider.getString("Support Ticket"),
-                                      () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute<void>(
-                                    //     builder: (BuildContext context) =>
-                                    //         const MyTicketsPage(),
-                                    //   ),
-                                    // );
-                                  }),
-                                  dividerCommon(),
-                                  SettingsHelper().settingOption(
-                                      'assets/svg/profile-edit.svg',
-                                      asProvider.getString("Edit Profile"), () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) =>
-                                            const ProfileEditPage(),
-                                      ),
-                                    );
-                                  }),
-                                  dividerCommon(),
-                                  SettingsHelper().settingOption(
-                                      'assets/svg/lock-circle.svg',
-                                      asProvider.getString("Change Password"),
-                                      () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) =>
-                                            const ChangePasswordPage(),
-                                      ),
-                                    );
-                                  }),
-                                ]),
-                              ),
-
-                              // logout
-                              SettingsHelper().borderBold(12, 5),
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Column(children: [
-                                  SettingsHelper().settingOption(
-                                      'assets/svg/logout-circle.svg',
-                                      asProvider.getString("Logout"), () {
-                                    SettingsHelper().logoutPopup(context);
-                                  }),
-                                  sizedboxCustom(20)
-                                ]),
-                              )
-                            ],
-                          )
-                      //     : showError(context)
-                      // : Container(
-                      //     alignment: Alignment.center,
-                      //     height:
-                      //         MediaQuery.of(context).size.height - 150,
-                      //     child:
-                      //         showLoading(primaryColor),
-                      //   ),
-                      ),
-                ),
+                            // logout
+                            SettingsHelper().borderBold(12, 5),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Column(children: [
+                                SettingsHelper().settingOption(
+                                    'assets/svg/logout-circle.svg',
+                                    asProvider.getString("Logout"), () {
+                                  SettingsHelper().logoutPopup(context);
+                                }),
+                                sizedboxCustom(20)
+                              ]),
+                            )
+                          ],
+                        )),
               ),
 
               //chat icon ========>

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/product/components/campaign_products.dart';
 import 'package:no_name_ecommerce/view/product/components/featured_products.dart';
@@ -23,6 +25,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
+    runAtHomeScreen(context);
   }
 
   @override
@@ -46,75 +49,60 @@ class _HomepageState extends State<Homepage> {
                     sizedboxCustom(10),
                     // co
                     //name and profile image
-                    // Consumer<ProfileService>(
-                    //     builder: (context, profileProvider, child) =>
-                    //         // profileProvider.profileDetails != null
-                    //         //     ? profileProvider.profileDetails != 'error'
-                    //         //         ?
-                    InkWell(
-                      onTap: () {
-                        Provider.of<BottomNavService>(context, listen: false)
-                            .setCurrentIndex(3);
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: Row(
-                          children: [
-                            //name
-                            Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${asProvider.getString('Hi,')}',
-                                  style: const TextStyle(
-                                    color: greyParagraph,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                const Text(
-                                  'Saleheen',
-                                  style: TextStyle(
-                                    color: blackCustomColor,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            )),
+                    Consumer<ProfileService>(
+                      builder: (context, profileProvider, child) =>
+                          profileProvider.profileDetails != null
+                              ? profileProvider.profileDetails != 'error'
+                                  ? InkWell(
+                                      onTap: () {
+                                        Provider.of<BottomNavService>(context,
+                                                listen: false)
+                                            .setCurrentIndex(3);
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 25),
+                                        child: Row(
+                                          children: [
+                                            //name
+                                            Expanded(
+                                                child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '${asProvider.getString('Hi,')}',
+                                                  style: const TextStyle(
+                                                    color: greyParagraph,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  profileProvider.profileDetails
+                                                          .userDetails.name ??
+                                                      '',
+                                                  style: const TextStyle(
+                                                    color: blackCustomColor,
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
 
-                            //profile image
-                            // profileProvider.profileImage != null
-                            //     ? profileImage(
-                            //         profileProvider
-                            //             .profileImage,
-                            //         52,
-                            //         52)
-                            //     :
-
-                            // ClipRRect(
-                            //   borderRadius: BorderRadius.circular(8),
-                            //   child: Image.asset(
-                            //     'assets/images/avatar.png',
-                            //     height: 52,
-                            //     width: 52,
-                            //     fit: BoxFit.cover,
-                            //   ),
-                            // ),
-
-                            //Cart icon
-                            const CartIcon()
-                          ],
-                        ),
-                      ),
+                                            //Cart icon
+                                            const CartIcon()
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : Text(asProvider.getString(
+                                      'Could not load user profile info'))
+                              : Container(),
                     ),
-                    //     //     : Text(asProvider.getString(
-                    //     //         'Could not load user profile info'))
-                    //     // : Container(),
-                    //     ),
 
                     //Search bar ========>
                     sizedboxCustom(23),

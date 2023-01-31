@@ -2,6 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,7 @@ runAtHomeScreen(BuildContext context) {
   // Provider.of<CategoryService>(context, listen: false).fetchCategory();
   // Provider.of<RecentCampaignService>(context, listen: false)
   //     .fetchRecentCampaign();
-  // Provider.of<ProfileService>(context, listen: false).getProfileDetails();
+  Provider.of<ProfileService>(context, listen: false).getProfileDetails();
 }
 
 runAtStart(BuildContext context) {
