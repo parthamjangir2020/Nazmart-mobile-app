@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
+import 'package:provider/provider.dart';
 
 //common appbar
 appbarCommon(String title, BuildContext context, VoidCallback pressed,
@@ -12,10 +14,12 @@ appbarCommon(String title, BuildContext context, VoidCallback pressed,
   return AppBar(
     centerTitle: centerTitle ? true : false,
     iconTheme: const IconThemeData(color: greyPrimary),
-    title: Text(
-      title,
-      style: const TextStyle(
-          color: greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
+    title: Consumer<AppStringService>(
+      builder: (context, ln, child) => Text(
+        ln.getString(title),
+        style: const TextStyle(
+            color: greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
+      ),
     ),
     backgroundColor: Colors.transparent,
     elevation: 0,

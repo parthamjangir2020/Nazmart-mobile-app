@@ -23,7 +23,7 @@ class ProductDbService {
         "CREATE TABLE cart_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId TEXT, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL,totalWithQty REAL, qty INTEGER, color TEXT,size TEXT,colorPrice REAL,sizePrice REAL)");
 
     await database.execute(
-        "CREATE TABLE fav_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId INTEGER, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL)");
+        "CREATE TABLE fav_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId TEXT, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL)");
   }
 
   Future<Database> get getdatabase async {
@@ -156,25 +156,4 @@ class ProductDbService {
     var connection = await getdatabase;
     return await connection.query('fav_table');
   }
-
-  //==================>
-
-  // deleteDatafromFav(int productId, String title, BuildContext context) async {
-  //   var connection = await getdatabase;
-  //   await connection.rawDelete(
-  //       "DELETE FROM fav_table WHERE productId=? and title =?",
-  //       [productId, title]);
-  // }
-
-//====================>
-
-  // addFavProductToCart(int productId, String title, context) async {
-  //   var connection = await getdatabase;
-  //   //make added to cart true
-  //   await connection.rawUpdate(
-  //       "UPDATE fav_table SET addedToCart=? WHERE productId=? and title =?",
-  //       [1, productId, title]);
-  //   //then refresh the product in wishlist page
-  //   // Provider.of<FavouritePageService>(context, listen: false).getProducts();
-  // }
 }
