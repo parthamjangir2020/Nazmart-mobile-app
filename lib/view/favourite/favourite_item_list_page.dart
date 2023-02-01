@@ -50,7 +50,9 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                               context,
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) =>
-                                    const ProductDetailsPage(),
+                                    const ProductDetailsPage(
+                                  productId: '239',
+                                ),
                               ),
                             );
                           },

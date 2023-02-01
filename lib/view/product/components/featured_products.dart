@@ -49,7 +49,9 @@ class FeaturedProducts extends StatelessWidget {
                         context,
                         MaterialPageRoute<void>(
                           builder: (BuildContext context) =>
-                              const ProductDetailsPage(),
+                              const ProductDetailsPage(
+                            productId: '239',
+                          ),
                         ),
                       );
                     },

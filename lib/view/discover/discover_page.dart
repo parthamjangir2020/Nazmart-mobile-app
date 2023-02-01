@@ -35,8 +35,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        iconTheme: IconThemeData(color: greyPrimary),
-        title: Text(
+        iconTheme: const IconThemeData(color: greyPrimary),
+        title: const Text(
           'Discover',
           style: TextStyle(
               color: greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
@@ -141,7 +141,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
                                   context,
                                   MaterialPageRoute<void>(
                                     builder: (BuildContext context) =>
-                                        const ProductDetailsPage(),
+                                        const ProductDetailsPage(
+                                      productId: '239',
+                                    ),
                                   ),
                                 );
                               },

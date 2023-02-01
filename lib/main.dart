@@ -16,6 +16,7 @@ import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/fav_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
+import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BottomNavService()),
         ChangeNotifierProvider(create: (_) => SubCategoryService()),
         ChangeNotifierProvider(create: (_) => ChildCategoryService()),
+        ChangeNotifierProvider(create: (_) => ProductDetailsService()),
       ],
       child: MaterialApp(
         title: 'Nazmart',
