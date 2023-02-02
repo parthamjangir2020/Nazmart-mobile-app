@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/model/favourite_product_model.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:path_provider/path_provider.dart';
@@ -93,62 +92,7 @@ class ProductDbService {
 
 //Favourite table functionalities ======================>
 
-  //check if added to favourite then change fav button color accordingly
-  checkFavourite(String title, int id) async {
-    var connection = await getdatabase;
-    var favaudio = await connection.rawQuery(
-        "SELECT * FROM fav_table WHERE title=? and productId=?", [title, id]);
-    if (favaudio.isNotEmpty) {
-      //if not empty then it is added to favourite
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   // ===========================>
-
-  Future<bool> addOrRemoveFavourite(
-      int productId,
-      String title,
-      String thumbnail,
-      double discountPrice,
-      double oldPrice,
-      BuildContext context) async {
-    var connection = await getdatabase;
-    var favaudio = await connection.rawQuery(
-        "SELECT * FROM fav_table WHERE title=? and productId=?",
-        [title, productId]);
-    if (favaudio.isEmpty) {
-      //if already not added to favourite
-
-      var favObj = FavouriteProductModel();
-      favObj.productId = productId;
-      favObj.title = title;
-      favObj.thumbnail = thumbnail;
-      favObj.discountPrice = discountPrice;
-      favObj.oldPrice = oldPrice;
-
-      await connection.insert('fav_table', favObj.favouriteMap());
-      print('added to favourite');
-
-      showSnackBar(context, 'Added to favourite', successColor);
-
-      return true;
-    } else {
-      // else already added to favourite. so remove it
-
-      await connection.rawDelete(
-          "DELETE FROM fav_table WHERE productId=? and title=?",
-          [productId, title]);
-
-      print('removed from favourite');
-
-      showSnackBar(context, 'Removed from favourite', primaryColor);
-
-      return false;
-    }
-  }
 
   //=================>
 

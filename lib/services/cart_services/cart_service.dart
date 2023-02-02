@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:no_name_ecommerce/model/add_to_cart_model.dart';
 import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
-import 'package:no_name_ecommerce/services/cart_services/product_db_service.dart';
+import 'package:no_name_ecommerce/services/product_db_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -30,18 +30,7 @@ class CartService with ChangeNotifier {
     notifyListeners();
   }
 
-  remove(
-      int productId,
-      String title,
-      String thumbnail,
-      double discountPrice,
-      double oldPrice,
-      int quantity,
-      String color,
-      double colorPrice,
-      String size,
-      double sizePrice,
-      BuildContext context) async {
+  remove(int productId, String title, BuildContext context) async {
     await ProductDbService().removeFromCart(productId, title, context);
 
     //==============>
@@ -154,6 +143,7 @@ class CartService with ChangeNotifier {
     var prod = await connection.rawQuery(
         "SELECT * FROM cart_table WHERE productId=? and title =?",
         [productId, title]);
+
     if (prod.isEmpty) {
       //if product is not already added to cart
       var cartObj = AddtocartModel();

@@ -8,9 +8,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailsService with ChangeNotifier {
-  var productDetails;
+  ProductDetailsModel? productDetails;
+
+  int ratingCount = 0;
+  bool inStock = true;
 
   bool isLoading = false;
+
+  setDefault() {
+    productDetails = null;
+    notifyListeners();
+  }
 
   setLoadingStatus(bool status) {
     isLoading = status;
@@ -21,6 +29,8 @@ class ProductDetailsService with ChangeNotifier {
     //check internet connection
     var connection = await checkConnection();
     if (!connection) return;
+
+    setDefault();
     //internet connection is on
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -41,6 +51,10 @@ class ProductDetailsService with ChangeNotifier {
 
     if (response.statusCode == 200) {
       productDetails = ProductDetailsModel.fromJson(jsonDecode(response.body));
+
+      ratingCount = productDetails?.ratings.length ?? 0;
+      inStock =
+          productDetails?.product?.inventory?.stockCount == 0 ? false : true;
 
       notifyListeners();
     } else {

@@ -256,7 +256,9 @@ class Product {
             json["inventory_detail"].map((x) => InventoryDetail.fromJson(x))),
         reviews:
             List<Review>.from(json["reviews"].map((x) => Review.fromJson(x))),
-        inventory: Inventory.fromJson(json["inventory"]),
+        inventory: json["inventory"] != null
+            ? Inventory.fromJson(json["inventory"])
+            : null,
         galleryImages: List<GalleryImage>.from(
             json["gallery_images"].map((x) => GalleryImage.fromJson(x))),
         deliveryOption: List<DeliveryOption>.from(

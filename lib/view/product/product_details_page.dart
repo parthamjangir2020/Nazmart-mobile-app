@@ -98,12 +98,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
 
                             sizedboxCustom(16),
 
-                            paragraphCommon('Unit: 1 Pcs  |  SKU: bbs15'),
+                            paragraphCommon(
+                                'SKU:  ${provider.productDetails?.product?.inventory?.sku}'),
 
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const ProductDetailsTop(),
+                                ProductDetailsTop(
+                                  title: provider.productDetails?.product?.name,
+                                  id: provider.productDetails?.product?.id,
+                                ),
 
                                 //=========>
                                 const ColorAndSize(),

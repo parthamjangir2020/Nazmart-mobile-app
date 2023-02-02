@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
-import 'package:no_name_ecommerce/services/cart_services/fav_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -19,7 +19,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<FavService>(context, listen: false).fetchFavProducts();
+    Provider.of<FavouriteService>(context, listen: false).fetchFavProducts();
   }
 
   @override
@@ -31,7 +31,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
         child: SingleChildScrollView(
             child: Container(
           padding: EdgeInsets.symmetric(horizontal: screenPadHorizontal),
-          child: Consumer<FavService>(
+          child: Consumer<FavouriteService>(
               builder: (context, provider, child) =>
                   //  provider
                   //         .favItemList.isNotEmpty

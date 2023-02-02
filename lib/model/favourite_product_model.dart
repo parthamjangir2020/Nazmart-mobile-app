@@ -2,8 +2,8 @@ class FavouriteProductModel {
   late int productId;
   late String title;
   late String thumbnail;
-  late double discountPrice;
-  late double oldPrice;
+  late var discountPrice;
+  late var oldPrice;
 
   favouriteMap() {
     var mapping = <String, dynamic>{};

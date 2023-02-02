@@ -14,7 +14,7 @@ import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
-import 'package:no_name_ecommerce/services/cart_services/fav_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DeliveryAddressService()),
         ChangeNotifierProvider(create: (_) => CartService()),
         ChangeNotifierProvider(create: (_) => SearchProductService()),
-        ChangeNotifierProvider(create: (_) => FavService()),
+        ChangeNotifierProvider(create: (_) => FavouriteService()),
         ChangeNotifierProvider(create: (_) => CurrencyService()),
         ChangeNotifierProvider(create: (_) => ProfileEditService()),
         ChangeNotifierProvider(create: (_) => BottomNavService()),
