@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/view/product/components/write_review_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailsBottom extends StatefulWidget {
   const ProductDetailsBottom({
@@ -33,45 +37,67 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
           topLeft: Radius.circular(20),
         ),
       ),
-      child: Column(
-        children: [
-          widget.tabIndex == 1
-              ? Column(
-                  children: [
-                    buttonPrimary('Write a review', () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) =>
-                              const WriteReviewPage(
-                            productId: '1',
+      child: Consumer<ProductDetailsService>(
+        builder: (context, provider, child) => Column(
+          children: [
+            widget.tabIndex == 1
+                ? Column(
+                    children: [
+                      buttonPrimary('Write a review', () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                const WriteReviewPage(
+                              productId: '1',
+                            ),
                           ),
-                        ),
-                      );
-                    }, bgColor: successColor, borderRadius: 100),
-                    const SizedBox(
-                      height: 9,
-                    ),
-                  ],
-                )
-              : Container(),
-          Row(
-            children: [
-              Expanded(
-                  child: buttonPrimary('Buy now', (() {}),
-                      borderRadius: 100,
-                      bgColor: Colors.grey[200],
-                      fontColor: Colors.grey[800])),
-              const SizedBox(
-                width: 15,
+                        );
+                      }, bgColor: successColor, borderRadius: 100),
+                      const SizedBox(
+                        height: 9,
+                      ),
+                    ],
+                  )
+                : Container(),
+            Consumer<CartService>(
+              builder: (context, cProvider, child) => Row(
+                children: [
+                  Expanded(
+                      child: buttonPrimary('Buy now', (() {}),
+                          borderRadius: 100,
+                          bgColor: Colors.grey[200],
+                          fontColor: Colors.grey[800])),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  //======>
+                  Expanded(
+                    child: buttonPrimary('Add to cart', () {
+                      cProvider.addToCartOrUpdateQty(context,
+                          title: provider.productDetails?.product?.name ?? '',
+                          thumbnail: provider.productDetails?.product?.image ??
+                              placeHolderUrl,
+                          discountPrice: provider
+                                  .productDetails?.product?.salePrice
+                                  .toString() ??
+                              '0',
+                          oldPrice: provider.productDetails?.product?.price
+                                  .toString() ??
+                              '0',
+                          qty: 1,
+                          color: 'red',
+                          colorPrice: '4',
+                          size: 'M',
+                          sizePrice: '3',
+                          productId: '1');
+                    }, borderRadius: 100),
+                  ),
+                ],
               ),
-              //======>
-              Expanded(
-                child: buttonPrimary('Add to cart', () {}, borderRadius: 100),
-              ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

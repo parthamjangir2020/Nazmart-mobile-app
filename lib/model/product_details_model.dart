@@ -11,22 +11,22 @@ String productDetailsModelToJson(ProductDetailsModel data) =>
     json.encode(data.toJson());
 
 class ProductDetailsModel {
-  ProductDetailsModel({
-    this.product,
-    this.productUrl,
-    required this.relatedProducts,
-    required this.userHasItem,
-    required this.ratings,
-    this.avgRating,
-    required this.availableAttributes,
-    required this.productInventorySet,
-    required this.additionalInfoStore,
-    this.maximumAvailablePrice,
-    required this.productColors,
-    required this.productSizes,
-    required this.settingText,
-    this.userRatedAlready,
-  });
+  ProductDetailsModel(
+      {this.product,
+      this.productUrl,
+      required this.relatedProducts,
+      required this.userHasItem,
+      required this.ratings,
+      this.avgRating,
+      required this.availableAttributes,
+      required this.productInventorySet,
+      required this.additionalInfoStore,
+      this.maximumAvailablePrice,
+      required this.productColors,
+      required this.productSizes,
+      required this.settingText,
+      this.userRatedAlready,
+      required this.returnPolicy});
 
   Product? product;
   String? productUrl;
@@ -42,6 +42,7 @@ class ProductDetailsModel {
   List<ProductColor> productSizes;
   List<dynamic> settingText;
   bool? userRatedAlready;
+  ReturnPolicy returnPolicy;
 
   factory ProductDetailsModel.fromJson(Map<String, dynamic> json) =>
       ProductDetailsModel(
@@ -68,6 +69,7 @@ class ProductDetailsModel {
             json["productSizes"].map((x) => ProductColor.fromJson(x))),
         settingText: List<dynamic>.from(json["setting_text"].map((x) => x)),
         userRatedAlready: json["user_rated_already"],
+        returnPolicy: ReturnPolicy.fromJson(json["return_policy"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -88,6 +90,7 @@ class ProductDetailsModel {
         "productSizes": List<dynamic>.from(productSizes.map((x) => x.toJson())),
         "setting_text": List<dynamic>.from(settingText.map((x) => x)),
         "user_rated_already": userRatedAlready,
+        "return_policy": returnPolicy.toJson(),
       };
 }
 
@@ -576,6 +579,38 @@ class InventoryDetail {
       };
 }
 
+class ReturnPolicy {
+  ReturnPolicy({
+    this.id,
+    this.productId,
+    this.shippingReturnDescription,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  int? id;
+  int? productId;
+  String? shippingReturnDescription;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  factory ReturnPolicy.fromJson(Map<String, dynamic> json) => ReturnPolicy(
+        id: json["id"],
+        productId: json["product_id"],
+        shippingReturnDescription: json["shipping_return_description"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "product_id": productId,
+        "shipping_return_description": shippingReturnDescription,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+      };
+}
+
 class AttrImage {
   AttrImage({
     this.id,
@@ -796,7 +831,7 @@ class Rating {
   int? id;
   int? productId;
   int? userId;
-  int? rating;
+  var rating;
   String? reviewText;
   DateTime? createdAt;
   DateTime? updatedAt;

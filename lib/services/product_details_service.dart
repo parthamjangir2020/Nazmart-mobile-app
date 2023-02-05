@@ -8,12 +8,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailsService with ChangeNotifier {
+  //
+
   ProductDetailsModel? productDetails;
 
   int ratingCount = 0;
   bool inStock = true;
 
   bool isLoading = false;
+
+  int qty = 1;
+
+  increaseQty() {
+    qty = qty + 1;
+    notifyListeners();
+  }
+
+  decreaseQty() {
+    if (qty == 1) return;
+    qty = qty - 1;
+    notifyListeners();
+  }
 
   setDefault() {
     productDetails = null;

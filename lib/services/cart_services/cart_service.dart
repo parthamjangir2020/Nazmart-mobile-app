@@ -10,14 +10,26 @@ import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
 class CartService with ChangeNotifier {
-  //This class is only responsible for
-//cart product page
+  //
   var cartItemList = [];
 
   double subTotal = 0;
   int cartProductsNumber = 0;
   double totalPrice = 0;
   double couponDiscount = 0.0;
+
+  var selectedColor;
+  var selectedSize;
+
+  setSelectedColor(v) {
+    selectedColor = v;
+    notifyListeners();
+  }
+
+  setSelectedSize(v) {
+    selectedSize = v;
+    notifyListeners();
+  }
 
   resetCoupon(BuildContext context) {
     couponDiscount = 0.0;
@@ -74,8 +86,6 @@ class CartService with ChangeNotifier {
 
       await ProductDbService()
           .updateQtandPrice(productId, title, newQty, newprice, context);
-      //========>
-
       //user needs to enter coupon again
       resetCoupon(context);
       //set default delivery options

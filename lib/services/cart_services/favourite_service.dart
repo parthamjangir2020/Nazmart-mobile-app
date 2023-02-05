@@ -57,7 +57,7 @@ class FavouriteService with ChangeNotifier {
     await connection.rawDelete(
         "DELETE FROM fav_table WHERE productId=? and title=?",
         [productId, title]);
-
+    fetchFavProducts();
     print('removed from favourite');
   }
 
