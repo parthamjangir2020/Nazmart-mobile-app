@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/support_ticket_service.dart';
@@ -30,8 +32,8 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          iconTheme: IconThemeData(color: greyPrimary),
-          title: Text(
+          iconTheme: const IconThemeData(color: greyPrimary),
+          title: const Text(
             'Support tickets',
             style: TextStyle(
                 color: greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
@@ -159,7 +161,7 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                                               '#${provider.ticketList[i]['id']}',
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: primaryColor,
                                               ),
                                             ),
@@ -207,11 +209,15 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                                         //Capsules
                                         Row(
                                           children: [
-                                            capsule('pending'),
+                                            capsule(provider.ticketList[i]
+                                                    ['priority']
+                                                .toString()),
                                             const SizedBox(
                                               width: 11,
                                             ),
-                                            capsule('complete')
+                                            capsule(provider.ticketList[i]
+                                                    ['status']
+                                                .toString())
                                           ],
                                         )
                                       ]),

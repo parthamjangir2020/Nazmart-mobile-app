@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/create_ticket_service.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/view/support_ticket/components/textarea_field.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
-import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
+import 'package:no_name_ecommerce/view/widgets/custom_dropdown.dart';
 import 'package:provider/provider.dart';
 
 class CreateTicketPage extends StatefulWidget {
@@ -35,138 +37,124 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
         }),
         body: Listener(
           onPointerDown: (_) {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.focusedChild?.unfocus();
-            }
+            hideKeyboard(context);
           },
           child: SingleChildScrollView(
-            child: Consumer<CreateTicketService>(
-              builder: (context, provider, child) => Form(
-                key: _formKey,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenPadHorizontal, vertical: 20),
-                  child: Column(children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //Priority dropdown ======>
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            labelCommon("Priority"),
-                            Container(
-                              width: double.infinity,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: greyFive),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  // menuMaxHeight: 200,
-                                  // isExpanded: true,
-                                  value: provider.selectedPriority,
-                                  icon: Icon(Icons.keyboard_arrow_down_rounded,
-                                      color: greyFour),
-                                  iconSize: 26,
-                                  elevation: 17,
-                                  style: TextStyle(color: greyFour),
-                                  onChanged: (newValue) {
-                                    provider.setPriorityValue(newValue);
+            child: Consumer<PriorityAndDepartmentDropdownService>(
+              builder: (context, pProvider, child) =>
+                  Consumer<CreateTicketService>(
+                builder: (context, provider, child) => Form(
+                  key: _formKey,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenPadHorizontal, vertical: 20),
+                    child: Column(children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //Priority dropdown ======>
+                          CustomDropDown(
+                            items: pProvider.priorityDropdownList,
+                            labelText: 'Priority',
+                            value: pProvider.selectedPriority,
+                            onChange: (v) {
+                              pProvider.setPriorityValue(v);
 
-                                    //setting the id of selected value
-                                    provider.setSelectedPriorityId(
-                                        provider.priorityDropdownIndexList[
-                                            provider.priorityDropdownList
-                                                .indexOf(newValue!)]);
-                                  },
-                                  items: provider.priorityDropdownList
-                                      .map<DropdownMenuItem<String>>((value) {
-                                    return DropdownMenuItem(
-                                      value: value,
-                                      child: Text(
-                                        value,
-                                        style: TextStyle(
-                                            color: greyPrimary.withOpacity(.8)),
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                              // setting the id of selected value
+                              pProvider.setSelectedPriorityId(pProvider
+                                      .priorityDropdownIndexList[
+                                  pProvider.priorityDropdownList.indexOf(v!)]);
+                            },
+                          ),
 
-                        sizedboxCustom(20),
+                          sizedboxCustom(20),
 
-                        //================>
-                        labelCommon("Title"),
-                        CustomInput(
-                          controller: titleController,
-                          validation: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter ticket title';
+                          //Department dropdown ======>
+                          CustomDropDown(
+                            items: pProvider.departmentDropdownList,
+                            labelText: 'Department',
+                            value: pProvider.selectedDepartment,
+                            onChange: (v) {
+                              pProvider.setDepartmentValue(v);
+
+                              // setting the id of selected value
+                              pProvider.setSelectedDepartmentId(
+                                  pProvider.departmentDropdownIndexList[
+                                      pProvider.departmentDropdownList
+                                          .indexOf(v!)]);
+                            },
+                          ),
+
+                          sizedboxCustom(20),
+
+                          //================>
+                          labelCommon("Title"),
+
+                          CustomInput(
+                            controller: titleController,
+                            borderRadius: 8,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter ticket title';
+                              }
+                              return null;
+                            },
+                            hintText: "Ticket title",
+                            // icon: 'assets/icons/user.png',
+                            paddingHorizontal: 18,
+                            textInputAction: TextInputAction.next,
+                          ),
+
+                          //================>
+                          labelCommon("Subject"),
+                          CustomInput(
+                            controller: subjectController,
+                            borderRadius: 8,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter ticket subject';
+                              }
+                              return null;
+                            },
+                            hintText: "Subject",
+                            // icon: 'assets/icons/user.png',
+                            paddingHorizontal: 18,
+                            textInputAction: TextInputAction.next,
+                          ),
+
+                          sizedboxCustom(5),
+
+                          labelCommon("Description"),
+                          TextareaField(
+                            hintText: 'Describe your problem',
+                            notesController: descController,
+                          ),
+
+                          //Save button =========>
+
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          buttonPrimary('Create ticket', () {
+                            if (_formKey.currentState!.validate()) {
+                              // if (provider.isLoading == false &&
+                              //     provider.hasError == false) {
+                              //   provider.createTicket(
+                              //     titleController.text,
+                              //     subjectController.text,
+                              //     provider.selectedPriorityId,
+                              //     descController.text,
+                              //     context,
+                              //   );
+                              // }
                             }
-                            return null;
                           },
-                          hintText: "Ticket title",
-                          // icon: 'assets/icons/user.png',
-                          paddingHorizontal: 18,
-                          textInputAction: TextInputAction.next,
-                        ),
-
-                        //================>
-                        labelCommon("Subject"),
-                        CustomInput(
-                          controller: subjectController,
-                          validation: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter ticket subject';
-                            }
-                            return null;
-                          },
-                          hintText: "Subject",
-                          // icon: 'assets/icons/user.png',
-                          paddingHorizontal: 18,
-                          textInputAction: TextInputAction.next,
-                        ),
-
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        labelCommon("Description"),
-                        TextareaField(
-                          hintText: 'Describe your problem',
-                          notesController: descController,
-                        ),
-
-                        //Save button =========>
-
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        buttonPrimary('Create ticket', () {
-                          if (_formKey.currentState!.validate()) {
-                            if (provider.isLoading == false &&
-                                provider.hasError == false) {
-                              provider.createTicket(
-                                titleController.text,
-                                subjectController.text,
-                                provider.selectedPriorityId,
-                                descController.text,
-                                context,
-                              );
-                            }
-                          }
-                        },
-                            isloading:
-                                provider.isLoading == false ? false : true)
-                      ],
-                    ),
-                  ]),
+                              isloading:
+                                  provider.isLoading == false ? false : true)
+                        ],
+                      ),
+                    ]),
+                  ),
                 ),
               ),
             ),

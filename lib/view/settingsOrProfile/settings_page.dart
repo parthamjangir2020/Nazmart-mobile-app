@@ -6,6 +6,7 @@ import 'package:no_name_ecommerce/view/refund_products/refund_products_list_page
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/profile_details.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/settings_helper.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/profile_edit_page.dart';
+import 'package:no_name_ecommerce/view/support_ticket/my_tickets_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
@@ -74,13 +75,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                 SettingsHelper().settingOption(
                                     'assets/svg/message-circle.svg',
                                     asProvider.getString("Support Ticket"), () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute<void>(
-                                  //     builder: (BuildContext context) =>
-                                  //         const MyTicketsPage(),
-                                  //   ),
-                                  // );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const MyTicketsPage(),
+                                    ),
+                                  );
                                 }),
                                 dividerCommon(),
                                 SettingsHelper().settingOption(

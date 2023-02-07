@@ -25,6 +25,13 @@ getDateOnly(date) {
   return DateFormat('dd/MM/yyyy').format(date);
 }
 
+hideKeyboard(BuildContext context) {
+  FocusScopeNode currentFocus = FocusScope.of(context);
+  if (!currentFocus.hasPrimaryFocus) {
+    currentFocus.focusedChild?.unfocus();
+  }
+}
+
 runAtHomeScreen(BuildContext context) {
   // Provider.of<SliderService>(context, listen: false).fetchSlider();
   // Provider.of<QuickDonationDropdownService>(context, listen: false)

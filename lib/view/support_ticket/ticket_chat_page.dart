@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:no_name_ecommerce/services/support_messages_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -56,24 +57,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                   ),
                 ),
                 const SizedBox(
-                  width: 2,
-                ),
-                // CircleAvatar(
-                //   backgroundColor: Colors.white,
-                //   child: Container(
-                //     padding: const EdgeInsets.all(5),
-                //     decoration: const BoxDecoration(
-                //         shape: BoxShape.circle, color: Colors.white),
-                //     child: ClipRRect(
-                //       child: Image.asset(
-                //         'assets/images/logo.png',
-                //       ),
-                //     ),
-                //   ),
-                //   maxRadius: 22,
-                // ),
-                const SizedBox(
-                  width: 12,
+                  width: 14,
                 ),
                 Expanded(
                   child: Column(
@@ -98,10 +82,6 @@ class _TicketChatPageState extends State<TicketChatPage> {
                     ],
                   ),
                 ),
-                // Icon(
-                //   Icons.settings,
-                //   color: Colors.black54,
-                // ),
               ],
             ),
           ),
@@ -144,25 +124,6 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                     ? MainAxisAlignment.start
                                     : MainAxisAlignment.end,
                             children: [
-                              //small show profile pic
-                              // provider.messagesList[index].type == "admin"
-                              //     ? Container(
-                              //         margin: const EdgeInsets.only(
-                              //           left: 13,
-                              //         ),
-                              //         width: 18,
-                              //         height: 18,
-                              //         decoration: const BoxDecoration(
-                              //             shape: BoxShape.circle,
-                              //             color: Colors.white),
-                              //         child: ClipRRect(
-                              //           child: Image.asset(
-                              //             'assets/images/logo.png',
-                              //           ),
-                              //         ),
-                              //       )
-                              //     : Container(),
-                              //the message
                               Expanded(
                                 child: Container(
                                   padding: EdgeInsets.only(
@@ -204,18 +165,31 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                                 : primaryColor),
                                           ),
                                           padding: const EdgeInsets.all(16),
-                                          //message =====>
-                                          child: Text(
-                                            provider.messagesList[index]
-                                                ['message'],
-                                            style: TextStyle(
+                                          child: HtmlWidget(
+                                              '${provider.messagesList[index]['message']}',
+                                              textStyle: TextStyle(
                                                 fontSize: 15,
                                                 color: (provider.messagesList[
                                                             index]['type'] ==
                                                         "admin"
                                                     ? Colors.grey[800]
-                                                    : Colors.white)),
-                                          ),
+                                                    : Colors.white),
+                                              )),
+                                          // child: Html(
+                                          //     data: provider.messagesList[index]
+                                          //         ['message']),
+                                          //message =====>
+                                          // child: Text(
+                                          //   provider.messagesList[index]
+                                          //       ['message'],
+                                          //   style: TextStyle(
+                                          //       fontSize: 15,
+                                          //       color: (provider.messagesList[
+                                          //                   index]['type'] ==
+                                          //               "admin"
+                                          //           ? Colors.grey[800]
+                                          //           : Colors.white)),
+                                          // ),
                                         ),
 
                                         //Attachment =============>
@@ -332,26 +306,6 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                   ),
                                 ),
                               ),
-
-                              // provider.messagesList[index].type == "admin"
-                              //     ? Container(
-                              //         margin: const EdgeInsets.only(
-                              //           right: 13,
-                              //         ),
-                              //         width: 15,
-                              //         height: 15,
-                              //         decoration: const BoxDecoration(
-                              //             shape: BoxShape.circle,
-                              //             color: Colors.white),
-                              //         child: ClipRRect(
-                              //           borderRadius: BorderRadius.circular(100),
-                              //           child: Image.network(
-                              //             'https://cdn.pixabay.com/photo/2016/09/08/13/58/desert-1654439__340.jpg',
-                              //             fit: BoxFit.cover,
-                              //           ),
-                              //         ),
-                              //       )
-                              //     : Container(),
                             ],
                           );
                         },

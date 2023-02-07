@@ -11,21 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateTicketService with ChangeNotifier {
   bool isLoading = false;
-  //priority dropdown
-  var priorityDropdownList = ['Low', 'High', 'Medium', 'Urgent'];
-  var priorityDropdownIndexList = ['Low', 'High', 'Medium', 'Urgent'];
-  var selectedPriority = 'Low';
-  var selectedPriorityId = 'Low';
-
-  setPriorityValue(value) {
-    selectedPriority = value;
-    notifyListeners();
-  }
-
-  setSelectedPriorityId(value) {
-    selectedPriorityId = value;
-    notifyListeners();
-  }
 
   bool hasError = false;
 

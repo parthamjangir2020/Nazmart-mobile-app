@@ -67,15 +67,15 @@ class SupportMessagesService with ChangeNotifier {
         // "Content-Type": "application/json"
         "Authorization": "Bearer $token",
       };
-      var response = await http.get(
-          Uri.parse('$baseApi/user/ticket/chat/$ticketId'),
+      var response = await http.get(Uri.parse('$baseApi/user/ticket/$ticketId'),
           headers: header);
       setLoadingFalse();
 
-      if (response.statusCode == 201 && jsonDecode(response.body).isNotEmpty) {
-        var data = parseOutWork(response.body);
+      if (response.statusCode == 200 &&
+          jsonDecode(response.body)['all_messages'].isNotEmpty) {
+        var data = TicketMessagesModel.fromJson(jsonDecode(response.body));
 
-        setMessageList(data);
+        setMessageList(data.allMessages);
 
         notifyListeners();
       } else {
@@ -164,13 +164,5 @@ class SupportMessagesService with ChangeNotifier {
           true //check if this image is just got picked from device in that case we will show it from device location
     });
     notifyListeners();
-  }
-
-  //===============>
-  List<TicketMessagesModel> parseOutWork(String responseBody) {
-    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-    return parsed
-        .map<TicketMessagesModel>((json) => TicketMessagesModel.fromJson(json))
-        .toList();
   }
 }

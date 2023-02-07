@@ -145,11 +145,13 @@ capsule(String capsuleText) {
 }
 
 getCapsuleColor(String status) {
-  if (status.toLowerCase() == 'pending') {
-    return const Color(0xff5463FF);
+  if (status.toLowerCase() == 'pending' || status.toLowerCase() == 'open') {
+    return Colors.orange[600];
   } else if (status.toLowerCase() == 'cancel') {
     return Colors.red;
+  } else if (status.toLowerCase() == 'complete') {
+    return successColor;
   } else {
-    return primaryColor;
+    return Colors.grey[600];
   }
 }

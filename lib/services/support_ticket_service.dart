@@ -45,8 +45,7 @@ class SupportTicketService with ChangeNotifier {
 
       notifyListeners();
 
-      Provider.of<SupportTicketService>(context, listen: false)
-          .setCurrentPage(currentPage);
+      setCurrentPage(currentPage);
     } else {}
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -109,7 +108,6 @@ class SupportTicketService with ChangeNotifier {
         'subject': dataList[i].subject,
         'priority': dataList[i].priority,
         'description': dataList[i].description,
-        'departments': dataList[i].departments,
         'status': dataList[i].status
       });
     }

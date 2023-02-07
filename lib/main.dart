@@ -13,8 +13,10 @@ import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
+import 'package:no_name_ecommerce/services/create_ticket_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
@@ -23,6 +25,8 @@ import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
+import 'package:no_name_ecommerce/services/support_messages_service.dart';
+import 'package:no_name_ecommerce/services/support_ticket_service.dart';
 import 'package:no_name_ecommerce/view/intro/splash.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
@@ -74,6 +78,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SubCategoryService()),
         ChangeNotifierProvider(create: (_) => ChildCategoryService()),
         ChangeNotifierProvider(create: (_) => ProductDetailsService()),
+        ChangeNotifierProvider(create: (_) => SupportTicketService()),
+        ChangeNotifierProvider(create: (_) => CreateTicketService()),
+        ChangeNotifierProvider(create: (_) => SupportMessagesService()),
+        ChangeNotifierProvider(
+            create: (_) => PriorityAndDepartmentDropdownService()),
       ],
       child: MaterialApp(
         title: 'Nazmart',
