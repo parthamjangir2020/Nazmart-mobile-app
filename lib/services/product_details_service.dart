@@ -11,13 +11,23 @@ class ProductDetailsService with ChangeNotifier {
   //
 
   ProductDetailsModel? productDetails;
-
   int ratingCount = 0;
   bool inStock = true;
-
   bool isLoading = false;
-
   int qty = 1;
+  List<String> selectedInventorySetIndex = [];
+  List<String> inventoryKeys = [];
+  Map<String, Map<String, List<String>>> allAtrributes = {};
+  List selectedAttributes = [];
+  Map<String, List<Map<String, dynamic>>> inventorySet = {};
+  Map<String, dynamic> selecteInventorySet = {};
+  List<String> inventoryHash = [];
+  bool cartAble = false;
+  var additionalInfoImage;
+  num productSalePrice = 0;
+  int? selectedIndex;
+  var selectedInventoryHash;
+  Map additionalInventoryInfo = {};
 
   increaseQty() {
     qty = qty + 1;
@@ -38,6 +48,197 @@ class ProductDetailsService with ChangeNotifier {
   setLoadingStatus(bool status) {
     isLoading = status;
     notifyListeners();
+  }
+
+  clearProductDetails() {
+    print('clearing product details');
+    productDetails = null;
+    // reviewing = false;
+    productSalePrice = 0;
+    productDetails = null;
+    // descriptionExpand = false;
+    // aDescriptionExpand = false;
+    // reviewExpand = false;
+    additionalInfoImage = null;
+    // quantity = 1;
+    selectedInventorySetIndex = [];
+    cartAble = false;
+    inventoryKeys = [];
+    allAtrributes = {};
+    selectedAttributes = [];
+    // reviewing = false;
+    // refreshpage = false;
+    // productDetails!.product.productGalleryImage = [];
+
+    // notifyListeners();
+  }
+
+  clearSelection() {
+    selectedAttributes = [];
+    additionalInfoImage = null;
+    cartAble = false;
+    productSalePrice = (productDetails!.product?.salePrice ?? 0).toDouble();
+    selectedInventorySetIndex = [];
+    selectedAttributes = [];
+    selecteInventorySet = {};
+    notifyListeners();
+  }
+
+  setProductInventorySet(List<String>? value) {
+    if (selectedInventorySetIndex != value) {}
+    if (selectedInventorySetIndex.isEmpty) {
+      selectedInventorySetIndex = value ?? [];
+      notifyListeners();
+      return;
+    }
+
+    if (selectedInventorySetIndex.isNotEmpty &&
+        selectedInventorySetIndex.length > value!.length) {
+      selectedInventorySetIndex = value;
+      notifyListeners();
+      return;
+    }
+  }
+
+  addAdditionalPrice() {
+    // print(selectedInventorySetIndex);
+
+    bool setMatched = true;
+    for (int i = 0; i < selectedInventorySetIndex.length; i++) {
+      setMatched = true;
+      selecteInventorySet = productDetails!
+          .productInventorySet[int.parse(selectedInventorySetIndex[i])];
+      for (var e in selecteInventorySet.values) {
+        // print(i);
+        List<dynamic> confirmingSelectedDeta = selectedAttributes;
+        // confirmingSelectedDeta.add(selecteInventorySet['hash']);
+        // confirmingSelectedDeta.add(selecteInventorySet['Color_name']);
+        if (!confirmingSelectedDeta.contains(e)) {
+          setMatched = false;
+        }
+      }
+      final mapData = {};
+
+      if (setMatched) {
+        print('Inventory..............');
+        selectedIndex = i;
+        print(productDetails!
+            .productInventorySet[int.parse(selectedInventorySetIndex[i])]);
+        selectedInventorySetIndex = [selectedInventorySetIndex[i]];
+
+        break;
+      }
+    }
+    if (setMatched) {
+      selectedInventoryHash = inventoryHash[selectedIndex!];
+      // print('hash..............');
+      // print(selectedInventoryHash);
+      // print(productDetails!.productInventorySet[selectedIndex!]);
+      productSalePrice +=
+          (productDetails!.additionalInfoStore![selectedInventoryHash] == null
+                      ? 0
+                      : productDetails!
+                          .additionalInfoStore![selectedInventoryHash]!
+                          .additionalPrice)
+                  ?.toDouble() ??
+              0;
+      additionalInfoImage =
+          productDetails!.additionalInfoStore![selectedInventoryHash] == null
+              ? ''
+              : productDetails!
+                  .additionalInfoStore![selectedInventoryHash]!.image;
+      additionalInfoImage =
+          additionalInfoImage == '' ? null : additionalInfoImage;
+      cartAble = true;
+      selecteInventorySet.remove('hash');
+      // print(selecteInventorySet);
+      print(productSalePrice);
+      notifyListeners();
+      return;
+    }
+    print('Inventory..............');
+    // print(productDetails!.productInventorySet[selectedIndex!]);
+    print('outside..............');
+    cartAble = false;
+    productSalePrice = (productDetails!.product?.salePrice ?? 0).toDouble();
+    additionalInfoImage = null;
+    selecteInventorySet = {};
+    selectedInventoryHash = null;
+    notifyListeners();
+  }
+
+  addSelectedAttribute(value) {
+    if (selectedAttributes.contains(value)) {
+      return;
+    }
+    allAtrributes.keys.toList().forEach((element) {
+      print(allAtrributes[element]?.keys.toList());
+    });
+    selectedAttributes.add(value);
+
+    notifyListeners();
+  }
+
+  bool isASelected(value) {
+    return selectedAttributes.contains(value);
+  }
+
+  bool isInSet(fieldName, value, List<String>? list) {
+    bool result = false;
+    if (selectedInventorySetIndex.isEmpty) {
+      result = true;
+    }
+    for (var element in allAtrributes[fieldName]!.keys.toList()) {
+      if (selectedAttributes.contains(element) && value == element) {
+        result == true;
+        return true;
+      }
+      if (selectedAttributes.contains(element) && value != element) {
+        result == false;
+        return false;
+      }
+    }
+    if (result) {
+      return result;
+    }
+    for (var element in list ?? ['0']) {
+      // if (selecteInventorySet.isNotEmpty &&
+      //     !selecteInventorySet.values.toList().contains(element)) {
+      //   print(element);
+      //   result = false;
+      //   break;
+      // }
+      // print('$element $selectedInventorySetIndex');
+      if (selectedInventorySetIndex.contains(element)) {
+        result = true;
+        break;
+      }
+    }
+    return result;
+  }
+
+  bool deselect(List<String>? value, List<String>? list) {
+    bool result = false;
+    for (var element in value!) {
+      if ((list!.contains(element))) {
+        result = true;
+      }
+    }
+    return result;
+  }
+
+  addToMap(value, int index, Map<String, List<String>> map) {
+    if (value == null || map == {}) {
+      return;
+    }
+    if (!map[value]!.contains(index.toString())) {
+      map.update(value, (valuee) {
+        valuee.add(index.toString());
+        return valuee;
+      });
+    }
+
+    return map;
   }
 
   fetchProductDetails(BuildContext context, {required productId}) async {
@@ -63,18 +264,69 @@ class ProductDetailsService with ChangeNotifier {
 
     var response = await http.get(Uri.parse('$baseApi/product/$productId'),
         headers: header);
+    print('$baseApi/product/$productId');
 
     if (response.statusCode == 200) {
       productDetails = ProductDetailsModel.fromJson(jsonDecode(response.body));
+      final productInvenSet = productDetails!.productInventorySet;
+      productSalePrice =
+          productDetails!.product!.campaignProduct?['campaign_price'] != null
+              ? double.parse(
+                  productDetails!.product!.campaignProduct?['campaign_price'])
+              : productDetails!.product!.salePrice ?? 0;
+      productInvenSet.forEach((element) {
+        print(element['hash']);
+        inventoryHash.add(element['hash']);
+        element.remove('Color');
+        element.remove('hash');
+        final keys = element.keys;
+        for (var e in keys) {
+          if (inventoryKeys.contains(e)) {
+            return;
+          }
+          inventoryKeys.add(e);
+        }
+      });
 
-      ratingCount = productDetails?.ratings.length ?? 0;
-      inStock =
-          productDetails?.product?.inventory?.stockCount == 0 ? false : true;
+      {
+        for (var e in inventoryKeys) {
+          int index = 0;
+          List<String> list;
+          Map<String, List<String>> map = {};
+          for (dynamic element in productInvenSet) {
+            if (element.containsKey(e)) {
+              map.putIfAbsent(element[e], () => []);
+              // print(map);
+              if (allAtrributes.containsKey(e)) {
+                allAtrributes.update(
+                    e, (value) => addToMap(element[e], index, value));
+              }
+              allAtrributes.putIfAbsent(e, () {
+                return addToMap(element[e], index, map);
+              });
+            }
 
+            // addToList(cheeseList, element.cheese);
+            index++;
+          }
+        }
+      }
+
+      additionalInventoryInfo = productDetails!.additionalInfoStore ?? {};
+      if (productDetails!.additionalInfoStore == null) {
+        cartAble = true;
+      }
+
+      print(allAtrributes);
       notifyListeners();
-    } else {
-      print('error fetching product details');
-      print(response.body);
+      return;
     }
+    print(allAtrributes);
+
+    ratingCount = productDetails?.ratings.length ?? 0;
+    inStock =
+        productDetails?.product?.inventory?.stockCount == 0 ? false : true;
+
+    // notifyListeners();
   }
 }

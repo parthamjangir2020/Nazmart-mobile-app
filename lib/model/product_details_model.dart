@@ -35,8 +35,8 @@ class ProductDetailsModel {
   List<Rating> ratings;
   int? avgRating;
   AvailableAttributes availableAttributes;
-  List<ProductInventorySet> productInventorySet;
-  Map<String, AdditionalInfoStore> additionalInfoStore;
+  dynamic productInventorySet;
+  Map<String, AdditionalInfoStore>? additionalInfoStore;
   int? maximumAvailablePrice;
   List<ProductColor> productColors;
   List<ProductColor> productSizes;
@@ -56,12 +56,12 @@ class ProductDetailsModel {
         avgRating: json["avg_rating"],
         availableAttributes:
             AvailableAttributes.fromJson(json["available_attributes"]),
-        productInventorySet: List<ProductInventorySet>.from(
-            json["product_inventory_set"]
-                .map((x) => ProductInventorySet.fromJson(x))),
-        additionalInfoStore: Map.from(json["additional_info_store"]).map(
-            (k, v) => MapEntry<String, AdditionalInfoStore>(
-                k, AdditionalInfoStore.fromJson(v))),
+        productInventorySet: json["product_inventory_set"],
+        additionalInfoStore: json["additional_info_store"] is List
+            ? null
+            : Map.from(json["additional_info_store"]).map((k, v) =>
+                MapEntry<String, AdditionalInfoStore>(
+                    k, AdditionalInfoStore.fromJson(v))),
         maximumAvailablePrice: json["maximum_available_price"],
         productColors: List<ProductColor>.from(
             json["productColors"].map((x) => ProductColor.fromJson(x))),
@@ -82,8 +82,7 @@ class ProductDetailsModel {
         "available_attributes": availableAttributes.toJson(),
         "product_inventory_set":
             List<dynamic>.from(productInventorySet.map((x) => x.toJson())),
-        "additional_info_store": Map.from(additionalInfoStore)
-            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
+        "additional_info_store": additionalInfoStore,
         "maximum_available_price": maximumAvailablePrice,
         "productColors":
             List<dynamic>.from(productColors.map((x) => x.toJson())),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
-import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
+
+import '../../../services/product_details_service.dart';
 
 class ColorAndSize extends StatefulWidget {
   const ColorAndSize({Key? key}) : super(key: key);
@@ -18,164 +19,205 @@ class _ColorAndSizeState extends State<ColorAndSize> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CartService>(
-      builder: (context, cProvider, child) => Row(
+    return Consumer<ProductDetailsService>(
+      builder: (context, pdProvider, child) => Row(
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //Size ================>
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 18,
-                  ),
-                  paragraphCommon('Size:'),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: const Color(0xffF2F4F7),
-                        borderRadius: BorderRadius.circular(30)),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    child: Row(
-                      children: [
-                        for (int i = 0; i < 3; i++)
-                          InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                            onTap: () {
-                              selectedSize = i;
-                              setState(() {});
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(right: i != 2 ? 12 : 0),
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                  color: selectedSize == i
-                                      ? primaryColor
-                                      : Colors.white,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                      color: selectedSize == i
-                                          ? Colors.transparent
-                                          : greyFive)),
-                              child: Text(
-                                "X",
-                                style: TextStyle(
-                                    color: selectedSize == i
-                                        ? Colors.white
-                                        : greyParagraph,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w600),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: pdProvider.inventoryKeys == null
+                  ? [const SizedBox()]
+                  : pdProvider.inventoryKeys
+                      .map((e) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 18,
                               ),
-                            ),
-                          )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              //color ============>
-              sizedboxCustom(15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  paragraphCommon('Color:'),
-                  sizedboxCustom(12),
-                  // Container(
-                  //   margin: const EdgeInsets.only(top: 5),
-                  //   height: 37,
-                  //   child: ListView(
-                  //     scrollDirection: Axis.horizontal,
-                  //     shrinkWrap: true,
-                  //     clipBehavior: Clip.none,
-                  //     children: [
-                  //       for (int i = 0; i < 3; i++)
-                  //         InkWell(
-                  //           highlightColor: Colors.transparent,
-                  //           splashColor: Colors.transparent,
-                  //           onTap: () {
-                  //             selectedColor = i;
-                  //             setState(() {});
-                  //           },
-                  //           child: Container(
-                  //             margin: const EdgeInsets.only(right: 12),
-                  //             alignment: Alignment.center,
-                  //             padding: const EdgeInsets.symmetric(
-                  //                 horizontal: 10, vertical: 2),
-                  //             decoration: BoxDecoration(
-                  //                 color: selectedColor == i
-                  //                     ? primaryColor
-                  //                     : Colors.white,
-                  //                 borderRadius: BorderRadius.circular(7),
-                  //                 border: Border.all(
-                  //                     color: selectedColor == i
-                  //                         ? Colors.transparent
-                  //                         : greyFive)),
-                  //             child: Text(
-                  //               "Red",
-                  //               style: TextStyle(
-                  //                   color: selectedColor == i
-                  //                       ? Colors.white
-                  //                       : greyParagraph,
-                  //                   fontSize: 13,
-                  //                   fontWeight: FontWeight.w600),
-                  //             ),
-                  //           ),
-                  //         )
-                  //     ],
-                  //   ),
-                  // ),
-                ],
-              ),
+                              paragraphCommon(
+                                  ('${e.replaceFirst('_code', ' ')}:')
+                                      .capitalize()),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: const Color(0xffF2F4F7),
+                                    borderRadius: BorderRadius.circular(30)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 2),
+                                child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                        children: generateDynamicAttrribute(
+                                            context,
+                                            pdProvider,
+                                            e,
+                                            pdProvider.allAtrributes[e]))),
+                              ),
+                              // sizedboxCustom(15),
+                            ],
+                          ))
+                      .toList()),
+        ],
+      ),
+    );
+  }
 
-              //Color circles
-              // const SizedBox(
-              //   height: 8,
-              // ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                decoration: BoxDecoration(
-                    color: const Color(0xffF2F4F7),
-                    borderRadius: BorderRadius.circular(30)),
-                child: Row(
+  List<Widget> generateDynamicAttrribute(BuildContext context,
+      ProductDetailsService pdService, fieldName, mapdata) {
+    RegExp hex = RegExp(
+        r'^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*,?\s*\)?)(,\s*(0?\.\d+)?|1)?\)');
+
+    List<Widget> list = [];
+    bool rtl =
+        Provider.of<RtlService>(context, listen: false).direction == 'rtl';
+    String value = '';
+    final keys = mapdata.keys;
+    for (var elemnt in keys) {
+      list.add(
+        GestureDetector(
+          onTap: () {
+            if (pdService.selectedAttributes.contains(elemnt)) {
+              return;
+            }
+            if (!pdService.isInSet(fieldName, elemnt, mapdata[elemnt])) {
+              pdService.clearSelection();
+            }
+            pdService.setProductInventorySet(mapdata[elemnt]);
+            value = elemnt;
+            manageInventorySet(pdService, elemnt);
+            pdService.addSelectedAttribute(elemnt);
+            pdService.addAdditionalPrice();
+          },
+          child: hex.hasMatch(elemnt)
+              ? colorBox(context, pdService, fieldName, elemnt, mapdata)
+              : Stack(
                   children: [
-                    for (int i = 0; i < 3; i++)
-                      InkWell(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onTap: () {
-                          selectedColor = i;
-                          setState(() {});
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(right: i != 2 ? 10 : 0),
-                          height: 35,
-                          width: 35,
-                          decoration: const BoxDecoration(
-                              color: Color(0xff8479E1), shape: BoxShape.circle),
-                          child: selectedColor == i
-                              ? const Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                  size: 20,
-                                )
-                              : Container(),
+                    Container(
+                      margin: const EdgeInsets.all(3),
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: pdService.isASelected(elemnt)
+                              ? primaryColor
+                              : Colors.white,
+                          border: Border.all(
+                              color: pdService.isASelected(elemnt)
+                                  ? Colors.transparent
+                                  : greyFive,
+                              width: .5)),
+                      child: Text(
+                        elemnt,
+                        style: TextStyle(
+                            color: pdService.isASelected(elemnt)
+                                ? Colors.white
+                                : blackCustomColor),
+                      ),
+                    ),
+                    if (!pdService.isInSet(fieldName, elemnt, mapdata[elemnt]))
+                      Container(
+                        margin: const EdgeInsets.all(3),
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.white60),
+                        child: Text(
+                          elemnt,
+                          style: const TextStyle(color: Colors.transparent),
                         ),
                       )
                   ],
                 ),
-              ),
-            ],
+        ),
+      );
+    }
+    return list;
+  }
+
+  manageInventorySet(
+    ProductDetailsService pdService,
+    selectedValue,
+  ) {
+    final selectedInventorySetIndex = pdService.selectedInventorySetIndex;
+    final allAtrributes = pdService.allAtrributes;
+    setProductInventorySet(List<String>? value) {
+      // print(
+      //     selectedInventorySetIndex.toString() + 'inven........................');
+      // print(value.toString() + 'val........................');
+
+      if (selectedInventorySetIndex != value) {
+        // if (value!.length == 1) {
+        //   selectedInventorySetIndex = value;selectedValue
+        // print(selectedInventorySetIndex);
+        for (var element in pdService.inventoryKeys) {
+          if (selectedValue != null) {
+            selectedValue = pdService.deselect(
+                    value, allAtrributes[element]![selectedValue])
+                ? selectedValue
+                : null;
+          }
+        }
+      }
+      if (selectedInventorySetIndex.isEmpty) {
+        pdService.selectedInventorySetIndex = value ?? [];
+
+        return;
+      }
+      if (selectedInventorySetIndex.isNotEmpty &&
+          selectedInventorySetIndex.length > value!.length) {
+        pdService.selectedInventorySetIndex = value;
+        return;
+      }
+    }
+  }
+
+  Widget colorBox(BuildContext context, ProductDetailsService pdService,
+      fieldName, value, mapdata) {
+    final color = value.replaceAll('#', '0xff');
+    bool rtl =
+        Provider.of<RtlService>(context, listen: false).direction == 'rtl';
+    return Stack(
+      children: [
+        Container(
+          height: 40,
+          width: 40,
+          margin: const EdgeInsets.all(3),
+          padding: const EdgeInsets.all(0),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Color(int.parse(color)),
           ),
-        ],
-      ),
+          child: Icon(
+            pdService.isASelected(value) ? Icons.check : null,
+            color: Colors.white,
+            size: 20,
+          ),
+        ),
+        if (!pdService.isInSet(fieldName, value, mapdata[value]))
+          Container(
+            height: 40,
+            width: 40,
+            margin: const EdgeInsets.all(3),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.white60,
+            ),
+            child: Text(
+              value,
+              style: const TextStyle(color: Colors.transparent),
+            ),
+          )
+      ],
     );
+  }
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1)}";
   }
 }
