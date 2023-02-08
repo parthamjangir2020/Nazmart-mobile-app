@@ -1,4 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'package:no_name_ecommerce/model/department_dropdown_model.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PriorityAndDepartmentDropdownService with ChangeNotifier {
   //priority dropdown
@@ -18,10 +24,10 @@ class PriorityAndDepartmentDropdownService with ChangeNotifier {
   }
 
   //department dropdown
-  var departmentDropdownList = ['Web', 'Mobile'];
-  var departmentDropdownIndexList = ['Web', 'Mobile'];
-  var selectedDepartment = 'Web';
-  var selectedDepartmentId = 'Web';
+  List<String> departmentDropdownList = [];
+  var departmentDropdownIndexList = [];
+  var selectedDepartment;
+  var selectedDepartmentId;
 
   setDepartmentValue(value) {
     selectedDepartment = value;
@@ -33,35 +39,42 @@ class PriorityAndDepartmentDropdownService with ChangeNotifier {
     notifyListeners();
   }
 
-  // fetchDepartment(BuildContext context) async {
-  //   if (departmentDropdownList.isEmpty) {
-  //     var response = await http.get(Uri.parse('$baseApi/country'));
+  fetchDepartment(BuildContext context) async {
+    if (departmentDropdownList.isNotEmpty) return;
 
-  //     if (response.statusCode == 200 &&
-  //         jsonDecode(response.body)['data'].isNotEmpty) {
-  //       print(response.body);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var header = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    };
 
-  //       var data = CountryDropdownModel.fromJson(jsonDecode(response.body));
+    var response = await http.get(Uri.parse('$baseApi/user/get-department'),
+        headers: header);
 
-  //       for (int i = 0; i < data.countries.length; i++) {
-  //         departmentDropdownList.add(data.countries[i].name);
-  //         departmentDropdownIndexList.add(data.countries[i].id);
-  //       }
+    if (response.statusCode == 200 &&
+        jsonDecode(response.body)['data'].isNotEmpty) {
+      var data = DepartmentDropdownModel.fromJson(jsonDecode(response.body));
 
-  //       selectedDepartment = departmentDropdownList[0];
-  //       selectedDepartmentId = departmentDropdownIndexList[0];
+      for (int i = 0; i < data.data.length; i++) {
+        if (data.data[i].status == "1") {
+          departmentDropdownList.add(data.data[i].name!);
+          departmentDropdownIndexList.add(data.data[i].id);
+        }
+      }
 
-  //       notifyListeners();
-  //     } else {
-  //       //error fetching data
-  //       departmentDropdownList.add('Select Department');
-  //       departmentDropdownIndexList.add('0');
-  //       selectedDepartment = 'Select Department';
-  //       selectedDepartmentId = '0';
-  //       notifyListeners();
-  //     }
-  //   } else {
-  //     //already loaded from api
-  //   }
-  // }
+      selectedDepartment = departmentDropdownList[0];
+      selectedDepartmentId = departmentDropdownIndexList[0];
+
+      notifyListeners();
+    } else {
+      //error fetching data
+      departmentDropdownList.add('Select Department');
+      departmentDropdownIndexList.add('0');
+      selectedDepartment = 'Select Department';
+      selectedDepartmentId = '0';
+      notifyListeners();
+    }
+  }
 }

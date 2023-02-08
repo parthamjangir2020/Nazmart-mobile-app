@@ -17,6 +17,7 @@ import 'package:no_name_ecommerce/services/create_ticket_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/ticket_status_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SupportTicketService()),
         ChangeNotifierProvider(create: (_) => CreateTicketService()),
         ChangeNotifierProvider(create: (_) => SupportMessagesService()),
+        ChangeNotifierProvider(create: (_) => TicketStatusDropdownService()),
         ChangeNotifierProvider(
             create: (_) => PriorityAndDepartmentDropdownService()),
       ],

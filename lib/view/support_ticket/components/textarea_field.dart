@@ -15,15 +15,16 @@ class TextareaField extends StatelessWidget {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: greyFive),
+                borderSide: const BorderSide(color: greyFive),
                 borderRadius: BorderRadius.circular(9)),
-            focusedBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: primaryColor)),
-            errorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: warningColor)),
-            focusedErrorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: primaryColor)),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: primaryColor)),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: warningColor)),
+            focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: primaryColor)),
             hintText: hintText,
+            hintStyle: TextStyle(color: Colors.grey[600], fontSize: 15),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 18, vertical: 18)));
   }

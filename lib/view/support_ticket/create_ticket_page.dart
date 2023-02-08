@@ -4,8 +4,10 @@ import 'package:no_name_ecommerce/services/create_ticket_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/view/support_ticket/components/textarea_field.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/widgets/custom_dropdown.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +24,9 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
   @override
   void initState() {
     super.initState();
+
+    Provider.of<PriorityAndDepartmentDropdownService>(context, listen: false)
+        .fetchDepartment(context);
   }
 
   TextEditingController descController = TextEditingController();
@@ -70,20 +75,25 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                           sizedboxCustom(20),
 
                           //Department dropdown ======>
-                          CustomDropDown(
-                            items: pProvider.departmentDropdownList,
-                            labelText: 'Department',
-                            value: pProvider.selectedDepartment,
-                            onChange: (v) {
-                              pProvider.setDepartmentValue(v);
+                          pProvider.departmentDropdownList.isNotEmpty
+                              ? CustomDropDown(
+                                  items: pProvider.departmentDropdownList,
+                                  labelText: 'Department',
+                                  value: pProvider.selectedDepartment,
+                                  onChange: (v) {
+                                    pProvider.setDepartmentValue(v);
 
-                              // setting the id of selected value
-                              pProvider.setSelectedDepartmentId(
-                                  pProvider.departmentDropdownIndexList[
-                                      pProvider.departmentDropdownList
-                                          .indexOf(v!)]);
-                            },
-                          ),
+                                    // setting the id of selected value
+                                    pProvider.setSelectedDepartmentId(
+                                        pProvider.departmentDropdownIndexList[
+                                            pProvider.departmentDropdownList
+                                                .indexOf(v!)]);
+                                  },
+                                )
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [showLoading(primaryColor)],
+                                ),
 
                           sizedboxCustom(20),
 
@@ -137,20 +147,16 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                           ),
                           buttonPrimary('Create ticket', () {
                             if (_formKey.currentState!.validate()) {
-                              // if (provider.isLoading == false &&
-                              //     provider.hasError == false) {
-                              //   provider.createTicket(
-                              //     titleController.text,
-                              //     subjectController.text,
-                              //     provider.selectedPriorityId,
-                              //     descController.text,
-                              //     context,
-                              //   );
-                              // }
+                              if (provider.isLoading == false) {
+                                provider.createTicket(
+                                  titleController.text,
+                                  subjectController.text,
+                                  descController.text,
+                                  context,
+                                );
+                              }
                             }
-                          },
-                              isloading:
-                                  provider.isLoading == false ? false : true)
+                          }, isloading: provider.isLoading)
                         ],
                       ),
                     ]),

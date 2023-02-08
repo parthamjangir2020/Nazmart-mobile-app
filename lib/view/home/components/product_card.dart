@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
+import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
@@ -125,19 +126,25 @@ class ProductCard extends StatelessWidget {
                     sizedboxCustom(10),
 
                     //Donate button
-                    borderButtonPrimary('Add to cart', () {
-                      cProvider.addToCartOrUpdateQty(context,
-                          title: 'product title',
-                          thumbnail:
-                              'https://cdn.pixabay.com/photo/2023/01/14/19/50/flower-7718952_1280.jpg',
-                          discountPrice: '11',
-                          oldPrice: '14',
-                          qty: 1,
-                          color: 'red',
-                          colorPrice: '4',
-                          size: 'M',
-                          sizePrice: '3',
-                          productId: '1');
+                    borderButtonPrimary('View details', () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ProductDetailsPage(
+                                    productId: '239',
+                                  )));
+                      // cProvider.addToCartOrUpdateQty(context,
+                      //     title: 'product title',
+                      //     thumbnail:
+                      //         'https://cdn.pixabay.com/photo/2023/01/14/19/50/flower-7718952_1280.jpg',
+                      //     discountPrice: '11',
+                      //     oldPrice: '14',
+                      //     qty: 1,
+                      //     color: 'red',
+                      //     colorPrice: '4',
+                      //     size: 'M',
+                      //     sizePrice: '3',
+                      //     productId: '1');
                     },
                         paddingVertical: 11,
                         borderRadius: 7,

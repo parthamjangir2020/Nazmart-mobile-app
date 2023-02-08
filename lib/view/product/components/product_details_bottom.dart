@@ -74,6 +74,8 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
                   //======>
                   Expanded(
                     child: buttonPrimary('Add to cart', () {
+                      provider.printSelectedProduct();
+                      return;
                       cProvider.addToCartOrUpdateQty(context,
                           title: provider.productDetails?.product?.name ?? '',
                           thumbnail: provider.productDetails?.product?.image ??

@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:no_name_ecommerce/model/product_details_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailsService with ChangeNotifier {
@@ -20,7 +19,7 @@ class ProductDetailsService with ChangeNotifier {
   Map<String, Map<String, List<String>>> allAtrributes = {};
   List selectedAttributes = [];
   Map<String, List<Map<String, dynamic>>> inventorySet = {};
-  Map<String, dynamic> selecteInventorySet = {};
+  Map<String, dynamic> selectedInventorySet = {};
   List<String> inventoryHash = [];
   bool cartAble = false;
   var additionalInfoImage;
@@ -37,11 +36,6 @@ class ProductDetailsService with ChangeNotifier {
   decreaseQty() {
     if (qty == 1) return;
     qty = qty - 1;
-    notifyListeners();
-  }
-
-  setDefault() {
-    productDetails = null;
     notifyListeners();
   }
 
@@ -62,6 +56,7 @@ class ProductDetailsService with ChangeNotifier {
     additionalInfoImage = null;
     // quantity = 1;
     selectedInventorySetIndex = [];
+    selectedInventorySet = {};
     cartAble = false;
     inventoryKeys = [];
     allAtrributes = {};
@@ -80,7 +75,7 @@ class ProductDetailsService with ChangeNotifier {
     productSalePrice = (productDetails!.product?.salePrice ?? 0).toDouble();
     selectedInventorySetIndex = [];
     selectedAttributes = [];
-    selecteInventorySet = {};
+    selectedInventorySet = {};
     notifyListeners();
   }
 
@@ -106,13 +101,13 @@ class ProductDetailsService with ChangeNotifier {
     bool setMatched = true;
     for (int i = 0; i < selectedInventorySetIndex.length; i++) {
       setMatched = true;
-      selecteInventorySet = productDetails!
+      selectedInventorySet = productDetails!
           .productInventorySet[int.parse(selectedInventorySetIndex[i])];
-      for (var e in selecteInventorySet.values) {
+      for (var e in selectedInventorySet.values) {
         // print(i);
         List<dynamic> confirmingSelectedDeta = selectedAttributes;
-        // confirmingSelectedDeta.add(selecteInventorySet['hash']);
-        // confirmingSelectedDeta.add(selecteInventorySet['Color_name']);
+        // confirmingSelectedDeta.add(selectedInventorySet['hash']);
+        // confirmingSelectedDeta.add(selectedInventorySet['Color_name']);
         if (!confirmingSelectedDeta.contains(e)) {
           setMatched = false;
         }
@@ -150,8 +145,8 @@ class ProductDetailsService with ChangeNotifier {
       additionalInfoImage =
           additionalInfoImage == '' ? null : additionalInfoImage;
       cartAble = true;
-      selecteInventorySet.remove('hash');
-      // print(selecteInventorySet);
+      selectedInventorySet.remove('hash');
+      // print(selectedInventorySet);
       print(productSalePrice);
       notifyListeners();
       return;
@@ -160,9 +155,13 @@ class ProductDetailsService with ChangeNotifier {
     // print(productDetails!.productInventorySet[selectedIndex!]);
     print('outside..............');
     cartAble = false;
-    productSalePrice = (productDetails!.product?.salePrice ?? 0).toDouble();
+    productSalePrice =
+        productDetails!.product!.campaignProduct?['campaign_price'] != null
+            ? double.parse(
+                productDetails!.product!.campaignProduct?['campaign_price'])
+            : productDetails!.product!.salePrice ?? 0;
     additionalInfoImage = null;
-    selecteInventorySet = {};
+    selectedInventorySet = {};
     selectedInventoryHash = null;
     notifyListeners();
   }
@@ -202,8 +201,8 @@ class ProductDetailsService with ChangeNotifier {
       return result;
     }
     for (var element in list ?? ['0']) {
-      // if (selecteInventorySet.isNotEmpty &&
-      //     !selecteInventorySet.values.toList().contains(element)) {
+      // if (selectedInventorySet.isNotEmpty &&
+      //     !selectedInventorySet.values.toList().contains(element)) {
       //   print(element);
       //   result = false;
       //   break;
@@ -246,10 +245,7 @@ class ProductDetailsService with ChangeNotifier {
     var connection = await checkConnection();
     if (!connection) return;
 
-    setDefault();
-    //internet connection is on
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = prefs.getString('token');
+    clearProductDetails();
 
     print('product id $productId');
 
@@ -264,7 +260,6 @@ class ProductDetailsService with ChangeNotifier {
 
     var response = await http.get(Uri.parse('$baseApi/product/$productId'),
         headers: header);
-    print('$baseApi/product/$productId');
 
     if (response.statusCode == 200) {
       productDetails = ProductDetailsModel.fromJson(jsonDecode(response.body));
@@ -328,5 +323,9 @@ class ProductDetailsService with ChangeNotifier {
         productDetails?.product?.inventory?.stockCount == 0 ? false : true;
 
     // notifyListeners();
+  }
+
+  printSelectedProduct() {
+    print(selectedInventorySet);
   }
 }

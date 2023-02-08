@@ -149,7 +149,8 @@ getCapsuleColor(String status) {
     return Colors.orange[600];
   } else if (status.toLowerCase() == 'cancel') {
     return Colors.red;
-  } else if (status.toLowerCase() == 'complete') {
+  } else if (status.toLowerCase() == 'complete' ||
+      status.toLowerCase() == 'close') {
     return successColor;
   } else {
     return Colors.grey[600];

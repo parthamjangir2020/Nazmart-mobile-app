@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
-import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/product/components/campaign_timer.dart';
 import 'package:no_name_ecommerce/view/product/components/color_size.dart';
 import 'package:no_name_ecommerce/view/product/components/description_tab.dart';
@@ -10,7 +9,6 @@ import 'package:no_name_ecommerce/view/product/components/product_details_qty.da
 import 'package:no_name_ecommerce/view/product/components/product_details_skeleton.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_slider.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_top.dart';
-import 'package:no_name_ecommerce/view/product/components/related_products.dart';
 import 'package:no_name_ecommerce/view/product/components/review_tab.dart';
 import 'package:no_name_ecommerce/view/product/components/ship_return_tab.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
@@ -157,9 +155,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                                     const ShipReturnTab(),
                                   ][_tabIndex],
                                 ),
-
-                                //Related product
-                                const RelatedProducts()
                               ],
                             )
                           ],
