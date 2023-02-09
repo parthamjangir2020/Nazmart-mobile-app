@@ -1,19 +1,34 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:no_name_ecommerce/services/support_messages_service.dart';
+import 'package:no_name_ecommerce/view/support_ticket/components/image_big_preview.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class TicketChatPage extends StatefulWidget {
-  const TicketChatPage({Key? key, required this.title, required this.ticketId})
+  const TicketChatPage(
+      {Key? key,
+      required this.title,
+      required this.ticketId,
+      required this.departmentId,
+      required this.priority,
+      required this.description})
       : super(key: key);
 
   final String title;
   final ticketId;
+  final departmentId;
+  final priority;
+  final description;
 
   @override
   State<TicketChatPage> createState() => _TicketChatPageState();
@@ -26,11 +41,13 @@ class _TicketChatPageState extends State<TicketChatPage> {
   final ScrollController _scrollController = ScrollController();
 
   void _scrollDown() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent + 10,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.fastOutSlowIn,
-    );
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent + 10,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
   }
 
   FilePickerResult? pickedFile;
@@ -135,7 +152,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                       right: provider.messagesList[index]
                                                   ['type'] ==
                                               "admin"
-                                          ? 90
+                                          ? 130
                                           : 10,
                                       top: 10,
                                       bottom: 10),
@@ -175,21 +192,6 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                                     ? Colors.grey[800]
                                                     : Colors.white),
                                               )),
-                                          // child: Html(
-                                          //     data: provider.messagesList[index]
-                                          //         ['message']),
-                                          //message =====>
-                                          // child: Text(
-                                          //   provider.messagesList[index]
-                                          //       ['message'],
-                                          //   style: TextStyle(
-                                          //       fontSize: 15,
-                                          //       color: (provider.messagesList[
-                                          //                   index]['type'] ==
-                                          //               "admin"
-                                          //           ? Colors.grey[800]
-                                          //           : Colors.white)),
-                                          // ),
                                         ),
 
                                         //Attachment =============>
@@ -199,107 +201,76 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                             ? Container(
                                                 margin: const EdgeInsets.only(
                                                     top: 11),
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                height: 50,
-                                                width: screenWidth / 2 - 50,
-                                                alignment: Alignment.centerLeft,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: (provider.messagesList[
-                                                              index]['type'] ==
-                                                          "admin"
-                                                      ? Colors.grey.shade200
-                                                      : primaryColor),
-                                                ),
                                                 child: provider.messagesList[
                                                                 index]
-                                                            ['filePicked'] ==
+                                                            ['imagePicked'] ==
                                                         false
-                                                    ?
-                                                    //that means file is fetching from server
-                                                    InkWell(
+                                                    ? InkWell(
                                                         onTap: () {
-                                                          launchUrl(
-                                                              Uri.parse(provider
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute<
+                                                                void>(
+                                                              builder: (BuildContext
+                                                                      context) =>
+                                                                  ImageBigPreviewPage(
+                                                                networkImgLink:
+                                                                    provider.messagesList[
+                                                                            index]
+                                                                        [
+                                                                        'attachment'],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          imageUrl: provider
                                                                           .messagesList[
                                                                       index][
-                                                                  'attachment']),
-                                                              mode: LaunchMode
-                                                                  .externalApplication);
-                                                        },
-                                                        child: Row(
-                                                          children: [
-                                                            Text(
-                                                              'Attachment',
-                                                              style: TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: (provider.messagesList[index]
-                                                                              [
-                                                                              'type'] ==
-                                                                          "admin"
-                                                                      ? Colors.grey[
-                                                                          800]
-                                                                      : Colors
-                                                                          .white)),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 8,
-                                                            ),
-                                                            Icon(Icons.download,
-                                                                size: 17,
-                                                                color: (provider.messagesList[index]
-                                                                            [
-                                                                            'type'] ==
-                                                                        "admin"
-                                                                    ? Colors.grey[
-                                                                        800]
-                                                                    : Colors
-                                                                        .white))
-                                                          ],
-                                                        ))
-
-                                                    //local file====>
+                                                                  'attachment'] ??
+                                                              placeHolderUrl,
+                                                          placeholder:
+                                                              (context, url) {
+                                                            return Image.asset(
+                                                                'assets/images/placeholder.png');
+                                                          },
+                                                          height: 150,
+                                                          width:
+                                                              screenWidth / 2 -
+                                                                  50,
+                                                          fit: BoxFit.fitWidth,
+                                                        ),
+                                                      )
                                                     : InkWell(
-                                                        onTap: () {},
-                                                        child: Row(
-                                                          children: [
-                                                            Text(
-                                                              'Attachment',
-                                                              style: TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: (provider.messagesList[index]
-                                                                              [
-                                                                              'type'] ==
-                                                                          "admin"
-                                                                      ? Colors.grey[
-                                                                          800]
-                                                                      : Colors
-                                                                          .white)),
+                                                        onTap: () {
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute<
+                                                                void>(
+                                                              builder: (BuildContext
+                                                                      context) =>
+                                                                  ImageBigPreviewPage(
+                                                                assetImgLink: provider
+                                                                            .messagesList[
+                                                                        index][
+                                                                    'attachment'],
+                                                              ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 8,
-                                                            ),
-                                                            Icon(
-                                                                Icons.check_box,
-                                                                size: 17,
-                                                                color: (provider.messagesList[index]
-                                                                            [
-                                                                            'type'] ==
-                                                                        "admin"
-                                                                    ? Colors.grey[
-                                                                        800]
-                                                                    : Colors
-                                                                        .white))
-                                                          ],
-                                                        )))
+                                                          );
+                                                        },
+                                                        child: Image.file(
+                                                          File(provider
+                                                                  .messagesList[
+                                                              index]['attachment']),
+                                                          height: 150,
+                                                          width:
+                                                              screenWidth / 2 -
+                                                                  50,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                              )
                                             : Container()
                                       ],
                                     ),
@@ -371,10 +342,12 @@ class _TicketChatPageState extends State<TicketChatPage> {
                             FocusScope.of(context).unfocus();
                             //send message
                             provider.sendMessage(
-                              widget.ticketId,
-                              sendMessageController.text,
-                              pickedFile?.files.single.path,
-                            );
+                                ticketId: widget.ticketId,
+                                message: sendMessageController.text,
+                                filePath: pickedFile?.files.single.path,
+                                departmentId: widget.departmentId,
+                                description: widget.description,
+                                priority: widget.priority);
 
                             //clear input field
                             sendMessageController.clear();

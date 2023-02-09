@@ -103,7 +103,13 @@ class SupportMessagesService with ChangeNotifier {
 
 //Send new message ======>
 
-  sendMessage(ticketId, message, filePath) async {
+  sendMessage(
+      {required ticketId,
+      required message,
+      required filePath,
+      required priority,
+      required description,
+      required departmentId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
@@ -112,21 +118,17 @@ class SupportMessagesService with ChangeNotifier {
     dio.options.headers['Accept'] = 'application/json';
     dio.options.headers['Authorization'] = "Bearer $token";
     FormData formData;
-    if (filePath != null) {
-      formData = FormData.fromMap({
-        'user_type': 'customer',
-        'message': message,
-        'send_notify_mail': 'on',
-        'file':
-            await MultipartFile.fromFile(filePath, filename: 'ticket$filePath')
-      });
-    } else {
-      formData = FormData.fromMap({
-        'user_type': 'customer',
-        'message': message,
-        'send_notify_mail': 'on'
-      });
-    }
+
+    formData = FormData.fromMap({
+      'user_type': 'customer',
+      'message': message,
+      'priority': priority,
+      'description': description,
+      'departments': departmentId,
+      'file': filePath != null
+          ? await MultipartFile.fromFile(filePath, filename: 'ticket$filePath')
+          : null
+    });
 
     var connection = await checkConnection();
     if (connection) {
@@ -139,7 +141,7 @@ class SupportMessagesService with ChangeNotifier {
       );
       setSendLoadingFalse();
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         print(response.data);
         addNewMessage(message, filePath);
         return true;

@@ -135,9 +135,13 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                               InkWell(
                                 onTap: () {
                                   provider.goToMessagePage(
-                                      context,
-                                      provider.ticketList[i]['subject'],
-                                      provider.ticketList[i]['id']);
+                                    context,
+                                    provider.ticketList[i]['subject'],
+                                    provider.ticketList[i]['id'],
+                                    provider.ticketList[i]['departmentId'],
+                                    provider.ticketList[i]['description'],
+                                    provider.ticketList[i]['priority  '],
+                                  );
                                 },
                                 child: Container(
                                   alignment: Alignment.center,

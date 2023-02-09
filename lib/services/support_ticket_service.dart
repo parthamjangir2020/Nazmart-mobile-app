@@ -114,13 +114,17 @@ class SupportTicketService with ChangeNotifier {
     notifyListeners();
   }
 
-  goToMessagePage(BuildContext context, title, id) {
+  goToMessagePage(
+      BuildContext context, title, id, departmentId, description, priority) {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
         builder: (BuildContext context) => TicketChatPage(
           title: title,
           ticketId: id,
+          departmentId: departmentId,
+          description: description,
+          priority: priority,
         ),
       ),
     );
