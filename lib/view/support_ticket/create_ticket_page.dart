@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/services/create_ticket_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/ticket_services/create_ticket_service.dart';
 import 'package:no_name_ecommerce/view/support_ticket/components/textarea_field.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';

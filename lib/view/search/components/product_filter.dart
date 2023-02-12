@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/view/home/components/categories.dart';
 import 'package:no_name_ecommerce/view/home/components/child_categories.dart';
 import 'package:no_name_ecommerce/view/home/components/sub_categories.dart';
-import 'package:no_name_ecommerce/view/product/components/color_size.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
+import 'package:no_name_ecommerce/view/utils/custom_input.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
+import 'package:provider/provider.dart';
 
 class ProductFilter extends StatefulWidget {
   const ProductFilter({Key? key}) : super(key: key);
@@ -20,144 +22,149 @@ class _ProductFilterState extends State<ProductFilter> {
   int selectedCategory = 0;
   int selectedColor = 0;
   double rating = 4;
-  RangeValues _currentRangeValues = const RangeValues(10, 80);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: screenHeight / 2 + 210,
-      color: Colors.white,
-      padding:
-          EdgeInsets.symmetric(horizontal: screenPadHorizontal, vertical: 20),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            titleCommon('Filter by:'),
-            sizedboxCustom(20),
+    return Consumer<SearchProductService>(
+      builder: (context, provider, child) => Container(
+        height: screenHeight / 2 + 210,
+        color: Colors.white,
+        padding:
+            EdgeInsets.symmetric(horizontal: screenPadHorizontal, vertical: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              titleCommon('Filter by:'),
+              sizedboxCustom(20),
 
-            //Category =====>
-            paragraphCommon('Category:'),
-            sizedboxCustom(12),
-            const Categories(),
+              //Category =====>
+              paragraphCommon('Category:'),
+              sizedboxCustom(12),
+              const Categories(),
 
-            //Sub Category =====>
-            sizedboxCustom(20),
-            paragraphCommon('Sub Category:'),
-            sizedboxCustom(12),
-            const SubCategories(),
+              //Sub Category =====>
+              sizedboxCustom(20),
+              paragraphCommon('Sub Category:'),
+              sizedboxCustom(12),
+              const SubCategories(),
 
-            //Child Category =====>
-            sizedboxCustom(20),
-            paragraphCommon('Child Category:'),
-            sizedboxCustom(12),
-            const ChildCategories(),
+              //Child Category =====>
+              sizedboxCustom(20),
+              paragraphCommon('Child Category:'),
+              sizedboxCustom(12),
+              const ChildCategories(),
 
-            //Color ========>
+              //=========>
+              // const ColorAndSize(),
 
-            //=========>
-            const ColorAndSize(),
+              //Price range =========>
+              sizedboxCustom(18),
 
-            //Price range =========>
-            sizedboxCustom(30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                paragraphCommon('Price range:'),
-                Text(
-                  '\$${_currentRangeValues.start.round().toString()} - \$${_currentRangeValues.end.round().toString()}',
-                  style: const TextStyle(
-                      color: greyFour,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600),
-                )
-              ],
-            ),
-            SliderTheme(
-              data: const SliderThemeData(
-                trackHeight: 1,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        paragraphCommon('Min Price:'),
+                        sizedboxCustom(10),
+                        CustomInput(
+                          hintText: 'Enter min price',
+                          borderRadius: 5,
+                          paddingHorizontal: 15,
+                          isNumberField: true,
+                          onChanged: (v) {
+                            provider.setMinPrice(v);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  sizedboxW(20),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        paragraphCommon('Min Price:'),
+                        sizedboxCustom(10),
+                        CustomInput(
+                          hintText: 'Enter max price',
+                          borderRadius: 5,
+                          paddingHorizontal: 15,
+                          isNumberField: true,
+                          onChanged: (v) {
+                            provider.setMaxPrice(v);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              child: RangeSlider(
-                values: _currentRangeValues,
 
-                max: 100,
-                // divisions: 5,
-                activeColor: primaryColor,
-                inactiveColor: Colors.grey.withOpacity(.2),
-                labels: RangeLabels(
-                  _currentRangeValues.start.round().toString(),
-                  _currentRangeValues.end.round().toString(),
+              paragraphCommon('Ratings:'),
+              sizedboxCustom(10),
+              RatingBar.builder(
+                initialRating: provider.rating,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: false,
+                itemCount: 5,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 3.0),
+                itemSize: 30,
+                unratedColor: greyFive,
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star_rounded,
+                  color: Colors.amber,
                 ),
-                onChanged: (RangeValues values) {
-                  setState(() {
-                    _currentRangeValues = values;
-                  });
+                onRatingUpdate: (value) {
+                  rating = value;
+                  provider.setRating(value);
                 },
               ),
-            ),
 
-            const SizedBox(
-              height: 10,
-            ),
-            paragraphCommon('Ratings:'),
-            sizedboxCustom(10),
-            RatingBar.builder(
-              initialRating: 1,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: false,
-              itemCount: 5,
-              itemPadding: const EdgeInsets.symmetric(horizontal: 3.0),
-              itemSize: 30,
-              unratedColor: greyFive,
-              itemBuilder: (context, _) => const Icon(
-                Icons.star_rounded,
-                color: Colors.amber,
-              ),
-              onRatingUpdate: (value) {
-                rating = value;
-                print(rating);
-              },
-            ),
-
-            // Reset filter and apply button
-            sizedboxCustom(30),
-            Row(
-              children: [
-                Expanded(
-                    child: InkWell(
-                  onTap: () {},
-                  child: Container(
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 18),
-                      decoration: BoxDecoration(
-                          color: const Color(0xffEAECF0),
-                          borderRadius: BorderRadius.circular(100)),
-                      child: const Text(
-                        'Clear',
-                        style: TextStyle(
-                          color: Color(0xff667085),
-                          fontSize: 14,
-                        ),
-                      )),
-                )),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: buttonPrimary('Apply filter', () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute<void>(
-                    //     builder: (BuildContext context) =>
-                    //         const AllproductPage(),
-                    //   ),
-                    // );
-                  }, borderRadius: 100),
-                )
-              ],
-            ),
-          ],
+              // Reset filter and apply button
+              // sizedboxCustom(20),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //         child: InkWell(
+              //       onTap: () {
+              //         Navigator.pop(context);
+              //       },
+              //       child: Container(
+              //           width: double.infinity,
+              //           alignment: Alignment.center,
+              //           padding: const EdgeInsets.symmetric(vertical: 18),
+              //           decoration: BoxDecoration(
+              //               color: const Color(0xffEAECF0),
+              //               borderRadius: BorderRadius.circular(100)),
+              //           child: const Text(
+              //             'Cancel',
+              //             style: TextStyle(
+              //               color: Color(0xff667085),
+              //               fontSize: 14,
+              //             ),
+              //           )),
+              //     )),
+              //     const SizedBox(
+              //       width: 20,
+              //     ),
+              //     Expanded(
+              //       child: buttonPrimary('Apply filter', () {
+              //         // Navigator.push(
+              //         //   context,
+              //         //   MaterialPageRoute<void>(
+              //         //     builder: (BuildContext context) =>
+              //         //         const AllproductPage(),
+              //         //   ),
+              //         // );
+              //       }, borderRadius: 100),
+              //     )
+              //   ],
+              // ),
+            ],
+          ),
         ),
       ),
     );

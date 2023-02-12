@@ -2,7 +2,7 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/support_ticket_service.dart';
+import 'package:no_name_ecommerce/services/ticket_services/support_ticket_service.dart';
 import 'package:no_name_ecommerce/view/support_ticket/components/support_ticket_helper.dart';
 import 'package:no_name_ecommerce/view/support_ticket/create_ticket_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
@@ -184,7 +184,10 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                                                       await Future.delayed(
                                                           Duration.zero);
                                                       popupMenuActions(
-                                                          menuIndex, provider);
+                                                          menuIndex, provider,
+                                                          ticketId: provider
+                                                                  .ticketList[i]
+                                                              ['id']);
                                                     },
                                                     value: menuIndex,
                                                     child: Text(popupMenuTexts[
@@ -236,14 +239,14 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
 
   List popupMenuTexts = ['Chat', 'Change priority', 'Change status'];
 
-  popupMenuActions(int i, provider) {
+  popupMenuActions(int i, provider, {required ticketId}) {
     if (i == 0) {
       provider.goToMessagePage(context, provider.ticketList[i]['subject'],
           provider.ticketList[i]['id']);
     } else if (i == 1) {
-      SupportTicketHelper().changePriorityPopup(context);
+      SupportTicketHelper().changePriorityPopup(context, ticketId);
     } else if (i == 2) {
-      SupportTicketHelper().changeStatusPopup(context);
+      SupportTicketHelper().changeStatusPopup(context, ticketId);
     }
   }
 }

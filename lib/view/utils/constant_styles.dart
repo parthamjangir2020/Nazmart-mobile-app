@@ -13,6 +13,12 @@ sizedboxCustom(double value) {
   );
 }
 
+sizedboxW(double value) {
+  return SizedBox(
+    width: value,
+  );
+}
+
 commonImage(String imageLink, double height, double width) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(6),
@@ -146,12 +152,12 @@ capsule(String capsuleText) {
 
 getCapsuleColor(String status) {
   if (status.toLowerCase() == 'pending' || status.toLowerCase() == 'open') {
-    return Colors.orange[600];
+    return successColor;
   } else if (status.toLowerCase() == 'cancel') {
     return Colors.red;
   } else if (status.toLowerCase() == 'complete' ||
       status.toLowerCase() == 'close') {
-    return successColor;
+    return Colors.orange[600];
   } else {
     return Colors.grey[600];
   }

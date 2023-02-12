@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/view/search/components/product_filter.dart';
-import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constant_colors.dart';
@@ -26,13 +25,13 @@ class SearchBar extends StatelessWidget {
                 autofocus: false,
                 onFieldSubmitted: (value) {
                   if (value.isNotEmpty) {
-                    provider.searchProducts(context, isSearching: true);
+                    provider.searchProducts(context);
                   }
                 },
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     provider.setSearchText(value);
-                    provider.searchProducts(context, isSearching: true);
+                    provider.searchProducts(context);
                   }
                 },
                 style: const TextStyle(fontSize: 14),
@@ -45,13 +44,13 @@ class SearchBar extends StatelessWidget {
                       borderSide: BorderSide(color: inputFieldBorderColor),
                       borderRadius: BorderRadius.circular(7)),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: primaryColor),
+                      borderSide: const BorderSide(color: primaryColor),
                       borderRadius: BorderRadius.circular(7)),
                   errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: warningColor)),
+                      borderSide: const BorderSide(color: warningColor)),
                   focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: primaryColor),
+                      borderSide: const BorderSide(color: primaryColor),
                       borderRadius: BorderRadius.circular(7)),
                 ),
               ),
@@ -61,6 +60,7 @@ class SearchBar extends StatelessWidget {
               onTap: () {
                 showMaterialModalBottomSheet(
                   context: context,
+                  enableDrag: false,
                   builder: (context) => const ProductFilter(),
                 );
               },

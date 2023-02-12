@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:no_name_ecommerce/model/ticket_messages_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
-import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,14 +36,14 @@ class SupportMessagesService with ChangeNotifier {
   }
 
   // final ImagePicker _picker = ImagePicker();
-  Future pickFile() async {
-    showToast('Only zip file is supported', primaryColor);
 
-    FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: ['zip']);
+  final ImagePicker _picker = ImagePicker();
+  Future pickImage() async {
+    final XFile? imageFile =
+        await _picker.pickImage(source: ImageSource.gallery);
 
-    if (result != null) {
-      return result;
+    if (imageFile != null) {
+      return imageFile;
     } else {
       return null;
     }
@@ -94,7 +93,7 @@ class SupportMessagesService with ChangeNotifier {
         'message': dataList[i].message,
         'attachment': dataList[i].attachment,
         'type': dataList[i].type,
-        'filePicked':
+        'imagePicked':
             false //check if this image is just got picked from device in that case we will show it from device location
       });
     }
@@ -162,7 +161,7 @@ class SupportMessagesService with ChangeNotifier {
       'message': newMessage,
       'attachment': filePath,
       'type': 'customer',
-      'filePicked':
+      'imagePicked':
           true //check if this image is just got picked from device in that case we will show it from device location
     });
     notifyListeners();

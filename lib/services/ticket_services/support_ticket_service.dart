@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/ticket_list_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/services/support_messages_service.dart';
 import 'package:no_name_ecommerce/view/support_ticket/ticket_chat_page.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'support_messages_service.dart';
 
 class SupportTicketService with ChangeNotifier {
   var ticketList = [];
@@ -25,6 +26,12 @@ class SupportTicketService with ChangeNotifier {
     notifyListeners();
   }
 
+  setDefault() {
+    currentPage = 1;
+    ticketList = [];
+    notifyListeners();
+  }
+
   addNewDataToTicketList(id, title, subject, priority, description, status) {
     ticketList.add({
       'id': id,
@@ -37,7 +44,7 @@ class SupportTicketService with ChangeNotifier {
     notifyListeners();
   }
 
-  fetchTicketList(context, {bool isrefresh = false}) async {
+  Future<bool> fetchTicketList(context, {bool isrefresh = false}) async {
     if (isrefresh) {
       //making the list empty first to show loading bar (we are showing loading bar while the product list is empty)
       //we are make the list empty when the sub category or brand is selected because then the refresh is true
@@ -59,38 +66,37 @@ class SupportTicketService with ChangeNotifier {
     };
 
     var connection = await checkConnection();
-    if (connection) {
-      //if connection is ok
+    if (!connection) return false;
+    //if connection is ok
 
-      var response = await http.get(
-          Uri.parse("$baseApi/user/ticket?page=$currentPage"),
-          headers: header);
+    var response = await http.get(
+        Uri.parse("$baseApi/user/ticket?page=$currentPage"),
+        headers: header);
 
-      if (response.statusCode == 200 &&
-          jsonDecode(response.body)['data'].isNotEmpty) {
-        var data = TicketListModel.fromJson(jsonDecode(response.body));
+    if (response.statusCode == 200 &&
+        jsonDecode(response.body)['data'].isNotEmpty) {
+      var data = TicketListModel.fromJson(jsonDecode(response.body));
 
-        setTotalPage(data.lastPage);
+      setTotalPage(data.lastPage);
 
-        if (isrefresh) {
-          print('refresh true');
-          //if refreshed, then remove all service from list and insert new data
-          //make the list empty first so that existing data doesn't stay
-          setServiceList(data.data, false);
-        } else {
-          print('add new data');
-
-          //else add new data
-          setServiceList(data.data, true);
-        }
-
-        currentPage++;
-        setCurrentPage(currentPage);
-        return true;
+      if (isrefresh) {
+        print('refresh true');
+        //if refreshed, then remove all service from list and insert new data
+        //make the list empty first so that existing data doesn't stay
+        setServiceList(data.data, false);
       } else {
-        print(response.body);
-        return false;
+        print('add new data');
+
+        //else add new data
+        setServiceList(data.data, true);
       }
+
+      currentPage++;
+      setCurrentPage(currentPage);
+      return true;
+    } else {
+      print(response.body);
+      return false;
     }
   }
 

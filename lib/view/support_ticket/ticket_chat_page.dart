@@ -3,10 +3,10 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:no_name_ecommerce/services/support_messages_service.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:no_name_ecommerce/services/ticket_services/support_messages_service.dart';
 import 'package:no_name_ecommerce/view/support_ticket/components/image_big_preview.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -43,14 +43,14 @@ class _TicketChatPageState extends State<TicketChatPage> {
   void _scrollDown() {
     if (_scrollController.hasClients) {
       _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent + 10,
+        _scrollController.position.maxScrollExtent + 150,
         duration: const Duration(milliseconds: 500),
         curve: Curves.fastOutSlowIn,
       );
     }
   }
 
-  FilePickerResult? pickedFile;
+  XFile? pickedFile;
 
   @override
   Widget build(BuildContext context) {
@@ -326,7 +326,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                       //pick image =====>
                       IconButton(
                           onPressed: () async {
-                            pickedFile = await provider.pickFile();
+                            pickedFile = await provider.pickImage();
                             setState(() {});
                           },
                           icon: const Icon(Icons.attachment)),
@@ -344,7 +344,7 @@ class _TicketChatPageState extends State<TicketChatPage> {
                             provider.sendMessage(
                                 ticketId: widget.ticketId,
                                 message: sendMessageController.text,
-                                filePath: pickedFile?.files.single.path,
+                                filePath: pickedFile?.path,
                                 departmentId: widget.departmentId,
                                 description: widget.description,
                                 priority: widget.priority);

@@ -1,41 +1,53 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/model/search_model.dart';
+import 'package:no_name_ecommerce/services/category_service.dart';
+import 'package:no_name_ecommerce/services/child_category_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/subcategory_service.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class SearchProductService with ChangeNotifier {
-  var productsMap = [];
-
+  List<ProductsOfSearch> productList = [];
   bool noProductFound = false;
   bool isLoading = false;
+
+  String minPrice = '1';
+  String maxPrice = '1000';
+  double rating = 5;
 
   late int totalPages;
 
   int currentPage = 1;
 
-  String searchText = '';
+  String? searchText;
 
   setSearchText(value) {
     searchText = value;
     notifyListeners();
   }
 
-  setLoadingTrue() {
-    isLoading = true;
+  setMinPrice(v) {
+    minPrice = v;
     notifyListeners();
   }
 
-  setLoadingFalse() {
-    isLoading = false;
+  setMaxPrice(v) {
+    maxPrice = v;
     notifyListeners();
   }
 
-  setNewProductListMap(newList) {
-    productsMap = newList;
+  setRating(v) {
+    rating = v;
+    notifyListeners();
+  }
 
+  setLoadingStatus(bool status) {
+    isLoading = status;
     notifyListeners();
   }
 
@@ -50,123 +62,93 @@ class SearchProductService with ChangeNotifier {
   }
 
   setEverythingToDefault() {
-    productsMap = [];
     currentPage = 1;
-
+    productList = [];
     noProductFound = false;
     notifyListeners();
   }
 
-  searchProducts(context, {bool isrefresh = false, isSearching = false}) async {
-    if (isSearching == true) {
-      setEverythingToDefault();
+  searchProducts(context, {bool isrefresh = false}) async {
+    // setEverythingToDefault();
+
+    setLoadingStatus(true);
+
+    var categoryName =
+        Provider.of<CategoryService>(context, listen: false).selectedCategory ??
+            '';
+    var subCategoryName =
+        Provider.of<SubCategoryService>(context, listen: false)
+                .selectedSubCategory ??
+            '';
+    var childCategoryName =
+        Provider.of<ChildCategoryService>(context, listen: false)
+                .selectedChildCategory ??
+            '';
+
+    if (isrefresh) {
+      //making the list empty first to show loading bar (we are showing loading bar while the product list is empty)
+      print('isrefresh ran');
+      productList = [];
+      notifyListeners();
+
+      setCurrentPage(currentPage);
+    } else {
+      // if (currentPage > 2) {
+      //   refreshController.loadNoData();
+      //   return false;
+      // }
     }
 
-    // setLoadingTrue();
-    // var minPrice =
-    //     Provider.of<PriceAndRatingRangeService>(context, listen: false)
-    //         .minPrice;
-    // var maxPrice =
-    //     Provider.of<PriceAndRatingRangeService>(context, listen: false)
-    //         .maxPrice;
-    // var sortBy = Provider.of<SortByDropdownService>(context, listen: false)
-    //     .selectedSortbyId;
-    // var categoryId =
-    //     Provider.of<CategoryDropdownService>(context, listen: false)
-    //         .selectedCategoryId;
-    // if (isrefresh) {
-    //   //making the list empty first to show loading bar (we are showing loading bar while the product list is empty)
-    //   print('isrefresh ran');
-    //   productsMap = [];
-    //   notifyListeners();
+    var connection = await checkConnection();
+    if (!connection) return;
 
-    //   Provider.of<SearchProductService>(context, listen: false)
-    //       .setCurrentPage(currentPage);
-    // } else {
-    //   // if (currentPage > 2) {
-    //   //   refreshController.loadNoData();
-    //   //   return false;
-    //   // }
-    // }
+    // print(
+    //     "$baseApi/product?name=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&min_price=$minPrice&max_price=$maxPrice&rating=5");
 
-    // var connection = await checkConnection();
-    // if (connection) {
-    //   //if connection is ok
-    //   var response = await http.get(Uri.parse(
-    //       "$baseApi/products/search?pr_min=$minPrice&pr_max=$maxPrice&q=$searchText&sort=$sortBy&cat=$categoryId&page=$currentPage"));
+    var response = await http.get(Uri.parse(
+        "$baseApi/product?name=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&min_price=$minPrice&max_price=$maxPrice&rating=5"));
+    setLoadingStatus(false);
 
-    //   if (response.statusCode == 201 &&
-    //       jsonDecode(response.body)['data'].isNotEmpty) {
-    //     var data = SearchedProductModel.fromJson(jsonDecode(response.body));
+    if (response.statusCode == 200 &&
+        jsonDecode(response.body)['data'].isNotEmpty) {
+      var data = SearchModel.fromJson(jsonDecode(response.body));
 
-    //     setTotalPage(data.meta.lastPage);
+      setTotalPage(data.lastPage);
 
-    //     if (isrefresh) {
-    //       print('refresh true');
-    //       //if refreshed, then remove all service from list and insert new data
-    //       setServiceList(
-    //         data,
-    //         false,
-    //         context,
-    //       ); //4 means searched product
-    //     } else {
-    //       print('add new data');
-    //       //else add new data
-    //       setServiceList(data, true, context); //4 means searched product
-    //     }
+      if (isrefresh) {
+        print('refresh true');
+        //if refreshed, then remove all service from list and insert new data
+        productList = [];
+        productList = data.data;
+        notifyListeners();
+      } else {
+        print('add new data');
+        //else add new data
 
-    //     currentPage++;
-    //     setCurrentPage(currentPage);
-    //     // setLoadingFalse();
-    //     notifyListeners();
-    //     return true;
-    //   } else {
-    //     if (productsMap.isEmpty) {
-    //       //if user searched for a product and not even a single product found
-    //       //then show no product found
-    //       //but we dont want to show it when some products were found and user
-    //       //goes to the next page and there are no more products
-    //       noProductFound = true;
-    //     }
-    //     notifyListeners();
-    //     print('no more data');
+        for (int i = 0; i < data.data.length; i++) {
+          productList.add(data.data[i]);
+        }
 
-    //     return false;
-    //   }
-    // }
-  }
-
-  setServiceList(
-    data,
-    bool addnewData,
-    BuildContext context,
-  ) {
-    if (addnewData == false) {
-      //make the list empty first so that existing data doesn't stay
-      print('add new data false');
-      productsMap = [];
-      notifyListeners();
-    } else {
-      for (int i = 0; i < data.data.length; i++) {
-        productsMap.add({
-          'productId': data.data[i].prdId,
-          'title': data.data[i].title,
-          'discountPrice': data.data[i].discountPrice,
-          'oldPrice': data.data[i].price,
-          'discountPercent': data.data[i].campaignPercentage,
-          'attribute':
-              data.data[i].attributes.isNotEmpty ? data.data[i].attributes : [],
-          'stockCount': data.data[i].stockCount,
-          'imgUrl': data.data[i].imgUrl,
-          'isFavourite': false,
-          'isAddedToCart': false
-        });
-
-        // checkIfAlreadyAddedToCart(data.data[i].title, i, data.data[i].prdId,
-        //     productsMap, context, whichProductList[4]);
-        // checkIfAlreadyAddedToFavourite(data.data[i].title, i,
-        //     data.data[i].prdId, productsMap, context, whichProductList[4]);
+        notifyListeners();
       }
+
+      currentPage++;
+      setCurrentPage(currentPage);
+
+      notifyListeners();
+      return true;
+    } else {
+      if (productList.isEmpty) {
+        //if user searched for a product and not even a single product found
+        //then show no product found
+        //but we dont want to show it when some products were found and user
+        //goes to the next page and there are no more products
+        noProductFound = true;
+      }
+      notifyListeners();
+      print('no more data');
+
+      return false;
     }
   }
 }
