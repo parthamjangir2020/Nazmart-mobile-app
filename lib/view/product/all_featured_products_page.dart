@@ -112,7 +112,8 @@ class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
                                   ),
                                 );
                               },
-                              price: 32.99,
+                              oldPrice: 32.99,
+                              discountPrice: 10,
                               camapaignId: 1);
                         }),
                     //     : Container(

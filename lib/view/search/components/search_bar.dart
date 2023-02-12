@@ -25,13 +25,13 @@ class SearchBar extends StatelessWidget {
                 autofocus: false,
                 onFieldSubmitted: (value) {
                   if (value.isNotEmpty) {
-                    provider.searchProducts(context);
+                    provider.searchProducts(context, isSearching: true);
                   }
                 },
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     provider.setSearchText(value);
-                    provider.searchProducts(context);
+                    provider.searchProducts(context, isSearching: true);
                   }
                 },
                 style: const TextStyle(fontSize: 14),

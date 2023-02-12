@@ -30,6 +30,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('build ran =======');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appbarCommon('Search', context, () {
@@ -80,50 +81,51 @@ class _SearchPageState extends State<SearchPage> {
                     sizedboxCustom(10),
                     const SearchBar(),
                     sizedboxCustom(10),
-                    provider.productList.isNotEmpty
-                        ? GridView.builder(
-                            gridDelegate: const FlutterzillaFixedGridView(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 25,
-                                crossAxisSpacing: 25,
-                                height: 280),
-                            shrinkWrap: true,
-                            itemCount: provider.productList.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, i) {
-                              return ProductCard(
-                                  imageLink: provider.productList[i].imgUrl ??
-                                      placeHolderUrl,
-                                  title: provider.productList[i].title,
-                                  width: 180,
-                                  marginRight: 0,
-                                  pressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) =>
-                                            const ProductDetailsPage(
-                                          productId: '239',
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  price: provider.productList[i].discountPrice,
-                                  camapaignId: 1);
-                            })
-                        : Container(),
-                    if (provider.noProductFound)
-                      Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 60),
-                        child: const Text('No product found'),
-                      ),
-                    if (provider.isLoading)
-                      Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 60),
-                        child: showLoading(primaryColor),
-                      ),
+                    provider.noProductFound == false
+                        ? provider.productList.isNotEmpty
+                            ? GridView.builder(
+                                gridDelegate: const FlutterzillaFixedGridView(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 25,
+                                    crossAxisSpacing: 25,
+                                    height: 280),
+                                shrinkWrap: true,
+                                itemCount: provider.productList.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, i) {
+                                  return ProductCard(
+                                      imageLink:
+                                          provider.productList[i].imgUrl ??
+                                              placeHolderUrl,
+                                      title: provider.productList[i].title,
+                                      width: 180,
+                                      marginRight: 0,
+                                      pressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute<void>(
+                                            builder: (BuildContext context) =>
+                                                const ProductDetailsPage(
+                                              productId: '239',
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      discountPrice:
+                                          provider.productList[i].discountPrice,
+                                      oldPrice: provider.productList[i].price,
+                                      camapaignId: 1);
+                                })
+                            : Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(top: 60),
+                                child: showLoading(primaryColor),
+                              )
+                        : Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(top: 60),
+                            child: const Text('No product found'),
+                          ),
                     sizedboxCustom(30),
                   ]),
             ),

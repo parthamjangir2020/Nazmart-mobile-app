@@ -20,13 +20,15 @@ class ProductCard extends StatelessWidget {
     required this.marginRight,
     required this.pressed,
     required this.camapaignId,
-    required this.price,
+    required this.oldPrice,
+    required this.discountPrice,
   }) : super(key: key);
 
   final camapaignId;
   final imageLink;
   final title;
-  final price;
+  final oldPrice;
+  final discountPrice;
 
   final double width;
   final double marginRight;
@@ -66,8 +68,8 @@ class ProductCard extends StatelessWidget {
                     sizedboxCustom(10),
                     //Title
                     Text(
-                      title,
-                      maxLines: 2,
+                      title.toString(),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           color: blackCustomColor,
@@ -80,7 +82,7 @@ class ProductCard extends StatelessWidget {
                     //Price
                     Row(
                       children: [
-                        paragraphCommon('\$$price',
+                        paragraphCommon('\$$discountPrice',
                             lineHeight: 1.2,
                             fontsize: 14,
                             color: primaryColor,
@@ -92,7 +94,7 @@ class ProductCard extends StatelessWidget {
 
                         //old price
                         Text(
-                          '\$$price',
+                          '\$$oldPrice',
                           style: TextStyle(
                               color: Colors.grey[600],
                               decoration: TextDecoration.lineThrough),

@@ -68,8 +68,11 @@ class SearchProductService with ChangeNotifier {
     notifyListeners();
   }
 
-  searchProducts(context, {bool isrefresh = false}) async {
-    // setEverythingToDefault();
+  searchProducts(context,
+      {bool isrefresh = false, bool isSearching = false}) async {
+    if (isSearching == true) {
+      setEverythingToDefault();
+    }
 
     setLoadingStatus(true);
 
