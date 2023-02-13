@@ -62,15 +62,15 @@ class CountryStatesService with ChangeNotifier {
   setCountryBasedOnUserProfile(BuildContext context) {
     selectedCountry = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
-            .userDetails
+            ?.userDetails
             .userCountry
-            .name ??
+            ?.name ??
         'Select Country';
     selectedCountryId = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
-            .userDetails
+            ?.userDetails
             .userCountry
-            .id ??
+            ?.id ??
         '0';
 
     Future.delayed(const Duration(milliseconds: 500), () {
@@ -83,15 +83,15 @@ class CountryStatesService with ChangeNotifier {
   setStateBasedOnUserProfile(BuildContext context) {
     selectedState = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
-            .userDetails
+            ?.userDetails
             .userState
-            .name ??
+            ?.name ??
         'Select State';
     selectedStateId = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
-            .userDetails
+            ?.userDetails
             .userState
-            .id ??
+            ?.id ??
         '0';
     print(statesDropdownList);
     print(statesDropdownIndexList);
@@ -193,8 +193,9 @@ class CountryStatesService with ChangeNotifier {
     if (profileData != null) {
       var userCountryId = Provider.of<ProfileService>(context, listen: false)
           .profileDetails
-          .userDetails
-          .countryId;
+          ?.userDetails
+          .userCountry
+          ?.id;
 
       if (userCountryId == selectedCountryId) {
         //if user selected the country id which is saved in his profile

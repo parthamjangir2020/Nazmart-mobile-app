@@ -22,10 +22,11 @@ class SearchBar extends StatelessWidget {
             Expanded(
               child: TextFormField(
                 controller: searchController,
-                autofocus: false,
+                autofocus: true,
                 onFieldSubmitted: (value) {
                   if (value.isNotEmpty) {
                     provider.searchProducts(context, isSearching: true);
+                    FocusManager.instance.primaryFocus?.unfocus();
                   }
                 },
                 onChanged: (value) {

@@ -54,14 +54,10 @@ class ProfileDetails extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       //profile image
-
-                                      // profileProvider
-                                      //             .profileImage !=
-                                      //         null
                                       profileImage(
                                           profileProvider
                                                   .profileDetails
-                                                  .userDetails
+                                                  ?.userDetails
                                                   .profileImageUrl ??
                                               userPlaceHolderUrl,
                                           62,
@@ -87,13 +83,13 @@ class ProfileDetails extends StatelessWidget {
                                                 //user name
                                                 titleCommon(profileProvider
                                                         .profileDetails
-                                                        .userDetails
+                                                        ?.userDetails
                                                         .name ??
                                                     ''),
 
                                                 //phone
                                                 paragraphCommon(
-                                                  'Member since ${getDateOnly(profileProvider.profileDetails.userDetails.createdAt) ?? '-'}',
+                                                  'Member since ${getDateOnly(profileProvider.profileDetails?.userDetails.createdAt) ?? '-'}',
                                                 ),
                                               ],
                                             ),
@@ -129,16 +125,16 @@ class ProfileDetails extends StatelessWidget {
                               sizedboxCustom(30),
                               bRow(
                                 asProvider.getString("Phone"),
-                                '${profileProvider.profileDetails.userDetails.mobile ?? '-'}',
+                                '${profileProvider.profileDetails?.userDetails.mobile}',
                                 icon: 'assets/svg/phone.svg',
                               ),
                               bRow(
                                 asProvider.getString("Email"),
-                                '${profileProvider.profileDetails.userDetails.email ?? '-'}',
+                                '${profileProvider.profileDetails?.userDetails.email}',
                                 icon: 'assets/svg/email.svg',
                               ),
                               bRow(asProvider.getString("Country"),
-                                  '${profileProvider.profileDetails.userDetails.country ?? '-'}',
+                                  '${profileProvider.profileDetails?.userDetails.country}',
                                   icon: 'assets/svg/location.svg',
                                   lastItem: true),
                             ]),

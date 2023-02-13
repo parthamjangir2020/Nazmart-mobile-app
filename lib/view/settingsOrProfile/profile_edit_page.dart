@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
-import 'package:no_name_ecommerce/view/auth/signup/signup_helper.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/profile_image_pick.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -26,7 +25,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController zipCodeController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  String? countryCode;
+  TextEditingController cityController = TextEditingController();
+
+  // String? countryCode;
 
   late AnimationController localAnimationController;
 
@@ -37,40 +38,45 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     //     .profileDetails
     //     .userDetails
     //     .countryCode;
-    //set country code
+    // set country code
     // Future.delayed(const Duration(milliseconds: 600), () {
     //   Provider.of<ProfileEditService>(context, listen: false)
     //       .setCountryCode(countryCode);
     // });
 
-    // fullNameController.text =
-    //     Provider.of<ProfileService>(context, listen: false)
-    //             .profileDetails
-    //             .userDetails
-    //             .name ??
-    //         '';
+    fullNameController.text =
+        Provider.of<ProfileService>(context, listen: false)
+                .profileDetails
+                ?.userDetails
+                .name ??
+            '';
 
-    // emailController.text = Provider.of<ProfileService>(context, listen: false)
-    //         .profileDetails
-    //         .userDetails
-    //         .email ??
-    //     '';
+    emailController.text = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .email ??
+        '';
 
-    // phoneController.text = Provider.of<ProfileService>(context, listen: false)
-    //         .profileDetails
-    //         .userDetails
-    //         .phone ??
-    //     '';
+    phoneController.text = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .mobile ??
+        '';
     // zipCodeController.text = Provider.of<ProfileService>(context, listen: false)
     //         .profileDetails
-    //         .userDetails
-    //         .zipcode ??
+    //         ?.userDetails
+    //         .po ??
     //     '';
-    // addressController.text = Provider.of<ProfileService>(context, listen: false)
-    //         .profileDetails
-    //         .userDetails
-    //         .address ??
-    //     '';
+    addressController.text = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .address ??
+        '';
+    cityController.text = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .city ??
+        '';
   }
 
   @override
@@ -165,15 +171,43 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
                       //Phone
                       labelCommon("Phone"),
-
-                      IntlPhoneField(
+                      CustomInput(
                         controller: phoneController,
-                        decoration: SignupHelper().phoneFieldDecoration(),
-                        initialCountryCode: countryCode,
-                        onChanged: (phone) {
-                          provider.setCountryCode(phone.countryISOCode);
+                        validation: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your phone';
+                          }
+                          return null;
                         },
+                        hintText: "Enter your phone",
+                        paddingHorizontal: 20,
+                        textInputAction: TextInputAction.next,
+                        isNumberField: true,
                       ),
+
+                      //City
+                      labelCommon("City"),
+                      CustomInput(
+                        controller: cityController,
+                        validation: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your city';
+                          }
+                          return null;
+                        },
+                        hintText: "Enter your city",
+                        paddingHorizontal: 20,
+                        textInputAction: TextInputAction.next,
+                      ),
+
+                      // IntlPhoneField(
+                      //   controller: phoneController,
+                      //   decoration: SignupHelper().phoneFieldDecoration(),
+                      //   initialCountryCode: countryCode,
+                      //   onChanged: (phone) {
+                      //     provider.setCountryCode(phone.countryISOCode);
+                      //   },
+                      // ),
 
                       //Country dropdown =====>
 
@@ -229,14 +263,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                               });
 
                           //update profile
-                          var result = await provider.updateProfile(
-                            fullNameController.text,
-                            emailController.text,
-                            phoneController.text,
-                            zipCodeController.text,
-                            addressController.text,
-                            context,
-                          );
+                          var result = await provider.updateProfile(context,
+                              name: fullNameController.text,
+                              email: emailController.text,
+                              phone: phoneController.text,
+                              zip: zipCodeController.text,
+                              address: addressController.text,
+                              city: '');
                           if (result == true || result == false) {
                             localAnimationController.reverse();
                           }

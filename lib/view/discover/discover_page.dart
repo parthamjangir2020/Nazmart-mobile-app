@@ -131,25 +131,28 @@ class _DiscoverPageState extends State<DiscoverPage> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, i) {
                           return ProductCard(
-                              imageLink:
-                                  'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80',
-                              title: 'Black T-Shirt',
-                              width: 180,
-                              marginRight: 0,
-                              pressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        const ProductDetailsPage(
-                                      productId: '239',
-                                    ),
+                            imageLink:
+                                'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80',
+                            title: 'Black T-Shirt',
+                            width: 180,
+                            marginRight: 0,
+                            oldPrice: 32.99,
+                            discountPrice: 10,
+                            productId: 1,
+                            ratingAverage: '4.5',
+                            ratingCount: '10',
+                            pressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      const ProductDetailsPage(
+                                    productId: '239',
                                   ),
-                                );
-                              },
-                              oldPrice: 32.99,
-                              discountPrice: 10,
-                              camapaignId: 1);
+                                ),
+                              );
+                            },
+                          );
                         }),
                     //     : Container(
                     //         alignment: Alignment.center,

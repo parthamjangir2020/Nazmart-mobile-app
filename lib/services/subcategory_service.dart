@@ -36,6 +36,22 @@ class SubCategoryService with ChangeNotifier {
     notifyListeners();
   }
 
+  setDummyValue() {
+    subCategoryDropdownList.add('Select Subcategory');
+    subCategoryDropdownIndexList.add(null);
+    selectedSubCategory = 'Select Subcategory';
+    selectedSubCategoryId = null;
+    notifyListeners();
+  }
+
+  setFirstValue() {
+    if (subCategoryDropdownList.isEmpty) return;
+    selectedSubCategory = subCategoryDropdownList[0];
+    selectedSubCategoryId = subCategoryDropdownIndexList[0];
+
+    notifyListeners();
+  }
+
   fetchSubCategory(BuildContext context) async {
     setDefault();
     //
@@ -46,6 +62,8 @@ class SubCategoryService with ChangeNotifier {
         await http.get(Uri.parse('$baseApi/subcategory/$selectedCategoryId'));
     print(response.body);
 
+    setDummyValue();
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = SubCategoryModel.fromJson(jsonDecode(response.body));
 
@@ -54,20 +72,13 @@ class SubCategoryService with ChangeNotifier {
         subCategoryDropdownIndexList.add(data.subcategories[i].id);
       }
 
-      selectedSubCategory = subCategoryDropdownList[0];
-      selectedSubCategoryId = subCategoryDropdownIndexList[0];
-
-      notifyListeners();
+      setFirstValue();
 
       Provider.of<ChildCategoryService>(context, listen: false)
           .fetchChildCategory(context);
     } else {
       //error fetching data
-      subCategoryDropdownList.add('Select Subcategory');
-      subCategoryDropdownIndexList.add(null);
-      selectedSubCategory = 'Select Subcategory';
-      selectedSubCategoryId = null;
-      notifyListeners();
+
     }
   }
 }

@@ -35,6 +35,21 @@ class ChildCategoryService with ChangeNotifier {
     notifyListeners();
   }
 
+  setDummyValue() {
+    childCategoryDropdownList.add('Select child category');
+    childCategoryDropdownIndexList.add(null);
+    selectedChildCategory = 'Select child category';
+    selectedChildCategoryId = null;
+    notifyListeners();
+  }
+
+  setFirstValue() {
+    if (childCategoryDropdownList.isEmpty) return;
+    selectedChildCategory = childCategoryDropdownList[0];
+    selectedChildCategoryId = childCategoryDropdownIndexList[0];
+    notifyListeners();
+  }
+
   fetchChildCategory(BuildContext context) async {
     setDefault();
 
@@ -46,6 +61,8 @@ class ChildCategoryService with ChangeNotifier {
         .get(Uri.parse('$baseApi/child-category/$selectedChildcategoryId'));
     print(response.body);
 
+    setDummyValue();
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = ChildCategoryModel.fromJson(jsonDecode(response.body));
 
@@ -54,17 +71,10 @@ class ChildCategoryService with ChangeNotifier {
         childCategoryDropdownIndexList.add(data.childCategories[i].id);
       }
 
-      selectedChildCategory = childCategoryDropdownList[0];
-      selectedChildCategoryId = childCategoryDropdownIndexList[0];
-
-      notifyListeners();
+      setFirstValue();
     } else {
       //error fetching data
-      childCategoryDropdownList.add('Select child category');
-      childCategoryDropdownIndexList.add(null);
-      selectedChildCategory = 'Select child category';
-      selectedChildCategoryId = null;
-      notifyListeners();
+
     }
   }
 }

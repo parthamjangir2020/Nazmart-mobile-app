@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 class ProfileService with ChangeNotifier {
   bool isloading = false;
 
-  var profileDetails;
+  ProfileModel? profileDetails;
 
   setLoadingTrue() {
     isloading = true;

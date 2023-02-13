@@ -82,7 +82,7 @@ class _HomepageState extends State<Homepage> {
                                                 ),
                                                 Text(
                                                   profileProvider.profileDetails
-                                                          .userDetails.name ??
+                                                          ?.userDetails.name ??
                                                       '',
                                                   style: const TextStyle(
                                                     color: blackCustomColor,

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -16,8 +16,8 @@ class SearchProductService with ChangeNotifier {
   bool noProductFound = false;
   bool isLoading = false;
 
-  String minPrice = '1';
-  String maxPrice = '1000';
+  String minPrice = '';
+  String maxPrice = '';
   double rating = 5;
 
   late int totalPages;
@@ -25,6 +25,10 @@ class SearchProductService with ChangeNotifier {
   int currentPage = 1;
 
   String? searchText;
+
+  var categoryName;
+  var subCategoryName;
+  var childCategoryName;
 
   setSearchText(value) {
     searchText = value;
@@ -70,23 +74,13 @@ class SearchProductService with ChangeNotifier {
 
   searchProducts(context,
       {bool isrefresh = false, bool isSearching = false}) async {
-    if (isSearching == true) {
+    if (isSearching) {
       setEverythingToDefault();
     }
 
     setLoadingStatus(true);
 
-    var categoryName =
-        Provider.of<CategoryService>(context, listen: false).selectedCategory ??
-            '';
-    var subCategoryName =
-        Provider.of<SubCategoryService>(context, listen: false)
-                .selectedSubCategory ??
-            '';
-    var childCategoryName =
-        Provider.of<ChildCategoryService>(context, listen: false)
-                .selectedChildCategory ??
-            '';
+    setCategories(context);
 
     if (isrefresh) {
       //making the list empty first to show loading bar (we are showing loading bar while the product list is empty)
@@ -95,21 +89,13 @@ class SearchProductService with ChangeNotifier {
       notifyListeners();
 
       setCurrentPage(currentPage);
-    } else {
-      // if (currentPage > 2) {
-      //   refreshController.loadNoData();
-      //   return false;
-      // }
-    }
-
+    } else {}
     var connection = await checkConnection();
     if (!connection) return;
 
-    // print(
-    //     "$baseApi/product?name=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&min_price=$minPrice&max_price=$maxPrice&rating=5");
-
     var response = await http.get(Uri.parse(
-        "$baseApi/product?name=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&min_price=$minPrice&max_price=$maxPrice&rating=5"));
+        "$baseApi/product?name=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&min_price=$minPrice&max_price=$maxPrice&rating=$rating"));
+
     setLoadingStatus(false);
 
     if (response.statusCode == 200 &&
@@ -126,12 +112,9 @@ class SearchProductService with ChangeNotifier {
         notifyListeners();
       } else {
         print('add new data');
-        //else add new data
-
         for (int i = 0; i < data.data.length; i++) {
           productList.add(data.data[i]);
         }
-
         notifyListeners();
       }
 
@@ -152,6 +135,29 @@ class SearchProductService with ChangeNotifier {
       print('no more data');
 
       return false;
+    }
+  }
+
+  setCategories(BuildContext context) {
+    categoryName =
+        Provider.of<CategoryService>(context, listen: false).selectedCategory;
+
+    subCategoryName = Provider.of<SubCategoryService>(context, listen: false)
+        .selectedSubCategory;
+
+    childCategoryName =
+        Provider.of<ChildCategoryService>(context, listen: false)
+            .selectedChildCategory;
+
+    if (categoryName == null || categoryName == 'Select Category') {
+      categoryName = '';
+    }
+    if (subCategoryName == null || subCategoryName == 'Select Subcategory') {
+      subCategoryName = '';
+    }
+    if (childCategoryName == null ||
+        childCategoryName == 'Select child category') {
+      childCategoryName = '';
     }
   }
 }

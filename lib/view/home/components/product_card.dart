@@ -19,16 +19,20 @@ class ProductCard extends StatelessWidget {
     required this.width,
     required this.marginRight,
     required this.pressed,
-    required this.camapaignId,
+    required this.productId,
     required this.oldPrice,
     required this.discountPrice,
+    required this.ratingAverage,
+    this.ratingCount,
   }) : super(key: key);
 
-  final camapaignId;
+  final productId;
   final imageLink;
   final title;
   final oldPrice;
   final discountPrice;
+  final ratingAverage;
+  final ratingCount;
 
   final double width;
   final double marginRight;
@@ -105,26 +109,29 @@ class ProductCard extends StatelessWidget {
                     sizedboxCustom(5),
 
                     //Rating
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star_rounded,
-                          color: orangeColor,
-                        ),
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        paragraphCommon('4.5',
-                            lineHeight: 1,
-                            fontsize: 13,
-                            color: greyParagraph,
-                            fontweight: FontWeight.bold),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        paragraphCommon('(29)', lineHeight: 1, fontsize: 13)
-                      ],
-                    ),
+                    if (ratingAverage != null)
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star_rounded,
+                            color: orangeColor,
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          paragraphCommon(ratingAverage.toString(),
+                              lineHeight: 1,
+                              fontsize: 13,
+                              color: greyParagraph,
+                              fontweight: FontWeight.bold),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          if (ratingCount != null)
+                            paragraphCommon('($ratingCount)',
+                                lineHeight: 1, fontsize: 13)
+                        ],
+                      ),
                     sizedboxCustom(10),
 
                     //Donate button

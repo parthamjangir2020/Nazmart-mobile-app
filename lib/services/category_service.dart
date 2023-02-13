@@ -27,12 +27,29 @@ class CategoryService with ChangeNotifier {
     notifyListeners();
   }
 
+  setFirstValue() {
+    if (categoryDropdownList.isEmpty) return;
+    selectedCategory = categoryDropdownList[0];
+    selectedCategoryId = categoryDropdownIndexList[0];
+    notifyListeners();
+  }
+
+  setDummyValue() {
+    categoryDropdownList.add('Select Category');
+    categoryDropdownIndexList.add(null);
+    selectedCategory = 'Select Category';
+    selectedCategoryId = null;
+    notifyListeners();
+  }
+
   fetchCategory(BuildContext context) async {
     if (categoryDropdownList.isNotEmpty) return;
 
     if (categoryDropdownList.isEmpty) {
       var response = await http.get(Uri.parse('$baseApi/category'));
       print(response.body);
+
+      setDummyValue();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = CategoryModel.fromJson(jsonDecode(response.body));
@@ -41,20 +58,12 @@ class CategoryService with ChangeNotifier {
           categoryDropdownList.add(data.categories[i].name);
           categoryDropdownIndexList.add(data.categories[i].id);
         }
-
-        selectedCategory = categoryDropdownList[0];
-        selectedCategoryId = categoryDropdownIndexList[0];
-
-        notifyListeners();
+        setFirstValue();
         Provider.of<SubCategoryService>(context, listen: false)
             .fetchSubCategory(context);
       } else {
         //error fetching data
-        categoryDropdownList.add('Select Category');
-        categoryDropdownIndexList.add(null);
-        selectedCategory = 'Select Category';
-        selectedCategoryId = null;
-        notifyListeners();
+
       }
     }
   }

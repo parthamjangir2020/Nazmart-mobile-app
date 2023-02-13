@@ -46,7 +46,13 @@ class ProfileEditService with ChangeNotifier {
     notifyListeners();
   }
 
-  updateProfile(name, email, phone, zip, address, context) async {
+  updateProfile(context,
+      {required name,
+      required email,
+      required phone,
+      required zip,
+      required address,
+      required city}) async {
     setLoadingTrue();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -63,38 +69,29 @@ class ProfileEditService with ChangeNotifier {
     dio.options.headers['Content-Type'] = 'multipart/form-data';
     dio.options.headers["Authorization"] = "Bearer $token";
 
-    var formData;
-    if (imageFile != null) {
-      formData = FormData.fromMap({
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'file': await MultipartFile.fromFile(imageFile!.path,
-            filename: 'profileImage$name$zip${imageFile!.path}.jpg'),
-        'country': countryId,
-        'state': stateId,
-        'address': address,
-        'zipcode': zip,
-        'country_code': countryCode
-      });
-    } else {
-      formData = FormData.fromMap({
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'country': countryId,
-        'state': stateId,
-        'address': address,
-        'zipcode': zip,
-        'country_code': countryCode
-      });
-    }
+    FormData formData;
+
+    formData = FormData.fromMap({
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'file': imageFile != null
+          ? await MultipartFile.fromFile(imageFile!.path,
+              filename: 'profileImage$name$zip${imageFile!.path}.jpg')
+          : null,
+      'country': countryId,
+      'state': stateId,
+      'address': address,
+      'city': city,
+      'zip_code': zip
+    });
+
     var response = await dio.post(
       '$baseApi/user/update-profile',
       data: formData,
     );
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       setLoadingFalse();
       showToast('Profile updated successfully', Colors.black);
       print(response.data);

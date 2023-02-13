@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:no_name_ecommerce/services/category_service.dart';
+import 'package:no_name_ecommerce/services/child_category_service.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
+import 'package:no_name_ecommerce/services/subcategory_service.dart';
 import 'package:no_name_ecommerce/view/home/components/categories.dart';
 import 'package:no_name_ecommerce/view/home/components/child_categories.dart';
 import 'package:no_name_ecommerce/view/home/components/sub_categories.dart';
@@ -21,7 +24,10 @@ class ProductFilter extends StatefulWidget {
 class _ProductFilterState extends State<ProductFilter> {
   int selectedCategory = 0;
   int selectedColor = 0;
-  double rating = 4;
+
+  final minPriceController = TextEditingController();
+  final maxPriceController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<SearchProductService>(
@@ -73,6 +79,7 @@ class _ProductFilterState extends State<ProductFilter> {
                           borderRadius: 5,
                           paddingHorizontal: 15,
                           isNumberField: true,
+                          controller: minPriceController,
                           onChanged: (v) {
                             provider.setMinPrice(v);
                           },
@@ -92,6 +99,7 @@ class _ProductFilterState extends State<ProductFilter> {
                           borderRadius: 5,
                           paddingHorizontal: 15,
                           isNumberField: true,
+                          controller: maxPriceController,
                           onChanged: (v) {
                             provider.setMaxPrice(v);
                           },
@@ -118,51 +126,58 @@ class _ProductFilterState extends State<ProductFilter> {
                   color: Colors.amber,
                 ),
                 onRatingUpdate: (value) {
-                  rating = value;
                   provider.setRating(value);
                 },
               ),
 
               // Reset filter and apply button
-              // sizedboxCustom(20),
-              // Row(
-              //   children: [
-              //     Expanded(
-              //         child: InkWell(
-              //       onTap: () {
-              //         Navigator.pop(context);
-              //       },
-              //       child: Container(
-              //           width: double.infinity,
-              //           alignment: Alignment.center,
-              //           padding: const EdgeInsets.symmetric(vertical: 18),
-              //           decoration: BoxDecoration(
-              //               color: const Color(0xffEAECF0),
-              //               borderRadius: BorderRadius.circular(100)),
-              //           child: const Text(
-              //             'Cancel',
-              //             style: TextStyle(
-              //               color: Color(0xff667085),
-              //               fontSize: 14,
-              //             ),
-              //           )),
-              //     )),
-              //     const SizedBox(
-              //       width: 20,
-              //     ),
-              //     Expanded(
-              //       child: buttonPrimary('Apply filter', () {
-              //         // Navigator.push(
-              //         //   context,
-              //         //   MaterialPageRoute<void>(
-              //         //     builder: (BuildContext context) =>
-              //         //         const AllproductPage(),
-              //         //   ),
-              //         // );
-              //       }, borderRadius: 100),
-              //     )
-              //   ],
-              // ),
+              sizedboxCustom(20),
+              Row(
+                children: [
+                  Expanded(
+                      child: InkWell(
+                    onTap: () {
+                      provider.setRating(5.0);
+                      Provider.of<CategoryService>(context, listen: false)
+                          .setFirstValue();
+                      Provider.of<SubCategoryService>(context, listen: false)
+                          .setFirstValue();
+                      Provider.of<ChildCategoryService>(context, listen: false)
+                          .setFirstValue();
+
+                      Provider.of<SearchProductService>(context, listen: false)
+                          .setMinPrice('');
+                      Provider.of<SearchProductService>(context, listen: false)
+                          .setMaxPrice('');
+
+                      minPriceController.clear();
+                      maxPriceController.clear();
+                    },
+                    child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 18),
+                        decoration: BoxDecoration(
+                            color: const Color(0xffEAECF0),
+                            borderRadius: BorderRadius.circular(100)),
+                        child: const Text(
+                          'Clear',
+                          style: TextStyle(
+                            color: Color(0xff667085),
+                            fontSize: 14,
+                          ),
+                        )),
+                  )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: buttonPrimary('Apply', () {
+                      Navigator.pop(context);
+                    }, borderRadius: 100),
+                  )
+                ],
+              ),
             ],
           ),
         ),

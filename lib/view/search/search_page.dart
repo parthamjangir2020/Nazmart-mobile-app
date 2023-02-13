@@ -39,9 +39,12 @@ class _SearchPageState extends State<SearchPage> {
       body: SmartRefresher(
         controller: refreshController,
         enablePullUp: true,
-        enablePullDown: context.watch<SearchProductService>().currentPage > 1
-            ? false
-            : true,
+        enablePullDown:
+            Provider.of<SearchProductService>(context, listen: false)
+                        .currentPage >
+                    1
+                ? false
+                : true,
         onRefresh: () async {
           final result =
               await Provider.of<SearchProductService>(context, listen: false)
@@ -94,27 +97,30 @@ class _SearchPageState extends State<SearchPage> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, i) {
                                   return ProductCard(
-                                      imageLink:
-                                          provider.productList[i].imgUrl ??
-                                              placeHolderUrl,
-                                      title: provider.productList[i].title,
-                                      width: 180,
-                                      marginRight: 0,
-                                      pressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute<void>(
-                                            builder: (BuildContext context) =>
-                                                const ProductDetailsPage(
-                                              productId: '239',
-                                            ),
+                                    imageLink: provider.productList[i].imgUrl ??
+                                        placeHolderUrl,
+                                    title: provider.productList[i].title,
+                                    width: 180,
+                                    marginRight: 0,
+                                    discountPrice:
+                                        provider.productList[i].discountPrice,
+                                    oldPrice: provider.productList[i].price,
+                                    productId: provider.productList[i].prdId,
+                                    ratingAverage:
+                                        provider.productList[i].avgRatting,
+                                    pressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute<void>(
+                                          builder: (BuildContext context) =>
+                                              ProductDetailsPage(
+                                            productId:
+                                                provider.productList[i].prdId,
                                           ),
-                                        );
-                                      },
-                                      discountPrice:
-                                          provider.productList[i].discountPrice,
-                                      oldPrice: provider.productList[i].price,
-                                      camapaignId: 1);
+                                        ),
+                                      );
+                                    },
+                                  );
                                 })
                             : Container(
                                 alignment: Alignment.center,
