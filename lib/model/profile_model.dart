@@ -88,7 +88,9 @@ class UserDetails {
         createdAt: DateTime.parse(json?["created_at"]),
         updatedAt: DateTime.parse(json?["updated_at"]),
         profileImageUrl: json?["profile_image_url"],
-        userCountry: User.fromJson(json?["user_country"]),
+        userCountry: json?["user_country"] != null
+            ? User.fromJson(json?["user_country"])
+            : null,
         userState: json?["user_state"] != null
             ? User.fromJson(json?["user_state"])
             : null,

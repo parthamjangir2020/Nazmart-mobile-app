@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -58,11 +60,11 @@ class ProfileEditService with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
-    var countryId = Provider.of<CountryStatesService>(context, listen: false)
-        .selectedCountryId;
+    var countryName = Provider.of<CountryStatesService>(context, listen: false)
+        .selectedCountry;
 
-    var stateId = Provider.of<CountryStatesService>(context, listen: false)
-        .selectedStateId;
+    var stateName =
+        Provider.of<CountryStatesService>(context, listen: false).selectedState;
 
     var dio = Dio();
     // dio.options.headers['Accept'] = 'application/json';
@@ -79,11 +81,12 @@ class ProfileEditService with ChangeNotifier {
           ? await MultipartFile.fromFile(imageFile!.path,
               filename: 'profileImage$name$zip${imageFile!.path}.jpg')
           : null,
-      'country': countryId,
-      'state': stateId,
+      'country': countryName,
+      'state': stateName,
       'address': address,
       'city': city,
-      'zip_code': zip
+      'zip_code': zip,
+      'user_type': 'api'
     });
 
     var response = await dio.post(

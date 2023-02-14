@@ -23,11 +23,13 @@ import 'package:no_name_ecommerce/services/profile_edit_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
+import 'package:no_name_ecommerce/services/shipping_services/add_remove_shipping_address_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/change_priority_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/change_ticket_status_service.dart';
 import 'package:no_name_ecommerce/view/intro/splash.dart';
+import 'package:no_name_ecommerce/services/shipping_services/shipping_list_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -87,6 +89,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TicketStatusDropdownService()),
         ChangeNotifierProvider(create: (_) => ChangePriorityService()),
         ChangeNotifierProvider(create: (_) => ChangeTicketStatusService()),
+        ChangeNotifierProvider(create: (_) => ShippingListService()),
+        ChangeNotifierProvider(
+            create: (_) => AddRemoveShippingAddressService()),
         ChangeNotifierProvider(
             create: (_) => PriorityAndDepartmentDropdownService()),
       ],
