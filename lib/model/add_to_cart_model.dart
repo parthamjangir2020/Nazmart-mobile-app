@@ -4,8 +4,6 @@ class AddtocartModel {
   late String thumbnail;
   late String color;
   late String size;
-  late var colorPrice;
-  late var sizePrice;
   late var discountPrice;
   late var oldPrice;
   late var totalWithQty;
@@ -22,8 +20,6 @@ class AddtocartModel {
     mapping['totalWithQty'] = totalWithQty;
     mapping['qty'] = qty;
     mapping['color'] = color;
-    mapping['colorPrice'] = colorPrice;
-    mapping['sizePrice'] = sizePrice;
     mapping['size'] = size;
     return mapping;
   }

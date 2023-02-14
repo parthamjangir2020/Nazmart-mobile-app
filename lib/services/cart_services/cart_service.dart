@@ -145,9 +145,7 @@ class CartService with ChangeNotifier {
     required String oldPrice,
     required int qty,
     required String color,
-    required String colorPrice,
     required String size,
-    required String sizePrice,
   }) async {
     var connection = await ProductDbService().getdatabase;
     var prod = await connection.rawQuery(
@@ -165,9 +163,7 @@ class CartService with ChangeNotifier {
       cartObj.qty = qty;
       cartObj.totalWithQty = discountPrice * qty;
       cartObj.color = color;
-      cartObj.colorPrice = colorPrice;
       cartObj.size = size;
-      cartObj.sizePrice = sizePrice;
       await connection.insert('cart_table', cartObj.cartMap());
 
       print('Added to cart');

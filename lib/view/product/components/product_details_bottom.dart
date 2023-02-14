@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/view/product/components/write_review_page.dart
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailsBottom extends StatefulWidget {
@@ -74,8 +75,15 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
                   //======>
                   Expanded(
                     child: buttonPrimary('Add to cart', () {
-                      provider.printSelectedProduct();
-                      return;
+                      print(provider.selectedInventorySet);
+                      // print(provider.productSalePrice);
+                      // return;
+                      if (provider.selectedInventorySet.isEmpty) {
+                        showToast(
+                            'You must select all attributes', Colors.black);
+                        return;
+                      }
+
                       cProvider.addToCartOrUpdateQty(context,
                           title: provider.productDetails?.product?.name ?? '',
                           thumbnail: provider.productDetails?.product?.image ??
@@ -88,11 +96,11 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
                                   .toString() ??
                               '0',
                           qty: 1,
-                          color: 'red',
-                          colorPrice: '4',
-                          size: 'M',
-                          sizePrice: '3',
-                          productId: '1');
+                          color: provider.selectedInventorySet['color_code'],
+                          size: provider.selectedInventorySet['Size'],
+                          productId:
+                              provider.productDetails?.product?.id.toString() ??
+                                  '1');
                     }, borderRadius: 100),
                   ),
                 ],

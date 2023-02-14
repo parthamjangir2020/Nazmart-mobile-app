@@ -324,8 +324,4 @@ class ProductDetailsService with ChangeNotifier {
 
     // notifyListeners();
   }
-
-  printSelectedProduct() {
-    print(selectedInventorySet);
-  }
 }
