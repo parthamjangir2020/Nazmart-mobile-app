@@ -15,6 +15,7 @@ import 'package:no_name_ecommerce/services/child_category_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
+import 'package:no_name_ecommerce/services/discover_products_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/ticket_status_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
@@ -90,6 +91,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ChangePriorityService()),
         ChangeNotifierProvider(create: (_) => ChangeTicketStatusService()),
         ChangeNotifierProvider(create: (_) => ShippingListService()),
+        ChangeNotifierProvider(create: (_) => DiscoverProductsService()),
         ChangeNotifierProvider(
             create: (_) => AddRemoveShippingAddressService()),
         ChangeNotifierProvider(

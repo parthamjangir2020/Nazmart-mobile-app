@@ -3,8 +3,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
-import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
@@ -69,7 +69,7 @@ class ProductCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    sizedboxCustom(10),
+                    gapH(10),
                     //Title
                     Text(
                       title.toString(),
@@ -82,7 +82,7 @@ class ProductCard extends StatelessWidget {
                           fontWeight: FontWeight.w600),
                     ),
 
-                    sizedboxCustom(5),
+                    gapH(5),
                     //Price
                     Row(
                       children: [
@@ -106,7 +106,7 @@ class ProductCard extends StatelessWidget {
                       ],
                     ),
 
-                    sizedboxCustom(5),
+                    gapH(5),
 
                     //Rating
                     if (ratingAverage != null)
@@ -132,16 +132,11 @@ class ProductCard extends StatelessWidget {
                                 lineHeight: 1, fontsize: 13)
                         ],
                       ),
-                    sizedboxCustom(10),
+                    gapH(10),
 
                     //Donate button
                     borderButtonPrimary('View details', () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ProductDetailsPage(
-                                    productId: '239',
-                                  )));
+                      gotoProductDetails(context, productId);
                       // cProvider.addToCartOrUpdateQty(context,
                       //     title: 'product title',
                       //     thumbnail:

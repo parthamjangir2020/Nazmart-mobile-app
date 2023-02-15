@@ -5,7 +5,9 @@ import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 
 class CampaignTimer extends StatefulWidget {
-  const CampaignTimer({super.key});
+  const CampaignTimer({super.key, required this.remainingTime});
+
+  final remainingTime;
 
   @override
   State<CampaignTimer> createState() => _CampaignTimerState();
@@ -23,8 +25,7 @@ class _CampaignTimerState extends State<CampaignTimer> {
   @override
   Widget build(BuildContext context) {
     final todayDate = DateTime.now();
-    final remaining = DateTime.now().add(const Duration(days: 7));
-    final timeLeft = remaining.difference(todayDate).inDays;
+    final timeLeft = widget.remainingTime.difference(todayDate).inDays;
 
     return CustomTimer(
         controller: timerController,
@@ -87,7 +88,7 @@ class TimerCard extends StatelessWidget {
         style: const TextStyle(
             color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
       ),
-      sizedboxCustom(3),
+      gapH(3),
       AutoSizeText(
         timeCardTitle[i],
         maxLines: 1,

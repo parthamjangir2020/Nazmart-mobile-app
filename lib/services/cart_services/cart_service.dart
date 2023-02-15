@@ -39,6 +39,7 @@ class CartService with ChangeNotifier {
 
   fetchCartProducts() async {
     cartItemList = await ProductDbService().allCartProducts();
+    calculateSubtotal();
     notifyListeners();
   }
 
@@ -58,14 +59,10 @@ class CartService with ChangeNotifier {
   //increase quantity and price
   increaseQtandPrice(productId, title, BuildContext context) async {
     var data = await ProductDbService().getSingleProduct(productId, title);
-    var newQty = data[0]['qty'] +
-        1; //increase quantity by 1, every time this function is called;
-    var priceWithAttr = data[0]['priceWithAttr'] *
-        newQty; //will give us total price of this product based on quantity
+    var newQty = data[0]['qty'] + 1;
 
     await ProductDbService()
         .updateQtandPrice(productId, title, newQty, context);
-    //===========>
 
     //user needs to enter coupon again
     resetCoupon(context);

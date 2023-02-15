@@ -28,7 +28,7 @@ class OrderFailedPage extends StatelessWidget {
                 'assets/svg/cancelled.svg',
                 height: 100,
               ),
-              sizedboxCustom(20),
+              gapH(20),
               Text(
                 'Oops!',
                 style: TextStyle(
@@ -36,7 +36,7 @@ class OrderFailedPage extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.w600),
               ),
-              sizedboxCustom(10),
+              gapH(10),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -53,7 +53,7 @@ class OrderFailedPage extends StatelessWidget {
                   // ],
                 ),
               ),
-              sizedboxCustom(90)
+              gapH(90)
             ]),
       ),
       bottomNavigationBar: Container(

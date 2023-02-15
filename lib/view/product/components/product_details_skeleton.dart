@@ -27,7 +27,7 @@ class ProductDetailsSkeleton extends StatelessWidget {
               width: double.infinity,
               color: Colors.red),
           // ProductDetailsImages(),
-          sizedboxCustom(20),
+          gapH(20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
@@ -48,7 +48,7 @@ class ProductDetailsSkeleton extends StatelessWidget {
               ],
             ),
           ),
-          sizedboxCustom(20),
+          gapH(20),
           ...Iterable.generate(4).map(
             (e) => Container(
               height: 10,
@@ -63,7 +63,7 @@ class ProductDetailsSkeleton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15), color: greyFive),
             ),
           ),
-          sizedboxCustom(20),
+          gapH(20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(children: [
@@ -84,7 +84,7 @@ class ProductDetailsSkeleton extends StatelessWidget {
               ),
             ]),
           ),
-          sizedboxCustom(20),
+          gapH(20),
           ...Iterable.generate(4).map(
             (e) => Container(
               height: 10,

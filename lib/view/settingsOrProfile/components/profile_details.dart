@@ -122,7 +122,7 @@ class ProfileDetails extends StatelessWidget {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              sizedboxCustom(30),
+                              gapH(30),
                               bRow(
                                 asProvider.getString("Phone"),
                                 '${profileProvider.profileDetails?.userDetails.mobile}',

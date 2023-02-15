@@ -20,7 +20,7 @@ class CouponField extends StatelessWidget {
       builder: (context, couponProvider, child) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          sizedboxCustom(20),
+          gapH(20),
           labelCommon("Coupon code"),
           Row(
             children: [

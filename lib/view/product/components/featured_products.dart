@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/product/all_featured_products_page.dart';
-import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 
 class FeaturedProducts extends StatelessWidget {
   const FeaturedProducts({
@@ -50,15 +50,7 @@ class FeaturedProducts extends StatelessWidget {
                   ratingAverage: '4.5',
                   ratingCount: '10',
                   pressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) =>
-                            const ProductDetailsPage(
-                          productId: '239',
-                        ),
-                      ),
-                    );
+                    gotoProductDetails(context, '239');
                   },
                 )
             ],

@@ -92,10 +92,6 @@ class ProductDbService {
 
 //Favourite table functionalities ======================>
 
-  // ===========================>
-
-  //=================>
-
   allfavProducts() async {
     var connection = await getdatabase;
     return await connection.query('fav_table');

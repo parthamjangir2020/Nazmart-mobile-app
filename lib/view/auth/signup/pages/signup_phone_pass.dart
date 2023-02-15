@@ -63,7 +63,7 @@ class _SignupPhonePassState extends State<SignupPhonePass> {
               ),
             ),
 
-            sizedboxCustom(20),
+            gapH(20),
 
             //New password =========================>
             labelCommon("Password"),

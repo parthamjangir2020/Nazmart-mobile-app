@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
-import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/services/profile_service.dart';
-import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
+import 'package:no_name_ecommerce/view/home/components/home_top.dart';
 import 'package:no_name_ecommerce/view/product/components/campaign_products.dart';
 import 'package:no_name_ecommerce/view/product/components/featured_products.dart';
 import 'package:no_name_ecommerce/view/home/components/slider_home.dart';
 import 'package:no_name_ecommerce/view/home/homepage_helper.dart';
 import 'package:no_name_ecommerce/view/search/search_page.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
-import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
 
@@ -46,66 +43,13 @@ class _HomepageState extends State<Homepage> {
               builder: (context, asProvider, child) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    sizedboxCustom(10),
-                    // co
-                    //name and profile image
-                    Consumer<ProfileService>(
-                      builder: (context, profileProvider, child) =>
-                          profileProvider.profileDetails != null
-                              ? profileProvider.profileDetails != 'error'
-                                  ? InkWell(
-                                      onTap: () {
-                                        Provider.of<BottomNavService>(context,
-                                                listen: false)
-                                            .setCurrentIndex(3);
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 25),
-                                        child: Row(
-                                          children: [
-                                            //name
-                                            Expanded(
-                                                child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  '${asProvider.getString('Hi,')}',
-                                                  style: const TextStyle(
-                                                    color: greyParagraph,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Text(
-                                                  profileProvider.profileDetails
-                                                          ?.userDetails.name ??
-                                                      '',
-                                                  style: const TextStyle(
-                                                    color: blackCustomColor,
-                                                    fontSize: 17,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
+                    gapH(10),
 
-                                            //Cart icon
-                                            const CartIcon()
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Text(asProvider.getString(
-                                      'Could not load user profile info'))
-                              : Container(),
-                    ),
+                    //name and profile image
+                    const HomeTop(),
 
                     //Search bar ========>
-                    sizedboxCustom(23),
+                    gapH(23),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: InkWell(
@@ -122,39 +66,12 @@ class _HomepageState extends State<Homepage> {
                               HomepageHelper().searchbar(asProvider, context)),
                     ),
 
-                    ///============>
-                    ///Categories
-
-                    // Container(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 25),
-                    //   child: Column(
-                    //     children: [
-                    //       SectionTitle(
-                    //         cc: cc,
-                    //         title: 'Categories',
-                    //         pressed: () {
-                    //           Navigator.push(
-                    //             context,
-                    //             MaterialPageRoute<void>(
-                    //                 builder: (BuildContext context) =>
-                    //                     const AllCategoriesPage()),
-                    //           );
-                    //         },
-                    //       ),
-                    //       const SizedBox(
-                    //         height: 14,
-                    //       ),
-                    //       const Categories(marginRight: 20),
-                    //     ],
-                    //   ),
-                    // ),
-
-                    sizedboxCustom(24),
+                    gapH(24),
 
                     //Slider ========>
                     const SliderHome(),
 
-                    sizedboxCustom(24),
+                    gapH(24),
 
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -163,9 +80,9 @@ class _HomepageState extends State<Homepage> {
                         //Featured product
                         const FeaturedProducts(),
 
-                        sizedboxCustom(20),
+                        gapH(20),
 
-                        //Featured product
+                        //campaign product
                         const CampaignProducts(),
                       ]),
                     )

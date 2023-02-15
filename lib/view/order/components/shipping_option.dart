@@ -47,7 +47,7 @@ class ShippingOption extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                sizedboxCustom(6),
+                gapH(6),
                 Text(
                   dProvider.getShipOptionSubtitle(
                       dProvider.shippingCostDetails.shippingOptions[i].options
@@ -57,7 +57,7 @@ class ShippingOption extends StatelessWidget {
                   style: const TextStyle(
                       color: greyParagraph, fontSize: 14, height: 1.4),
                 ),
-                sizedboxCustom(20),
+                gapH(20),
               ],
             ),
           )

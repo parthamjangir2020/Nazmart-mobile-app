@@ -23,7 +23,7 @@ class MyOrdersPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                sizedboxCustom(15),
+                gapH(15),
                 for (int i = 0; i < 2; i++)
                   ExpandablePanel(
                     controller: ExpandableController(initialExpanded: false),
@@ -162,7 +162,7 @@ class MyOrdersPage extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                              sizedboxCustom(20),
+                              gapH(20),
                               buttonPrimary('Details', (() {
                                 Navigator.push(
                                   context,
@@ -178,7 +178,7 @@ class MyOrdersPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        sizedboxCustom(20),
+                        gapH(20),
                       ],
                     ),
                   ),

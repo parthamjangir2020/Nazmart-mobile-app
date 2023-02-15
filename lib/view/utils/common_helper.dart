@@ -186,7 +186,7 @@ nothingfound(BuildContext context, String title) {
           Icons.hourglass_empty,
           color: greyFour,
         ),
-        sizedboxCustom(10),
+        gapH(10),
         Text(title),
       ],
     ),

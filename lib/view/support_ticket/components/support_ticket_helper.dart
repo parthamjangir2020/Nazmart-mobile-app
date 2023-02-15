@@ -63,7 +63,7 @@ class SupportTicketHelper {
                       },
                     ),
 
-                    sizedboxCustom(25),
+                    gapH(25),
                     Row(
                       children: [
                         Expanded(
@@ -143,7 +143,7 @@ class SupportTicketHelper {
                       },
                     ),
 
-                    sizedboxCustom(25),
+                    gapH(25),
                     Row(
                       children: [
                         Expanded(

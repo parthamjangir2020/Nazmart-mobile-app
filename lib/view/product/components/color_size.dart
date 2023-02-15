@@ -54,7 +54,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
                                             e,
                                             pdProvider.allAtrributes[e]))),
                               ),
-                              // sizedboxCustom(15),
+                              // gapH(15),
                             ],
                           ))
                       .toList()),

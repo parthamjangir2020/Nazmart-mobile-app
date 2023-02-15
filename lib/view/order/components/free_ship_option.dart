@@ -38,7 +38,7 @@ class FreeShipOption extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            sizedboxCustom(27)
+            gapH(27)
           ],
         )
       ],

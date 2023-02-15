@@ -52,7 +52,7 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                 print(rating);
               },
             ),
-            sizedboxCustom(20),
+            gapH(20),
             const Text(
               'How was the product?',
               style: TextStyle(
@@ -65,7 +65,7 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
               notesController: reviewController,
               hintText: 'Write a review',
             ),
-            sizedboxCustom(20),
+            gapH(20),
             buttonPrimary('Post a review', (() {}))
           ]),
         ),

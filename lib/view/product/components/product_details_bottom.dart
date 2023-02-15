@@ -97,7 +97,7 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
                                   .toString() ??
                               '0',
                           priceWithAttr: provider.productSalePrice,
-                          qty: 1,
+                          qty: provider.qty,
                           color: provider.selectedInventorySet['color_code'],
                           size: provider.selectedInventorySet['Size'],
                           productId:

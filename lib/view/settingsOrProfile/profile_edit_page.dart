@@ -142,7 +142,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           ],
                         ),
 
-                        sizedboxCustom(25),
+                        gapH(25),
                         //Name ============>
                         labelCommon("Full name"),
 
@@ -218,7 +218,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         const CountryStatesDropdowns(),
 
                         // Zip ======>
-                        sizedboxCustom(18),
+                        gapH(18),
                         labelCommon("Zipcode"),
                         CustomInput(
                           controller: zipCodeController,
@@ -285,7 +285,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                 provider.isloading == false ? false : true,
                             borderRadius: 100),
 
-                        sizedboxCustom(25)
+                        gapH(25)
                       ]),
                 ),
               ),

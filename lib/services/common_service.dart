@@ -2,7 +2,10 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +36,8 @@ hideKeyboard(BuildContext context) {
 }
 
 runAtHomeScreen(BuildContext context) {
+  Provider.of<CartService>(context, listen: false).fetchCartProductNumber();
+
   // Provider.of<SliderService>(context, listen: false).fetchSlider();
   // Provider.of<QuickDonationDropdownService>(context, listen: false)
   //     .fetchCampaign(context);
@@ -51,4 +56,18 @@ runAtStart(BuildContext context) {
   // //fetch payment gateway list
   // Provider.of<PaymentChooseService>(context, listen: false).fetchGatewayList();
   // Provider.of<DonateService>(context, listen: false).fetchAmounts(context);
+}
+
+gotoProductDetails(BuildContext context, productId) {
+  Provider.of<ProductDetailsService>(context, listen: false)
+      .fetchProductDetails(context, productId: productId);
+
+  Navigator.push(
+    context,
+    MaterialPageRoute<void>(
+      builder: (BuildContext context) => ProductDetailsPage(
+        productId: productId,
+      ),
+    ),
+  );
 }

@@ -112,7 +112,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                       children: [
                         const CountryStatesDropdowns(),
 
-                        sizedboxCustom(20),
+                        gapH(20),
                         //Name ============>
                         labelCommon("Full name"),
 
@@ -129,7 +129,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                           paddingHorizontal: 17,
                           textInputAction: TextInputAction.next,
                         ),
-                        sizedboxCustom(5),
+                        gapH(5),
 
                         //Email ============>
                         labelCommon("Email"),
@@ -147,7 +147,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                           paddingHorizontal: 17,
                           textInputAction: TextInputAction.next,
                         ),
-                        sizedboxCustom(5),
+                        gapH(5),
 
                         //Phone ============>
                         labelCommon("Phone"),
@@ -167,7 +167,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                           textInputAction: TextInputAction.next,
                         ),
 
-                        sizedboxCustom(10),
+                        gapH(10),
 
                         //City /town ============>
                         labelCommon("City/Town"),
@@ -186,7 +186,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                           textInputAction: TextInputAction.next,
                         ),
 
-                        sizedboxCustom(5),
+                        gapH(5),
 
                         //Zip code ============>
                         labelCommon("Zip code"),
@@ -205,7 +205,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                           textInputAction: TextInputAction.next,
                         ),
 
-                        sizedboxCustom(5),
+                        gapH(5),
 
                         //Zip code ============>
                         labelCommon("Address"),
@@ -224,7 +224,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                           textInputAction: TextInputAction.next,
                         ),
 
-                        sizedboxCustom(5),
+                        gapH(5),
                         // Shipping options
 
                         dProvider.shippingCostDetails != null
@@ -347,7 +347,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                 margin: const EdgeInsets.only(bottom: 10),
                                 child: showLoading(primaryColor),
                               ),
-                        sizedboxCustom(10),
+                        gapH(10),
                         buttonPrimary("Save", () {
                           if (_formKey.currentState!.validate()) {
                             if (dProvider.vatLoading == true) {

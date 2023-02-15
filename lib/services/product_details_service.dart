@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/product_details_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:http/http.dart' as http;
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 class ProductDetailsService with ChangeNotifier {
   //
@@ -92,6 +93,16 @@ class ProductDetailsService with ChangeNotifier {
       selectedInventorySetIndex = value;
       notifyListeners();
       return;
+    }
+
+    List<String> tempList = [];
+    if (selectedInventorySetIndex != value) {
+      tempList = selectedInventorySetIndex.where((v) {
+        return value!.contains(v);
+      }).toList();
+      if (tempList.isNotEmpty) {
+        selectedInventorySetIndex = tempList;
+      }
     }
   }
 
@@ -256,72 +267,75 @@ class ProductDetailsService with ChangeNotifier {
       // "Authorization": "Bearer $token",
     };
 
-    setLoadingStatus(true);
+    try {
+      setLoadingStatus(true);
 
-    var response = await http.get(Uri.parse('$baseApi/product/$productId'),
-        headers: header);
+      var response = await http.get(Uri.parse('$baseApi/product/$productId'),
+          headers: header);
 
-    if (response.statusCode == 200) {
-      productDetails = ProductDetailsModel.fromJson(jsonDecode(response.body));
-      final productInvenSet = productDetails!.productInventorySet;
-      productSalePrice =
-          productDetails!.product!.campaignProduct?['campaign_price'] != null
-              ? double.parse(
-                  productDetails!.product!.campaignProduct?['campaign_price'])
-              : productDetails!.product!.salePrice ?? 0;
-      productInvenSet.forEach((element) {
-        print(element['hash']);
-        inventoryHash.add(element['hash']);
-        element.remove('Color');
-        element.remove('hash');
-        final keys = element.keys;
-        for (var e in keys) {
-          if (inventoryKeys.contains(e)) {
-            return;
-          }
-          inventoryKeys.add(e);
-        }
-      });
-
-      {
-        for (var e in inventoryKeys) {
-          int index = 0;
-          List<String> list;
-          Map<String, List<String>> map = {};
-          for (dynamic element in productInvenSet) {
-            if (element.containsKey(e)) {
-              map.putIfAbsent(element[e], () => []);
-              // print(map);
-              if (allAtrributes.containsKey(e)) {
-                allAtrributes.update(
-                    e, (value) => addToMap(element[e], index, value));
-              }
-              allAtrributes.putIfAbsent(e, () {
-                return addToMap(element[e], index, map);
-              });
+      if (response.statusCode == 200) {
+        productDetails =
+            ProductDetailsModel.fromJson(jsonDecode(response.body));
+        final productInvenSet = productDetails!.productInventorySet;
+        productSalePrice =
+            productDetails!.product!.campaignProduct?['campaign_price'] != null
+                ? double.parse(
+                    productDetails!.product!.campaignProduct?['campaign_price'])
+                : productDetails!.product!.salePrice ?? 0;
+        productInvenSet.forEach((element) {
+          print(element['hash']);
+          inventoryHash.add(element['hash']);
+          element.remove('Color');
+          element.remove('hash');
+          final keys = element.keys;
+          for (var e in keys) {
+            if (inventoryKeys.contains(e)) {
+              return;
             }
+            inventoryKeys.add(e);
+          }
+        });
 
-            // addToList(cheeseList, element.cheese);
-            index++;
+        {
+          for (var e in inventoryKeys) {
+            int index = 0;
+            List<String> list;
+            Map<String, List<String>> map = {};
+            for (dynamic element in productInvenSet) {
+              if (element.containsKey(e)) {
+                map.putIfAbsent(element[e], () => []);
+                // print(map);
+                if (allAtrributes.containsKey(e)) {
+                  allAtrributes.update(
+                      e, (value) => addToMap(element[e], index, value));
+                }
+                allAtrributes.putIfAbsent(e, () {
+                  return addToMap(element[e], index, map);
+                });
+              }
+
+              // addToList(cheeseList, element.cheese);
+              index++;
+            }
           }
         }
-      }
 
-      additionalInventoryInfo = productDetails!.additionalInfoStore ?? {};
-      if (productDetails!.additionalInfoStore == null) {
-        cartAble = true;
-      }
+        additionalInventoryInfo = productDetails!.additionalInfoStore ?? {};
+        if (productDetails!.additionalInfoStore == null) {
+          cartAble = true;
+        }
 
+        print(allAtrributes);
+        notifyListeners();
+        return;
+      }
       print(allAtrributes);
-      notifyListeners();
-      return;
+
+      ratingCount = productDetails?.ratings.length ?? 0;
+      inStock =
+          productDetails?.product?.inventory?.stockCount == 0 ? false : true;
+    } catch (e) {
+      showToast('Something went wrong', Colors.black);
     }
-    print(allAtrributes);
-
-    ratingCount = productDetails?.ratings.length ?? 0;
-    inStock =
-        productDetails?.product?.inventory?.stockCount == 0 ? false : true;
-
-    // notifyListeners();
   }
 }

@@ -25,9 +25,9 @@ class OrderedProducts extends StatelessWidget {
           for (int i = 0; i < 3; i++)
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               titleCommon('Towel set', fontsize: 15),
-              sizedboxCustom(5),
+              gapH(5),
               paragraphCommon('Size: M , Color: red, Quantity: 1'),
-              sizedboxCustom(12),
+              gapH(12),
             ])
         ],
       ),

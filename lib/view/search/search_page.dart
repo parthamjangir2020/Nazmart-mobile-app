@@ -81,9 +81,9 @@ class _SearchPageState extends State<SearchPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    sizedboxCustom(10),
+                    gapH(10),
                     const SearchBar(),
-                    sizedboxCustom(10),
+                    gapH(10),
                     provider.noProductFound == false
                         ? provider.productList.isNotEmpty
                             ? GridView.builder(
@@ -132,7 +132,7 @@ class _SearchPageState extends State<SearchPage> {
                             margin: const EdgeInsets.only(top: 60),
                             child: const Text('No product found'),
                           ),
-                    sizedboxCustom(30),
+                    gapH(30),
                   ]),
             ),
           ),

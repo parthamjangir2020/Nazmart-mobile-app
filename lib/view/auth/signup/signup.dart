@@ -96,7 +96,7 @@ class _SignupPageState extends State<SignupPage> {
                           //Country dropdown =====>
                           const CountryStatesDropdowns(),
 
-                          sizedboxCustom(20),
+                          gapH(20),
 
                           // ==============>
 

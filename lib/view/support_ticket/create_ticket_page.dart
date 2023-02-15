@@ -72,7 +72,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                             },
                           ),
 
-                          sizedboxCustom(20),
+                          gapH(20),
 
                           //Department dropdown ======>
                           pProvider.departmentDropdownList.isNotEmpty
@@ -95,7 +95,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                                   children: [showLoading(primaryColor)],
                                 ),
 
-                          sizedboxCustom(20),
+                          gapH(20),
 
                           //================>
                           labelCommon("Title"),
@@ -132,7 +132,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                             textInputAction: TextInputAction.next,
                           ),
 
-                          sizedboxCustom(5),
+                          gapH(5),
 
                           labelCommon("Description"),
                           TextareaField(

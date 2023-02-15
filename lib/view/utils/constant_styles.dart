@@ -7,7 +7,7 @@ import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 double screenPadHorizontal = 25;
 
-sizedboxCustom(double value) {
+gapH(double value) {
   return SizedBox(
     height: value,
   );

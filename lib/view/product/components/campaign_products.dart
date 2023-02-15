@@ -1,6 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
@@ -102,7 +100,7 @@ class _CampaignProductsState extends State<CampaignProducts> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              sizedboxCustom(10),
+                              gapH(10),
                               //Title
                               const Text(
                                 'This is title',
@@ -115,7 +113,7 @@ class _CampaignProductsState extends State<CampaignProducts> {
                                     fontWeight: FontWeight.w600),
                               ),
 
-                              sizedboxCustom(5),
+                              gapH(5),
                               //Price
                               const Text(
                                 '\$200',
@@ -127,9 +125,12 @@ class _CampaignProductsState extends State<CampaignProducts> {
                                     fontWeight: FontWeight.w600),
                               ),
 
-                              sizedboxCustom(15),
+                              gapH(15),
 
-                              const CampaignTimer()
+                              CampaignTimer(
+                                remainingTime:
+                                    DateTime.parse("2023-08-31 00:00:00"),
+                              )
                             ],
                           ),
                         ],

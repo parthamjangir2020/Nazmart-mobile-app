@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
-import 'package:no_name_ecommerce/view/home/components/product_card.dart';
-import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -76,7 +74,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    sizedboxCustom(10),
+                    gapH(10),
 
                     // provider.isLoading == false
                     //     ? provider.productsMap.isNotEmpty
@@ -159,7 +157,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                     //     child: const Text('No product found'),
                     //   )
 
-                    sizedboxCustom(30),
+                    gapH(30),
                   ]),
             ),
           ),

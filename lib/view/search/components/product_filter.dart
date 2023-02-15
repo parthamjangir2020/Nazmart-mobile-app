@@ -41,30 +41,30 @@ class _ProductFilterState extends State<ProductFilter> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               titleCommon('Filter by:'),
-              sizedboxCustom(20),
+              gapH(20),
 
               //Category =====>
               paragraphCommon('Category:'),
-              sizedboxCustom(12),
+              gapH(12),
               const Categories(),
 
               //Sub Category =====>
-              sizedboxCustom(20),
+              gapH(20),
               paragraphCommon('Sub Category:'),
-              sizedboxCustom(12),
+              gapH(12),
               const SubCategories(),
 
               //Child Category =====>
-              sizedboxCustom(20),
+              gapH(20),
               paragraphCommon('Child Category:'),
-              sizedboxCustom(12),
+              gapH(12),
               const ChildCategories(),
 
               //=========>
               // const ColorAndSize(),
 
               //Price range =========>
-              sizedboxCustom(18),
+              gapH(18),
 
               Row(
                 children: [
@@ -73,7 +73,7 @@ class _ProductFilterState extends State<ProductFilter> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         paragraphCommon('Min Price:'),
-                        sizedboxCustom(10),
+                        gapH(10),
                         CustomInput(
                           hintText: 'Enter min price',
                           borderRadius: 5,
@@ -93,7 +93,7 @@ class _ProductFilterState extends State<ProductFilter> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         paragraphCommon('Min Price:'),
-                        sizedboxCustom(10),
+                        gapH(10),
                         CustomInput(
                           hintText: 'Enter max price',
                           borderRadius: 5,
@@ -111,7 +111,7 @@ class _ProductFilterState extends State<ProductFilter> {
               ),
 
               paragraphCommon('Ratings:'),
-              sizedboxCustom(10),
+              gapH(10),
               RatingBar.builder(
                 initialRating: provider.rating,
                 minRating: 1,
@@ -131,7 +131,7 @@ class _ProductFilterState extends State<ProductFilter> {
               ),
 
               // Reset filter and apply button
-              sizedboxCustom(20),
+              gapH(20),
               Row(
                 children: [
                   Expanded(

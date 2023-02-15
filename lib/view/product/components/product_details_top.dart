@@ -43,7 +43,7 @@ class _ProductDetailsTopState extends State<ProductDetailsTop> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                sizedboxCustom(5),
+                gapH(5),
                 //Title
                 Row(
                   children: [
@@ -112,7 +112,7 @@ class _ProductDetailsTopState extends State<ProductDetailsTop> {
                   ],
                 ),
 
-                sizedboxCustom(5),
+                gapH(5),
 
                 //Rating
                 Row(

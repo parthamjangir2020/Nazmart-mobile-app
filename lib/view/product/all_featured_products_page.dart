@@ -76,7 +76,7 @@ class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    sizedboxCustom(10),
+                    gapH(10),
 
                     // provider.isLoading == false
                     //     ? provider.productsMap.isNotEmpty
@@ -131,7 +131,7 @@ class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
                     //     child: const Text('No product found'),
                     //   )
 
-                    sizedboxCustom(30),
+                    gapH(30),
                   ]),
             ),
           ),

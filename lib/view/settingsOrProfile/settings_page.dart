@@ -137,7 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     asProvider.getString("Logout"), () {
                                   SettingsHelper().logoutPopup(context);
                                 }),
-                                sizedboxCustom(20)
+                                gapH(20)
                               ]),
                             )
                           ],

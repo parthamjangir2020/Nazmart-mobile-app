@@ -58,9 +58,9 @@ class _RefundProductsListPageState extends State<RefundProductsListPage> {
                             children: [
                               titleCommon('Women Casual Short Dress',
                                   fontsize: 15),
-                              sizedboxCustom(8),
+                              gapH(8),
                               paragraphCommon('Order id:#7  |  Date: 12-02-17'),
-                              sizedboxCustom(6),
+                              gapH(6),
                               paragraphCommon(
                                   'Amount: \$10  |  Status: Not refunded',
                                   color: successColor)

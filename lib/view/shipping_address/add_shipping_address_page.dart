@@ -171,7 +171,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                         const CountryStatesDropdowns(),
 
                         // Zip ======>
-                        sizedboxCustom(18),
+                        gapH(18),
                         labelCommon("Zipcode"),
                         CustomInput(
                           controller: zipCodeController,
@@ -218,7 +218,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                           }
                         }, isloading: provider.isloading, borderRadius: 100),
 
-                        sizedboxCustom(25)
+                        gapH(25)
                       ]),
                 ),
               ),

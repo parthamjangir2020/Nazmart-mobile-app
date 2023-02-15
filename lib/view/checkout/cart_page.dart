@@ -58,7 +58,7 @@ class _CartpageState extends State<Cartpage> {
                     //               builder: (context, cP, child) =>
 
                     Column(children: [
-                        sizedboxCustom(13),
+                        gapH(13),
                         for (int i = 0; i < cProvider.cartItemList.length; i++)
                           Column(
                             children: [
@@ -230,7 +230,7 @@ class _CartpageState extends State<Cartpage> {
                                   ),
                                 ],
                               ),
-                              i != 4
+                              i != cProvider.cartItemList.length - 1
                                   ?
                                   //don't show border to the last item
                                   Container(
@@ -253,14 +253,14 @@ class _CartpageState extends State<Cartpage> {
                         ),
                         detailsRow(
                             'Subtotal', 0, cProvider.subTotal.toString()),
-                        sizedboxCustom(15),
+                        gapH(15),
                         detailsRow('Discount', 0, '10'),
-                        sizedboxCustom(15),
+                        gapH(15),
                         detailsRow('Vat', 0, '(+${5}%) ${20}'),
-                        sizedboxCustom(15),
+                        gapH(15),
                         detailsRow('Shipping', 0, '70'),
 
-                        sizedboxCustom(15),
+                        gapH(15),
 
                         //shipping select
                         const ShippingSelect(),
@@ -275,7 +275,8 @@ class _CartpageState extends State<Cartpage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             titleCommon('Total', fontsize: 14),
-                            titleCommon('\$${200}', fontsize: 18)
+                            titleCommon('\$${cProvider.totalPrice}',
+                                fontsize: 18)
                           ],
                         ),
 
@@ -285,7 +286,7 @@ class _CartpageState extends State<Cartpage> {
                           couponController: couponController,
                         ),
 
-                        sizedboxCustom(25),
+                        gapH(25),
                         buttonPrimary('Checkout', () {
                           // if (dProvider.enteredDeliveryAddress == null) {
                           //   showToast(
@@ -302,7 +303,7 @@ class _CartpageState extends State<Cartpage> {
                           );
                         }, borderRadius: 100),
 
-                        sizedboxCustom(30)
+                        gapH(30)
                       ])
                     //     ),
                     //   )

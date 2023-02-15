@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
@@ -35,9 +37,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
 
   _handleTabSelection() {
     if (_tabController.indexIsChanging) {
-      setState(() {
-        _tabIndex = _tabController.index;
-      });
+      if (mounted) {
+        setState(() {
+          _tabIndex = _tabController.index;
+        });
+      }
     }
   }
 
@@ -54,8 +58,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabSelection);
 
-    Provider.of<ProductDetailsService>(context, listen: false)
-        .fetchProductDetails(context, productId: widget.productId);
     super.initState();
   }
 
@@ -96,7 +98,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                             //Slider =============>
                             const ProductDetailsSlider(),
 
-                            sizedboxCustom(16),
+                            gapH(16),
 
                             paragraphCommon(
                                 'SKU:  ${provider.productDetails?.product?.inventory?.sku ?? '-'}'),
@@ -113,18 +115,23 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                                 const ColorAndSize(),
 
                                 //increase decrease button
-                                sizedboxCustom(17),
+                                gapH(17),
                                 paragraphCommon('Quantity:'),
-                                sizedboxCustom(10),
+                                gapH(10),
                                 const ProductDetailsQty(),
 
-                                sizedboxCustom(25),
+                                gapH(25),
 
-                                const CampaignTimer(),
+                                CampaignTimer(
+                                  remainingTime: DateTime.parse(provider
+                                      .productDetails
+                                      ?.product
+                                      ?.campaignProduct['end_date']),
+                                ),
 
                                 //========>
                                 // tab
-                                sizedboxCustom(15),
+                                gapH(15),
 
                                 TabBar(
                                   onTap: (value) {

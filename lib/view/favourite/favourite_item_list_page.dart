@@ -40,7 +40,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                       .favItemList.isNotEmpty
                   ? Consumer<CurrencyService>(
                       builder: (context, cP, child) => Column(children: [
-                        sizedboxCustom(10),
+                        gapH(10),
                         for (int i = 0; i < fProvider.favItemList.length; i++)
                           InkWell(
                             onTap: () {
@@ -147,7 +147,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                               ],
                             ),
                           ),
-                        sizedboxCustom(30)
+                        gapH(30)
                       ]),
                     )
                   : Container(
@@ -160,7 +160,7 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                             Icons.hourglass_empty,
                             color: greyFour,
                           ),
-                          sizedboxCustom(10),
+                          gapH(10),
                           const Text("No products added to favourite"),
                         ],
                       ),

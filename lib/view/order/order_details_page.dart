@@ -34,7 +34,7 @@ class OrderDetailsPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             titleCommon('Order #43'),
-                            sizedboxCustom(10),
+                            gapH(10),
                             paragraphCommon('\$809',
                                 fontsize: 30, color: primaryColor),
                           ]),
@@ -46,7 +46,7 @@ class OrderDetailsPage extends StatelessWidget {
                       children: [
                         buttonPrimary('Status: Pending', (() {}),
                             paddingVertical: 10, bgColor: Colors.yellow[800]),
-                        sizedboxCustom(10),
+                        gapH(10),
                         buttonPrimary('Status: Pending', (() {}),
                             paddingVertical: 10, bgColor: Colors.green[800]),
                       ],
@@ -57,14 +57,14 @@ class OrderDetailsPage extends StatelessWidget {
             //==========>
             // order details
 
-            sizedboxCustom(25),
+            gapH(25),
             const OrderDetailsSection(),
 
             const OrderedProducts(),
 
             buttonPrimary('Request refund', (() {}), bgColor: Colors.red),
 
-            sizedboxCustom(25),
+            gapH(25),
           ]),
         ),
       ),

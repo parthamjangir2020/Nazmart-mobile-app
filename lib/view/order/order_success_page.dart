@@ -36,7 +36,7 @@ class OrderSuccessPage extends StatelessWidget {
                 'assets/svg/basket.svg',
                 height: 140,
               ),
-              sizedboxCustom(20),
+              gapH(20),
               Text(
                 'Order successful!',
                 style: TextStyle(
@@ -44,7 +44,7 @@ class OrderSuccessPage extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.w600),
               ),
-              sizedboxCustom(10),
+              gapH(10),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -60,7 +60,7 @@ class OrderSuccessPage extends StatelessWidget {
                   ],
                 ),
               ),
-              sizedboxCustom(90)
+              gapH(90)
             ]),
       ),
       bottomNavigationBar: SizedBox(
