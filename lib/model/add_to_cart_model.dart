@@ -1,12 +1,14 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 class AddtocartModel {
   late String productId;
   late String title;
   late String thumbnail;
   late String color;
   late String size;
-  late var discountPrice;
-  late var oldPrice;
-  late var totalWithQty;
+  var discountPrice;
+  var oldPrice;
+  var priceWithAttr;
   late int qty;
 
   cartMap() {
@@ -17,7 +19,7 @@ class AddtocartModel {
     mapping['thumbnail'] = thumbnail;
     mapping['discountPrice'] = discountPrice;
     mapping['oldPrice'] = oldPrice;
-    mapping['totalWithQty'] = totalWithQty;
+    mapping['priceWithAttr'] = priceWithAttr;
     mapping['qty'] = qty;
     mapping['color'] = color;
     mapping['size'] = size;

@@ -76,6 +76,7 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
                   Expanded(
                     child: buttonPrimary('Add to cart', () {
                       print(provider.selectedInventorySet);
+                      print(provider.productSalePrice);
                       // print(provider.productSalePrice);
                       // return;
                       if (provider.selectedInventorySet.isEmpty) {
@@ -95,6 +96,7 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
                           oldPrice: provider.productDetails?.product?.price
                                   .toString() ??
                               '0',
+                          priceWithAttr: provider.productSalePrice,
                           qty: 1,
                           color: provider.selectedInventorySet['color_code'],
                           size: provider.selectedInventorySet['Size'],

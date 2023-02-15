@@ -19,7 +19,7 @@ class ProductDbService {
 
   _dbOnCreate(Database database, int version) async {
     await database.execute(
-        "CREATE TABLE cart_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId TEXT, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL,totalWithQty REAL, qty INTEGER, color TEXT,size TEXT)");
+        "CREATE TABLE cart_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId TEXT, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL,priceWithAttr REAL, qty INTEGER, color TEXT,size TEXT)");
 
     await database.execute(
         "CREATE TABLE fav_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId TEXT, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL)");
@@ -75,12 +75,12 @@ class ProductDbService {
     return prod;
   }
 
-  Future<bool> updateQtandPrice(String productId, String title, int qty,
-      totalWithQty, BuildContext context) async {
+  Future<bool> updateQtandPrice(
+      String productId, String title, int qty, BuildContext context) async {
     var connection = await getdatabase;
     connection.rawUpdate(
-        "UPDATE cart_table SET qty=?, totalWithQty=? WHERE productId=? and title =?",
-        [qty, totalWithQty, productId, title]);
+        "UPDATE cart_table SET qty=? WHERE productId=? and title =?",
+        [qty, productId, title]);
     return true;
   }
 

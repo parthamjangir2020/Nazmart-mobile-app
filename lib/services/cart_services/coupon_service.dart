@@ -49,7 +49,7 @@ class CouponService with ChangeNotifier {
     for (int i = 0; i < cartItemList.length; i++) {
       items.add({
         "id": cartItemList[i]['productId'],
-        "price": cartItemList[i]['totalWithQty']
+        "price": cartItemList[i]['priceWithAttr']
       });
     }
 

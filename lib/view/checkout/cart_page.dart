@@ -103,7 +103,7 @@ class _CartpageState extends State<Cartpage> {
                                               height: 6,
                                             ),
                                             paragraphCommon(
-                                                '\$${cProvider.cartItemList[i]['discountPrice']}',
+                                                '\$${cProvider.cartItemList[i]['priceWithAttr']}',
                                                 fontsize: 13,
                                                 color: primaryColor,
                                                 fontweight: FontWeight.w600)
@@ -138,8 +138,10 @@ class _CartpageState extends State<Cartpage> {
                                               InkWell(
                                                 onTap: () {
                                                   cProvider.decreaseQtyAndPrice(
-                                                      '1',
-                                                      'product title',
+                                                      cProvider.cartItemList[i]
+                                                          ['productId'],
+                                                      cProvider.cartItemList[i]
+                                                          ['title'],
                                                       context);
                                                 },
                                                 child: Container(
@@ -169,8 +171,10 @@ class _CartpageState extends State<Cartpage> {
                                               InkWell(
                                                 onTap: () {
                                                   cProvider.increaseQtandPrice(
-                                                      '1',
-                                                      'product title',
+                                                      cProvider.cartItemList[i]
+                                                          ['productId'],
+                                                      cProvider.cartItemList[i]
+                                                          ['title'],
                                                       context);
                                                 },
                                                 child: Container(
@@ -196,7 +200,14 @@ class _CartpageState extends State<Cartpage> {
 
                                         //Delete button
                                         InkWell(
-                                          onTap: () {},
+                                          onTap: () {
+                                            cProvider.remove(
+                                                cProvider.cartItemList[i]
+                                                    ['productId'],
+                                                cProvider.cartItemList[i]
+                                                    ['title'],
+                                                context);
+                                          },
                                           child: Container(
                                               margin: const EdgeInsets.only(
                                                   left: 7),
@@ -240,7 +251,8 @@ class _CartpageState extends State<Cartpage> {
                           margin: const EdgeInsets.only(top: 70, bottom: 18),
                           child: dividerCommon(),
                         ),
-                        detailsRow('Subtotal', 0, '100'),
+                        detailsRow(
+                            'Subtotal', 0, cProvider.subTotal.toString()),
                         sizedboxCustom(15),
                         detailsRow('Discount', 0, '10'),
                         sizedboxCustom(15),

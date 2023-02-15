@@ -42,7 +42,7 @@ class CartService with ChangeNotifier {
     notifyListeners();
   }
 
-  remove(int productId, String title, BuildContext context) async {
+  remove(productId, String title, BuildContext context) async {
     await ProductDbService().removeFromCart(productId, title, context);
 
     //==============>
@@ -60,11 +60,11 @@ class CartService with ChangeNotifier {
     var data = await ProductDbService().getSingleProduct(productId, title);
     var newQty = data[0]['qty'] +
         1; //increase quantity by 1, every time this function is called;
-    var totalWithQty = data[0]['discountPrice'] *
+    var priceWithAttr = data[0]['priceWithAttr'] *
         newQty; //will give us total price of this product based on quantity
 
     await ProductDbService()
-        .updateQtandPrice(productId, title, newQty, totalWithQty, context);
+        .updateQtandPrice(productId, title, newQty, context);
     //===========>
 
     //user needs to enter coupon again
@@ -82,10 +82,8 @@ class CartService with ChangeNotifier {
     if (data[0]['qty'] > 1) {
       var newQty = data[0]['qty'] - 1;
 
-      var newprice = data[0]['totalWithQty'] - data[0]['discountPrice'];
-
       await ProductDbService()
-          .updateQtandPrice(productId, title, newQty, newprice, context);
+          .updateQtandPrice(productId, title, newQty, context);
       //user needs to enter coupon again
       resetCoupon(context);
       //set default delivery options
@@ -102,7 +100,7 @@ class CartService with ChangeNotifier {
     subTotal = 0;
     if (products.isNotEmpty) {
       for (int i = 0; i < products.length; i++) {
-        subTotal = subTotal + products[i]["totalWithQty"];
+        subTotal = products[i]["priceWithAttr"] * products[i]["qty"];
       }
       cartProductsNumber = products.length;
     } else {
@@ -115,8 +113,9 @@ class CartService with ChangeNotifier {
 
 // total after coupon applied ======================>
   calculateTotalAfterCouponApplied(discount) {
-    totalPrice = subTotal - double.parse(discount.toString());
     couponDiscount = double.parse(discount.toString());
+    totalPrice = subTotal - couponDiscount;
+
     notifyListeners();
   }
 
@@ -136,17 +135,16 @@ class CartService with ChangeNotifier {
 //Add to cart or update qty
 // =================>
 
-  Future<bool> addToCartOrUpdateQty(
-    BuildContext context, {
-    required String productId,
-    required String title,
-    required String thumbnail,
-    required String discountPrice,
-    required String oldPrice,
-    required int qty,
-    required String color,
-    required String size,
-  }) async {
+  Future<bool> addToCartOrUpdateQty(BuildContext context,
+      {required String productId,
+      required String title,
+      required String thumbnail,
+      required String discountPrice,
+      required String oldPrice,
+      required int qty,
+      required String color,
+      required String size,
+      required priceWithAttr}) async {
     var connection = await ProductDbService().getdatabase;
     var prod = await connection.rawQuery(
         "SELECT * FROM cart_table WHERE productId=? and title =?",
@@ -161,7 +159,7 @@ class CartService with ChangeNotifier {
       cartObj.discountPrice = discountPrice;
       cartObj.oldPrice = oldPrice;
       cartObj.qty = qty;
-      cartObj.totalWithQty = discountPrice * qty;
+      cartObj.priceWithAttr = priceWithAttr;
       cartObj.color = color;
       cartObj.size = size;
       await connection.insert('cart_table', cartObj.cartMap());
