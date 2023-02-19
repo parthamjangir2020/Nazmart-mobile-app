@@ -10,6 +10,7 @@ import 'package:no_name_ecommerce/services/auth_services/logout_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/reset_password_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
+import 'package:no_name_ecommerce/services/campaign_services/campaign_service.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
@@ -92,6 +93,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ChangeTicketStatusService()),
         ChangeNotifierProvider(create: (_) => ShippingListService()),
         ChangeNotifierProvider(create: (_) => DiscoverProductsService()),
+        ChangeNotifierProvider(create: (_) => CampaignService()),
         ChangeNotifierProvider(
             create: (_) => AddRemoveShippingAddressService()),
         ChangeNotifierProvider(

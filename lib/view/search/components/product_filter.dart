@@ -87,7 +87,7 @@ class _ProductFilterState extends State<ProductFilter> {
                       ],
                     ),
                   ),
-                  sizedboxW(20),
+                  gapW(20),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

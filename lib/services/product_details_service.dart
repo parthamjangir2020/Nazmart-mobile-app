@@ -336,6 +336,7 @@ class ProductDetailsService with ChangeNotifier {
           productDetails?.product?.inventory?.stockCount == 0 ? false : true;
     } catch (e) {
       showToast('Something went wrong', Colors.black);
+      print(e.toString());
     }
   }
 }

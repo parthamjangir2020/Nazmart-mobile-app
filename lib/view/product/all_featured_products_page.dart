@@ -89,8 +89,8 @@ class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
                         gridDelegate: const FlutterzillaFixedGridView(
                             crossAxisCount: 2,
                             mainAxisSpacing: 25,
-                            crossAxisSpacing: 25,
-                            height: 280),
+                            crossAxisSpacing: 20,
+                            height: 230),
                         shrinkWrap: true,
                         itemCount: 8,
                         physics: const NeverScrollableScrollPhysics(),

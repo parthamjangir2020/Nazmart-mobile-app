@@ -8,28 +8,19 @@ import 'package:no_name_ecommerce/model/slider_model.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 
 class SliderService with ChangeNotifier {
-  List sliderImageList = [];
+  List<SliderItem> sliderImageList = [];
   fetchSlider() async {
-    if (sliderImageList.isEmpty) {
-      var response = await http.get(Uri.parse('$baseApi/slider'));
+    if (sliderImageList.isNotEmpty) return;
 
-      if (response.statusCode == 200) {
-        var data = SliderModel.fromJson(jsonDecode(response.body));
+    var response = await http.get(Uri.parse('$baseApi/mobile-slider'));
 
-        for (int i = 0; i < data.data.length; i++) {
-          sliderImageList.add({
-            'title': data.data[i].title,
-            'subtitle': data.data[i].subtitle,
-            'imgUrl': data.data[i].image,
-            'campaignId': data.data[i].campaignId
-          });
-        }
-        notifyListeners();
-      } else {
-        print('slider fetch error ${response.body}');
-      }
+    if (response.statusCode == 200) {
+      var data = SliderModel.fromJson(jsonDecode(response.body));
+
+      sliderImageList = data.data;
+      notifyListeners();
     } else {
-      //already loaded from server. no need to load again
+      print('slider fetch error ${response.body}');
     }
   }
 }

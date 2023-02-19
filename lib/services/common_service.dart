@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,7 @@ hideKeyboard(BuildContext context) {
 runAtHomeScreen(BuildContext context) {
   Provider.of<CartService>(context, listen: false).fetchCartProductNumber();
 
-  // Provider.of<SliderService>(context, listen: false).fetchSlider();
+  Provider.of<SliderService>(context, listen: false).fetchSlider();
   // Provider.of<QuickDonationDropdownService>(context, listen: false)
   //     .fetchCampaign(context);
   // Provider.of<FeaturedCampaignService>(context, listen: false)
@@ -62,12 +63,14 @@ gotoProductDetails(BuildContext context, productId) {
   Provider.of<ProductDetailsService>(context, listen: false)
       .fetchProductDetails(context, productId: productId);
 
-  Navigator.push(
-    context,
-    MaterialPageRoute<void>(
-      builder: (BuildContext context) => ProductDetailsPage(
-        productId: productId,
+  Future.delayed(const Duration(milliseconds: 200), () {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => ProductDetailsPage(
+          productId: productId,
+        ),
       ),
-    ),
-  );
+    );
+  });
 }

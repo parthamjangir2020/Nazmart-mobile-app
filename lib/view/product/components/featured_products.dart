@@ -31,7 +31,7 @@ class FeaturedProducts extends StatelessWidget {
         ),
         Container(
           margin: const EdgeInsets.only(top: 5),
-          height: 295,
+          height: 235,
           child: ListView(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,

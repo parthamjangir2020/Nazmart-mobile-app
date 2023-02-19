@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
-import 'package:no_name_ecommerce/view/product/components/campaign_timer.dart';
+import 'package:no_name_ecommerce/view/campaigns/components/campaign_timer.dart';
 import 'package:no_name_ecommerce/view/product/components/color_size.dart';
 import 'package:no_name_ecommerce/view/product/components/description_tab.dart';
 import 'package:no_name_ecommerce/view/product/components/product_details_bottom.dart';

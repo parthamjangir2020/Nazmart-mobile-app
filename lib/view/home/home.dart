@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/home/components/home_top.dart';
-import 'package:no_name_ecommerce/view/product/components/campaign_products.dart';
+import 'package:no_name_ecommerce/view/campaigns/components/campaign_list.dart';
 import 'package:no_name_ecommerce/view/product/components/featured_products.dart';
 import 'package:no_name_ecommerce/view/home/components/slider_home.dart';
 import 'package:no_name_ecommerce/view/home/homepage_helper.dart';
@@ -83,7 +83,7 @@ class _HomepageState extends State<Homepage> {
                         gapH(20),
 
                         //campaign product
-                        const CampaignProducts(),
+                        const CampaignList(),
                       ]),
                     )
                   ]),

@@ -3,7 +3,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
-import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -24,6 +23,7 @@ class ProductCard extends StatelessWidget {
     required this.discountPrice,
     required this.ratingAverage,
     this.ratingCount,
+    this.discountPercent,
   }) : super(key: key);
 
   final productId;
@@ -33,7 +33,7 @@ class ProductCard extends StatelessWidget {
   final discountPrice;
   final ratingAverage;
   final ratingCount;
-
+  final discountPercent;
   final double width;
   final double marginRight;
   final VoidCallback pressed;
@@ -55,16 +55,33 @@ class ProductCard extends StatelessWidget {
                 color: Colors.white, borderRadius: BorderRadius.circular(9)),
             child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                    height: 150,
-                    width: double.infinity,
-                    imageUrl: imageLink,
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                    fit: BoxFit.cover,
-                  ),
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                        height: 150,
+                        width: double.infinity,
+                        imageUrl: imageLink,
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+                    // off percent / discount
+                    if (discountPercent != null)
+                      Positioned(
+                          right: 6,
+                          top: 6,
+                          child: Container(
+                            color: primaryColor,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
+                            child: paragraphCommon('$discountPercent% off',
+                                color: Colors.white),
+                          ))
+                  ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,29 +149,6 @@ class ProductCard extends StatelessWidget {
                                 lineHeight: 1, fontsize: 13)
                         ],
                       ),
-                    gapH(10),
-
-                    //Donate button
-                    borderButtonPrimary('View details', () {
-                      gotoProductDetails(context, productId);
-                      // cProvider.addToCartOrUpdateQty(context,
-                      //     title: 'product title',
-                      //     thumbnail:
-                      //         'https://cdn.pixabay.com/photo/2023/01/14/19/50/flower-7718952_1280.jpg',
-                      //     discountPrice: '11',
-                      //     oldPrice: '14',
-                      //     qty: 1,
-                      //     color: 'red',
-                      //     colorPrice: '4',
-                      //     size: 'M',
-                      //     sizePrice: '3',
-                      //     productId: '1');
-                    },
-                        paddingVertical: 11,
-                        borderRadius: 7,
-                        color: greyFour,
-                        borderColor: inputFieldBorderColor,
-                        fontsize: 13)
                   ],
                 ),
               ],

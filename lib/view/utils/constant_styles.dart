@@ -13,7 +13,7 @@ gapH(double value) {
   );
 }
 
-sizedboxW(double value) {
+gapW(double value) {
   return SizedBox(
     width: value,
   );

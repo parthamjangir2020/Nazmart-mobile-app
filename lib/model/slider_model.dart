@@ -14,10 +14,11 @@ class SliderModel {
     required this.data,
   });
 
-  List<Datum> data;
+  List<SliderItem> data;
 
   factory SliderModel.fromJson(Map<String, dynamic> json) => SliderModel(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<SliderItem>.from(
+            json["data"].map((x) => SliderItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -25,34 +26,42 @@ class SliderModel {
       };
 }
 
-class Datum {
-  Datum({
-    this.id,
+class SliderItem {
+  SliderItem({
     this.title,
+    this.description,
     this.image,
-    this.subtitle,
-    this.campaignId,
+    this.buttonUrl,
+    this.buttonText,
+    this.campaign,
+    this.category,
   });
 
-  int? id;
   String? title;
+  String? description;
   String? image;
-  String? subtitle;
-  int? campaignId;
+  String? buttonUrl;
+  String? buttonText;
+  dynamic campaign;
+  String? category;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["id"],
+  factory SliderItem.fromJson(Map<String, dynamic> json) => SliderItem(
         title: json["title"],
+        description: json["description"],
         image: json["image"],
-        subtitle: json["subtitle"],
-        campaignId: json["campaign_id"],
+        buttonUrl: json["button_url"],
+        buttonText: json["button_text"],
+        campaign: json["campaign"],
+        category: json["category"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "title": title,
+        "description": description,
         "image": image,
-        "subtitle": subtitle,
-        "campaign_id": campaignId,
+        "button_url": buttonUrl,
+        "button_text": buttonText,
+        "campaign": campaign,
+        "category": category,
       };
 }
