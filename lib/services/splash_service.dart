@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/google_sign_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
+import 'package:no_name_ecommerce/services/intro_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/login.dart';
 import 'package:no_name_ecommerce/view/intro/introduction_page.dart';
 
@@ -16,6 +17,8 @@ class SplashService {
     String? email = prefs.getString('email');
     if (keepLogin == null) {
       //that means user is opening the app for the first time.. so , show the intro
+      await Provider.of<IntroService>(context, listen: false)
+          .fetchIntro(context);
       Future.delayed(const Duration(seconds: 2), () {
         Navigator.pushReplacement<void, void>(
           context,

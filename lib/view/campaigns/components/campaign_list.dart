@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/campaign_services/campaign_service.dart';
+import 'package:no_name_ecommerce/services/campaign_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/campaigns/campaign_products_by_category.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';

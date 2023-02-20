@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/intro_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/login.dart';
-import 'package:no_name_ecommerce/view/intro/intro_helper.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
+import 'package:provider/provider.dart';
 
 class IntroductionPage extends StatefulWidget {
   const IntroductionPage({Key? key}) : super(key: key);
@@ -18,166 +21,175 @@ class _IntroductionPageState extends State<IntroductionPage> {
 
   @override
   Widget build(BuildContext context) {
-    // var screenWidth = MediaQuery.of(context).size.width;
-    // var screenHeight = MediaQuery.of(context).size.height;
-    print(screenWidth);
     return Scaffold(
       body: Container(
         clipBehavior: Clip.none,
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          //Slider =============>
-          SizedBox(
-            height: screenHeight < fourinchScreenHeight
-                ? screenHeight - 490
-                : screenHeight - 550,
-          ),
-          SizedBox(
-            height: screenHeight < fourinchScreenHeight ? 290 : 370,
-            child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (value) {
-                  setState(() {
-                    _selectedSlide = value;
-                  });
-                },
-                itemCount: 3,
-                itemBuilder: (context, i) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height:
-                              screenHeight < fourinchScreenHeight ? 60 : 180,
-                          margin: const EdgeInsets.only(bottom: 24),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(IntroHelper().getImage(i)),
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          IntroHelper().geTitle(i),
-                          style: TextStyle(
-                              color: greyPrimary,
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 7,
-                        ),
-
-                        // Subtitle =============>
-                        paragraphCommon(IntroHelper().geSubTitle(i),
-                            textAlign: TextAlign.center)
-                      ],
-                    ),
-                  );
-                }),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-
-          //slider count show =======>
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (var i = 0; i < 3; i++)
+        child: Consumer<IntroService>(
+          builder: (context, v, child) => Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 Container(
-                  margin: const EdgeInsets.only(right: 5),
-                  height: 16,
-                  width: 16,
+                  height: screenHeight - 170,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      border: Border.all(
+                  child: PageView.builder(
+                      controller: _pageController,
+                      onPageChanged: (value) {
+                        setState(() {
+                          _selectedSlide = value;
+                        });
+                      },
+                      itemCount: v.introDataList.length,
+                      itemBuilder: (context, i) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: screenHeight < fourinchScreenHeight
+                                    ? 60
+                                    : 180,
+                                margin: const EdgeInsets.only(bottom: 24),
+                                child: CachedNetworkImage(
+                                  imageUrl: v.introDataList[i]['image'] ??
+                                      placeHolderUrl,
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                              Text(
+                                v.introDataList[i]['title'].toString(),
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    color: greyPrimary,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 7,
+                              ),
+
+                              // Subtitle =============>
+                              paragraphCommon(
+                                  v.introDataList[i]['description'].toString(),
+                                  textAlign: TextAlign.center)
+                            ],
+                          ),
+                        );
+                      }),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ]),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: 150,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Consumer<IntroService>(
+          builder: (context, v, child) => Column(children: [
+            //slider count show =======>
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var i = 0; i < v.introDataList.length; i++)
+                  Container(
+                    margin: const EdgeInsets.only(right: 5),
+                    height: 16,
+                    width: 16,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: _selectedSlide == i
+                                ? primaryColor
+                                : Colors.transparent),
+                        shape: BoxShape.circle),
+                    child: Container(
+                      height: 10,
+                      width: 10,
+                      decoration: BoxDecoration(
                           color: _selectedSlide == i
                               ? primaryColor
-                              : Colors.transparent),
-                      shape: BoxShape.circle),
-                  child: Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                        color: _selectedSlide == i
-                            ? primaryColor
-                            : const Color(0xffD0D5DD),
-                        shape: BoxShape.circle),
-                  ),
-                )
-            ],
-          ),
+                              : const Color(0xffD0D5DD),
+                          shape: BoxShape.circle),
+                    ),
+                  )
+              ],
+            ),
 
-//buttons
-          const SizedBox(
-            height: 42,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()),
-                        (Route<dynamic> route) => false);
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 16),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: primaryColor, width: 1.5),
-                        borderRadius: BorderRadius.circular(7)),
-                    child: Text(
-                      'Skip',
-                      style: TextStyle(
-                          color: primaryColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600),
+            //buttons
+            const SizedBox(
+              height: 42,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
+                          (Route<dynamic> route) => false);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 16),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: primaryColor, width: 1.5),
+                          borderRadius: BorderRadius.circular(7)),
+                      child: const Text(
+                        'Skip',
+                        style: TextStyle(
+                            color: primaryColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 18,
-              ),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    if (_selectedSlide == 2) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPage()));
-                    } else {
-                      _pageController.animateToPage(_selectedSlide + 1,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.ease);
-                    }
-                  },
-                  child: Container(
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 18),
-                      decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: const Text(
-                        'Continue',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600),
-                      )),
+                const SizedBox(
+                  width: 18,
                 ),
-              ),
-            ],
-          )
-        ]),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      if (_selectedSlide == v.introDataList.length - 1) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()));
+                      } else {
+                        _pageController.animateToPage(_selectedSlide + 1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.ease);
+                      }
+                    },
+                    child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 18),
+                        decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: const Text(
+                          'Continue',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        )),
+                  ),
+                ),
+              ],
+            )
+          ]),
+        ),
       ),
     );
   }

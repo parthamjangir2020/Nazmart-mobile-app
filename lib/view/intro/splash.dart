@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/splash_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -20,8 +19,6 @@ class _SplashScreenState extends State<SplashScreen> {
       screenSizeAndPlatform(context);
     });
     SplashService().loginOrGoHome(context);
-    //run when app starts
-    runAtStart(context);
   }
 
   @override

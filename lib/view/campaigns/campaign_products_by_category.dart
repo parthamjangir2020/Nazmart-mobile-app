@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
-import 'package:no_name_ecommerce/services/campaign_services/campaign_service.dart';
+import 'package:no_name_ecommerce/services/campaign_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
