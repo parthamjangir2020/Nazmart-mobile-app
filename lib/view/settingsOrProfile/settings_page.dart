@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/view/auth/reset_password/change_password_page.dart';
 import 'package:no_name_ecommerce/view/order/my_orders_page.dart';
+import 'package:no_name_ecommerce/view/others/privacy_policy_page.dart';
+import 'package:no_name_ecommerce/view/others/terms_condition_page.dart';
 import 'package:no_name_ecommerce/view/refund_products/refund_products_list_page.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/profile_details.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/settings_helper.dart';
@@ -120,6 +122,33 @@ class _SettingsPageState extends State<SettingsPage> {
                                     MaterialPageRoute<void>(
                                       builder: (BuildContext context) =>
                                           const ShippingAddressListPage(),
+                                    ),
+                                  );
+                                }),
+
+                                dividerCommon(),
+                                SettingsHelper().settingOption(
+                                    'assets/svg/profile-edit.svg',
+                                    asProvider.getString("Terms & Condition"),
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const TermsConditionPage(),
+                                    ),
+                                  );
+                                }),
+
+                                dividerCommon(),
+                                SettingsHelper().settingOption(
+                                    'assets/svg/profile-edit.svg',
+                                    asProvider.getString("Privacy policy"), () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const PrivacyPolicyPage(),
                                     ),
                                   );
                                 }),

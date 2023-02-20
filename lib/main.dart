@@ -20,6 +20,7 @@ import 'package:no_name_ecommerce/services/discover_products_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/ticket_status_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
+import 'package:no_name_ecommerce/services/privacy_terms_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
@@ -34,7 +35,6 @@ import 'package:no_name_ecommerce/view/intro/splash.dart';
 import 'package:no_name_ecommerce/services/shipping_services/shipping_list_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
-
 import 'services/cart_services/cart_service.dart';
 import 'services/cart_services/coupon_service.dart';
 import 'services/cart_services/delivery_address_service.dart';
@@ -94,6 +94,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ShippingListService()),
         ChangeNotifierProvider(create: (_) => DiscoverProductsService()),
         ChangeNotifierProvider(create: (_) => CampaignService()),
+        ChangeNotifierProvider(create: (_) => PrivacyTermsService()),
         ChangeNotifierProvider(
             create: (_) => AddRemoveShippingAddressService()),
         ChangeNotifierProvider(

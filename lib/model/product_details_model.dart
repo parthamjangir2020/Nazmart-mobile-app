@@ -34,7 +34,7 @@ class ProductDetailsModel {
   dynamic userHasItem;
   List<Rating> ratings;
   int? avgRating;
-  AvailableAttributes availableAttributes;
+  dynamic availableAttributes;
   dynamic productInventorySet;
   Map<String, AdditionalInfoStore>? additionalInfoStore;
   int? maximumAvailablePrice;
@@ -54,8 +54,7 @@ class ProductDetailsModel {
         ratings:
             List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
         avgRating: json["avg_rating"],
-        availableAttributes:
-            AvailableAttributes.fromJson(json["available_attributes"]),
+        availableAttributes: json["available_attributes"],
         productInventorySet: json["product_inventory_set"],
         additionalInfoStore: json["additional_info_store"] is List
             ? null
