@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/state_dropdown_model.dart';
 import 'package:no_name_ecommerce/model/country_dropdown_model.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:provider/provider.dart';
 
 class CountryStatesService with ChangeNotifier {
@@ -104,7 +104,7 @@ class CountryStatesService with ChangeNotifier {
       Future.delayed(const Duration(milliseconds: 500), () {
         setLoadingTrue();
       });
-      var response = await http.get(Uri.parse('$baseApi/country'));
+      var response = await http.get(Uri.parse(ApiUrl.countryListUri));
 
       if (response.statusCode == 200 &&
           jsonDecode(response.body)['countries'].isNotEmpty) {
@@ -146,7 +146,7 @@ class CountryStatesService with ChangeNotifier {
     });
 
     var response =
-        await http.get(Uri.parse('$baseApi/country/service-city/$countryId'));
+        await http.get(Uri.parse('${ApiUrl.stateListUri}/$countryId'));
     print(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 201) {

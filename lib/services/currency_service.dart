@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 
 class CurrencyService with ChangeNotifier {
   String currency = '\$';
@@ -10,7 +10,7 @@ class CurrencyService with ChangeNotifier {
 
   fetchCurrency() async {
     if (alreadyLoaded == false) {
-      var response = await http.get(Uri.parse('$baseApi/get-currency-symbol'));
+      var response = await http.get(Uri.parse(ApiUrl.currencyUri));
       if (response.statusCode == 201) {
         currency = jsonDecode(response.body)['symbol'];
         alreadyLoaded == true;

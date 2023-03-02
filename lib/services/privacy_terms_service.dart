@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:http/http.dart' as http;
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 
 class PrivacyTermsService with ChangeNotifier {
   var termsData;
@@ -17,8 +17,7 @@ class PrivacyTermsService with ChangeNotifier {
     var connection = await checkConnection();
     if (!connection) return;
 
-    var response =
-        await http.get(Uri.parse('$baseApi/terms-and-condition-page'));
+    var response = await http.get(Uri.parse(ApiUrl.termsUri));
 
     if (response.statusCode == 200) {
       termsData = jsonDecode(response.body)['page_content'];
@@ -34,7 +33,7 @@ class PrivacyTermsService with ChangeNotifier {
     var connection = await checkConnection();
     if (!connection) return;
 
-    var response = await http.get(Uri.parse('$baseApi/privacy-policy-page'));
+    var response = await http.get(Uri.parse(ApiUrl.privacyPolicyUri));
 
     if (response.statusCode == 200) {
       privacyData = jsonDecode(response.body)['page_content'];

@@ -1,8 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +40,7 @@ class LogoutService with ChangeNotifier {
 
       setLoadingTrue();
       var response = await http.post(
-        Uri.parse('$baseApi/user/logout'),
+        Uri.parse(ApiUrl.logoutUri),
         headers: header,
       );
       setLoadingFalse();

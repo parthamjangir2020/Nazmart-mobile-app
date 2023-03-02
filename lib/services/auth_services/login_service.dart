@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/view/home/landing_page.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
@@ -41,7 +41,7 @@ class LoginService with ChangeNotifier {
         "Content-Type": "application/json"
       };
 
-      var response = await http.post(Uri.parse('$baseApi/login'),
+      var response = await http.post(Uri.parse(ApiUrl.loginUri),
           body: data, headers: header);
 
       if (response.statusCode == 200) {

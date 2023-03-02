@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +67,7 @@ class CouponService with ChangeNotifier {
       "Content-Type": "application/json"
     };
 
-    var response = await http.post(Uri.parse('$baseApi/coupon'),
+    var response = await http.post(Uri.parse(ApiUrl.couponUri),
         body: data, headers: header);
 
     setLoadingFalse();

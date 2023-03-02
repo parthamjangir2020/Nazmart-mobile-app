@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/child_category_model.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:provider/provider.dart';
 
 class ChildCategoryService with ChangeNotifier {
@@ -58,7 +58,7 @@ class ChildCategoryService with ChangeNotifier {
             .selectedSubCategoryId;
 
     var response = await http
-        .get(Uri.parse('$baseApi/child-category/$selectedChildcategoryId'));
+        .get(Uri.parse('${ApiUrl.childCategoryUri}/$selectedChildcategoryId'));
     print(response.body);
 
     setDummyValue();
@@ -74,7 +74,6 @@ class ChildCategoryService with ChangeNotifier {
       setFirstValue();
     } else {
       //error fetching data
-
     }
   }
 }

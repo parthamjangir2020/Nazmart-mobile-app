@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/ticket_status_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/change_priority_service.dart';
@@ -41,7 +41,7 @@ class SupportTicketHelper {
                   offset: const Offset(0, 13)),
             ],
           ),
-          child: Consumer<AppStringService>(
+          child: Consumer<TranslateStringService>(
             builder: (context, asProvider, child) =>
                 Consumer<PriorityAndDepartmentDropdownService>(
               builder: (context, pProvider, child) =>
@@ -121,7 +121,7 @@ class SupportTicketHelper {
                   offset: const Offset(0, 13)),
             ],
           ),
-          child: Consumer<AppStringService>(
+          child: Consumer<TranslateStringService>(
             builder: (context, asProvider, child) =>
                 Consumer<TicketStatusDropdownService>(
               builder: (context, pProvider, child) =>

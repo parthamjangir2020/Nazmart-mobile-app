@@ -6,7 +6,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import '../../view/auth/login/login.dart';
@@ -48,7 +48,7 @@ class ResetPasswordService with ChangeNotifier {
       });
 
       setLoadingTrue();
-      var response = await http.post(Uri.parse('$baseApi/send-otp-in-mail'),
+      var response = await http.post(Uri.parse(ApiUrl.sendOtpUri),
           headers: header, body: data);
       if (response.statusCode == 200) {
         otpNumber = jsonDecode(response.body)['otp'];
@@ -95,7 +95,7 @@ class ResetPasswordService with ChangeNotifier {
         print(data);
         setLoadingTrue();
 
-        var response = await http.post(Uri.parse('$baseApi/reset-password'),
+        var response = await http.post(Uri.parse(ApiUrl.resetPassUri),
             headers: header, body: data);
 
         print(response.body);

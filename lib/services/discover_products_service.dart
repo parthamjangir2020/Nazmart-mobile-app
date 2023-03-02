@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/search_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:http/http.dart' as http;
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 
 class DiscoverProductsService with ChangeNotifier {
   List<ProductsOfSearch> productList = [];
@@ -43,7 +43,7 @@ class DiscoverProductsService with ChangeNotifier {
     if (!connection) return;
 
     var response = await http.get(Uri.parse(
-        "$baseApi/product?name=&page=$currentPage&category=&sub_category=&child_category=&min_price=&max_price=&rating="));
+        "${ApiUrl.discoverProductsUri}=$currentPage&category=&sub_category=&child_category=&min_price=&max_price=&rating="));
 
     setLoadingStatus(false);
 

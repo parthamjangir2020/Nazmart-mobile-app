@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -155,8 +155,8 @@ class StripeService with ChangeNotifier {
       "Authorization": "Bearer $token",
     };
 
-    var response = await http
-        .post(Uri.parse('$baseApi/user/payment-gateway-list'), headers: header);
+    var response =
+        await http.post(Uri.parse(ApiUrl.gatewayListUri), headers: header);
     print(response.statusCode);
     if (response.statusCode == 201) {
       var paymentList = jsonDecode(response.body)['gateway_list'];

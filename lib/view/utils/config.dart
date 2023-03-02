@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-String baseApi = 'https://hexfashion.xyz/api/tenant/v1';
-
 String placeHolderUrl = 'https://i.postimg.cc/3RKkSRDb/placeholder.png';
 
 String userPlaceHolderUrl =

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/services/shipping_services/shipping_list_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,10 +56,8 @@ class AddRemoveShippingAddressService with ChangeNotifier {
 
     setLoadingTrue();
 
-    var response = await http.post(
-        Uri.parse('$baseApi/user/add-shipping-address'),
-        body: data,
-        headers: header);
+    var response = await http.post(Uri.parse(ApiUrl.addShippingUri),
+        body: data, headers: header);
 
     setLoadingFalse();
 
@@ -90,7 +88,7 @@ class AddRemoveShippingAddressService with ChangeNotifier {
     };
 
     var response = await http.get(
-        Uri.parse('$baseApi/user/shipping-address/delete/$addressId'),
+        Uri.parse('${ApiUrl.removeShippingUri}/$addressId'),
         headers: header);
 
     setLoadingFalse();

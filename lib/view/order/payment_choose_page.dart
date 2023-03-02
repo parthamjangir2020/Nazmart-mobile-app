@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 
 import 'package:no_name_ecommerce/services/payment_services/bank_transfer_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_constants.dart';
@@ -42,7 +42,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
           Navigator.pop(context);
         }),
         body: SingleChildScrollView(
-          child: Consumer<AppStringService>(
+          child: Consumer<TranslateStringService>(
             builder: (context, asProvider, child) => Container(
               padding: EdgeInsets.symmetric(horizontal: screenPadHorizontal),
               child: Consumer<PaymentGatewayListService>(

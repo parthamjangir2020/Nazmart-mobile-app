@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/department_dropdown_model.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PriorityAndDepartmentDropdownService with ChangeNotifier {
@@ -50,8 +50,8 @@ class PriorityAndDepartmentDropdownService with ChangeNotifier {
       "Authorization": "Bearer $token",
     };
 
-    var response = await http.get(Uri.parse('$baseApi/user/get-department'),
-        headers: header);
+    var response =
+        await http.get(Uri.parse(ApiUrl.departmentUri), headers: header);
 
     if (response.statusCode == 200 &&
         jsonDecode(response.body)['data'].isNotEmpty) {

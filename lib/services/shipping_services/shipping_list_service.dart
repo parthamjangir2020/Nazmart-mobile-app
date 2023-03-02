@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/shipping_address_model.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,9 +42,8 @@ class ShippingListService with ChangeNotifier {
         "Authorization": "Bearer $token",
       };
 
-      var response = await http.get(
-          Uri.parse("$baseApi/user/all-shipping-address"),
-          headers: header);
+      var response =
+          await http.get(Uri.parse(ApiUrl.shipAddressListUri), headers: header);
 
       setLoadingFalse();
 

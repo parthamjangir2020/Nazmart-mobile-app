@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/view/search/components/product_filter.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +58,7 @@ class SearchBar extends StatelessWidget {
 
             InkWell(
               onTap: () {
-                showMaterialModalBottomSheet(
+                showModalBottomSheet(
                   context: context,
                   enableDrag: false,
                   builder: (context) => const ProductFilter(),

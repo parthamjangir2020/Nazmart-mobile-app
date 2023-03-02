@@ -8,7 +8,7 @@ import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:provider/provider.dart';
 
 class SearchProductService with ChangeNotifier {
@@ -94,7 +94,7 @@ class SearchProductService with ChangeNotifier {
     if (!connection) return;
 
     var response = await http.get(Uri.parse(
-        "$baseApi/product?name=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&min_price=$minPrice&max_price=$maxPrice&rating=$rating"));
+        "${ApiUrl.searchUri}=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&min_price=$minPrice&max_price=$maxPrice&rating=$rating"));
 
     setLoadingStatus(false);
 

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -14,7 +14,7 @@ appbarCommon(String title, BuildContext context, VoidCallback pressed,
   return AppBar(
     centerTitle: centerTitle ? true : false,
     iconTheme: const IconThemeData(color: greyPrimary),
-    title: Consumer<AppStringService>(
+    title: Consumer<TranslateStringService>(
       builder: (context, ln, child) => Text(
         ln.getString(title),
         style: const TextStyle(

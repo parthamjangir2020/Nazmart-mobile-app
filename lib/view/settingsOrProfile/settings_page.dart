@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/auth/reset_password/change_password_page.dart';
 import 'package:no_name_ecommerce/view/order/my_orders_page.dart';
 import 'package:no_name_ecommerce/view/others/privacy_policy_page.dart';
@@ -35,7 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Stack(
             children: [
               SingleChildScrollView(
-                child: Consumer<AppStringService>(
+                child: Consumer<TranslateStringService>(
                     builder: (context, asProvider, child) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

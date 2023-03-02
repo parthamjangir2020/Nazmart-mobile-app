@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentGatewayListService with ChangeNotifier {
@@ -55,9 +55,8 @@ class PaymentGatewayListService with ChangeNotifier {
         "Authorization": "Bearer $token",
       };
 
-      var response = await http.get(
-          Uri.parse('$baseApi/user/payment-gateway-list'),
-          headers: header);
+      var response =
+          await http.get(Uri.parse(ApiUrl.gatewayListUri), headers: header);
       print(response.body);
       setLoadingFalse();
 

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/ticket_list_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/support_ticket/ticket_chat_page.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,7 +70,7 @@ class SupportTicketService with ChangeNotifier {
     //if connection is ok
 
     var response = await http.get(
-        Uri.parse("$baseApi/user/ticket?page=$currentPage"),
+        Uri.parse("${ApiUrl.ticketListUri}=$currentPage"),
         headers: header);
 
     if (response.statusCode == 200 &&

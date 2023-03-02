@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,7 +48,7 @@ class ChangePassService with ChangeNotifier {
 
     setLoadingTrue();
 
-    var response = await http.post(Uri.parse('$baseApi/user/change-password'),
+    var response = await http.post(Uri.parse(ApiUrl.changePassUri),
         headers: header, body: data);
 
     print(response.body);

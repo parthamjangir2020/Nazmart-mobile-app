@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:no_name_ecommerce/model/ticket_messages_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,7 +66,8 @@ class SupportMessagesService with ChangeNotifier {
         // "Content-Type": "application/json"
         "Authorization": "Bearer $token",
       };
-      var response = await http.get(Uri.parse('$baseApi/user/ticket/$ticketId'),
+      var response = await http.get(
+          Uri.parse('${ApiUrl.ticketMessageUri}/$ticketId'),
           headers: header);
       setLoadingFalse();
 
@@ -135,7 +136,7 @@ class SupportMessagesService with ChangeNotifier {
       //if connection is ok
 
       var response = await dio.post(
-        '$baseApi/user/ticket/chat/send/$ticketId',
+        '${ApiUrl.ticketMessageSendUri}/$ticketId',
         data: formData,
       );
       setSendLoadingFalse();

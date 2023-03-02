@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,7 +90,7 @@ class ProfileEditService with ChangeNotifier {
     });
 
     var response = await dio.post(
-      '$baseApi/user/update-profile',
+      ApiUrl.updateProfileUri,
       data: formData,
     );
 

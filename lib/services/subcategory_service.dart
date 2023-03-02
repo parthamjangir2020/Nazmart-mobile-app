@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/subcategory_model.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:provider/provider.dart';
 
 class SubCategoryService with ChangeNotifier {
@@ -58,8 +58,8 @@ class SubCategoryService with ChangeNotifier {
     var selectedCategoryId =
         Provider.of<CategoryService>(context, listen: false).selectedCategoryId;
 
-    var response =
-        await http.get(Uri.parse('$baseApi/subcategory/$selectedCategoryId'));
+    var response = await http
+        .get(Uri.parse('${ApiUrl.subcategoryUri}/$selectedCategoryId'));
     print(response.body);
 
     setDummyValue();
@@ -78,7 +78,6 @@ class SubCategoryService with ChangeNotifier {
           .fetchChildCategory(context);
     } else {
       //error fetching data
-
     }
   }
 }

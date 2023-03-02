@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
@@ -11,7 +11,7 @@ class HomeTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppStringService>(
+    return Consumer<TranslateStringService>(
       builder: (context, ln, child) => Consumer<ProfileService>(
         builder: (context, profileProvider, child) =>
             profileProvider.profileDetails != null

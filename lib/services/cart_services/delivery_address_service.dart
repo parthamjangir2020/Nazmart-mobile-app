@@ -9,7 +9,7 @@ import 'package:no_name_ecommerce/model/states_shipping_cost_model.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -86,7 +86,7 @@ class DeliveryAddressService with ChangeNotifier {
       setShipCostDeafault();
     });
     var response =
-        await http.get(Uri.parse('$baseApi/country-info?id=$countryId'));
+        await http.get(Uri.parse('${ApiUrl.countryShipCostUri}=$countryId'));
 
     setLoadingFalse();
 
@@ -124,7 +124,8 @@ class DeliveryAddressService with ChangeNotifier {
       setLoadingTrue();
       setShipCostDeafault();
     });
-    var response = await http.get(Uri.parse('$baseApi/state-info?id=$stateId'));
+    var response =
+        await http.get(Uri.parse('${ApiUrl.stateShipCostUri}=$stateId'));
 
     setLoadingFalse();
 
@@ -211,7 +212,7 @@ class DeliveryAddressService with ChangeNotifier {
     var subtotal = Provider.of<CartService>(context, listen: false).subTotal;
 
     var response = await http.get(Uri.parse(
-        '$baseApi/checkout-calculate?country=$countryId&state=$stateId&coupon=$appliedCoupon&selected_shipping_option=$selectedShipId&products_ids=$productIds&sub_total=$subtotal&coupon_amount=$couponAmount'));
+        '${ApiUrl.vatAndShipCostUri}=$countryId&state=$stateId&coupon=$appliedCoupon&selected_shipping_option=$selectedShipId&products_ids=$productIds&sub_total=$subtotal&coupon_amount=$couponAmount'));
 
     vatLoading = false;
     if (response.statusCode == 200) {

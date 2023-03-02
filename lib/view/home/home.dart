@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/home/components/home_top.dart';
 import 'package:no_name_ecommerce/view/campaigns/components/campaign_list.dart';
@@ -39,7 +39,7 @@ class _HomepageState extends State<Homepage> {
         body: SafeArea(
           child: SingleChildScrollView(
             physics: globalPhysics,
-            child: Consumer<AppStringService>(
+            child: Consumer<TranslateStringService>(
               builder: (context, asProvider, child) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

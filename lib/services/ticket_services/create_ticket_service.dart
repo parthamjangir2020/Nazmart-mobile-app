@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/support_ticket_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,7 +48,7 @@ class CreateTicketService with ChangeNotifier {
       isLoading = true;
       notifyListeners();
       //if connection is ok
-      var response = await http.post(Uri.parse('$baseApi/user/ticket/create'),
+      var response = await http.post(Uri.parse(ApiUrl.createTicketUri),
           headers: header, body: data);
       isLoading = false;
       notifyListeners();

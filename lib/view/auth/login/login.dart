@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/components/login_slider.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
         },
         child: SingleChildScrollView(
           physics: globalPhysics,
-          child: Consumer<AppStringService>(
+          child: Consumer<TranslateStringService>(
             builder: (context, ln, child) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

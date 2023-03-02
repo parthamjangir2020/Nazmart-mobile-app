@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,7 @@ class LoginSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppStringService>(
+    return Consumer<TranslateStringService>(
       builder: (context, ln, child) => Container(
         color: const Color(0xffF9FAFB),
         padding: const EdgeInsets.symmetric(horizontal: 25),

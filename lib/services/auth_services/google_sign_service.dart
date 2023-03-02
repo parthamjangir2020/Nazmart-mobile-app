@@ -1,9 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../view/home/landing_page.dart';
@@ -80,7 +82,7 @@ class GoogleSignInService with ChangeNotifier {
         "Content-Type": "application/json"
       };
 
-      var response = await http.post(Uri.parse('$baseApi/social-login'),
+      var response = await http.post(Uri.parse(ApiUrl.socialLoginUri),
           body: data, headers: header);
 
       if (response.statusCode == 200) {

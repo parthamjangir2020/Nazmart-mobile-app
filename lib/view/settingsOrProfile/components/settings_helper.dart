@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/logout_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -74,7 +74,7 @@ class SettingsHelper {
                   offset: const Offset(0, 13)),
             ],
           ),
-          child: Consumer<AppStringService>(
+          child: Consumer<TranslateStringService>(
             builder: (context, asProvider, child) => Column(
               children: [
                 Text(

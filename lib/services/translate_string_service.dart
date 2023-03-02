@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/view/utils/app_strings.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/translate_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class AppStringService with ChangeNotifier {
+class TranslateStringService with ChangeNotifier {
   bool isloading = false;
 
   var tStrings;
@@ -38,7 +38,7 @@ class AppStringService with ChangeNotifier {
       setLoadingTrue();
 
       var data = jsonEncode({
-        'strings': jsonEncode(appStrings),
+        'strings': jsonEncode(translateStrings),
       });
 
       var header = {
@@ -48,7 +48,7 @@ class AppStringService with ChangeNotifier {
         "Authorization": "Bearer $token",
       };
 
-      var response = await http.post(Uri.parse('$baseApi/translate-string'),
+      var response = await http.post(Uri.parse(ApiUrl.translateUri),
           headers: header, body: data);
       if (response.statusCode == 201) {
         tStrings = jsonDecode(response.body)['strings'];

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/ticket_status_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/support_ticket_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,10 +43,8 @@ class ChangeTicketStatusService with ChangeNotifier {
       "Authorization": "Bearer $token",
     };
 
-    var response = await http.post(
-        Uri.parse('$baseApi/user/ticket/status-change'),
-        body: data,
-        headers: header);
+    var response = await http.post(Uri.parse(ApiUrl.ticketStatusChangeUri),
+        body: data, headers: header);
 
     if (response.statusCode == 200) {
       Provider.of<SupportTicketService>(context, listen: false).setDefault();

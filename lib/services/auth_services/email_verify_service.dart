@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/reset_password_service.dart';
 import 'package:no_name_ecommerce/view/home/landing_page.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:provider/provider.dart';
@@ -45,7 +45,7 @@ class EmailVerifyService with ChangeNotifier {
         'email': email,
       });
 
-      var response = await http.post(Uri.parse('$baseApi/send-otp-in-mail'),
+      var response = await http.post(Uri.parse(ApiUrl.sendOtpUri),
           headers: header, body: data);
       if (response.statusCode == 200) {
         var otpNumber = jsonDecode(response.body)['otp'];
@@ -83,7 +83,7 @@ class EmailVerifyService with ChangeNotifier {
         };
         var data = jsonEncode({'user_id': userId, 'email_verified': 1});
 
-        var response = await http.post(Uri.parse('$baseApi/otp-success'),
+        var response = await http.post(Uri.parse(ApiUrl.otpSuccessUri),
             headers: header, body: data);
 
         //Set loading false

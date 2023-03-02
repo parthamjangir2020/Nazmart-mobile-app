@@ -1,10 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
-import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../utils/responsive.dart';
 
@@ -13,7 +11,6 @@ class ProductDetailsSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rtlProvider = Provider.of<RtlService>(context, listen: false);
     return Shimmer.fromColors(
       enabled: true,
       baseColor: greyFive,

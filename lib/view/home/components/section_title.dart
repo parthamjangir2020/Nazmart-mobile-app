@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constant_colors.dart';
@@ -18,7 +18,7 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppStringService>(
+    return Consumer<TranslateStringService>(
       builder: (context, asProvider, child) => Row(
         children: [
           Text(

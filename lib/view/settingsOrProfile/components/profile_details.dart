@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/settings_helper.dart';
@@ -115,7 +115,7 @@ class ProfileDetails extends StatelessWidget {
                     ),
 
                     // Personal information ==========>
-                    Consumer<AppStringService>(
+                    Consumer<TranslateStringService>(
                       builder: (context, asProvider, child) => Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: screenPadHorizontal),

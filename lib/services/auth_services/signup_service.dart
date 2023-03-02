@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +62,7 @@ class SignupService with ChangeNotifier {
       "Content-Type": "application/json"
     };
 
-    var response = await http.post(Uri.parse('$baseApi/register'),
+    var response = await http.post(Uri.parse(ApiUrl.registerUri),
         body: data, headers: header);
 
     print(response.body);

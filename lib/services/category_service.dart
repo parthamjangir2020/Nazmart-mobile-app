@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/category_model.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:provider/provider.dart';
 
 class CategoryService with ChangeNotifier {
@@ -46,7 +46,7 @@ class CategoryService with ChangeNotifier {
     if (categoryDropdownList.isNotEmpty) return;
 
     if (categoryDropdownList.isEmpty) {
-      var response = await http.get(Uri.parse('$baseApi/category'));
+      var response = await http.get(Uri.parse(ApiUrl.categoryUri));
       print(response.body);
 
       setDummyValue();
@@ -63,7 +63,6 @@ class CategoryService with ChangeNotifier {
             .fetchSubCategory(context);
       } else {
         //error fetching data
-
       }
     }
   }

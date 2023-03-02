@@ -5,14 +5,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/slider_model.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 
 class SliderService with ChangeNotifier {
   List<SliderItem> sliderImageList = [];
   fetchSlider() async {
     if (sliderImageList.isNotEmpty) return;
 
-    var response = await http.get(Uri.parse('$baseApi/mobile-slider'));
+    var response = await http.get(Uri.parse(ApiUrl.sliderUri));
 
     if (response.statusCode == 200) {
       var data = SliderModel.fromJson(jsonDecode(response.body));

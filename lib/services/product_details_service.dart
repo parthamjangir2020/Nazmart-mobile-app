@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/product_details_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
@@ -264,13 +264,13 @@ class ProductDetailsService with ChangeNotifier {
     var header = {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      // "Authorization": "Bearer $token",
     };
 
     try {
       setLoadingStatus(true);
 
-      var response = await http.get(Uri.parse('$baseApi/product/$productId'),
+      var response = await http.get(
+          Uri.parse('${ApiUrl.productDetailsUri}/$productId'),
           headers: header);
 
       if (response.statusCode == 200) {
