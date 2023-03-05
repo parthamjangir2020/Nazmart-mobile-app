@@ -47,4 +47,5 @@ class ApiUrl {
   static const String sliderUri = '$baseUri/mobile-slider';
   static const String subcategoryUri = '$baseUri/subcategory';
   static const String translateUri = '$baseUri/translate-string';
+  static const String orderListUri = '$baseUri/user/order';
 }
