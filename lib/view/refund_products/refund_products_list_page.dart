@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/refund_products_service.dart';
-import 'package:no_name_ecommerce/view/order/order_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -78,13 +77,13 @@ class _RefundProductsListPageState extends State<RefundProductsListPage> {
                       for (int i = 0; i < rp.productList.length; i++)
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    const OrderDetailsPage(),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute<void>(
+                            //     builder: (BuildContext context) =>
+                            //         const OrderDetailsPage(),
+                            //   ),
+                            // );
                           },
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 16),

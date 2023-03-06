@@ -1,43 +1,64 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/order_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
+import 'package:provider/provider.dart';
 
 class OrderDetailsSection extends StatelessWidget {
   const OrderDetailsSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 25),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(9)),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            titleCommon('Order Details'),
-            const SizedBox(
-              height: 25,
-            ),
-            //Service row
+    return Consumer<OrderService>(
+      builder: (context, op, child) {
+        var meta;
+        if (op.orderDetails != null) {
+          meta = jsonDecode(op.orderDetails?.data.paymentMeta);
+        }
 
-            bRow('Date', 'Jan 12, 2023'),
+        return meta != null
+            ? Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 25),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(9)),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          titleCommon('Order Details'),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          //Service row
 
-            bRow('Subtotal', '\$750'),
+                          // bRow('Date', op.orderDetails.data.),
 
-            bRow('Coupon Discount', '\$0'),
+                          bRow('Subtotal', '\$${meta['subtotal']}'),
 
-            bRow('Tax', '5%'),
+                          bRow('Coupon Discount',
+                              '\$${meta['coupon_discounted'] ?? '0'}'),
 
-            bRow('Shipping Cost', '\$11'),
+                          bRow('Tax', '${meta['product_tax']}'),
 
-            bRow('Payment method', 'Stripe'),
+                          bRow('Shipping Cost', '\$${meta['shipping_cost']}'),
 
-            bRow('Total', '\$50'),
-          ]),
-        ),
-      ],
+                          bRow('Payment method',
+                              '${op.orderDetails?.data.paymentGateway}'),
+
+                          bRow('Total',
+                              '\$${op.orderDetails?.data.totalAmount}'),
+                        ]),
+                  ),
+                ],
+              )
+            : Container();
+      },
     );
   }
 }

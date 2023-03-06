@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/orders_products_service.dart';
+import 'package:no_name_ecommerce/services/order_service.dart';
 import 'package:no_name_ecommerce/view/order/order_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -9,14 +9,19 @@ import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class MyOrdersPage extends StatelessWidget {
+class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final RefreshController refreshController =
-        RefreshController(initialRefresh: true);
+  State<MyOrdersPage> createState() => _MyOrdersPageState();
+}
 
+class _MyOrdersPageState extends State<MyOrdersPage> {
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: true);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appbarCommon('My orders', context, () {
@@ -84,7 +89,7 @@ class MyOrdersPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    capsule(op.orderList[i].status ?? ''),
+                                    capsule(op.orderList[i].status),
                                     const SizedBox(
                                       width: 17,
                                     ),
@@ -120,7 +125,9 @@ class MyOrdersPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15)),
                               child: Column(
                                 children: [
-                                  for (int j = 0; j < 2; i++)
+                                  for (int j = 0;
+                                      j < op.productList[i].length;
+                                      j++)
                                     //product ===>
                                     Container(
                                       margin: EdgeInsets.only(
@@ -133,47 +140,47 @@ class MyOrdersPage extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              commonImage(
-                                                  "https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2R1Y3R8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-                                                  55,
-                                                  55),
+                                              // commonImage(
+                                              //     "https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2R1Y3R8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+                                              //     55,
+                                              //     55),
 
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
+                                              // const SizedBox(
+                                              //   width: 10,
+                                              // ),
                                               //title and price
                                               Flexible(
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                  children: const [
-                                                    // Text(
-                                                    //   op.products[0]['0']
-                                                    //       ['name'],
-                                                    //   textAlign: TextAlign.left,
-                                                    //   maxLines: 2,
-                                                    //   overflow:
-                                                    //       TextOverflow.ellipsis,
-                                                    //   style: const TextStyle(
-                                                    //       color:
-                                                    //           blackCustomColor,
-                                                    //       fontSize: 13,
-                                                    //       height: 1.4,
-                                                    //       fontWeight:
-                                                    //           FontWeight.w600),
-                                                    // ),
-
-                                                    //Price and stock
-                                                    SizedBox(
-                                                      height: 6,
-                                                    ),
+                                                  children: [
                                                     Text(
-                                                      "\$120",
+                                                      op.productList[i][j]
+                                                          ['name'],
                                                       textAlign: TextAlign.left,
                                                       maxLines: 2,
                                                       overflow:
                                                           TextOverflow.ellipsis,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
+                                                          color:
+                                                              blackCustomColor,
+                                                          fontSize: 13,
+                                                          height: 1.4,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+
+                                                    //Price and stock
+                                                    const SizedBox(
+                                                      height: 6,
+                                                    ),
+                                                    Text(
+                                                      "\$${op.productList[i][j]['price']}",
+                                                      textAlign: TextAlign.left,
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
                                                           color: primaryColor,
                                                           fontSize: 13,
                                                           fontWeight:
@@ -194,9 +201,9 @@ class MyOrdersPage extends StatelessWidget {
                                               border: Border.all(
                                                   color: borderColor),
                                             ),
-                                            child: const Text(
-                                              'x3',
-                                              style: TextStyle(
+                                            child: Text(
+                                              'x${op.productList[i][j]['qty']}',
+                                              style: const TextStyle(
                                                   color: greyParagraph),
                                             ),
                                           ),
@@ -209,7 +216,8 @@ class MyOrdersPage extends StatelessWidget {
                                       context,
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
-                                            const OrderDetailsPage(),
+                                            OrderDetailsPage(
+                                                orderId: op.orderList[i].id),
                                       ),
                                     );
                                   }),
