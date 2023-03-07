@@ -117,9 +117,53 @@ class OrderService with ChangeNotifier {
       var data = OrderDetailsModel.fromJson(jsonDecode(response.body));
       orderDetails = data;
 
+      detailsProductList = [];
+      addProductInProductDetails(jsonDecode(response.body));
+
       notifyListeners();
     } else {
       showToast('Something went wrong', Colors.black);
     }
+  }
+
+// Refund product
+// ===========>
+
+  List detailsProductList = [];
+
+  refundOrder(BuildContext context, {required orderId}) async {
+    var connection = await checkConnection();
+    if (!connection) return;
+
+    orderDetails = null;
+    notifyListeners();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+
+    var header = {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token",
+    };
+
+    var response = await http.get(
+        Uri.parse('${ApiUrl.refundProductUri}?order_id=15&refund_products=156'),
+        headers: header);
+
+    if (response.statusCode == 200) {
+      var data = OrderDetailsModel.fromJson(jsonDecode(response.body));
+      orderDetails = data;
+
+      notifyListeners();
+    } else {
+      showToast('Something went wrong', Colors.black);
+    }
+  }
+
+  // add product
+  addProductInProductDetails(orderJson) {
+    var prDetails = orderJson['data']['order_details'];
+    prDetails.forEach((k, v) => detailsProductList.add(v));
+    notifyListeners();
   }
 }

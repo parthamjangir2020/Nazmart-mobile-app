@@ -48,4 +48,5 @@ class ApiUrl {
   static const String subcategoryUri = '$baseUri/subcategory';
   static const String translateUri = '$baseUri/translate-string';
   static const String orderListUri = '$baseUri/user/order';
+  static const String refundProductUri = '$baseUri/user/order/refund';
 }
