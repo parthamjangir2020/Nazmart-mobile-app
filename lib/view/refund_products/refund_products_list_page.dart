@@ -27,7 +27,7 @@ class _RefundProductsListPageState extends State<RefundProductsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbarCommon(StaticStrings.refundedProducts, context, () {
+      appBar: appbarCommon(StaticStrings.refundProducts, context, () {
         Navigator.pop(context);
       }),
       backgroundColor: bgColor,
@@ -113,11 +113,11 @@ class _RefundProductsListPageState extends State<RefundProductsListPage> {
                                             color: successColor)
                                       ]),
                                 ),
-                                const Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 16,
-                                  color: greyFour,
-                                )
+                                // const Icon(
+                                //   Icons.arrow_forward_ios,
+                                //   size: 16,
+                                //   color: greyFour,
+                                // )
                               ],
                             ),
                           ),

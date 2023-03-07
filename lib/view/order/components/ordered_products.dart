@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
+import 'package:no_name_ecommerce/view/order/components/order_helper.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,10 @@ import 'package:provider/provider.dart';
 class OrderedProducts extends StatelessWidget {
   const OrderedProducts({
     Key? key,
+    required this.orderId,
   }) : super(key: key);
+
+  final orderId;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +37,11 @@ class OrderedProducts extends StatelessWidget {
                 gapH(6),
                 SizedBox(
                   width: 70,
-                  child: buttonPrimary('Refund', () {},
-                      paddingVertical: 5, borderRadius: 5),
+                  child: buttonPrimary('Refund', () {
+                    OrderHelper().refundPopup(context,
+                        orderId: orderId,
+                        productId: os.detailsProductList[i]['id']);
+                  }, paddingVertical: 5, borderRadius: 5),
                 ),
                 gapH(12),
               ])

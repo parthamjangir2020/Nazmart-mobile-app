@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
 import 'package:no_name_ecommerce/view/order/components/order_details_section.dart';
-import 'package:no_name_ecommerce/view/order/components/order_helper.dart';
 import 'package:no_name_ecommerce/view/order/components/ordered_products.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -82,12 +81,9 @@ class OrderDetailsPage extends StatelessWidget {
                     gapH(25),
                     const OrderDetailsSection(),
 
-                    const OrderedProducts(),
-
-                    buttonPrimary('Request refund', (() {
-                      OrderHelper().refundPopup(context);
-                    }),
-                        bgColor: Colors.red),
+                    OrderedProducts(
+                      orderId: op.orderDetails?.data.id,
+                    ),
 
                     gapH(25),
                   ]),

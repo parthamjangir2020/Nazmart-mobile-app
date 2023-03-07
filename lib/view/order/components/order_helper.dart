@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class OrderHelper {
-    refundPopup(BuildContext context) {
+  refundPopup(BuildContext context, {required orderId, required productId}) {
     return Alert(
         context: context,
         style: AlertStyle(
@@ -58,10 +58,10 @@ class OrderHelper {
                     ),
                     Consumer<OrderService>(
                       builder: (context, provider, child) => Expanded(
-                          child: buttonPrimary(
-                              ln.getString('Yes'), () {
-                        
-                      },)),
+                          child: buttonPrimary(ln.getString('Yes'), () {
+                        provider.refundProduct(context,
+                            orderId: orderId, productId: productId);
+                      }, isloading: provider.refundLoading)),
                     ),
                   ],
                 )

@@ -217,7 +217,8 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
                                             OrderDetailsPage(
-                                                orderId: op.orderList[i].id),
+                                          orderId: op.orderList[i].id,
+                                        ),
                                       ),
                                     );
                                   }),
