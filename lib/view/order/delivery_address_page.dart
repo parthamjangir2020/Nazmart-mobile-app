@@ -228,24 +228,25 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                         // Shipping options
 
                         dProvider.shippingCostDetails != null
-                            ? dProvider.shippingCostDetails != 'error'
+                            ? dProvider.hasError != true
                                 ? Column(
                                     children: [
                                       //default shipping
                                       InkWell(
                                         onTap: () {
                                           var minOrder = dProvider
-                                              .shippingCostDetails
-                                              .defaultShipping
-                                              .options
-                                              .minimumOrderAmount;
+                                                  .shippingCostDetails
+                                                  ?.defaultShippingOptions
+                                                  .options
+                                                  ?.minimumOrderAmount ??
+                                              0;
                                           var couponNeeded =
                                               dProvider.checkIfCouponNeed(
                                                   dProvider
                                                       .shippingCostDetails
-                                                      .defaultShipping
+                                                      ?.defaultShippingOptions
                                                       .options
-                                                      .coupon,
+                                                      ?.coupon,
                                                   context);
                                           if (cProvider.subTotal < minOrder) {
                                             showToast(
@@ -253,19 +254,25 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                 Colors.black);
                                             return;
                                           } else if (couponNeeded) {
+                                            showToast('Coupon is needed',
+                                                Colors.black);
                                             return;
                                           }
 
                                           dProvider.setShipIdAndCosts(
                                               dProvider
                                                   .shippingCostDetails
-                                                  .defaultShipping
+                                                  ?.defaultShippingOptions
                                                   .options
-                                                  .shippingMethodId,
+                                                  ?.shippingMethodId,
+                                              dProvider
+                                                      .shippingCostDetails
+                                                      ?.defaultShippingOptions
+                                                      .options
+                                                      ?.cost ??
+                                                  0,
                                               dProvider.shippingCostDetails
-                                                  .defaultShipping.options.cost,
-                                              dProvider.shippingCostDetails
-                                                  .defaultShipping.name,
+                                                  ?.defaultShippingOptions.name,
                                               context);
 
                                           setState(() {
@@ -275,65 +282,70 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                         child: FreeShipOption(
                                           selectedShipping:
                                               dProvider.selectedShippingIndex,
-                                          dProvider: dProvider,
                                         ),
                                       ),
 
                                       //Other shipping option ======>
                                       for (int i = 0;
                                           i <
-                                              dProvider.shippingCostDetails
+                                              dProvider.shippingCostDetails!
                                                   .shippingOptions.length;
                                           i++)
-                                        InkWell(
-                                          onTap: () {
-                                            var minOrder = dProvider
-                                                .shippingCostDetails
-                                                .shippingOptions[i]
-                                                .options
-                                                .minimumOrderAmount;
-                                            var couponNeeded =
-                                                dProvider.checkIfCouponNeed(
-                                                    dProvider
-                                                        .shippingCostDetails
-                                                        .shippingOptions[i]
-                                                        .options
-                                                        .coupon,
-                                                    context);
-                                            if (cProvider.subTotal < minOrder) {
-                                              showToast(
-                                                  'Minimum \$$minOrder order is needed',
-                                                  Colors.black);
-                                              return;
-                                            } else if (couponNeeded) {
-                                              showToast('Coupon is needed',
-                                                  Colors.black);
+                                        if (dProvider.shippingCostDetails!
+                                                .shippingOptions[i].id !=
+                                            dProvider.shippingCostDetails!
+                                                .defaultShippingOptions.id)
+                                          InkWell(
+                                            onTap: () {
+                                              var minOrder = dProvider
+                                                      .shippingCostDetails
+                                                      ?.shippingOptions[i]
+                                                      .options
+                                                      ?.minimumOrderAmount ??
+                                                  0;
+                                              var couponNeeded =
+                                                  dProvider.checkIfCouponNeed(
+                                                      dProvider
+                                                          .shippingCostDetails
+                                                          ?.shippingOptions[i]
+                                                          .options
+                                                          ?.coupon,
+                                                      context);
+                                              if (cProvider.subTotal <
+                                                  minOrder) {
+                                                showToast(
+                                                    'Minimum \$$minOrder order is needed',
+                                                    Colors.black);
+                                                return;
+                                              } else if (couponNeeded) {
+                                                showToast('Coupon is needed',
+                                                    Colors.black);
 
-                                              return;
-                                            }
-                                            dProvider.setShipIdAndCosts(
-                                                dProvider
-                                                    .shippingCostDetails
-                                                    .shippingOptions[i]
-                                                    .options
-                                                    .shippingMethodId,
-                                                dProvider
-                                                    .shippingCostDetails
-                                                    .shippingOptions[i]
-                                                    .options
-                                                    .cost,
-                                                dProvider.shippingCostDetails
-                                                    .shippingOptions[i].name,
-                                                context);
+                                                return;
+                                              }
+                                              dProvider.setShipIdAndCosts(
+                                                  dProvider
+                                                      .shippingCostDetails
+                                                      ?.shippingOptions[i]
+                                                      .options
+                                                      ?.shippingMethodId,
+                                                  dProvider
+                                                      .shippingCostDetails
+                                                      ?.shippingOptions[i]
+                                                      .options
+                                                      ?.cost,
+                                                  dProvider.shippingCostDetails
+                                                      ?.shippingOptions[i].name,
+                                                  context);
 
-                                            dProvider.setSelectedShipIndex(i);
-                                          },
-                                          child: ShippingOption(
-                                              selectedShipping: dProvider
-                                                  .selectedShippingIndex,
-                                              dProvider: dProvider,
-                                              i: i),
-                                        ),
+                                              dProvider.setSelectedShipIndex(i);
+                                            },
+                                            child: ShippingOption(
+                                                selectedShipping: dProvider
+                                                    .selectedShippingIndex,
+                                                dProvider: dProvider,
+                                                i: i),
+                                          ),
                                     ],
                                   )
                                 : Container(

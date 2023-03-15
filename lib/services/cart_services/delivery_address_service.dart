@@ -4,19 +4,20 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:no_name_ecommerce/model/country_shipping_cost_model.dart';
-import 'package:no_name_ecommerce/model/states_shipping_cost_model.dart';
+import 'package:no_name_ecommerce/model/shipping_cost_model.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DeliveryAddressService with ChangeNotifier {
   var enteredDeliveryAddress;
 
-  var shippingCostDetails;
+  ShippingCostModel? shippingCostDetails;
+  bool hasError = false;
 
   late int selectedShipId;
   var selectedShipName = '';
@@ -38,6 +39,7 @@ class DeliveryAddressService with ChangeNotifier {
     selectedShipId = defaultShipId;
     selectedShipName = defaultShipName;
     selectedShipCost = 0;
+    hasError = false;
     notifyListeners();
   }
 
@@ -76,83 +78,94 @@ class DeliveryAddressService with ChangeNotifier {
 
   setShipCostDeafault() {
     shippingCostDetails = null;
+    hasError = false;
     notifyListeners();
   }
 
 //fetch country shipping cost ======>
-  fetchCountryShippingCost(countryId, BuildContext context) async {
+  fetchCountryShippingCost(BuildContext context, {countryId, stateId}) async {
     Future.delayed(const Duration(milliseconds: 500), () {
       setLoadingTrue();
       setShipCostDeafault();
     });
-    var response =
-        await http.get(Uri.parse('${ApiUrl.countryShipCostUri}=$countryId'));
 
-    setLoadingFalse();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var header = {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token",
+    };
+    var data = {'country': countryId.toString(), 'state': stateId.toString()};
 
-    if (response.statusCode == 201) {
-      var data = CountryShippingCostModel.fromJson(jsonDecode(response.body));
-
-      shippingCostDetails = data;
-
-      setShipIdAndCosts(
-          data.defaultShipping.options.shippingMethodId ?? 0,
-          data.defaultShipping.options.cost,
-          data.defaultShipping.name,
-          context);
-
-      defaultShipId = data.defaultShipping.options.shippingMethodId ?? 0;
-      defaultShipName = data.defaultShipping.name ?? '';
-
-      // setVatAndincreaseTotal(data.tax?.toDouble() ?? 0, context);
-      vatPercentage = data.taxPercentage?.toDouble() ?? 0;
-
-      notifyListeners();
-    } else {
-      //error fetching data
-      shippingCostDetails = 'error';
-      notifyListeners();
-    }
-  }
-
-  fetchStatesShippingCost(stateId, BuildContext context) async {
-    if (stateId == '0') {
-      //don't load anything
-      return;
-    }
-    Future.delayed(const Duration(milliseconds: 500), () {
-      setLoadingTrue();
-      setShipCostDeafault();
-    });
-    var response =
-        await http.get(Uri.parse('${ApiUrl.stateShipCostUri}=$stateId'));
+    var response = await http.post(Uri.parse(ApiUrl.shippingCostUri),
+        headers: header, body: data);
 
     setLoadingFalse();
 
     if (response.statusCode == 200) {
-      var data = StatesShippingCostModel.fromJson(jsonDecode(response.body));
+      var data = ShippingCostModel.fromJson(jsonDecode(response.body));
 
       shippingCostDetails = data;
 
       setShipIdAndCosts(
-          data.defaultShipping.options.shippingMethodId ?? 0,
-          data.defaultShipping.options.cost,
-          data.defaultShipping.name,
+          data.defaultShippingOptions.options?.shippingMethodId ?? 0,
+          data.defaultShippingOptions.options?.cost,
+          data.defaultShippingOptions.name,
           context);
 
-      defaultShipId = data.defaultShipping.options.shippingMethodId ?? 0;
-      defaultShipName = data.defaultShipping.name ?? '';
+      defaultShipId =
+          data.defaultShippingOptions.options?.shippingMethodId ?? 0;
+      defaultShipName = data.defaultShippingOptions.name ?? '';
 
       // setVatAndincreaseTotal(data.tax?.toDouble() ?? 0, context);
-      vatPercentage = data.taxPercentage?.toDouble() ?? 0;
+      vatPercentage = data.shippingTax?.toDouble() ?? 0;
 
       notifyListeners();
     } else {
       //error fetching data
-      shippingCostDetails = 'error';
+      hasError = true;
       notifyListeners();
     }
   }
+
+  // fetchStatesShippingCost(stateId, BuildContext context) async {
+  //   if (stateId == '0') {
+  //     //don't load anything
+  //     return;
+  //   }
+  //   Future.delayed(const Duration(milliseconds: 500), () {
+  //     setLoadingTrue();
+  //     setShipCostDeafault();
+  //   });
+  //   var response =
+  //       await http.get(Uri.parse('${ApiUrl.stateShipCostUri}=$stateId'));
+
+  //   setLoadingFalse();
+
+  //   if (response.statusCode == 200) {
+  //     var data = StatesShippingCostModel.fromJson(jsonDecode(response.body));
+
+  //     shippingCostDetails = data;
+
+  //     setShipIdAndCosts(
+  //         data.defaultShippingOptions.options.shippingMethodId ?? 0,
+  //         data.defaultShippingOptions.options.cost,
+  //         data.defaultShippingOptions.name,
+  //         context);
+
+  //     defaultShipId = data.defaultShippingOptions.options.shippingMethodId ?? 0;
+  //     defaultShipName = data.defaultShippingOptions.name ?? '';
+
+  //     // setVatAndincreaseTotal(data.tax?.toDouble() ?? 0, context);
+  //     vatPercentage = data.taxPercentage?.toDouble() ?? 0;
+
+  //     notifyListeners();
+  //   } else {
+  //     //error fetching data
+  //     shippingCostDetails = 'error';
+  //     notifyListeners();
+  //   }
+  // }
 
   getShipOptionSubtitle(settingPreset, minOrderPrice) {
     if (settingPreset == 'min_order_or_coupon') {

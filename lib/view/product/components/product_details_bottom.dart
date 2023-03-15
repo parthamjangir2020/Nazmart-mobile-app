@@ -75,11 +75,10 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
                   //======>
                   Expanded(
                     child: buttonPrimary('Add to cart', () {
-                      print(provider.selectedInventorySet);
                       print(provider.productSalePrice);
-                      // print(provider.productSalePrice);
-                      // return;
-                      if (provider.selectedInventorySet.isEmpty) {
+
+                      if (provider.allAtrributes.isNotEmpty &&
+                          provider.selectedInventorySet.isEmpty) {
                         showToast(
                             'You must select all attributes', Colors.black);
                         return;

@@ -10,8 +10,7 @@ class ApiUrl {
   static const String socialLoginUri = '$baseUri/social-login';
   static const String resetPassUri = '$baseUri/reset-password';
   static const String couponUri = '$baseUri/coupon';
-  static const String countryShipCostUri = '$baseUri/country-info?id';
-  static const String stateShipCostUri = '$baseUri/state-info?id';
+  static const String shippingCostUri = '$baseUri/shipping-charge';
   static const String vatAndShipCostUri = '$baseUri/checkout-calculate?country';
   static const String departmentUri = '$baseUri/user/get-department';
   static const String gatewayListUri = '$baseUri/user/payment-gateway-list';

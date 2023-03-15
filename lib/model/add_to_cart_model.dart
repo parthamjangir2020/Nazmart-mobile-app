@@ -4,8 +4,8 @@ class AddtocartModel {
   late String productId;
   late String title;
   late String thumbnail;
-  late String color;
-  late String size;
+  late String? color;
+  late String? size;
   var discountPrice;
   var oldPrice;
   var priceWithAttr;

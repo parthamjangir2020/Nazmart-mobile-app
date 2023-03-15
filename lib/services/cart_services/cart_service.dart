@@ -139,8 +139,8 @@ class CartService with ChangeNotifier {
       required String discountPrice,
       required String oldPrice,
       required int qty,
-      required String color,
-      required String size,
+      required String? color,
+      required String? size,
       required priceWithAttr}) async {
     var connection = await ProductDbService().getdatabase;
     var prod = await connection.rawQuery(
