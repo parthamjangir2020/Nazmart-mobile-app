@@ -383,7 +383,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                               'address': addressController.text
                             };
 
-                            dProvider.fetchShippingCostAndVat(context);
+                            // dProvider.fetchShippingCostAndVat(context);
                           }
                         },
                             isloading:

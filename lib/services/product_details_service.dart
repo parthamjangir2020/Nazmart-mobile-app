@@ -273,6 +273,8 @@ class ProductDetailsService with ChangeNotifier {
           Uri.parse('${ApiUrl.productDetailsUri}/$productId'),
           headers: header);
 
+      print(response.body);
+
       if (response.statusCode == 200) {
         productDetails =
             ProductDetailsModel.fromJson(jsonDecode(response.body));

@@ -15,7 +15,7 @@ class CartService with ChangeNotifier {
 
   double subTotal = 0;
   int cartProductsNumber = 0;
-  double totalPrice = 0;
+  var totalPrice = 0.0;
   double couponDiscount = 0.0;
 
   var selectedColor;
@@ -37,9 +37,9 @@ class CartService with ChangeNotifier {
     Provider.of<CouponService>(context, listen: false).setCouponDefault();
   }
 
-  fetchCartProducts() async {
+  fetchCartProducts(BuildContext context) async {
     cartItemList = await ProductDbService().allCartProducts();
-    calculateSubtotal();
+    calculateSubtotal(context);
     notifyListeners();
   }
 
@@ -47,13 +47,8 @@ class CartService with ChangeNotifier {
     await ProductDbService().removeFromCart(productId, title, context);
 
     //==============>
-    fetchCartProducts();
-    calculateSubtotal();
-
-    //user needs to enter coupon again
-    resetCoupon(context);
-    //set default delivery options
-    Provider.of<DeliveryAddressService>(context, listen: false).setDefault();
+    fetchCartProducts(context);
+    calculateSubtotal(context);
   }
 
   //increase quantity and price
@@ -64,13 +59,8 @@ class CartService with ChangeNotifier {
     await ProductDbService()
         .updateQtandPrice(productId, title, newQty, context);
 
-    //user needs to enter coupon again
-    resetCoupon(context);
-    //set default delivery options
-    Provider.of<DeliveryAddressService>(context, listen: false).setDefault();
-
-    fetchCartProducts();
-    calculateSubtotal();
+    fetchCartProducts(context);
+    calculateSubtotal(context);
   }
 
   //decrease quantity and price
@@ -81,30 +71,34 @@ class CartService with ChangeNotifier {
 
       await ProductDbService()
           .updateQtandPrice(productId, title, newQty, context);
-      //user needs to enter coupon again
-      resetCoupon(context);
-      //set default delivery options
-      Provider.of<DeliveryAddressService>(context, listen: false).setDefault();
 
-      fetchCartProducts();
-      calculateSubtotal();
+      fetchCartProducts(context);
+      calculateSubtotal(context);
     }
   }
 
 // subtotal ====================>
-  calculateSubtotal() async {
+  calculateSubtotal(BuildContext context) async {
     List products = await ProductDbService().allCartProducts();
     subTotal = 0;
+
+    var vatAmount =
+        Provider.of<DeliveryAddressService>(context, listen: false).vatAmount;
+    var shipCost = Provider.of<DeliveryAddressService>(context, listen: false)
+        .selectedShipCost;
+
     if (products.isNotEmpty) {
       for (int i = 0; i < products.length; i++) {
-        subTotal = products[i]["priceWithAttr"] * products[i]["qty"];
+        subTotal =
+            subTotal + (products[i]["priceWithAttr"] * products[i]["qty"]);
       }
       cartProductsNumber = products.length;
     } else {
       subTotal = 0;
       cartProductsNumber = 0;
     }
-    totalPrice = subTotal - couponDiscount;
+
+    totalPrice = (subTotal + vatAmount + shipCost) - couponDiscount;
     notifyListeners();
   }
 

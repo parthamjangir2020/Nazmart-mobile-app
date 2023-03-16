@@ -12,18 +12,18 @@ dynamic shippingCostModelToJson(ShippingCostModel data) =>
 
 class ShippingCostModel {
   ShippingCostModel({
-    this.shippingTax,
+    this.tax,
     required this.shippingOptions,
     required this.defaultShippingOptions,
   });
 
-  dynamic shippingTax;
+  dynamic tax;
   List<DefaultShippingOptions> shippingOptions;
   DefaultShippingOptions defaultShippingOptions;
 
   factory ShippingCostModel.fromJson(Map<dynamic, dynamic> json) =>
       ShippingCostModel(
-        shippingTax: json["shipping_tax"],
+        tax: json["tax"],
         shippingOptions: List<DefaultShippingOptions>.from(
             json["shipping_options"]
                 .map((x) => DefaultShippingOptions.fromJson(x))),
@@ -32,7 +32,7 @@ class ShippingCostModel {
       );
 
   Map<dynamic, dynamic> toJson() => {
-        "shipping_tax": shippingTax,
+        "tax": tax,
         "shipping_options":
             List<dynamic>.from(shippingOptions.map((x) => x.toJson())),
         "default_shipping_options": defaultShippingOptions.toJson(),

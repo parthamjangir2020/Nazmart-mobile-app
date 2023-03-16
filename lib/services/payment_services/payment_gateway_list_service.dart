@@ -60,7 +60,7 @@ class PaymentGatewayListService with ChangeNotifier {
       print(response.body);
       setLoadingFalse();
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         paymentList = jsonDecode(response.body)['gateway_list'];
       } else {
         //something went wrong
