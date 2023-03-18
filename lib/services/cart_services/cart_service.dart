@@ -103,8 +103,12 @@ class CartService with ChangeNotifier {
   }
 
 // total after coupon applied ======================>
-  calculateTotalAfterCouponApplied(discount) {
-    couponDiscount = double.parse(discount.toString());
+  calculateTotalAfterCouponApplied(
+      {required oldDiscount, required newDiscount}) {
+    if (oldDiscount != null) {
+      subTotal = subTotal + double.parse(oldDiscount.toString());
+    }
+    couponDiscount = double.parse(newDiscount.toString());
     totalPrice = subTotal - couponDiscount;
 
     notifyListeners();
@@ -158,6 +162,7 @@ class CartService with ChangeNotifier {
       print('Added to cart');
 
       showSnackBar(context, 'Added to cart', successColor);
+      fetchCartProductNumber();
       return true;
     } else {
       //product already added to cart, so increase quantity

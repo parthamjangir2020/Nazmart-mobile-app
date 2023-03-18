@@ -3,7 +3,6 @@ import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
 import 'package:provider/provider.dart';
-
 import '../../utils/common_helper.dart';
 
 class CouponField extends StatelessWidget {
@@ -28,21 +27,20 @@ class CouponField extends StatelessWidget {
                   child: CustomInput(
                 hintText: 'Enter coupon code',
                 paddingHorizontal: 20,
+                controller: couponController,
                 marginBottom: 0,
               )),
               Container(
                 margin: const EdgeInsets.only(left: 10),
                 width: 100,
                 child: buttonPrimary('Apply', () {
-                  // if (couponController.text.isNotEmpty) {
-                  //   if (couponProvider.isloading == false) {
-                  //     couponProvider.getCouponDiscount(
-                  //         cartItemList, couponController.text, context);
-                  //   }
-                  // }
-                },
-                    isloading: couponProvider.isloading == false ? false : true,
-                    borderRadius: 100),
+                  if (couponController.text.isNotEmpty) {
+                    if (couponProvider.isloading == false) {
+                      couponProvider.getCouponDiscount(
+                          cartItemList, couponController.text, context);
+                    }
+                  }
+                }, isloading: couponProvider.isloading, borderRadius: 100),
               )
             ],
           ),

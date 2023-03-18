@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 
 class CouponService with ChangeNotifier {
   var couponDiscount;
+  var oldCouponDiscount;
 
   var appliedCoupon;
 
@@ -53,12 +54,12 @@ class CouponService with ChangeNotifier {
       });
     }
 
-    // var subTotal = Provider.of<CartService>(context, listen: false).subTotal;
+    var total = Provider.of<CartService>(context, listen: false).totalPrice;
 
     setLoadingTrue();
     var data = jsonEncode({
       'coupon': couponCode,
-      'total_amount': '',
+      'total_amount': total,
       'ids': jsonEncode(items),
     });
     var header = {
@@ -73,14 +74,16 @@ class CouponService with ChangeNotifier {
     setLoadingFalse();
 
     if (response.statusCode == 200) {
-      couponDiscount = jsonDecode(response.body)['coupon_amount'];
+      oldCouponDiscount = couponDiscount;
+      couponDiscount = jsonDecode(response.body)['discounted_price'];
       appliedCoupon = couponCode;
       print('coupon amount is $couponDiscount');
 
       showToast('Coupon Applied Successfully', Colors.black);
 
       Provider.of<CartService>(context, listen: false)
-          .calculateTotalAfterCouponApplied(couponDiscount);
+          .calculateTotalAfterCouponApplied(
+              oldDiscount: oldCouponDiscount, newDiscount: couponDiscount);
 
       notifyListeners();
       return true;

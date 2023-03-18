@@ -318,14 +318,15 @@ class _CartpageState extends State<Cartpage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       titleCommon('Total', fontsize: 14),
-                                      titleCommon('\$${cProvider.totalPrice}',
+                                      titleCommon(
+                                          '\$${cProvider.totalPrice.toStringAsFixed(2)}',
                                           fontsize: 18)
                                     ],
                                   ),
 
                                   //Apply promo ===========>
                                   CouponField(
-                                    cartItemList: const [],
+                                    cartItemList: cProvider.cartItemList,
                                     couponController: couponController,
                                   ),
 

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
 import 'package:no_name_ecommerce/services/refund_products_service.dart';
+import 'package:no_name_ecommerce/services/refund_ticket_service/refund_ticket_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/change_pass_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/email_verify_service.dart';
@@ -102,8 +103,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => IntroService()),
         ChangeNotifierProvider(create: (_) => RefundProductsService()),
         ChangeNotifierProvider(create: (_) => OrderService()),
-                ChangeNotifierProvider(create: (_) => AppStringService()),
-
+        ChangeNotifierProvider(create: (_) => RefundTicketService()),
+        ChangeNotifierProvider(create: (_) => AppStringService()),
         ChangeNotifierProvider(
             create: (_) => AddRemoveShippingAddressService()),
         ChangeNotifierProvider(

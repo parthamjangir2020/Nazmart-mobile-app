@@ -26,6 +26,7 @@ class ApiUrl {
   static const String ticketMessageUri = '$baseUri/user/ticket';
   static const String ticketMessageSendUri = '$baseUri/user/ticket/chat/send';
   static const String ticketListUri = '$baseUri/user/ticket?page';
+  static const String refundTicketListUri = '$baseUri/user/refund-ticket?page';
   static const String campaignProductsUri = '$baseUri/campaign/product';
   static const String campaignListUri = '$baseUri/campaign';
   static const String categoryUri = '$baseUri/category';

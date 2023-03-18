@@ -11,14 +11,14 @@ import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/widgets/custom_dropdown.dart';
 import 'package:provider/provider.dart';
 
-class CreateTicketPage extends StatefulWidget {
-  const CreateTicketPage({Key? key}) : super(key: key);
+class RefundCreateTicketPage extends StatefulWidget {
+  const RefundCreateTicketPage({Key? key}) : super(key: key);
 
   @override
-  _CreateTicketPageState createState() => _CreateTicketPageState();
+  _RefundCreateTicketPageState createState() => _RefundCreateTicketPageState();
 }
 
-class _CreateTicketPageState extends State<CreateTicketPage> {
+class _RefundCreateTicketPageState extends State<RefundCreateTicketPage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
