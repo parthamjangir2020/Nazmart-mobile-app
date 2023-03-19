@@ -332,7 +332,8 @@ class _CartpageState extends State<Cartpage> {
 
                                   gapH(25),
                                   buttonPrimary('Checkout', () {
-                                    // if (dProvider.enteredDeliveryAddress == null) {
+                                    // if (dProvider.enteredDeliveryAddress ==
+                                    //     null) {
                                     //   showToast(
                                     //       'Please enter the delivery address and save it',
                                     //       Colors.black);

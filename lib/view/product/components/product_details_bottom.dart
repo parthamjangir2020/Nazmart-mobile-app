@@ -1,6 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/product_db_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
+import 'package:no_name_ecommerce/view/checkout/cart_page.dart';
 import 'package:no_name_ecommerce/view/product/components/write_review_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
@@ -65,7 +69,29 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
               builder: (context, cProvider, child) => Row(
                 children: [
                   Expanded(
-                      child: buttonPrimary('Buy now', (() {}),
+                      child: buttonPrimary('Buy now', (() async {
+                    if (provider.allAtrributes.isNotEmpty &&
+                        provider.selectedInventorySet.isEmpty) {
+                      showToast('You must select all attributes', Colors.black);
+                      return;
+                    }
+
+                    bool addedAlready = await ProductDbService()
+                        .checkIfAddedtoCart(
+                            provider.productDetails?.product?.name ?? '',
+                            provider.productDetails?.product?.id ?? 1);
+
+                    if (!addedAlready) {
+                      addToCart(context);
+                    }
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => const Cartpage(),
+                      ),
+                    );
+                  }),
                           borderRadius: 100,
                           bgColor: Colors.grey[200],
                           fontColor: Colors.grey[800])),
@@ -84,24 +110,7 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
                         return;
                       }
 
-                      cProvider.addToCartOrUpdateQty(context,
-                          title: provider.productDetails?.product?.name ?? '',
-                          thumbnail: provider.productDetails?.product?.image ??
-                              placeHolderUrl,
-                          discountPrice: provider
-                                  .productDetails?.product?.salePrice
-                                  .toString() ??
-                              '0',
-                          oldPrice: provider.productDetails?.product?.price
-                                  .toString() ??
-                              '0',
-                          priceWithAttr: provider.productSalePrice,
-                          qty: provider.qty,
-                          color: provider.selectedInventorySet['color_code'],
-                          size: provider.selectedInventorySet['Size'],
-                          productId:
-                              provider.productDetails?.product?.id.toString() ??
-                                  '1');
+                      addToCart(context);
                     }, borderRadius: 100),
                   ),
                 ],
@@ -111,5 +120,22 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
         ),
       ),
     );
+  }
+
+  addToCart(BuildContext context) {
+    var cProvider = Provider.of<CartService>(context, listen: false);
+    var provider = Provider.of<ProductDetailsService>(context, listen: false);
+
+    cProvider.addToCartOrUpdateQty(context,
+        title: provider.productDetails?.product?.name ?? '',
+        thumbnail: provider.productDetails?.product?.image ?? placeHolderUrl,
+        discountPrice:
+            provider.productDetails?.product?.salePrice.toString() ?? '0',
+        oldPrice: provider.productDetails?.product?.price.toString() ?? '0',
+        priceWithAttr: provider.productSalePrice,
+        qty: provider.qty,
+        color: provider.selectedInventorySet['color_code'],
+        size: provider.selectedInventorySet['Size'],
+        productId: provider.productDetails?.product?.id.toString() ?? '1');
   }
 }

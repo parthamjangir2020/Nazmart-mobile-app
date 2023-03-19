@@ -3,8 +3,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/refund_ticket_service/refund_ticket_service.dart';
-import 'package:no_name_ecommerce/view/support_ticket/components/support_ticket_helper.dart';
-import 'package:no_name_ecommerce/view/support_ticket/create_ticket_page.dart';
+import 'package:no_name_ecommerce/view/refund_products/refund_support_ticket/create_refund_ticket_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -63,7 +62,7 @@ class _RefundTicketsPageState extends State<RefundTicketsPage> {
                     context,
                     MaterialPageRoute<void>(
                       builder: (BuildContext context) =>
-                          const CreateTicketPage(),
+                          const CreateRefundTicketPage(),
                     ),
                   );
                 },
@@ -135,9 +134,6 @@ class _RefundTicketsPageState extends State<RefundTicketsPage> {
                                     context,
                                     provider.ticketList[i]['subject'],
                                     provider.ticketList[i]['id'],
-                                    provider.ticketList[i]['departmentId'],
-                                    provider.ticketList[i]['description'],
-                                    provider.ticketList[i]['priority  '],
                                   );
                                 },
                                 child: Container(
@@ -168,31 +164,31 @@ class _RefundTicketsPageState extends State<RefundTicketsPage> {
                                               ),
                                             ),
                                             // put the hamburger icon here
-                                            PopupMenuButton(
-                                              // initialValue: 2,
-                                              child:
-                                                  const Icon(Icons.more_vert),
-                                              itemBuilder: (context) {
-                                                return List.generate(
-                                                    popupMenuTexts.length,
-                                                    (menuIndex) {
-                                                  return PopupMenuItem(
-                                                    onTap: () async {
-                                                      await Future.delayed(
-                                                          Duration.zero);
-                                                      popupMenuActions(
-                                                          menuIndex, provider,
-                                                          ticketId: provider
-                                                                  .ticketList[i]
-                                                              ['id']);
-                                                    },
-                                                    value: menuIndex,
-                                                    child: Text(popupMenuTexts[
-                                                        menuIndex]),
-                                                  );
-                                                });
-                                              },
-                                            )
+                                            // PopupMenuButton(
+                                            //   // initialValue: 2,
+                                            //   child:
+                                            //       const Icon(Icons.more_vert),
+                                            //   itemBuilder: (context) {
+                                            //     return List.generate(
+                                            //         popupMenuTexts.length,
+                                            //         (menuIndex) {
+                                            //       return PopupMenuItem(
+                                            //         onTap: () async {
+                                            //           await Future.delayed(
+                                            //               Duration.zero);
+                                            //           popupMenuActions(
+                                            //               menuIndex, provider,
+                                            //               ticketId: provider
+                                            //                       .ticketList[i]
+                                            //                   ['id']);
+                                            //         },
+                                            //         value: menuIndex,
+                                            //         child: Text(popupMenuTexts[
+                                            //             menuIndex]),
+                                            //       );
+                                            //     });
+                                            //   },
+                                            // )
                                           ],
                                         ),
 
@@ -213,12 +209,6 @@ class _RefundTicketsPageState extends State<RefundTicketsPage> {
                                         Row(
                                           children: [
                                             capsule(provider.ticketList[i]
-                                                    ['priority']
-                                                .toString()),
-                                            const SizedBox(
-                                              width: 11,
-                                            ),
-                                            capsule(provider.ticketList[i]
                                                     ['status']
                                                 .toString())
                                           ],
@@ -234,16 +224,16 @@ class _RefundTicketsPageState extends State<RefundTicketsPage> {
         ));
   }
 
-  List popupMenuTexts = ['Chat', 'Change priority', 'Change status'];
+  // List popupMenuTexts = ['Chat', 'Change priority', 'Change status'];
 
-  popupMenuActions(int i, provider, {required ticketId}) {
-    if (i == 0) {
-      provider.goToMessagePage(context, provider.ticketList[i]['subject'],
-          provider.ticketList[i]['id']);
-    } else if (i == 1) {
-      SupportTicketHelper().changePriorityPopup(context, ticketId);
-    } else if (i == 2) {
-      SupportTicketHelper().changeStatusPopup(context, ticketId);
-    }
-  }
+  // popupMenuActions(int i, provider, {required ticketId}) {
+  //   if (i == 0) {
+  //     provider.goToMessagePage(context, provider.ticketList[i]['subject'],
+  //         provider.ticketList[i]['id']);
+  //   } else if (i == 1) {
+  //     SupportTicketHelper().changePriorityPopup(context, ticketId);
+  //   } else if (i == 2) {
+  //     SupportTicketHelper().changeStatusPopup(context, ticketId);
+  //   }
+  // }
 }

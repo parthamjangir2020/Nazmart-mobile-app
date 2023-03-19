@@ -23,8 +23,13 @@ class ApiUrl {
   static const String ticketStatusChangeUri =
       '$baseUri/user/ticket/status-change';
   static const String createTicketUri = '$baseUri/user/ticket/create';
+  static const String createRefundTicketUri =
+      '$baseUri/user/refund-ticket/create';
   static const String ticketMessageUri = '$baseUri/user/ticket';
+  static const String refundTicketMessageUri = '$baseUri/user/refund-ticket';
   static const String ticketMessageSendUri = '$baseUri/user/ticket/chat/send';
+  static const String refundTicketMessageSendUri =
+      '$baseUri/user/refund-ticket/chat/send';
   static const String ticketListUri = '$baseUri/user/ticket?page';
   static const String refundTicketListUri = '$baseUri/user/refund-ticket?page';
   static const String campaignProductsUri = '$baseUri/campaign/product';

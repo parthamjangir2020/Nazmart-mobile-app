@@ -5,7 +5,6 @@ import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart'
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
@@ -44,12 +43,19 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                         for (int i = 0; i < fProvider.favItemList.length; i++)
                           InkWell(
                             onTap: () {
+                              Provider.of<ProductDetailsService>(context,
+                                      listen: false)
+                                  .fetchProductDetails(context,
+                                      productId: fProvider.favItemList[i]
+                                          ['productId']);
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute<void>(
                                   builder: (BuildContext context) =>
-                                      const ProductDetailsPage(
-                                    productId: '239',
+                                      ProductDetailsPage(
+                                    productId: fProvider.favItemList[i]
+                                        ['productId'],
                                   ),
                                 ),
                               );
@@ -115,21 +121,16 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                                     //Delete button
                                     InkWell(
                                       onTap: () {
+                                        //remove from list
+                                        //to remove we only need to pass id and title
                                         fProvider.addOrRemoveFavourite(context,
-                                            productId: pProvider.productDetails
-                                                    ?.product?.id ??
-                                                0,
-                                            thumbnail: pProvider.productDetails
-                                                    ?.product?.image ??
-                                                placeHolderUrl,
-                                            discountPrice: pProvider
-                                                .productDetails
-                                                ?.product
-                                                ?.salePrice,
-                                            oldPrice: pProvider
-                                                .productDetails?.product?.price,
-                                            title: pProvider.productDetails
-                                                    ?.product?.name ??
+                                            productId: fProvider.favItemList[i]
+                                                ['productId'],
+                                            thumbnail: '',
+                                            discountPrice: '',
+                                            oldPrice: '',
+                                            title: fProvider.favItemList[i]
+                                                    ['title'] ??
                                                 '');
                                       },
                                       child: SvgPicture.asset(

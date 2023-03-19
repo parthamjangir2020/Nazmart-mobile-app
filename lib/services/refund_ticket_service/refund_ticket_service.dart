@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/ticket_list_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/refund_ticket_service/refund_ticket_messages_service.dart';
+import 'package:no_name_ecommerce/view/refund_products/refund_support_ticket/refund_ticket_chat_page.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RefundTicketService with ChangeNotifier {
@@ -28,12 +31,11 @@ class RefundTicketService with ChangeNotifier {
     notifyListeners();
   }
 
-  addNewDataToTicketList(id, title, subject, priority, description, status) {
+  addNewDataToTicketList(id, title, subject, description, status) {
     ticketList.add({
       'id': id,
       'title': title,
       'subject': subject,
-      'priority': priority,
       'description': description,
       'status': status
     });
@@ -108,7 +110,6 @@ class RefundTicketService with ChangeNotifier {
         'id': dataList[i].id,
         'title': dataList[i].title,
         'subject': dataList[i].subject,
-        'priority': dataList[i].priority,
         'description': dataList[i].description,
         'status': dataList[i].status
       });
@@ -116,23 +117,19 @@ class RefundTicketService with ChangeNotifier {
     notifyListeners();
   }
 
-  goToMessagePage(
-      BuildContext context, title, id, departmentId, description, priority) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute<void>(
-    //     builder: (BuildContext context) => TicketChatPage(
-    //       title: title,
-    //       ticketId: id,
-    //       departmentId: departmentId,
-    //       description: description,
-    //       priority: priority,
-    //     ),
-    //   ),
-    // );
+  goToMessagePage(BuildContext context, title, id) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => RefundTicketChatPage(
+          title: title,
+          ticketId: id,
+        ),
+      ),
+    );
 
     //fetch message
-    // Provider.of<SupportMessagesService>(context, listen: false)
-    //     .fetchMessages(id);
+    Provider.of<RefundTicketMessagesService>(context, listen: false)
+        .fetchMessages(id);
   }
 }

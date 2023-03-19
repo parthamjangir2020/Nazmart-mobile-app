@@ -17,7 +17,7 @@ class FavouriteService with ChangeNotifier {
 
   Future<bool> addOrRemoveFavourite(
     BuildContext context, {
-    required int productId,
+    required productId,
     required String title,
     required String thumbnail,
     required discountPrice,

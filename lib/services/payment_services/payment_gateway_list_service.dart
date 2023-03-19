@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentGatewayListService with ChangeNotifier {
@@ -50,8 +51,7 @@ class PaymentGatewayListService with ChangeNotifier {
 
       var header = {
         //if header type is application/json then the data should be in jsonEncode method
-        "Accept": "application/json",
-        "Content-Type": "application/json",
+        "x-api-key": xApiKey,
         "Authorization": "Bearer $token",
       };
 
@@ -61,7 +61,7 @@ class PaymentGatewayListService with ChangeNotifier {
       setLoadingFalse();
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        paymentList = jsonDecode(response.body)['gateway_list'];
+        paymentList = jsonDecode(response.body)['data'];
       } else {
         //something went wrong
         print(response.body);
@@ -78,139 +78,146 @@ class PaymentGatewayListService with ChangeNotifier {
     print('selected method $methodName');
     switch (methodName) {
       case 'paypal':
-        publicKey = paymentList[index]['client_id'];
-        secretKey = paymentList[index]['secret_id'];
-        isTestMode = paymentList[index]['test_mode'];
+        if (paymentList[index]['test_mode'] == 1) {
+          publicKey = paymentList[index]['credentials']['sandbox_client_id'];
+          secretKey =
+              paymentList[index]['credentials']['sandbox_client_secret'];
+        } else {
+          publicKey = paymentList[index]['credentials']['live_client_id'];
+          secretKey = paymentList[index]['credentials']['live_client_secret'];
+        }
+
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         print('client id is $publicKey');
         print('secret id is $secretKey');
         notifyListeners();
         break;
 
       case 'cashfree':
-        publicKey = paymentList[index]['app_id'];
-        secretKey = paymentList[index]['secret_key'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['app_id'];
+        secretKey = paymentList[index]['credentials']['secret_key'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         print('client id is $publicKey');
         print('secret id is $secretKey');
         notifyListeners();
         break;
 
       case 'flutterwave':
-        publicKey = paymentList[index]['public_key'];
-        secretKey = paymentList[index]['secret_key'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['public_key'];
+        secretKey = paymentList[index]['credentials']['secret_key'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'instamojo':
-        publicKey = paymentList[index]['client_id'];
-        secretKey = paymentList[index]['client_secret'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['client_id'];
+        secretKey = paymentList[index]['credentials']['client_secret'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'marcadopago':
-        publicKey = paymentList[index]['client_id'];
-        secretKey = paymentList[index]['client_secret'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['client_id'];
+        secretKey = paymentList[index]['credentials']['client_secret'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'midtrans':
-        publicKey = paymentList[index]['merchant_id'];
-        secretKey = paymentList[index]['server_key'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['merchant_id'];
+        secretKey = paymentList[index]['credentials']['server_key'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'mollie':
-        publicKey = paymentList[index]['public_key'];
+        publicKey = paymentList[index]['credentials']['public_key'];
         secretKey = '';
-        isTestMode = paymentList[index]['test_mode'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'payfast':
-        publicKey = paymentList[index]['merchant_id'];
-        secretKey = paymentList[index]['merchant_key'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['merchant_id'];
+        secretKey = paymentList[index]['credentials']['merchant_key'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'paystack':
-        publicKey = paymentList[index]['public_key'];
-        secretKey = paymentList[index]['secret_key'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['public_key'];
+        secretKey = paymentList[index]['credentials']['secret_key'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'paytm':
-        publicKey = paymentList[index]['merchant_key'];
-        secretKey = paymentList[index]['merchant_mid'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['merchant_key'];
+        secretKey = paymentList[index]['credentials']['merchant_mid'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'razorpay':
-        publicKey = paymentList[index]['api_key'];
-        secretKey = paymentList[index]['api_secret'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['api_key'];
+        secretKey = paymentList[index]['credentials']['api_secret'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'stripe':
-        publicKey = paymentList[index]['public_key'];
-        secretKey = paymentList[index]['secret_key'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['public_key'];
+        secretKey = paymentList[index]['credentials']['secret_key'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'cinetpay':
-        publicKey = paymentList[index]['site_id'];
-        secretKey = paymentList[index]['app_key'];
-        isTestMode = paymentList[index]['test_mode'];
+        publicKey = paymentList[index]['credentials']['site_id'];
+        secretKey = paymentList[index]['credentials']['apiKey'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'paytabs':
-        paytabProfileId = paymentList[index]['profile_id'];
-        secretKey = paymentList[index]['server_key'];
-        isTestMode = paymentList[index]['test_mode'];
+        paytabProfileId = paymentList[index]['credentials']['profile_id'];
+        secretKey = paymentList[index]['credentials']['server_key'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'squareup':
-        squareLocationId = paymentList[index]['location_id'];
-        secretKey = paymentList[index]['access_token'];
-        isTestMode = paymentList[index]['test_mode'];
+        squareLocationId = paymentList[index]['credentials']['location_id'];
+        secretKey = paymentList[index]['credentials']['access_token'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'billplz':
-        publicKey = paymentList[index]['key'];
-        secretKey = paymentList[index]['xsignature'];
+        publicKey = paymentList[index]['credentials']['key'];
+        secretKey = paymentList[index]['credentials']['x_signature'];
         billPlzCollectionName = paymentList[index]['collection_name'];
-        isTestMode = paymentList[index]['test_mode'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'zitopay':
-        zitopayUserName = paymentList[index]['username'];
-        isTestMode = paymentList[index]['test_mode'];
+        zitopayUserName = paymentList[index]['credentials']['username'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'manual_payment':
         publicKey = '';
         secretKey = '';
-        isTestMode = paymentList[index]['test_mode'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 
       case 'cash_on_delivery':
         publicKey = '';
         secretKey = '';
-        isTestMode = paymentList[index]['test_mode'];
+        isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
         notifyListeners();
         break;
 

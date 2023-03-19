@@ -52,13 +52,6 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                         builder: (context, provider, child) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // InkWell(
-                              //   onTap: () {
-                              //     MidtransService().payByMidtrans(context);
-                              //   },
-                              //   child: Text('pay'),
-                              // ),
-                              //border
                               Container(
                                 margin: const EdgeInsets.only(bottom: 20),
                                 child: dividerCommon(),
@@ -115,9 +108,8 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                                     : borderColor),
                                           ),
                                           child: CachedNetworkImage(
-                                            imageUrl:
-                                                pgProvider.paymentList[index]
-                                                    ['logo_link'],
+                                            imageUrl: pgProvider
+                                                .paymentList[index]['image'],
                                             placeholder: (context, url) {
                                               return Image.asset(
                                                   'assets/images/placeholder.png');
@@ -230,7 +222,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                   child: Text(
                                     asProvider.getString(
                                         'I agree with terms and conditions'),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: greyFour,
                                         fontWeight: FontWeight.w400,
                                         fontSize: 14),

@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:no_name_ecommerce/services/ticket_services/support_messages_service.dart';
+import 'package:no_name_ecommerce/services/refund_ticket_service/refund_ticket_messages_service.dart';
 import 'package:no_name_ecommerce/view/support_ticket/components/image_big_preview.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -14,27 +14,21 @@ import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
 
-class RefundChatPage extends StatefulWidget {
-  const RefundChatPage(
-      {Key? key,
-      required this.title,
-      required this.ticketId,
-      required this.departmentId,
-      required this.priority,
-      required this.description})
-      : super(key: key);
+class RefundTicketChatPage extends StatefulWidget {
+  const RefundTicketChatPage({
+    Key? key,
+    required this.title,
+    required this.ticketId,
+  }) : super(key: key);
 
   final String title;
   final ticketId;
-  final departmentId;
-  final priority;
-  final description;
 
   @override
-  State<RefundChatPage> createState() => _RefundChatPageState();
+  State<RefundTicketChatPage> createState() => _RefundTicketChatPageState();
 }
 
-class _RefundChatPageState extends State<RefundChatPage> {
+class _RefundTicketChatPageState extends State<RefundTicketChatPage> {
   bool firstTimeLoading = true;
 
   TextEditingController sendMessageController = TextEditingController();
@@ -111,7 +105,7 @@ class _RefundChatPageState extends State<RefundChatPage> {
             currentFocus.focusedChild?.unfocus();
           }
         },
-        child: Consumer<SupportMessagesService>(
+        child: Consumer<RefundTicketMessagesService>(
             builder: (context, provider, child) {
           if (provider.messagesList.isNotEmpty &&
               provider.sendLoading == false) {
@@ -342,12 +336,10 @@ class _RefundChatPageState extends State<RefundChatPage> {
                             FocusScope.of(context).unfocus();
                             //send message
                             provider.sendMessage(
-                                ticketId: widget.ticketId,
-                                message: sendMessageController.text,
-                                filePath: pickedFile?.path,
-                                departmentId: widget.departmentId,
-                                description: widget.description,
-                                priority: widget.priority);
+                              ticketId: widget.ticketId,
+                              message: sendMessageController.text,
+                              filePath: pickedFile?.path,
+                            );
 
                             //clear input field
                             sendMessageController.clear();
