@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,7 @@ class LoginSlider extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                titleCommon(ln.getString('Welcome,'),
+                titleCommon(ln.getString(ConstString.welcome),
                     fontsize: 18, fontweight: FontWeight.w600),
                 titleCommon(ln.getString(title),
                     fontsize: 20, fontweight: FontWeight.w600),

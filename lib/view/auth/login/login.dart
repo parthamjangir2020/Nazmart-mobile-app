@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/components/login_slider.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
 
@@ -53,8 +54,8 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context, ln, child) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const LoginSlider(
-                  title: 'Login to continue',
+                LoginSlider(
+                  title: ln.getString(ConstString.loginToContinue),
                 ),
 
                 Container(
@@ -71,17 +72,18 @@ class _LoginPageState extends State<LoginPage> {
                         ),
 
                         //Name ============>
-                        labelCommon(ln.getString("Email or username")),
+                        labelCommon(ln.getString(ConstString.emailOrUsername)),
 
                         CustomInput(
                           controller: emailController,
                           validation: (value) {
                             if (value == null || value.isEmpty) {
-                              return ln.getString('Please enter your email');
+                              return ln
+                                  .getString(ConstString.plzEnterYourEmail);
                             }
                             return null;
                           },
-                          hintText: ln.getString("Email"),
+                          hintText: ln.getString(ConstString.email),
                           icon: 'assets/icons/user.png',
                           textInputAction: TextInputAction.next,
                         ),
@@ -90,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
 
                         //password ===========>
-                        labelCommon(ln.getString("Password")),
+                        labelCommon(ln.getString(ConstString.pass)),
 
                         Container(
                             margin: const EdgeInsets.only(bottom: 19),
@@ -101,8 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: const TextStyle(fontSize: 14),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return ln
-                                      .getString('Please enter your password');
+                                  return ln.getString(ConstString.plzEnterPass);
                                 }
                                 return null;
                               },
@@ -160,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                                           const BorderSide(color: primaryColor),
                                       borderRadius: BorderRadius.circular(
                                           globalBorderRadius)),
-                                  hintText: ln.getString('Enter password'),
+                                  hintText: ln.getString(ConstString.enterPass),
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 18)),
                             )),
@@ -179,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: Text(
-                                    ln.getString("Remember me"),
+                                    ln.getString(ConstString.rememberMe),
                                     style: const TextStyle(
                                         color: greyFour,
                                         fontWeight: FontWeight.w400,
@@ -214,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                                 width: 122,
                                 height: 40,
                                 child: Text(
-                                  ln.getString("Forgot Password?"),
+                                  ln.getString(ConstString.forgotPass),
                                   style: const TextStyle(
                                       color: primaryColor,
                                       fontSize: 13,
@@ -231,8 +232,8 @@ class _LoginPageState extends State<LoginPage> {
                         ),
 
                         Consumer<LoginService>(
-                          builder: (context, provider, child) =>
-                              buttonPrimary(ln.getString("Login"), () {
+                          builder: (context, provider, child) => buttonPrimary(
+                              ln.getString(ConstString.login), () {
                             if (provider.isloading == false) {
                               if (_formKey.currentState!.validate()) {
                                 provider.login(
@@ -261,7 +262,7 @@ class _LoginPageState extends State<LoginPage> {
                             RichText(
                               text: TextSpan(
                                 text:
-                                    '${ln.getString("Do not have account?")}                         ',
+                                    '${ln.getString(ConstString.donotHaveAccount)}                         ',
                                 style: const TextStyle(
                                     color: Color(0xff646464), fontSize: 14),
                                 children: <TextSpan>[
@@ -274,7 +275,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   builder: (context) =>
                                                       const SignupPage()));
                                         },
-                                      text: ln.getString('Register'),
+                                      text: ln.getString(ConstString.register),
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,

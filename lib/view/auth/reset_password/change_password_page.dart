@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/change_pass_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbarCommon('Change password', context, () {
+      appBar: appbarCommon(ConstString.changePass, context, () {
         Navigator.pop(context);
       }),
       backgroundColor: Colors.white,
@@ -63,7 +64,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //New password =========================>
-                        labelCommon(ln.getString("Enter current password")),
+                        labelCommon(ln.getString(ConstString.enterCurrentPass)),
 
                         Container(
                             margin: const EdgeInsets.only(bottom: 19),
@@ -77,8 +78,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                               style: const TextStyle(fontSize: 14),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return ln
-                                      .getString("Enter your current password");
+                                  return ln.getString(
+                                      ConstString.enterYourCurrentPass);
                                 }
                                 return null;
                               },
@@ -130,14 +131,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                   focusedErrorBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: primaryColor)),
-                                  hintText:
-                                      ln.getString("Enter current password"),
+                                  hintText: ln
+                                      .getString(ConstString.enterCurrentPass),
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 18)),
                             )),
 
                         //New password =========================>
-                        labelCommon(ln.getString("Enter new password")),
+                        labelCommon(ln.getString(ConstString.enterNewPass)),
 
                         Container(
                             margin: const EdgeInsets.only(bottom: 19),
@@ -152,7 +153,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return ln
-                                      .getString('Please enter your password');
+                                      .getString(ConstString.plzEnterYourPass);
                                 }
                                 return null;
                               },
@@ -204,13 +205,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                   focusedErrorBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: primaryColor)),
-                                  hintText: ln.getString('New password'),
+                                  hintText: ln.getString(ConstString.newPass),
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 18)),
                             )),
 
                         //Repeat New password =========================>
-                        labelCommon(ln.getString('Repeat new password')),
+                        labelCommon(ln.getString(ConstString.repeatNewPass)),
 
                         Container(
                             margin: const EdgeInsets.only(bottom: 19),
@@ -225,7 +226,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return ln
-                                      .getString('Please retype your password');
+                                      .getString(ConstString.plzRetypePass);
                                 }
                                 return null;
                               },
@@ -277,7 +278,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                   focusedErrorBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: primaryColor)),
-                                  hintText: ln.getString('Retype new password'),
+                                  hintText:
+                                      ln.getString(ConstString.retypeNewPass),
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 18)),
                             )),
@@ -288,15 +290,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         ),
                         Consumer<ChangePassService>(
                           builder: (context, provider, child) => buttonPrimary(
-                              ln.getString('Change password'), () {
+                              ln.getString(ConstString.changePass), () {
                             if (newPasswordController.text.trim().length < 6 ||
                                 currentPasswordController.text.trim().length <
                                     6 ||
                                 repeatNewPasswordController.text.trim().length <
                                     6) {
-                              showToast(
-                                  ln.getString(
-                                      'Password must be at least 6 characters'),
+                              showToast(ln.getString(ConstString.passMustBeSix),
                                   Colors.black);
                               return;
                             }

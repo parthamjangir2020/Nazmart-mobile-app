@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/app_string_service.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,7 @@ class OrderHelper {
                   offset: const Offset(0, 13)),
             ],
           ),
-          child: Consumer<AppStringService>(
+          child: Consumer<TranslateStringService>(
             builder: (context, ln, child) => Column(
               children: [
                 Text(
