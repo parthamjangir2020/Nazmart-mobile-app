@@ -2,7 +2,9 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:no_name_ecommerce/services/campaign_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/featured_product_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
@@ -40,6 +42,11 @@ runAtHomeScreen(BuildContext context) {
   Provider.of<CartService>(context, listen: false).fetchCartProductNumber();
 
   Provider.of<SliderService>(context, listen: false).fetchSlider();
+  Provider.of<CampaignService>(context, listen: false)
+      .fetchCampaignList(context);
+  Provider.of<FeaturedProductService>(context, listen: false)
+      .fetchFeaturedProducts(context);
+
   // Provider.of<QuickDonationDropdownService>(context, listen: false)
   //     .fetchCampaign(context);
   // Provider.of<FeaturedCampaignService>(context, listen: false)

@@ -23,8 +23,6 @@ class _CampaignListState extends State<CampaignList> {
   @override
   void initState() {
     super.initState();
-    Provider.of<CampaignService>(context, listen: false)
-        .fetchCampaignList(context);
   }
 
   @override

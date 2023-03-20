@@ -39,14 +39,16 @@ appbarCommon(String title, BuildContext context, VoidCallback pressed,
 }
 
 labelCommon(String title) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 15),
-    child: Text(
-      title,
-      style: const TextStyle(
-        color: greyThree,
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
+  return Consumer<TranslateStringService>(
+    builder: (context, ln, child) => Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      child: Text(
+        ln.getString(title),
+        style: const TextStyle(
+          color: greyThree,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     ),
   );
@@ -62,22 +64,24 @@ buttonPrimary(String title, VoidCallback pressed,
     fontColor = Colors.white}) {
   return InkWell(
     onTap: pressed,
-    child: Container(
-        width: double.infinity,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: paddingVertical),
-        decoration: BoxDecoration(
-            color: bgColor ?? primaryColor,
-            borderRadius: BorderRadius.circular(borderRadius)),
-        child: isloading == false
-            ? Text(
-                title,
-                style: TextStyle(
-                  color: fontColor,
-                  fontSize: fontsize,
-                ),
-              )
-            : showLoading(Colors.white)),
+    child: Consumer<TranslateStringService>(
+      builder: (context, ln, child) => Container(
+          width: double.infinity,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: paddingVertical),
+          decoration: BoxDecoration(
+              color: bgColor ?? primaryColor,
+              borderRadius: BorderRadius.circular(borderRadius)),
+          child: isloading == false
+              ? Text(
+                  ln.getString(title),
+                  style: TextStyle(
+                    color: fontColor,
+                    fontSize: fontsize,
+                  ),
+                )
+              : showLoading(Colors.white)),
+    ),
   );
 }
 

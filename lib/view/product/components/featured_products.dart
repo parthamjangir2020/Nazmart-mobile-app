@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/featured_product_service.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/product/all_featured_products_page.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class FeaturedProducts extends StatelessWidget {
   const FeaturedProducts({
@@ -29,32 +32,39 @@ class FeaturedProducts extends StatelessWidget {
         const SizedBox(
           height: 18,
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 5),
-          height: 235,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            clipBehavior: Clip.none,
-            children: [
-              for (int i = 0; i < 5; i++)
-                ProductCard(
-                  imageLink:
-                      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80',
-                  title: 'Black T-Shirt',
-                  width: 180,
-                  marginRight: 20,
-                  oldPrice: 32.99,
-                  discountPrice: 10,
-                  productId: 1,
-                  ratingAverage: '4.5',
-                  ratingCount: '10',
-                  pressed: () {
-                    gotoProductDetails(context, '239');
-                  },
+        Consumer<FeaturedProductService>(
+          builder: (context, p, child) => p.featuredProducts != null
+              ? Container(
+                  margin: const EdgeInsets.only(top: 5),
+                  height: 235,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    clipBehavior: Clip.none,
+                    children: [
+                      for (int i = 0; i < p.featuredProducts!.data.length; i++)
+                        ProductCard(
+                          imageLink: p.featuredProducts?.data[i].imgUrl ??
+                              placeHolderUrl,
+                          title: p.featuredProducts?.data[i].title,
+                          width: 200,
+                          oldPrice: p.featuredProducts?.data[i].price,
+                          discountPrice:
+                              p.featuredProducts?.data[i].discountPrice,
+                          marginRight: 5,
+                          productId: p.featuredProducts?.data[i].prdId,
+                          ratingAverage: p.featuredProducts?.data[i].avgRatting,
+                          discountPercent:
+                              p.featuredProducts?.data[i].campaignPercentage,
+                          pressed: () {
+                            gotoProductDetails(
+                                context, p.featuredProducts?.data[i].prdId);
+                          },
+                        )
+                    ],
+                  ),
                 )
-            ],
-          ),
+              : Container(),
         ),
       ],
     );

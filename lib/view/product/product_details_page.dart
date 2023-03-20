@@ -121,13 +121,15 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                                 const ProductDetailsQty(),
 
                                 gapH(25),
-
-                                CampaignTimer(
-                                  remainingTime: DateTime.parse(provider
-                                      .productDetails
-                                      ?.product
-                                      ?.campaignProduct['end_date']),
-                                ),
+                                if (provider.productDetails?.product
+                                        ?.campaignProduct !=
+                                    null)
+                                  CampaignTimer(
+                                    remainingTime: DateTime.parse(provider
+                                        .productDetails
+                                        ?.product
+                                        ?.campaignProduct['end_date']),
+                                  ),
 
                                 //========>
                                 // tab

@@ -33,6 +33,7 @@ class ApiUrl {
   static const String ticketListUri = '$baseUri/user/ticket?page';
   static const String refundTicketListUri = '$baseUri/user/refund-ticket?page';
   static const String campaignProductsUri = '$baseUri/campaign/product';
+  static const String featuredProductsUri = '$baseUri/featured/product';
   static const String campaignListUri = '$baseUri/campaign';
   static const String categoryUri = '$baseUri/category';
   static const String childCategoryUri = '$baseUri/child-category';
