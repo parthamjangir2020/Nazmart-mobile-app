@@ -126,6 +126,18 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
     var cProvider = Provider.of<CartService>(context, listen: false);
     var provider = Provider.of<ProductDetailsService>(context, listen: false);
 
+    final usedCategories = {
+      "category": provider.productDetails?.product?.category?.id,
+      "subcategory": provider.productDetails?.product?.subCategory?.id,
+      "childcategory": provider.productDetails?.product?.childCategory
+          .map((e) => e.id)
+          .toList(),
+    };
+
+    final attributes = provider.selectedInventorySet;
+
+    final variantId = provider.variantId;
+
     cProvider.addToCartOrUpdateQty(context,
         title: provider.productDetails?.product?.name ?? '',
         thumbnail: provider.productDetails?.product?.image ?? placeHolderUrl,

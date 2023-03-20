@@ -3,6 +3,7 @@ import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +32,7 @@ class HomeTop extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${ln.getString('Hi,')}',
+                                    '${ln.getString(ConstString.hi)}' ',',
                                     style: const TextStyle(
                                       color: greyParagraph,
                                       fontSize: 14,
@@ -59,7 +60,7 @@ class HomeTop extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Text(ln.getString('Could not load user profile info'))
+                    : Text(ln.getString(ConstString.couldNotLoadProfileInfo))
                 : Container(),
       ),
     );

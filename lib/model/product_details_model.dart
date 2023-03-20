@@ -313,16 +313,18 @@ class Product {
 
 class Category {
   Category({
+    this.id,
     this.name,
     this.categoryImage,
     this.image,
   });
-
+  dynamic id;
   String? name;
   String? categoryImage;
   Image? image;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
+        id: json['id'],
         name: json["name"],
         categoryImage: json["categoryImage"],
         image: json["image"] != null ? Image.fromJson(json["image"]) : null,
@@ -364,15 +366,13 @@ class Image {
 }
 
 class ChildCategory {
-  ChildCategory({
-    this.name,
-    this.image,
-  });
-
+  ChildCategory({this.name, this.image, this.id});
+  dynamic id;
   String? name;
   dynamic image;
 
   factory ChildCategory.fromJson(Map<String, dynamic> json) => ChildCategory(
+        id: json["id"],
         name: json["name"],
         image: json["image"],
       );

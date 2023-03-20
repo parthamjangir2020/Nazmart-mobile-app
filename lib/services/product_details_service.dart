@@ -24,6 +24,7 @@ class ProductDetailsService with ChangeNotifier {
   List<String> inventoryHash = [];
   bool cartAble = false;
   var additionalInfoImage;
+  var variantId;
   num productSalePrice = 0;
   int? selectedIndex;
   var selectedInventoryHash;
@@ -59,6 +60,7 @@ class ProductDetailsService with ChangeNotifier {
     selectedInventorySetIndex = [];
     selectedInventorySet = {};
     cartAble = false;
+    variantId = null;
     inventoryKeys = [];
     allAtrributes = {};
     selectedAttributes = [];
@@ -73,6 +75,7 @@ class ProductDetailsService with ChangeNotifier {
     selectedAttributes = [];
     additionalInfoImage = null;
     cartAble = false;
+    variantId = null;
     productSalePrice = (productDetails!.product?.salePrice ?? 0).toDouble();
     selectedInventorySetIndex = [];
     selectedAttributes = [];
@@ -155,6 +158,8 @@ class ProductDetailsService with ChangeNotifier {
                   .additionalInfoStore![selectedInventoryHash]!.image;
       additionalInfoImage =
           additionalInfoImage == '' ? null : additionalInfoImage;
+      variantId =
+          productDetails?.additionalInfoStore![selectedInventoryHash]?.pidId;
       cartAble = true;
       selectedInventorySet.remove('hash');
       // print(selectedInventorySet);
@@ -166,6 +171,7 @@ class ProductDetailsService with ChangeNotifier {
     // print(productDetails!.productInventorySet[selectedIndex!]);
     print('outside..............');
     cartAble = false;
+    variantId = null;
     productSalePrice =
         productDetails!.product!.campaignProduct?['campaign_price'] != null
             ? double.parse(
@@ -273,7 +279,7 @@ class ProductDetailsService with ChangeNotifier {
           Uri.parse('${ApiUrl.productDetailsUri}/$productId'),
           headers: header);
 
-      print(response.body);
+      print('${ApiUrl.productDetailsUri}/$productId');
 
       if (response.statusCode == 200) {
         productDetails =
@@ -325,6 +331,8 @@ class ProductDetailsService with ChangeNotifier {
         additionalInventoryInfo = productDetails!.additionalInfoStore ?? {};
         if (productDetails!.additionalInfoStore == null) {
           cartAble = true;
+          variantId = productDetails
+              ?.additionalInfoStore![selectedInventoryHash]?.pidId;
         }
 
         print(allAtrributes);

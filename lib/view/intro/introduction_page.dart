@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/intro_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/login.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
@@ -91,104 +93,106 @@ class _IntroductionPageState extends State<IntroductionPage> {
       bottomNavigationBar: Container(
         height: 150,
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Consumer<IntroService>(
-          builder: (context, v, child) => Column(children: [
-            //slider count show =======>
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (var i = 0; i < v.introDataList.length; i++)
-                  Container(
-                    margin: const EdgeInsets.only(right: 5),
-                    height: 16,
-                    width: 16,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        border: Border.all(
+        child: Consumer<TranslateStringService>(
+          builder: (context, ln, child) => Consumer<IntroService>(
+            builder: (context, v, child) => Column(children: [
+              //slider count show =======>
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (var i = 0; i < v.introDataList.length; i++)
+                    Container(
+                      margin: const EdgeInsets.only(right: 5),
+                      height: 16,
+                      width: 16,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: _selectedSlide == i
+                                  ? primaryColor
+                                  : Colors.transparent),
+                          shape: BoxShape.circle),
+                      child: Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
                             color: _selectedSlide == i
                                 ? primaryColor
-                                : Colors.transparent),
-                        shape: BoxShape.circle),
-                    child: Container(
-                      height: 10,
-                      width: 10,
-                      decoration: BoxDecoration(
-                          color: _selectedSlide == i
-                              ? primaryColor
-                              : const Color(0xffD0D5DD),
-                          shape: BoxShape.circle),
-                    ),
-                  )
-              ],
-            ),
+                                : const Color(0xffD0D5DD),
+                            shape: BoxShape.circle),
+                      ),
+                    )
+                ],
+              ),
 
-            //buttons
-            const SizedBox(
-              height: 42,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPage()),
-                          (Route<dynamic> route) => false);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 16),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: primaryColor, width: 1.5),
-                          borderRadius: BorderRadius.circular(7)),
-                      child: const Text(
-                        'Skip',
-                        style: TextStyle(
-                            color: primaryColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600),
+              //buttons
+              const SizedBox(
+                height: 42,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()),
+                            (Route<dynamic> route) => false);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 16),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: primaryColor, width: 1.5),
+                            borderRadius: BorderRadius.circular(7)),
+                        child: Text(
+                          ln.getString(ConstString.skip),
+                          style: const TextStyle(
+                              color: primaryColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 18,
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      if (_selectedSlide == v.introDataList.length - 1) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginPage()));
-                      } else {
-                        _pageController.animateToPage(_selectedSlide + 1,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.ease);
-                      }
-                    },
-                    child: Container(
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(vertical: 18),
-                        decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: const Text(
-                          'Continue',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        )),
+                  const SizedBox(
+                    width: 18,
                   ),
-                ),
-              ],
-            )
-          ]),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        if (_selectedSlide == v.introDataList.length - 1) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                        } else {
+                          _pageController.animateToPage(_selectedSlide + 1,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.ease);
+                        }
+                      },
+                      child: Container(
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Text(
+                            ln.getString(ConstString.continueText),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
+                          )),
+                    ),
+                  ),
+                ],
+              )
+            ]),
+          ),
         ),
       ),
     );

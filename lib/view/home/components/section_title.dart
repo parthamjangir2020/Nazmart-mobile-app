@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constant_colors.dart';
@@ -19,10 +20,10 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TranslateStringService>(
-      builder: (context, asProvider, child) => Row(
+      builder: (context, ln, child) => Row(
         children: [
           Text(
-            title,
+            ln.getString(title),
             style: const TextStyle(
               color: blackCustomColor,
               fontSize: 17,
@@ -39,7 +40,7 @@ class SectionTitle extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      asProvider.getString('See all'),
+                      ln.getString(ConstString.seeAll),
                       style: const TextStyle(
                         color: primaryColor,
                         fontSize: 15,

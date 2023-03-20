@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 
 class HomepageHelper {
   Widget searchbar(asProvider, BuildContext context) {
@@ -27,7 +27,7 @@ class HomepageHelper {
               width: 10,
             ),
             Text(
-              asProvider.getString("Search products"),
+              asProvider.getString(ConstString.searchProducts),
               style: const TextStyle(
                 color: Color.fromARGB(255, 126, 126, 126),
                 fontSize: 14,

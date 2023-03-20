@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/discover_products_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -36,10 +38,14 @@ class _DiscoverPageState extends State<DiscoverPage> {
       appBar: AppBar(
           centerTitle: true,
           iconTheme: const IconThemeData(color: greyPrimary),
-          title: const Text(
-            'Discover',
-            style: TextStyle(
-                color: greyPrimary, fontSize: 16, fontWeight: FontWeight.w600),
+          title: Consumer<TranslateStringService>(
+            builder: (context, ln, child) => Text(
+              ln.getString(ConstString.discover),
+              style: const TextStyle(
+                  color: greyPrimary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
           backgroundColor: Colors.transparent,
           elevation: 0),

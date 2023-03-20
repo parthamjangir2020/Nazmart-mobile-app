@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -41,7 +42,7 @@ class OrderHelper {
             builder: (context, ln, child) => Column(
               children: [
                 Text(
-                  '${ln.getString('Are you sure')}?',
+                  '${ln.getString(ConstString.areYouSure)}?',
                   style: const TextStyle(color: greyPrimary, fontSize: 17),
                 ),
                 const SizedBox(
@@ -50,7 +51,8 @@ class OrderHelper {
                 Row(
                   children: [
                     Expanded(
-                        child: borderButtonPrimary(ln.getString('Cancel'), () {
+                        child: borderButtonPrimary(
+                            ln.getString(ConstString.cancel), () {
                       Navigator.pop(context);
                     })),
                     const SizedBox(
@@ -58,7 +60,8 @@ class OrderHelper {
                     ),
                     Consumer<OrderService>(
                       builder: (context, provider, child) => Expanded(
-                          child: buttonPrimary(ln.getString('Yes'), () {
+                          child:
+                              buttonPrimary(ln.getString(ConstString.yes), () {
                         provider.refundProduct(context,
                             orderId: orderId, productId: productId);
                       }, isloading: provider.refundLoading)),

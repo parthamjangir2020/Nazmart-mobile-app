@@ -40,7 +40,6 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('discount percent $discountPercent');
     return InkWell(
       onTap: pressed,
       child: Consumer<CartService>(

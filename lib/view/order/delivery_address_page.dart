@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/country_states_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
 import 'package:no_name_ecommerce/view/order/components/free_ship_option.dart';
 import 'package:no_name_ecommerce/view/order/components/shipping_option.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
@@ -100,295 +102,306 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
           }
         },
         child: SingleChildScrollView(
-          child: Consumer<DeliveryAddressService>(
-            builder: (context, dProvider, child) => Consumer<CartService>(
-              builder: (context, cProvider, child) => Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenPadHorizontal, vertical: 25),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const CountryStatesDropdowns(),
+          child: Consumer<TranslateStringService>(
+            builder: (context, ln, child) => Consumer<DeliveryAddressService>(
+              builder: (context, dProvider, child) => Consumer<CartService>(
+                builder: (context, cProvider, child) => Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenPadHorizontal, vertical: 25),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const CountryStatesDropdowns(),
 
-                        gapH(20),
-                        //Name ============>
-                        labelCommon("Full name"),
+                          gapH(20),
+                          //Name ============>
+                          labelCommon(ConstString.fullName),
 
-                        CustomInput(
-                          controller: fullNameController,
-                          validation: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your full name';
-                            }
-                            return null;
-                          },
-                          hintText: "Enter your full name",
-                          // icon: 'assets/icons/user.png',
-                          paddingHorizontal: 17,
-                          textInputAction: TextInputAction.next,
-                        ),
-                        gapH(5),
+                          CustomInput(
+                            controller: fullNameController,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return ln
+                                    .getString(ConstString.plzEnterFullName);
+                              }
+                              return null;
+                            },
+                            hintText: ln.getString(ConstString.enterFullName),
+                            // icon: 'assets/icons/user.png',
+                            paddingHorizontal: 17,
+                            textInputAction: TextInputAction.next,
+                          ),
+                          gapH(5),
 
-                        //Email ============>
-                        labelCommon("Email"),
+                          //Email ============>
+                          labelCommon(ConstString.email),
 
-                        CustomInput(
-                          controller: emailController,
-                          validation: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
-                          hintText: "Enter your email",
-                          // icon: 'assets/icons/email-grey.png',
-                          paddingHorizontal: 17,
-                          textInputAction: TextInputAction.next,
-                        ),
-                        gapH(5),
+                          CustomInput(
+                            controller: emailController,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return ln.getString(ConstString.plzEnterEmail);
+                              }
+                              return null;
+                            },
+                            hintText: ln.getString(ConstString.enterEmail),
+                            // icon: 'assets/icons/email-grey.png',
+                            paddingHorizontal: 17,
+                            textInputAction: TextInputAction.next,
+                          ),
+                          gapH(5),
 
-                        //Phone ============>
-                        labelCommon("Phone"),
+                          //Phone ============>
+                          labelCommon(ConstString.phone),
 
-                        CustomInput(
-                          controller: phoneController,
-                          validation: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your phone';
-                            }
-                            return null;
-                          },
-                          hintText: "Enter your phone",
-                          isNumberField: true,
-                          // icon: 'assets/icons/email-grey.png',
-                          paddingHorizontal: 17,
-                          textInputAction: TextInputAction.next,
-                        ),
+                          CustomInput(
+                            controller: phoneController,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return ln.getString(ConstString.plzEnterPhone);
+                              }
+                              return null;
+                            },
+                            hintText:
+                                ln.getString(ConstString.enterPhoneNumber),
+                            isNumberField: true,
+                            // icon: 'assets/icons/email-grey.png',
+                            paddingHorizontal: 17,
+                            textInputAction: TextInputAction.next,
+                          ),
 
-                        gapH(10),
+                          gapH(10),
 
-                        //City /town ============>
-                        labelCommon("City/Town"),
+                          //City /town ============>
+                          labelCommon(ConstString.cityTown),
 
-                        CustomInput(
-                          controller: cityController,
-                          validation: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your city or town';
-                            }
-                            return null;
-                          },
-                          hintText: "Enter your city/town",
-                          // icon: 'assets/icons/email-grey.png',
-                          paddingHorizontal: 17,
-                          textInputAction: TextInputAction.next,
-                        ),
+                          CustomInput(
+                            controller: cityController,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return ln
+                                    .getString(ConstString.plzEnterCityTown);
+                              }
+                              return null;
+                            },
+                            hintText: ln.getString(ConstString.enterCityTown),
+                            // icon: 'assets/icons/email-grey.png',
+                            paddingHorizontal: 17,
+                            textInputAction: TextInputAction.next,
+                          ),
 
-                        gapH(5),
+                          gapH(5),
 
-                        //Zip code ============>
-                        labelCommon("Zip code"),
+                          //Zip code ============>
+                          labelCommon(ConstString.zipCode),
 
-                        CustomInput(
-                          controller: zipController,
-                          validation: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your zip code';
-                            }
-                            return null;
-                          },
-                          hintText: "Enter your zip code",
-                          // icon: 'assets/icons/email-grey.png',
-                          paddingHorizontal: 17,
-                          textInputAction: TextInputAction.next,
-                        ),
+                          CustomInput(
+                            controller: zipController,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return ln.getString(ConstString.plzEnterZip);
+                              }
+                              return null;
+                            },
+                            hintText: ln.getString(ConstString.enterZip),
+                            paddingHorizontal: 17,
+                            textInputAction: TextInputAction.next,
+                          ),
 
-                        gapH(5),
+                          gapH(5),
 
-                        //Zip code ============>
-                        labelCommon("Address"),
+                          //Zip code ============>
+                          labelCommon(ConstString.address),
 
-                        CustomInput(
-                          controller: addressController,
-                          validation: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your address';
-                            }
-                            return null;
-                          },
-                          hintText: "Enter your address",
-                          // icon: 'assets/icons/email-grey.png',
-                          paddingHorizontal: 17,
-                          textInputAction: TextInputAction.next,
-                        ),
+                          CustomInput(
+                            controller: addressController,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your address';
+                              }
+                              return null;
+                            },
+                            hintText: "Enter your address",
+                            // icon: 'assets/icons/email-grey.png',
+                            paddingHorizontal: 17,
+                            textInputAction: TextInputAction.next,
+                          ),
 
-                        gapH(5),
-                        // Shipping options
+                          gapH(5),
+                          // Shipping options
 
-                        dProvider.shippingCostDetails != null
-                            ? dProvider.hasError != true
-                                ? Column(
-                                    children: [
-                                      //default shipping
-                                      InkWell(
-                                        onTap: () {
-                                          var minOrder = dProvider
-                                                  .shippingCostDetails
-                                                  ?.defaultShippingOptions
-                                                  .options
-                                                  ?.minimumOrderAmount ??
-                                              0;
-                                          var couponNeeded =
-                                              dProvider.checkIfCouponNeed(
-                                                  dProvider
-                                                      .shippingCostDetails
-                                                      ?.defaultShippingOptions
-                                                      .options
-                                                      ?.coupon,
-                                                  context);
-                                          if (cProvider.subTotal < minOrder) {
-                                            showToast(
-                                                'Minimum \$$minOrder order is needed',
-                                                Colors.black);
-                                            return;
-                                          } else if (couponNeeded) {
-                                            showToast('Coupon is needed',
-                                                Colors.black);
-                                            return;
-                                          }
+                          dProvider.shippingCostDetails != null
+                              ? dProvider.hasError != true
+                                  ? Column(
+                                      children: [
+                                        //default shipping
+                                        InkWell(
+                                          onTap: () {
+                                            var minOrder = dProvider
+                                                    .shippingCostDetails
+                                                    ?.defaultShippingOptions
+                                                    .options
+                                                    ?.minimumOrderAmount ??
+                                                0;
+                                            var couponNeeded =
+                                                dProvider.checkIfCouponNeed(
+                                                    dProvider
+                                                        .shippingCostDetails
+                                                        ?.defaultShippingOptions
+                                                        .options
+                                                        ?.coupon,
+                                                    context);
+                                            if (cProvider.subTotal < minOrder) {
+                                              showToast(
+                                                  'Minimum \$$minOrder order is needed',
+                                                  Colors.black);
+                                              return;
+                                            } else if (couponNeeded) {
+                                              showToast('Coupon is needed',
+                                                  Colors.black);
+                                              return;
+                                            }
 
-                                          dProvider.setShipIdAndCosts(
+                                            dProvider.setShipIdAndCosts(
+                                                dProvider
+                                                    .shippingCostDetails
+                                                    ?.defaultShippingOptions
+                                                    .options
+                                                    ?.shippingMethodId,
+                                                dProvider
+                                                        .shippingCostDetails
+                                                        ?.defaultShippingOptions
+                                                        .options
+                                                        ?.cost ??
+                                                    0,
+                                                dProvider
+                                                    .shippingCostDetails
+                                                    ?.defaultShippingOptions
+                                                    .name,
+                                                context);
+
+                                            setState(() {
                                               dProvider
-                                                  .shippingCostDetails
-                                                  ?.defaultShippingOptions
-                                                  .options
-                                                  ?.shippingMethodId,
-                                              dProvider
-                                                      .shippingCostDetails
-                                                      ?.defaultShippingOptions
-                                                      .options
-                                                      ?.cost ??
-                                                  0,
-                                              dProvider.shippingCostDetails
-                                                  ?.defaultShippingOptions.name,
-                                              context);
-
-                                          setState(() {
-                                            dProvider.setSelectedShipIndex(-1);
-                                          });
-                                        },
-                                        child: FreeShipOption(
-                                          selectedShipping:
-                                              dProvider.selectedShippingIndex,
-                                        ),
-                                      ),
-
-                                      //Other shipping option ======>
-                                      for (int i = 0;
-                                          i <
-                                              dProvider.shippingCostDetails!
-                                                  .shippingOptions.length;
-                                          i++)
-                                        if (dProvider.shippingCostDetails!
-                                                .shippingOptions[i].id !=
-                                            dProvider.shippingCostDetails!
-                                                .defaultShippingOptions.id)
-                                          InkWell(
-                                            onTap: () {
-                                              var minOrder = dProvider
-                                                      .shippingCostDetails
-                                                      ?.shippingOptions[i]
-                                                      .options
-                                                      ?.minimumOrderAmount ??
-                                                  0;
-                                              var couponNeeded =
-                                                  dProvider.checkIfCouponNeed(
-                                                      dProvider
-                                                          .shippingCostDetails
-                                                          ?.shippingOptions[i]
-                                                          .options
-                                                          ?.coupon,
-                                                      context);
-                                              if (cProvider.subTotal <
-                                                  minOrder) {
-                                                showToast(
-                                                    'Minimum \$$minOrder order is needed',
-                                                    Colors.black);
-                                                return;
-                                              } else if (couponNeeded) {
-                                                showToast('Coupon is needed',
-                                                    Colors.black);
-
-                                                return;
-                                              }
-                                              dProvider.setShipIdAndCosts(
-                                                  dProvider
-                                                      .shippingCostDetails
-                                                      ?.shippingOptions[i]
-                                                      .options
-                                                      ?.shippingMethodId,
-                                                  dProvider
-                                                      .shippingCostDetails
-                                                      ?.shippingOptions[i]
-                                                      .options
-                                                      ?.cost,
-                                                  dProvider.shippingCostDetails
-                                                      ?.shippingOptions[i].name,
-                                                  context);
-
-                                              dProvider.setSelectedShipIndex(i);
-                                            },
-                                            child: ShippingOption(
-                                                selectedShipping: dProvider
-                                                    .selectedShippingIndex,
-                                                dProvider: dProvider,
-                                                i: i),
+                                                  .setSelectedShipIndex(-1);
+                                            });
+                                          },
+                                          child: FreeShipOption(
+                                            selectedShipping:
+                                                dProvider.selectedShippingIndex,
                                           ),
-                                    ],
-                                  )
-                                : Container(
-                                    margin: const EdgeInsets.only(bottom: 15),
-                                    child: const Text(
-                                      'No shipping option available',
-                                      style: TextStyle(color: warningColor),
-                                    ),
-                                  )
-                            : Container(
-                                margin: const EdgeInsets.only(bottom: 10),
-                                child: showLoading(primaryColor),
-                              ),
-                        gapH(10),
-                        buttonPrimary("Save", () {
-                          if (_formKey.currentState!.validate()) {
-                            if (dProvider.vatLoading == true) {
-                              return;
-                            }
+                                        ),
 
-                            var stateId = Provider.of<CountryStatesService>(
-                                    context,
-                                    listen: false)
-                                .selectedStateId;
-                            if (stateId == '0') {
-                              showToast('Please select a state', Colors.black);
-                              return;
-                            }
-                            dProvider.enteredDeliveryAddress = {
-                              'name': fullNameController.text,
-                              'email': emailController.text,
-                              'phone': phoneController.text,
-                              'city': cityController.text,
-                              'zip': zipController.text,
-                              'address': addressController.text
-                            };
+                                        //Other shipping option ======>
+                                        for (int i = 0;
+                                            i <
+                                                dProvider.shippingCostDetails!
+                                                    .shippingOptions.length;
+                                            i++)
+                                          if (dProvider.shippingCostDetails!
+                                                  .shippingOptions[i].id !=
+                                              dProvider.shippingCostDetails!
+                                                  .defaultShippingOptions.id)
+                                            InkWell(
+                                              onTap: () {
+                                                var minOrder = dProvider
+                                                        .shippingCostDetails
+                                                        ?.shippingOptions[i]
+                                                        .options
+                                                        ?.minimumOrderAmount ??
+                                                    0;
+                                                var couponNeeded =
+                                                    dProvider.checkIfCouponNeed(
+                                                        dProvider
+                                                            .shippingCostDetails
+                                                            ?.shippingOptions[i]
+                                                            .options
+                                                            ?.coupon,
+                                                        context);
+                                                if (cProvider.subTotal <
+                                                    minOrder) {
+                                                  showToast(
+                                                      'Minimum \$$minOrder order is needed',
+                                                      Colors.black);
+                                                  return;
+                                                } else if (couponNeeded) {
+                                                  showToast('Coupon is needed',
+                                                      Colors.black);
 
-                            // dProvider.fetchShippingCostAndVat(context);
-                          }
-                        },
-                            isloading:
-                                dProvider.vatLoading == false ? false : true),
-                      ]),
+                                                  return;
+                                                }
+                                                dProvider.setShipIdAndCosts(
+                                                    dProvider
+                                                        .shippingCostDetails
+                                                        ?.shippingOptions[i]
+                                                        .options
+                                                        ?.shippingMethodId,
+                                                    dProvider
+                                                        .shippingCostDetails
+                                                        ?.shippingOptions[i]
+                                                        .options
+                                                        ?.cost,
+                                                    dProvider
+                                                        .shippingCostDetails
+                                                        ?.shippingOptions[i]
+                                                        .name,
+                                                    context);
+
+                                                dProvider
+                                                    .setSelectedShipIndex(i);
+                                              },
+                                              child: ShippingOption(
+                                                  selectedShipping: dProvider
+                                                      .selectedShippingIndex,
+                                                  dProvider: dProvider,
+                                                  i: i),
+                                            ),
+                                      ],
+                                    )
+                                  : Container(
+                                      margin: const EdgeInsets.only(bottom: 15),
+                                      child: const Text(
+                                        'No shipping option available',
+                                        style: TextStyle(color: warningColor),
+                                      ),
+                                    )
+                              : Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  child: showLoading(primaryColor),
+                                ),
+                          gapH(10),
+                          buttonPrimary("Save", () {
+                            if (_formKey.currentState!.validate()) {
+                              if (dProvider.vatLoading == true) {
+                                return;
+                              }
+
+                              var stateId = Provider.of<CountryStatesService>(
+                                      context,
+                                      listen: false)
+                                  .selectedStateId;
+                              if (stateId == '0') {
+                                showToast(
+                                    'Please select a state', Colors.black);
+                                return;
+                              }
+                              dProvider.enteredDeliveryAddress = {
+                                'name': fullNameController.text,
+                                'email': emailController.text,
+                                'phone': phoneController.text,
+                                'city': cityController.text,
+                                'zip': zipController.text,
+                                'address': addressController.text
+                              };
+
+                              // dProvider.fetchShippingCostAndVat(context);
+                            }
+                          },
+                              isloading:
+                                  dProvider.vatLoading == false ? false : true),
+                        ]),
+                  ),
                 ),
               ),
             ),

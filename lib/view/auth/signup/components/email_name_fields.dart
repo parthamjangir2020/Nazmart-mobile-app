@@ -47,27 +47,27 @@ class EmailNameFields extends StatelessWidget {
             paddingHorizontal: 20,
             validation: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your username';
+                return ln.getString(ConstString.plzEnterUsername);
               }
               return null;
             },
-            hintText: "Enter your username",
+            hintText: ln.getString(ConstString.enterUsername),
             textInputAction: TextInputAction.next,
           ),
 
           //Email ============>
-          labelCommon("Email"),
+          labelCommon(ConstString.email),
 
           CustomInput(
             controller: emailController,
             paddingHorizontal: 20,
             validation: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your email';
+                return ln.getString(ConstString.plzEnterYourEmail);
               }
               return null;
             },
-            hintText: "Enter your email",
+            hintText: ConstString.enterEmail,
             textInputAction: TextInputAction.next,
           ),
         ],

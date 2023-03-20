@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
+import 'package:provider/provider.dart';
 
 class CampaignTimer extends StatefulWidget {
   const CampaignTimer({super.key, required this.remainingTime});
@@ -67,7 +70,12 @@ class TimerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List timeCardTitle = ['Days', 'Hours', 'Minutes', 'Seconds'];
+    List timeCardTitle = [
+      ConstString.days,
+      ConstString.hours,
+      ConstString.minutes,
+      ConstString.seconds
+    ];
 
     getTime(index) {
       if (index == 0) {
@@ -81,19 +89,22 @@ class TimerCard extends StatelessWidget {
       }
     }
 
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      AutoSizeText(
-        getTime(i),
-        maxLines: 1,
-        style: const TextStyle(
-            color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
-      ),
-      gapH(3),
-      AutoSizeText(
-        timeCardTitle[i],
-        maxLines: 1,
-        style: const TextStyle(color: Colors.white, fontSize: 12),
-      ),
-    ]);
+    return Consumer<TranslateStringService>(
+      builder: (context, ln, child) =>
+          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        AutoSizeText(
+          getTime(i),
+          maxLines: 1,
+          style: const TextStyle(
+              color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+        ),
+        gapH(3),
+        AutoSizeText(
+          ln.getString(timeCardTitle[i]),
+          maxLines: 1,
+          style: const TextStyle(color: Colors.white, fontSize: 12),
+        ),
+      ]),
+    );
   }
 }

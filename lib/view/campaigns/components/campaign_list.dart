@@ -6,6 +6,7 @@ import 'package:no_name_ecommerce/view/campaigns/campaign_products_by_category.d
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/campaigns/components/campaign_timer.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ class _CampaignListState extends State<CampaignList> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SectionTitle(
-                  title: 'Campaign products',
+                  title: ConstString.campaignProducts,
                   hasSeeAllBtn: false,
                 ),
                 gapH(15),
