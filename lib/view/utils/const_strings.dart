@@ -174,7 +174,6 @@ class ConstString {
   static const String orderId = 'Order id';
   static const String date = 'Date';
   static const String amount = 'Amount';
-
   static const String completed = 'Completed';
   static const String filterBy = 'Filter by';
   static const String category = 'Category';

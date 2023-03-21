@@ -8,6 +8,7 @@ import 'package:no_name_ecommerce/services/featured_product_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +59,8 @@ runAtHomeScreen(BuildContext context) {
 }
 
 runAtStart(BuildContext context) {
-  // Provider.of<RtlService>(context, listen: false).fetchCurrency();
+  Provider.of<TranslateStringService>(context, listen: false)
+      .fetchTranslatedStrings();
   // Provider.of<RtlService>(context, listen: false).fetchDirection();
 
   // //fetch payment gateway list
