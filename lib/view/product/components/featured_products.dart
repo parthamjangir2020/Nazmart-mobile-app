@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/home/components/section_title.dart';
 import 'package:no_name_ecommerce/view/product/all_featured_products_page.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:provider/provider.dart';
 
 class FeaturedProducts extends StatelessWidget {
@@ -18,7 +19,7 @@ class FeaturedProducts extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionTitle(
-          title: 'Featured products',
+          title: ConstString.featuredProducts,
           pressed: () {
             Navigator.push(
               context,

@@ -219,12 +219,12 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                             controller: addressController,
                             validation: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your address';
+                                return ln
+                                    .getString(ConstString.plzEnterAddress);
                               }
                               return null;
                             },
-                            hintText: "Enter your address",
-                            // icon: 'assets/icons/email-grey.png',
+                            hintText: ln.getString(ConstString.enterAddress),
                             paddingHorizontal: 17,
                             textInputAction: TextInputAction.next,
                           ),
@@ -255,11 +255,17 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                     context);
                                             if (cProvider.subTotal < minOrder) {
                                               showToast(
-                                                  'Minimum \$$minOrder order is needed',
+                                                  ln.getString(
+                                                          ConstString.minimum) +
+                                                      ' \$$minOrder ' +
+                                                      ln.getString(ConstString
+                                                          .orderIsNeeded),
                                                   Colors.black);
                                               return;
                                             } else if (couponNeeded) {
-                                              showToast('Coupon is needed',
+                                              showToast(
+                                                  ln.getString(
+                                                      ConstString.couponNeeded),
                                                   Colors.black);
                                               return;
                                             }
@@ -322,11 +328,17 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                 if (cProvider.subTotal <
                                                     minOrder) {
                                                   showToast(
-                                                      'Minimum \$$minOrder order is needed',
+                                                      ln.getString(ConstString
+                                                              .minimum) +
+                                                          ' \$$minOrder ' +
+                                                          ln.getString(ConstString
+                                                              .orderIsNeeded),
                                                       Colors.black);
                                                   return;
                                                 } else if (couponNeeded) {
-                                                  showToast('Coupon is needed',
+                                                  showToast(
+                                                      ln.getString(ConstString
+                                                          .couponNeeded),
                                                       Colors.black);
 
                                                   return;
@@ -361,9 +373,11 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                     )
                                   : Container(
                                       margin: const EdgeInsets.only(bottom: 15),
-                                      child: const Text(
-                                        'No shipping option available',
-                                        style: TextStyle(color: warningColor),
+                                      child: Text(
+                                        ln.getString(
+                                            ConstString.noShippingAvailable),
+                                        style: const TextStyle(
+                                            color: warningColor),
                                       ),
                                     )
                               : Container(
@@ -371,7 +385,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                   child: showLoading(primaryColor),
                                 ),
                           gapH(10),
-                          buttonPrimary("Save", () {
+                          buttonPrimary(ConstString.save, () {
                             if (_formKey.currentState!.validate()) {
                               if (dProvider.vatLoading == true) {
                                 return;
@@ -383,7 +397,8 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                   .selectedStateId;
                               if (stateId == '0') {
                                 showToast(
-                                    'Please select a state', Colors.black);
+                                    ln.getString(ConstString.plzSelectState),
+                                    Colors.black);
                                 return;
                               }
                               dProvider.enteredDeliveryAddress = {
@@ -394,8 +409,6 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                 'zip': zipController.text,
                                 'address': addressController.text
                               };
-
-                              // dProvider.fetchShippingCostAndVat(context);
                             }
                           },
                               isloading:

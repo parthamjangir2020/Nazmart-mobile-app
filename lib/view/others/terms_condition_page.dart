@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:no_name_ecommerce/services/privacy_terms_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class TermsConditionPage extends StatelessWidget {
         .fetchTerms(context);
 
     return Scaffold(
-      appBar: appbarCommon('Terms & Condition', context, (() {
+      appBar: appbarCommon(ConstString.termsCondition, context, (() {
         Navigator.pop(context);
       })),
       body: SingleChildScrollView(

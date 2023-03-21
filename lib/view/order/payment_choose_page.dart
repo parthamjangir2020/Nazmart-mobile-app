@@ -10,6 +10,7 @@ import 'package:no_name_ecommerce/services/payment_services/payment_constants.da
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -38,12 +39,12 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: appbarCommon('Payment', context, () {
+        appBar: appbarCommon(ConstString.payment, context, () {
           Navigator.pop(context);
         }),
         body: SingleChildScrollView(
           child: Consumer<TranslateStringService>(
-            builder: (context, asProvider, child) => Container(
+            builder: (context, ln, child) => Container(
               padding: EdgeInsets.symmetric(horizontal: screenPadHorizontal),
               child: Consumer<PaymentGatewayListService>(
                 builder: (context, pgProvider, child) => pgProvider
@@ -64,8 +65,8 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                 child: dividerCommon(),
                               ),
 
-                              titleCommon(asProvider
-                                  .getString('Choose payment method')),
+                              titleCommon(
+                                  ln.getString(ConstString.choosePayMethod)),
 
                               //payment method card
                               GridView.builder(
@@ -145,8 +146,9 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                                         height: 30,
                                                       ),
                                                       buttonPrimary(
-                                                          asProvider.getString(
-                                                              'Choose images'),
+                                                          ln.getString(
+                                                              ConstString
+                                                                  .chooseImages),
                                                           () {
                                                         btProvider
                                                             .pickImage(context);
@@ -169,11 +171,6 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                                                 shrinkWrap:
                                                                     true,
                                                                 children: [
-                                                                  // for (int i = 0;
-                                                                  //     i <
-                                                                  //         btProvider
-                                                                  //             .images!.length;
-                                                                  //     i++)
                                                                   InkWell(
                                                                     onTap:
                                                                         () {},
@@ -185,7 +182,6 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                                                               const EdgeInsets.only(right: 10),
                                                                           child:
                                                                               Image.file(
-                                                                            // File(provider.images[i].path),
                                                                             File(btProvider.pickedImage.path),
                                                                             height:
                                                                                 80,
@@ -220,8 +216,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: Text(
-                                    asProvider.getString(
-                                        'I agree with terms and conditions'),
+                                    ln.getString(ConstString.iAgreeTerms),
                                     style: const TextStyle(
                                         color: greyFour,
                                         fontWeight: FontWeight.w400,
@@ -242,13 +237,11 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              buttonPrimary(
-                                  asProvider.getString('Pay & Confirm order'),
-                                  () {
+                              buttonPrimary(ConstString.payConfirmOrder, () {
                                 if (termsAgree == false) {
                                   showToast(
-                                      asProvider.getString(
-                                          'You must agree with the terms and conditions to place the order'),
+                                      ln.getString(
+                                          ConstString.youMustAgreeTerms),
                                       Colors.black);
                                 }
                                 if (provider.isloading == true) {

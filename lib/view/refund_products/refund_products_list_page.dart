@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/refund_products_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/refund_products/refund_support_ticket/refund_tickets_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
-import 'package:no_name_ecommerce/view/utils/static_strings.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -28,7 +29,7 @@ class _RefundProductsListPageState extends State<RefundProductsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbarCommon(StaticStrings.refundProducts, context, () {
+      appBar: appbarCommon(ConstString.refundProducts, context, () {
         Navigator.pop(context);
       }),
       backgroundColor: bgColor,
@@ -67,58 +68,57 @@ class _RefundProductsListPageState extends State<RefundProductsListPage> {
           }
         },
         child: SingleChildScrollView(
-            child: Consumer<RefundProductsService>(
-          builder: (context, rp, child) => rp.productList.isNotEmpty
-              ? Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenPadHorizontal, vertical: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (int i = 0; i < rp.productList.length; i++)
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 16),
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 16),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(9)),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      titleCommon(
-                                          rp.productList[i].product?.name ?? '',
-                                          fontsize: 15),
-                                      gapH(8),
-                                      paragraphCommon(
-                                          '${StaticStrings.orderId}:#${rp.productList[i].product?.id}'),
-                                      gapH(6),
-                                      paragraphCommon(
-                                          '${StaticStrings.status}: ${rp.productList[i].status == 0 ? 'Pending' : 'Completed'}',
-                                          color: successColor)
-                                    ]),
-                              ),
-                              // const Icon(
-                              //   Icons.arrow_forward_ios,
-                              //   size: 16,
-                              //   color: greyFour,
-                              // )
-                            ],
+            child: Consumer<TranslateStringService>(
+          builder: (context, ln, child) => Consumer<RefundProductsService>(
+            builder: (context, rp, child) => rp.productList.isNotEmpty
+                ? Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenPadHorizontal, vertical: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (int i = 0; i < rp.productList.length; i++)
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 16),
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 16),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(9)),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        titleCommon(
+                                            rp.productList[i].product?.name ??
+                                                '',
+                                            fontsize: 15),
+                                        gapH(8),
+                                        paragraphCommon(
+                                            '${ln.getString(ConstString.orderId)}:#${rp.productList[i].product?.id}'),
+                                        gapH(6),
+                                        paragraphCommon(
+                                            '${ln.getString(ConstString.status)}: ${rp.productList[i].status == 0 ? ln.getString(ConstString.pending) : ln.getString(ConstString.completed)}',
+                                            color: successColor)
+                                      ]),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
+                  )
+                : Container(
+                    alignment: Alignment.center,
+                    height: screenHeight - 180,
+                    child: paragraphCommon(
+                        ln.getString(ConstString.noProductFound)),
                   ),
-                )
-              : Container(
-                  alignment: Alignment.center,
-                  height: screenHeight - 180,
-                  child: paragraphCommon('No product found'),
-                ),
+          ),
         )),
       ),
       floatingActionButton: InkWell(
@@ -130,32 +130,34 @@ class _RefundProductsListPageState extends State<RefundProductsListPage> {
             ),
           );
         },
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 13),
-          width: 195,
-          decoration: BoxDecoration(
-            color: successColor,
-            borderRadius: BorderRadius.circular(7),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.4),
-                spreadRadius: 5,
-                blurRadius: 11,
-                offset: const Offset(0, 3), // changes position of shadow
+        child: Consumer<TranslateStringService>(
+          builder: (context, ln, child) => Container(
+            padding: const EdgeInsets.symmetric(vertical: 13),
+            width: 195,
+            decoration: BoxDecoration(
+              color: successColor,
+              borderRadius: BorderRadius.circular(7),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.4),
+                  spreadRadius: 5,
+                  blurRadius: 11,
+                  offset: const Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const Icon(
+                Icons.message_outlined,
+                color: Colors.white,
               ),
-            ],
+              const SizedBox(
+                width: 8,
+              ),
+              paragraphCommon(ln.getString(ConstString.refundTickets),
+                  color: Colors.white, lineHeight: 1)
+            ]),
           ),
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Icon(
-              Icons.message_outlined,
-              color: Colors.white,
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            paragraphCommon('Refund tickets',
-                color: Colors.white, lineHeight: 1)
-          ]),
         ),
       ),
     );

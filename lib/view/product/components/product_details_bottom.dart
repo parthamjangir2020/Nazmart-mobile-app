@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/product_db_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/checkout/cart_page.dart';
 import 'package:no_name_ecommerce/view/product/components/write_review_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -32,91 +34,95 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(20, 5, 20, 17),
-      decoration: const BoxDecoration(
-        // color: blackColor,
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(20),
-          topLeft: Radius.circular(20),
+    return Consumer<TranslateStringService>(
+      builder: (context, ln, child) => Container(
+        padding: const EdgeInsets.fromLTRB(20, 5, 20, 17),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
         ),
-      ),
-      child: Consumer<ProductDetailsService>(
-        builder: (context, provider, child) => Column(
-          children: [
-            widget.tabIndex == 1
-                ? Column(
-                    children: [
-                      buttonPrimary('Write a review', () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) =>
-                                const WriteReviewPage(
-                              productId: '1',
+        child: Consumer<ProductDetailsService>(
+          builder: (context, provider, child) => Column(
+            children: [
+              widget.tabIndex == 1
+                  ? Column(
+                      children: [
+                        buttonPrimary(ConstString.writeReview, () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) =>
+                                  const WriteReviewPage(
+                                productId: '1',
+                              ),
                             ),
-                          ),
-                        );
-                      }, bgColor: successColor, borderRadius: 100),
-                      const SizedBox(
-                        height: 9,
-                      ),
-                    ],
-                  )
-                : Container(),
-            Consumer<CartService>(
-              builder: (context, cProvider, child) => Row(
-                children: [
-                  Expanded(
-                      child: buttonPrimary('Buy now', (() async {
-                    if (provider.allAtrributes.isNotEmpty &&
-                        provider.selectedInventorySet.isEmpty) {
-                      showToast('You must select all attributes', Colors.black);
-                      return;
-                    }
-
-                    bool addedAlready = await ProductDbService()
-                        .checkIfAddedtoCart(
-                            provider.productDetails?.product?.name ?? '',
-                            provider.productDetails?.product?.id ?? 1);
-
-                    if (!addedAlready) {
-                      addToCart(context);
-                    }
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => const Cartpage(),
-                      ),
-                    );
-                  }),
-                          borderRadius: 100,
-                          bgColor: Colors.grey[200],
-                          fontColor: Colors.grey[800])),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  //======>
-                  Expanded(
-                    child: buttonPrimary('Add to cart', () {
-                      print(provider.productSalePrice);
-
+                          );
+                        }, bgColor: successColor, borderRadius: 100),
+                        const SizedBox(
+                          height: 9,
+                        ),
+                      ],
+                    )
+                  : Container(),
+              Consumer<CartService>(
+                builder: (context, cProvider, child) => Row(
+                  children: [
+                    Expanded(
+                        child: buttonPrimary(ConstString.buyNow, (() async {
                       if (provider.allAtrributes.isNotEmpty &&
                           provider.selectedInventorySet.isEmpty) {
                         showToast(
-                            'You must select all attributes', Colors.black);
+                            ln.getString(ConstString.youMustSelectAllAttr),
+                            Colors.black);
                         return;
                       }
 
-                      addToCart(context);
-                    }, borderRadius: 100),
-                  ),
-                ],
+                      bool addedAlready = await ProductDbService()
+                          .checkIfAddedtoCart(
+                              provider.productDetails?.product?.name ?? '',
+                              provider.productDetails?.product?.id ?? 1);
+
+                      if (!addedAlready) {
+                        addToCart(context);
+                      }
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const Cartpage(),
+                        ),
+                      );
+                    }),
+                            borderRadius: 100,
+                            bgColor: Colors.grey[200],
+                            fontColor: Colors.grey[800])),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    //======>
+                    Expanded(
+                      child: buttonPrimary(ConstString.addToCart, () {
+                        print(provider.productSalePrice);
+
+                        if (provider.allAtrributes.isNotEmpty &&
+                            provider.selectedInventorySet.isEmpty) {
+                          showToast(
+                              ln.getString(ConstString.youMustSelectAllAttr),
+                              Colors.black);
+                          return;
+                        }
+
+                        addToCart(context);
+                      }, borderRadius: 100),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

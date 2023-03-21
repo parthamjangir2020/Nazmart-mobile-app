@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/logout_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -11,7 +12,7 @@ class SettingsHelper {
   borderBold(double marginTop, double marginBottom) {
     return Container(
       margin: EdgeInsets.only(top: marginTop, bottom: marginBottom),
-      child: Divider(
+      child: const Divider(
         height: 0,
         thickness: 4,
         color: borderColor,
@@ -19,12 +20,12 @@ class SettingsHelper {
     );
   }
 
-  List<SettingsGridCard> cardContent = [
-    SettingsGridCard('assets/svg/pending-circle.svg', 'Pending orders'),
-    SettingsGridCard('assets/svg/active-circle.svg', 'Active orders'),
-    SettingsGridCard('assets/svg/completed-circle.svg', 'Completed orders'),
-    SettingsGridCard('assets/svg/receipt-circle.svg', 'Total orders'),
-  ];
+  // List<SettingsGridCard> cardContent = [
+  //   SettingsGridCard('assets/svg/pending-circle.svg', 'Pending orders'),
+  //   SettingsGridCard('assets/svg/active-circle.svg', 'Active orders'),
+  //   SettingsGridCard('assets/svg/completed-circle.svg', 'Completed orders'),
+  //   SettingsGridCard('assets/svg/receipt-circle.svg', 'Total orders'),
+  // ];
 
   settingOption(String icon, String title, VoidCallback pressed) {
     return ListTile(
@@ -35,7 +36,7 @@ class SettingsHelper {
       ),
       title: Text(
         title,
-        style: TextStyle(color: greyFour, fontSize: 14),
+        style: const TextStyle(color: greyFour, fontSize: 14),
       ),
       trailing: const Icon(
         Icons.arrow_forward_ios,
@@ -75,11 +76,11 @@ class SettingsHelper {
             ],
           ),
           child: Consumer<TranslateStringService>(
-            builder: (context, asProvider, child) => Column(
+            builder: (context, ln, child) => Column(
               children: [
                 Text(
-                  '${asProvider.getString('Are you sure')}?',
-                  style: TextStyle(color: greyPrimary, fontSize: 17),
+                  '${ln.getString(ConstString.areYouSure)}?',
+                  style: const TextStyle(color: greyPrimary, fontSize: 17),
                 ),
                 const SizedBox(
                   height: 25,
@@ -88,7 +89,7 @@ class SettingsHelper {
                   children: [
                     Expanded(
                         child: borderButtonPrimary(
-                            asProvider.getString('Cancel'), () {
+                            ln.getString(ConstString.cancel), () {
                       Navigator.pop(context);
                     })),
                     const SizedBox(
@@ -96,15 +97,10 @@ class SettingsHelper {
                     ),
                     Consumer<LogoutService>(
                       builder: (context, provider, child) => Expanded(
-                          child: buttonPrimary(asProvider.getString('Logout'),
+                          child: buttonPrimary(ln.getString(ConstString.logout),
                               () {
                         if (provider.isloading == false) {
                           provider.logout(context);
-                          //if logged in by google then logout from it
-                          // GoogleSignInService().logOutFromGoogleLogin();
-
-                          // //if logged in by facebook then logout from it
-                          // FacebookLoginService().logoutFromFacebook();
                         }
                       },
                               isloading:

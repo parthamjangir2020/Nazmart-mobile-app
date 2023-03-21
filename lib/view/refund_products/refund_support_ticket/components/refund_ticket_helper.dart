@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/services/dropdown_services/ticket_status_dropd
 import 'package:no_name_ecommerce/services/ticket_services/change_priority_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/change_ticket_status_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/widgets/custom_dropdown.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ class RefundSupportTicketHelper {
             ],
           ),
           child: Consumer<TranslateStringService>(
-            builder: (context, asProvider, child) =>
+            builder: (context, ln, child) =>
                 Consumer<PriorityAndDepartmentDropdownService>(
               builder: (context, pProvider, child) =>
                   Consumer<ChangePriorityService>(
@@ -51,7 +52,7 @@ class RefundSupportTicketHelper {
                     //Priority dropdown ======>
                     CustomDropDown(
                       items: pProvider.priorityDropdownList,
-                      labelText: 'Priority',
+                      labelText: ConstString.priority,
                       value: pProvider.selectedPriority,
                       onChange: (v) {
                         pProvider.setPriorityValue(v);
@@ -68,15 +69,15 @@ class RefundSupportTicketHelper {
                       children: [
                         Expanded(
                             child: borderButtonPrimary(
-                                asProvider.getString('Cancel'), () {
+                                ln.getString(ConstString.cancel), () {
                           Navigator.pop(context);
                         })),
                         const SizedBox(
                           width: 16,
                         ),
                         Expanded(
-                            child:
-                                buttonPrimary(asProvider.getString('Save'), () {
+                            child: buttonPrimary(ln.getString(ConstString.save),
+                                () {
                           if (cProvider.isloading) return;
 
                           cProvider.changePriority(context, id: ticketId);
@@ -122,7 +123,7 @@ class RefundSupportTicketHelper {
             ],
           ),
           child: Consumer<TranslateStringService>(
-            builder: (context, asProvider, child) =>
+            builder: (context, ln, child) =>
                 Consumer<TicketStatusDropdownService>(
               builder: (context, pProvider, child) =>
                   Consumer<ChangeTicketStatusService>(
@@ -131,7 +132,7 @@ class RefundSupportTicketHelper {
                     //status dropdown ======>
                     CustomDropDown(
                       items: pProvider.statusDropdownList,
-                      labelText: 'Status',
+                      labelText: ConstString.status,
                       value: pProvider.selectedstatus,
                       onChange: (v) {
                         pProvider.setstatusValue(v);
@@ -148,15 +149,15 @@ class RefundSupportTicketHelper {
                       children: [
                         Expanded(
                             child: borderButtonPrimary(
-                                asProvider.getString('Cancel'), () {
+                                ln.getString(ConstString.cancel), () {
                           Navigator.pop(context);
                         })),
                         const SizedBox(
                           width: 16,
                         ),
                         Expanded(
-                            child:
-                                buttonPrimary(asProvider.getString('Save'), () {
+                            child: buttonPrimary(ln.getString(ConstString.save),
+                                () {
                           if (cProvider.isloading) return;
                           cProvider.changeStatus(context, id: ticketId);
                         }, isloading: cProvider.isloading)),

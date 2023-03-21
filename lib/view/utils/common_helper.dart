@@ -96,20 +96,22 @@ borderButtonPrimary(
 }) {
   return InkWell(
     onTap: pressed,
-    child: Container(
-        width: double.infinity,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: paddingVertical),
-        decoration: BoxDecoration(
-            border: Border.all(color: borderColor),
-            borderRadius: BorderRadius.circular(borderRadius)),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: color,
-            fontSize: fontsize,
-          ),
-        )),
+    child: Consumer<TranslateStringService>(
+      builder: (context, ln, child) => Container(
+          width: double.infinity,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: paddingVertical),
+          decoration: BoxDecoration(
+              border: Border.all(color: borderColor),
+              borderRadius: BorderRadius.circular(borderRadius)),
+          child: Text(
+            ln.getString(title),
+            style: TextStyle(
+              color: color,
+              fontSize: fontsize,
+            ),
+          )),
+    ),
   );
 }
 
@@ -180,19 +182,21 @@ profileImage(String imageLink, double height, double width) {
 
 //no order found
 nothingfound(BuildContext context, String title) {
-  return Container(
-    alignment: Alignment.center,
-    height: screenHeight - 140,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          Icons.hourglass_empty,
-          color: greyFour,
-        ),
-        gapH(10),
-        Text(title),
-      ],
+  return Consumer<TranslateStringService>(
+    builder: (context, ln, child) => Container(
+      alignment: Alignment.center,
+      height: screenHeight - 140,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.hourglass_empty,
+            color: greyFour,
+          ),
+          gapH(10),
+          Text(ln.getString(title)),
+        ],
+      ),
     ),
   );
 }

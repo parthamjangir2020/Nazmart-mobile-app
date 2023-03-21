@@ -11,6 +11,7 @@ import 'package:no_name_ecommerce/view/settingsOrProfile/profile_edit_page.dart'
 import 'package:no_name_ecommerce/view/shipping_address/shipping_address_list_page.dart';
 import 'package:no_name_ecommerce/view/support_ticket/my_tickets_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               SingleChildScrollView(
                 child: Consumer<TranslateStringService>(
-                    builder: (context, asProvider, child) => Column(
+                    builder: (context, ln, child) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const ProfileDetails(),
@@ -47,7 +48,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               child: Column(children: [
                                 SettingsHelper().settingOption(
                                     'assets/svg/message-circle.svg',
-                                    asProvider.getString("My orders"), () {
+                                    ln.getString(ConstString.myOrders), () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute<void>(
@@ -62,7 +63,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                                 SettingsHelper().settingOption(
                                     'assets/svg/message-circle.svg',
-                                    asProvider.getString("Refund products"),
+                                    ln.getString(ConstString.refundProducts),
                                     () {
                                   Navigator.push(
                                     context,
@@ -77,7 +78,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 //
                                 SettingsHelper().settingOption(
                                     'assets/svg/message-circle.svg',
-                                    asProvider.getString("Support Ticket"), () {
+                                    ln.getString(ConstString.supportTickets),
+                                    () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute<void>(
@@ -89,7 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 dividerCommon(),
                                 SettingsHelper().settingOption(
                                     'assets/svg/profile-edit.svg',
-                                    asProvider.getString("Edit Profile"), () {
+                                    ln.getString(ConstString.editProfile), () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute<void>(
@@ -101,8 +103,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 dividerCommon(),
                                 SettingsHelper().settingOption(
                                     'assets/svg/lock-circle.svg',
-                                    asProvider.getString("Change Password"),
-                                    () {
+                                    ln.getString(ConstString.changePass), () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute<void>(
@@ -115,7 +116,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 dividerCommon(),
                                 SettingsHelper().settingOption(
                                     'assets/svg/profile-edit.svg',
-                                    asProvider.getString("Shipping Address"),
+                                    ln.getString(ConstString.shippingAddress),
                                     () {
                                   Navigator.push(
                                     context,
@@ -129,7 +130,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 dividerCommon(),
                                 SettingsHelper().settingOption(
                                     'assets/svg/profile-edit.svg',
-                                    asProvider.getString("Terms & Condition"),
+                                    ln.getString(ConstString.termsCondition),
                                     () {
                                   Navigator.push(
                                     context,
@@ -143,7 +144,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 dividerCommon(),
                                 SettingsHelper().settingOption(
                                     'assets/svg/profile-edit.svg',
-                                    asProvider.getString("Privacy policy"), () {
+                                    ln.getString(ConstString.privacyPolicy),
+                                    () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute<void>(
@@ -163,7 +165,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               child: Column(children: [
                                 SettingsHelper().settingOption(
                                     'assets/svg/logout-circle.svg',
-                                    asProvider.getString("Logout"), () {
+                                    ln.getString(ConstString.logout), () {
                                   SettingsHelper().logoutPopup(context);
                                 }),
                                 gapH(20)

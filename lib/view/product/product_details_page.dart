@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/campaigns/components/campaign_timer.dart';
 import 'package:no_name_ecommerce/view/product/components/color_size.dart';
@@ -14,6 +15,7 @@ import 'package:no_name_ecommerce/view/product/components/product_details_top.da
 import 'package:no_name_ecommerce/view/product/components/review_tab.dart';
 import 'package:no_name_ecommerce/view/product/components/ship_return_tab.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
@@ -84,101 +86,109 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
           )
         ],
       ),
-      body: Consumer<ProductDetailsService>(
-        builder: (context, provider, child) => provider.productDetails != null
-            ? Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //Slider =============>
-                            const ProductDetailsSlider(),
+      body: Consumer<TranslateStringService>(
+        builder: (context, ln, child) => Consumer<ProductDetailsService>(
+          builder: (context, provider, child) => provider.productDetails != null
+              ? Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //Slider =============>
+                              const ProductDetailsSlider(),
 
-                            gapH(16),
+                              gapH(16),
 
-                            paragraphCommon(
-                                'SKU:  ${provider.productDetails?.product?.inventory?.sku ?? '-'}'),
+                              paragraphCommon(
+                                  'SKU:  ${provider.productDetails?.product?.inventory?.sku ?? '-'}'),
 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ProductDetailsTop(
-                                  title: provider.productDetails?.product?.name,
-                                  id: provider.productDetails?.product?.id,
-                                ),
-
-                                //=========>
-                                const ColorAndSize(),
-
-                                //increase decrease button
-                                gapH(17),
-                                paragraphCommon('Quantity:'),
-                                gapH(10),
-                                const ProductDetailsQty(),
-
-                                gapH(25),
-                                if (provider.productDetails?.product
-                                        ?.campaignProduct !=
-                                    null)
-                                  CampaignTimer(
-                                    remainingTime: DateTime.parse(provider
-                                        .productDetails
-                                        ?.product
-                                        ?.campaignProduct['end_date']),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ProductDetailsTop(
+                                    title:
+                                        provider.productDetails?.product?.name,
+                                    id: provider.productDetails?.product?.id,
                                   ),
 
-                                //========>
-                                // tab
-                                gapH(15),
+                                  //=========>
+                                  const ColorAndSize(),
 
-                                TabBar(
-                                  onTap: (value) {
-                                    setState(() {
-                                      currentTab = value;
-                                    });
-                                  },
-                                  labelColor: primaryColor,
-                                  unselectedLabelColor: greyFour,
-                                  indicatorColor: primaryColor,
-                                  unselectedLabelStyle: const TextStyle(
-                                      color: greyParagraph,
-                                      fontWeight: FontWeight.normal),
-                                  controller: _tabController,
-                                  tabs: const [
-                                    Tab(text: 'Description'),
-                                    Tab(text: 'Review'),
-                                    Tab(text: 'Ship & return'),
-                                  ],
-                                ),
+                                  //increase decrease button
+                                  gapH(17),
+                                  paragraphCommon(
+                                      ln.getString(ConstString.quantity) + ':'),
+                                  gapH(10),
+                                  const ProductDetailsQty(),
 
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 15, bottom: 30),
-                                  child: [
-                                    const DescriptionTab(),
-                                    const ReviewTab(),
-                                    const ShipReturnTab(),
-                                  ][_tabIndex],
-                                ),
-                              ],
-                            )
-                          ],
+                                  gapH(25),
+                                  if (provider.productDetails?.product
+                                          ?.campaignProduct !=
+                                      null)
+                                    CampaignTimer(
+                                      remainingTime: DateTime.parse(provider
+                                          .productDetails
+                                          ?.product
+                                          ?.campaignProduct['end_date']),
+                                    ),
+
+                                  //========>
+                                  // tab
+                                  gapH(15),
+
+                                  TabBar(
+                                    onTap: (value) {
+                                      setState(() {
+                                        currentTab = value;
+                                      });
+                                    },
+                                    labelColor: primaryColor,
+                                    unselectedLabelColor: greyFour,
+                                    indicatorColor: primaryColor,
+                                    unselectedLabelStyle: const TextStyle(
+                                        color: greyParagraph,
+                                        fontWeight: FontWeight.normal),
+                                    controller: _tabController,
+                                    tabs: [
+                                      Tab(text: ln.getString(ConstString.desc)),
+                                      Tab(
+                                          text:
+                                              ln.getString(ConstString.review)),
+                                      Tab(
+                                          text: ln.getString(
+                                              ConstString.shipAndReturn)),
+                                    ],
+                                  ),
+
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        top: 15, bottom: 30),
+                                    child: [
+                                      const DescriptionTab(),
+                                      const ReviewTab(),
+                                      const ShipReturnTab(),
+                                    ][_tabIndex],
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
 
-                  //=======>
-                  ProductDetailsBottom(
-                    tabIndex: currentTab,
-                  )
-                ],
-              )
-            : const ProductDetailsSkeleton(),
+                    //=======>
+                    ProductDetailsBottom(
+                      tabIndex: currentTab,
+                    )
+                  ],
+                )
+              : const ProductDetailsSkeleton(),
+        ),
       ),
     );
   }
