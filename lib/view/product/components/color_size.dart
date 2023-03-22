@@ -98,7 +98,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(16),
                           color: pdService.isASelected(elemnt)
                               ? primaryColor
                               : Colors.white,
@@ -121,7 +121,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(16),
                             color: Colors.white60),
                         child: Text(
                           elemnt,

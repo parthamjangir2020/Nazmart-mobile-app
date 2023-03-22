@@ -114,8 +114,10 @@ class ProductDetailsService with ChangeNotifier {
     bool setMatched = true;
     for (int i = 0; i < selectedInventorySetIndex.length; i++) {
       setMatched = true;
+      Map sfsdf = {};
       selectedInventorySet = productDetails!
           .productInventorySet[int.parse(selectedInventorySetIndex[i])];
+      selectedInventorySet.remove('Color');
       for (var e in selectedInventorySet.values) {
         // print(i);
         List<dynamic> confirmingSelectedDeta = selectedAttributes;
@@ -162,7 +164,7 @@ class ProductDetailsService with ChangeNotifier {
       cartAble = true;
       selectedInventorySet.remove('hash');
       // print(selectedInventorySet);
-      print(productSalePrice);
+      print(variantId);
       notifyListeners();
       return;
     }

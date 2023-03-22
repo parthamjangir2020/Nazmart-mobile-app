@@ -29,7 +29,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
     super.initState();
   }
 
-  int selectedMethod = 0;
+  int selectedMethod = -1;
   bool termsAgree = false;
   @override
   Widget build(BuildContext context) {
@@ -87,6 +87,10 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                         selectedMethod = index;
                                       });
 
+                                      pgProvider.setSelectedMethodName(
+                                          pgProvider.paymentList[selectedMethod]
+                                              ['name']);
+
                                       //set key
                                       pgProvider.setKey(
                                           pgProvider.paymentList[selectedMethod]
@@ -130,79 +134,79 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                 },
                               ),
 
-                              pgProvider.paymentList[selectedMethod]['name'] ==
-                                      'manual_payment'
-                                  ?
-                                  //pick image ==========>
-                                  Consumer<BankTransferService>(
-                                      builder:
-                                          (context, btProvider, child) =>
-                                              Column(
-                                                children: [
-                                                  //pick image button =====>
-                                                  Column(
-                                                    children: [
-                                                      const SizedBox(
-                                                        height: 30,
-                                                      ),
-                                                      buttonPrimary(
-                                                          ln.getString(
-                                                              ConstString
-                                                                  .chooseImages),
-                                                          () {
-                                                        btProvider
-                                                            .pickImage(context);
-                                                      }),
-                                                    ],
-                                                  ),
-                                                  btProvider.pickedImage != null
-                                                      ? Column(
-                                                          children: [
-                                                            const SizedBox(
-                                                              height: 30,
-                                                            ),
-                                                            SizedBox(
-                                                              height: 80,
-                                                              child: ListView(
-                                                                clipBehavior:
-                                                                    Clip.none,
-                                                                scrollDirection:
-                                                                    Axis.horizontal,
-                                                                shrinkWrap:
-                                                                    true,
-                                                                children: [
-                                                                  InkWell(
-                                                                    onTap:
-                                                                        () {},
-                                                                    child:
-                                                                        Column(
-                                                                      children: [
-                                                                        Container(
-                                                                          margin:
-                                                                              const EdgeInsets.only(right: 10),
-                                                                          child:
-                                                                              Image.file(
-                                                                            File(btProvider.pickedImage.path),
-                                                                            height:
-                                                                                80,
-                                                                            width:
-                                                                                80,
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
+                              if (selectedMethod > 0)
+                                pgProvider.paymentList[selectedMethod]
+                                            ['name'] ==
+                                        'manual_payment'
+                                    ?
+                                    //pick image ==========>
+                                    Consumer<BankTransferService>(
+                                        builder:
+                                            (context, btProvider, child) =>
+                                                Column(
+                                                  children: [
+                                                    //pick image button =====>
+                                                    Column(
+                                                      children: [
+                                                        const SizedBox(
+                                                          height: 30,
+                                                        ),
+                                                        buttonPrimary(
+                                                            ln.getString(
+                                                                ConstString
+                                                                    .chooseImages),
+                                                            () {
+                                                          btProvider.pickImage(
+                                                              context);
+                                                        }),
+                                                      ],
+                                                    ),
+                                                    btProvider.pickedImage !=
+                                                            null
+                                                        ? Column(
+                                                            children: [
+                                                              const SizedBox(
+                                                                height: 30,
                                                               ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                      : Container(),
-                                                ],
-                                              ))
-                                  : Container(),
+                                                              SizedBox(
+                                                                height: 80,
+                                                                child: ListView(
+                                                                  clipBehavior:
+                                                                      Clip.none,
+                                                                  scrollDirection:
+                                                                      Axis.horizontal,
+                                                                  shrinkWrap:
+                                                                      true,
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () {},
+                                                                      child:
+                                                                          Column(
+                                                                        children: [
+                                                                          Container(
+                                                                            margin:
+                                                                                const EdgeInsets.only(right: 10),
+                                                                            child:
+                                                                                Image.file(
+                                                                              File(btProvider.pickedImage.path),
+                                                                              height: 80,
+                                                                              width: 80,
+                                                                              fit: BoxFit.cover,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        : Container(),
+                                                  ],
+                                                ))
+                                    : Container(),
 
                               //Agreement checkbox ===========>
                               const SizedBox(
@@ -243,24 +247,31 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                       ln.getString(
                                           ConstString.youMustAgreeTerms),
                                       Colors.black);
+
+                                  return;
+                                }
+                                if (selectedMethod < 0) {
+                                  showToast('You must select a payment method',
+                                      Colors.black);
+                                  return;
                                 }
                                 if (provider.isloading == true) {
                                   return;
-                                } else {
-                                  payAction(
-                                      pgProvider.paymentList[selectedMethod]
-                                          ['name'],
-                                      context,
-                                      //if user selected bank transfer
-                                      pgProvider.paymentList[selectedMethod]
-                                                  ['name'] ==
-                                              'manual_payment'
-                                          ? Provider.of<BankTransferService>(
-                                                  context,
-                                                  listen: false)
-                                              .pickedImage
-                                          : null);
                                 }
+
+                                payAction(
+                                    pgProvider.paymentList[selectedMethod]
+                                        ['name'],
+                                    context,
+                                    //if user selected bank transfer
+                                    pgProvider.paymentList[selectedMethod]
+                                                ['name'] ==
+                                            'manual_payment'
+                                        ? Provider.of<BankTransferService>(
+                                                context,
+                                                listen: false)
+                                            .pickedImage
+                                        : null);
                               },
                                   isloading: provider.isloading == false
                                       ? false

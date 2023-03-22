@@ -4,9 +4,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
-import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:provider/provider.dart';
@@ -89,19 +89,9 @@ class _MercadopagoPaymentPageState extends State<MercadopagoPaymentPage> {
   }
 
   Future<dynamic> getPaymentUrl(BuildContext context) async {
-    var amount;
-
-    // var bcProvider =
-    //     Provider.of<BookConfirmationService>(context, listen: false);
-    // var pProvider = Provider.of<PersonalizationService>(context, listen: false);
-    // var bookProvider = Provider.of<BookService>(context, listen: false);
-
-    // if (pProvider.isOnline == 0) {
-    //   amount = bcProvider.totalPriceAfterAllcalculation.toStringAsFixed(2);
-    // } else {
-    //   amount = bcProvider.totalPriceOnlineServiceAfterAllCalculation;
-    // }
-
+    String amount = Provider.of<CartService>(context, listen: false)
+        .totalPrice
+        .toStringAsFixed(2);
     String mercadoKey =
         Provider.of<PaymentGatewayListService>(context, listen: false)
                 .secretKey ??

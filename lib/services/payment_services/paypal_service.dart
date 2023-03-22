@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_auth/http_auth.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
 import 'package:no_name_ecommerce/view/payments/PaypalPayment.dart';
@@ -12,7 +13,6 @@ import 'package:provider/provider.dart';
 
 class PaypalService {
   payByPaypal(BuildContext context) {
-    String amount;
     // var bcProvider =
     //     Provider.of<BookConfirmationService>(context, listen: false);
     // var pProvider = Provider.of<PersonalizationService>(context, listen: false);
@@ -29,6 +29,10 @@ class PaypalService {
     //       .toStringAsFixed(2);
     // }
 
+    String amount = Provider.of<CartService>(context, listen: false)
+        .totalPrice
+        .toStringAsFixed(2);
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) => PaypalPayment(
@@ -41,7 +45,7 @@ class PaypalService {
             // payment done
             print('order id: ' + number);
           },
-          amount: 'amount',
+          amount: amount,
           name: 'name',
           phone: 'phone',
           email: 'email',

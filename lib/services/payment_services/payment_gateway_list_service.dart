@@ -22,6 +22,7 @@ class PaymentGatewayListService with ChangeNotifier {
   var zitopayUserName;
 
   bool isloading = false;
+  var selectedMethodName;
 
   setLoadingTrue() {
     isloading = true;
@@ -30,6 +31,11 @@ class PaymentGatewayListService with ChangeNotifier {
 
   setLoadingFalse() {
     isloading = false;
+    notifyListeners();
+  }
+
+  setSelectedMethodName(newName) {
+    selectedMethodName = newName;
     notifyListeners();
   }
 

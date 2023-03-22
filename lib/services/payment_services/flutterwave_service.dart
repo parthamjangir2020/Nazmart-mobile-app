@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:flutterwave_standard/models/subaccount.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
 import 'package:provider/provider.dart';
@@ -8,40 +9,16 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class FlutterwaveService {
-  // String phone = '35435413513513';
-  // String email = 'test@test.com';
-
   String currency = 'USD';
-  // String amount = '200';
 
   payByFlutterwave(BuildContext context) {
     _handlePaymentInitialization(context);
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (BuildContext context) => const FlutterwavePaymentPage(),
-    //   ),
-    // );
   }
 
   _handlePaymentInitialization(BuildContext context) async {
-    // String amount;
-    // var bcProvider =
-    //     Provider.of<BookConfirmationService>(context, listen: false);
-    // var pProvider = Provider.of<PersonalizationService>(context, listen: false);
-    // var bookProvider = Provider.of<BookService>(context, listen: false);
-
-    // var name = bookProvider.name ?? '';
-    // var phone = bookProvider.phone ?? '';
-    // var email = bookProvider.email ?? '';
-
-    // if (pProvider.isOnline == 0) {
-    //   amount = bcProvider.totalPriceAfterAllcalculation.toStringAsFixed(2);
-    // } else {
-    //   amount = bcProvider.totalPriceOnlineServiceAfterAllCalculation
-    //       .toStringAsFixed(2);
-    // }
-
-    var amount = '100';
+    String amount = Provider.of<CartService>(context, listen: false)
+        .totalPrice
+        .toStringAsFixed(2);
     var name = '';
     var phone = '';
     var email = '';

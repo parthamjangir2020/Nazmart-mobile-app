@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
-import 'package:no_name_ecommerce/services/country_states_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
 import 'package:no_name_ecommerce/view/order/components/free_ship_option.dart';
@@ -57,34 +57,39 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
 
 //==================>
   addressFromProfile() {
-    // fullNameController.text =
-    //     Provider.of<ProfileService>(context, listen: false)
-    //             .profileDetails
-    //             .userDetails
-    //             .name ??
-    //         '';
+    fullNameController.text =
+        Provider.of<ProfileService>(context, listen: false)
+                .profileDetails
+                ?.userDetails
+                .name ??
+            '';
 
-    // emailController.text = Provider.of<ProfileService>(context, listen: false)
-    //         .profileDetails
-    //         .userDetails
-    //         .email ??
-    //     '';
+    emailController.text = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .email ??
+        '';
 
-    // phoneController.text = Provider.of<ProfileService>(context, listen: false)
-    //         .profileDetails
-    //         .userDetails
-    //         .phone ??
-    //     '';
+    phoneController.text = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .mobile ??
+        '';
     // zipController.text = Provider.of<ProfileService>(context, listen: false)
     //         .profileDetails
-    //         .userDetails
-    //         .zipcode ??
-    //     '';
-    // addressController.text = Provider.of<ProfileService>(context, listen: false)
-    //         .profileDetails
-    //         .userDetails
-    //         .address ??
-    //     '';
+    //         ?.userDetails
+    //         ?.zipcode ??
+    // '';
+    addressController.text = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .address ??
+        '';
+    cityController.text = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .city ??
+        '';
   }
 
   @override
@@ -195,22 +200,22 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                           gapH(5),
 
                           //Zip code ============>
-                          labelCommon(ConstString.zipCode),
+                          // labelCommon(ConstString.zipCode),
 
-                          CustomInput(
-                            controller: zipController,
-                            validation: (value) {
-                              if (value == null || value.isEmpty) {
-                                return ln.getString(ConstString.plzEnterZip);
-                              }
-                              return null;
-                            },
-                            hintText: ln.getString(ConstString.enterZip),
-                            paddingHorizontal: 17,
-                            textInputAction: TextInputAction.next,
-                          ),
+                          // CustomInput(
+                          //   controller: zipController,
+                          //   validation: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return ln.getString(ConstString.plzEnterZip);
+                          //     }
+                          //     return null;
+                          //   },
+                          //   hintText: ln.getString(ConstString.enterZip),
+                          //   paddingHorizontal: 17,
+                          //   textInputAction: TextInputAction.next,
+                          // ),
 
-                          gapH(5),
+                          // gapH(5),
 
                           //Zip code ============>
                           labelCommon(ConstString.address),
@@ -391,24 +396,25 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                 return;
                               }
 
-                              var stateId = Provider.of<CountryStatesService>(
-                                      context,
-                                      listen: false)
-                                  .selectedStateId;
-                              if (stateId == '0') {
-                                showToast(
-                                    ln.getString(ConstString.plzSelectState),
-                                    Colors.black);
-                                return;
-                              }
+                              // var stateId = Provider.of<CountryStatesService>(
+                              //         context,
+                              //         listen: false)
+                              //     .selectedStateId;
+                              // if (stateId == '0') {
+                              //   showToast(
+                              //       ln.getString(ConstString.plzSelectState),
+                              //       Colors.black);
+                              //   return;
+                              // }
                               dProvider.enteredDeliveryAddress = {
                                 'name': fullNameController.text,
                                 'email': emailController.text,
                                 'phone': phoneController.text,
                                 'city': cityController.text,
-                                'zip': zipController.text,
+                                // 'zip': zipController.text,
                                 'address': addressController.text
                               };
+                              Navigator.pop(context);
                             }
                           },
                               isloading:

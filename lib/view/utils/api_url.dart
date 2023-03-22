@@ -4,6 +4,7 @@ class ApiUrl {
   static const String loginUri = '$baseUri/login';
   static const String registerUri = '$baseUri/register';
   static const String logoutUri = '$baseUri/user/logout';
+  static const String checkoutUri = '$baseUri/checkout';
   static const String changePassUri = '';
   static const String sendOtpUri = '$baseUri/send-otp-in-mail';
   static const String otpSuccessUri = '$baseUri/otp-success';
@@ -15,6 +16,7 @@ class ApiUrl {
   static const String departmentUri = '$baseUri/user/get-department';
   static const String gatewayListUri = '$baseUri/payment-gateway-list';
   static const String addShippingUri = '$baseUri/user/add-shipping-address';
+  static const String paymentUpdateUri = '$baseUri/payment-update';
   static const String removeShippingUri =
       '$baseUri/user/shipping-address/delete';
   static const String shipAddressListUri = "$baseUri/user/all-shipping-address";

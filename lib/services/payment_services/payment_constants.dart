@@ -151,7 +151,7 @@ payAction(String method, BuildContext context, imagePath) {
 makePaymentToGetOrderId(BuildContext context, VoidCallback function,
     {bool paytmPaymentSelected = false}) async {
   var res = await Provider.of<PlaceOrderService>(context, listen: false)
-      .placeOrder(context, null, paytmPaymentSelected: paytmPaymentSelected);
+      .placeOrder(context, null);
 
   if (res == true) {
     function();

@@ -1,22 +1,42 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
-import 'package:provider/provider.dart';
 import 'package:crypto/crypto.dart';
 
-class CheckoutService {
-  formatCart(BuildContext context) {
-    final cProvider = Provider.of<CartService>(context, listen: false);
-    final cartData = cProvider.cartItemList;
+import 'product_db_service.dart';
 
+class CheckoutService {
+  formatCart(BuildContext context) async {
+    List products = await ProductDbService().allCartProducts();
     Map formatData = {};
-    for (var element in cartData) {
+    for (var element in products) {
       print(element);
       final String rowId = md5
           .convert(utf8.encode(
               element["id"].toString() + element['attributes'].toString()))
           .toString();
+      final attributes = jsonDecode(element['attributes']);
+      final usedCategories = {
+        "category": element['category'],
+        "subcategory": element['subcategory'],
+        "childcategory": element['childCategory'],
+      };
+      var options = {
+        "variant_id": element['variantId'],
+        "attributes": element['attributes'],
+        "image": element['thumbnail'],
+        "used_categories": usedCategories
+      };
+      print(attributes);
+      if (attributes['Size'] != null) {
+        options.putIfAbsent('size_name', () => attributes['Size']);
+      }
+      if (attributes['color_code'] != null) {
+        options.putIfAbsent('color_code', () => attributes['color_code']);
+      }
+      if (attributes['Color'] != null) {
+        options.putIfAbsent('color_name', () => attributes['Color']);
+      }
       formatData.putIfAbsent(
           rowId,
           () => {
@@ -24,22 +44,14 @@ class CheckoutService {
                 "id": element["id"],
                 "name": element["title"],
                 "qty": element["qty"],
-                "price": element["price"],
-                // "weight":element["weight"], Comment kora agula asha kori lagbe na.
-                "options": {
-                  "variant_id": element['variant_id'],
-                  // "color_name": "Blue",
-                  // "size_name": "Large",
-                  "attributes": element['attributes'],
-                  // "image": "438",
-                  "used_categories": element['usedCategories']
-                },
-                // "discount": 0,
-                // "tax": 0,
-                "subtotal": element['price'] ?? 12 * element['qty'] ?? 12
+                "price": element["priceWithAttr"],
+                "options": options,
+                "subtotal": element['priceWithAttr'] ?? 1 * element['qty'] ?? 12
               });
     }
     print(formatData);
+
+    return formatData;
   }
 
   final targetMap = {

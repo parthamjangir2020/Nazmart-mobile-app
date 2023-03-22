@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
@@ -99,21 +100,11 @@ class StripeService with ChangeNotifier {
   }
 
   Future<void> makePayment(BuildContext context) async {
-    var amount;
     var name;
 
-    // var bcProvider =
-    //     Provider.of<BookConfirmationService>(context, listen: false);
-    // var pProvider = Provider.of<PersonalizationService>(context, listen: false);
-    // var bookProvider = Provider.of<BookService>(context, listen: false);
-
-    // name = bookProvider.name ?? '';
-    // if (pProvider.isOnline == 0) {
-    //   amount = bcProvider.totalPriceAfterAllcalculation.toStringAsFixed(0);
-    // } else {
-    //   amount = bcProvider.totalPriceOnlineServiceAfterAllCalculation
-    //       .toStringAsFixed(0);
-    // }
+    String amount = Provider.of<CartService>(context, listen: false)
+        .totalPrice
+        .toStringAsFixed(0);
 
     //Stripe takes only integer value
 

@@ -141,8 +141,18 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
     };
 
     final attributes = provider.selectedInventorySet;
+    if (attributes.containsKey('color_code')) {
+      attributes.putIfAbsent(
+          'Color',
+          () => provider.productDetails?.productColors
+              .firstWhere(
+                  (element) => element.colorCode == attributes['color_code'])
+              .name);
+    }
+    print(attributes);
 
     final variantId = provider.variantId;
+    print(variantId);
 
     cProvider.addToCartOrUpdateQty(context,
         title: provider.productDetails?.product?.name ?? '',

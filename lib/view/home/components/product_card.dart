@@ -78,7 +78,8 @@ class ProductCard extends StatelessWidget {
                             color: primaryColor,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 3),
-                            child: paragraphCommon('$discountPercent% off',
+                            child: paragraphCommon(
+                                '${discountPercent.toStringAsFixed(0)}% off',
                                 color: Colors.white),
                           ))
                   ],

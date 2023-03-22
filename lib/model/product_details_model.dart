@@ -35,7 +35,7 @@ class ProductDetailsModel {
   List<Rating> ratings;
   int? avgRating;
   dynamic availableAttributes;
-  dynamic productInventorySet;
+  final dynamic productInventorySet;
   Map<String, AdditionalInfoStore>? additionalInfoStore;
   int? maximumAvailablePrice;
   List<ProductColor> productColors;

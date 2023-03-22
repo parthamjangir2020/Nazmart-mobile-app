@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ class PaystackPaymentPage extends StatelessWidget {
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },
-                      child: Text(
+                      child: const Text(
                         'Yes',
                         style: TextStyle(color: primaryColor),
                       ),
@@ -102,7 +103,7 @@ class PaystackPaymentPage extends StatelessWidget {
                               const Spacer(),
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
-                                child: Text(
+                                child: const Text(
                                   'Ok',
                                   style: TextStyle(color: primaryColor),
                                 ),
@@ -124,16 +125,6 @@ class PaystackPaymentPage extends StatelessWidget {
                   }
                   return NavigationDecision.navigate;
                 },
-
-                // javascriptChannels: <JavascriptChannel>[
-                //   // Set Javascript Channel to WebView
-                //   JavascriptChannel(
-                //       name: 'same',
-                //       onMessageReceived: (javMessage) {
-                //         print(javMessage.message);
-                //         print('...........................................');
-                //       }),
-                // ].toSet(),
               );
             }),
       ),
@@ -143,31 +134,14 @@ class PaystackPaymentPage extends StatelessWidget {
   Future<void> waitForIt(BuildContext context) async {
     final uri = Uri.parse('https://api.paystack.co/transaction/initialize');
 
-    // String paystackSecretKey =
-    //     Provider.of<PaymentGatewayListService>(context, listen: false)
-    //             .secretKey ??
-    //         '';
-
-    // var amount;
-
-    // var bcProvider =
-    //     Provider.of<BookConfirmationService>(context, listen: false);
-    // var pProvider = Provider.of<PersonalizationService>(context, listen: false);
-    // var bookProvider = Provider.of<BookService>(context, listen: false);
-
-    // if (pProvider.isOnline == 0) {
-    //   amount = bcProvider.totalPriceAfterAllcalculation.toStringAsFixed(2);
-    // } else {
-    //   amount = bcProvider.totalPriceOnlineServiceAfterAllCalculation
-    //       .toStringAsFixed(2);
-    // }
-
     final orderId =
         Provider.of<PlaceOrderService>(context, listen: false).orderId;
 
     var email = '';
     var paystackSecretKey = '';
-    var amount = '';
+    String amount = Provider.of<CartService>(context, listen: false)
+        .totalPrice
+        .toStringAsFixed(2);
 
     print(orderId);
 
@@ -191,7 +165,7 @@ class PaystackPaymentPage extends StatelessWidget {
         }));
     print(response.body);
     if (response.statusCode == 200) {
-      this.url = jsonDecode(response.body)['data']['authorization_url'];
+      url = jsonDecode(response.body)['data']['authorization_url'];
       print(url);
       return;
     }

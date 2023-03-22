@@ -1,6 +1,24 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously, avoid_print
 
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
+import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
+import 'package:no_name_ecommerce/services/checkout_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/country_states_service.dart';
+import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
+import 'package:no_name_ecommerce/services/product_db_service.dart';
+import 'package:no_name_ecommerce/view/home/landing_page.dart';
+import 'package:no_name_ecommerce/view/order/order_success_page.dart';
+import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PlaceOrderService with ChangeNotifier {
   bool isloading = false;
@@ -22,332 +40,147 @@ class PlaceOrderService with ChangeNotifier {
   }
 
   Future<bool> placeOrder(BuildContext context, String? imagePath,
-      {bool isManualOrCod = false, bool paytmPaymentSelected = false}) async {
-    return false; //TODO remove this line
+      {bool isManualOrCod = false}) async {
+    setLoadingTrue();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
 
-    // setLoadingTrue();
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // var token = prefs.getString('token');
+//Delivery details========>
+    var address = Provider.of<DeliveryAddressService>(context, listen: false)
+        .enteredDeliveryAddress;
+    var selectedPaymentMethodName =
+        Provider.of<PaymentGatewayListService>(context, listen: false)
+            .selectedMethodName;
+    var selectedShipId =
+        Provider.of<DeliveryAddressService>(context, listen: false)
+            .selectedShipId;
+    var coupon =
+        Provider.of<CouponService>(context, listen: false).appliedCoupon;
 
-    // List includesList = [];
-    // List extrasList = [];
-    // var total;
-    // var subtotal;
+    var countryId = Provider.of<CountryStatesService>(context, listen: false)
+        .selectedCountryId;
+    var stateId = Provider.of<CountryStatesService>(context, listen: false)
+        .selectedStateId;
 
-    // List includes = Provider.of<PersonalizationService>(context, listen: false)
-    //     .includedList;
-    // List extras =
-    //     Provider.of<PersonalizationService>(context, listen: false).extrasList;
+    var cartItems = await CheckoutService().formatCart(context);
 
-    // var serviceId = Provider.of<BookService>(context, listen: false).serviceId;
-    // var sellerId = Provider.of<BookService>(context, listen: false).sellerId;
-    // var buyerId = prefs.getInt('userId');
-    // var name = Provider.of<BookService>(context, listen: false).name;
-    // var email = Provider.of<BookService>(context, listen: false).email;
-    // var phone = Provider.of<BookService>(context, listen: false).phone;
-    // var post = Provider.of<BookService>(context, listen: false).postCode;
-    // var address = Provider.of<BookService>(context, listen: false).address;
-    // var city = Provider.of<CountryStatesService>(context, listen: false)
-    //     .selectedStateId;
-    // var area = Provider.of<CountryStatesService>(context, listen: false)
-    //     .selectedAreaId;
-    // var country = Provider.of<CountryStatesService>(context, listen: false)
-    //     .selectedCountryId;
-    // var selectedDate =
-    //     Provider.of<BookService>(context, listen: false).selectedDateAndMonth;
-    // var schedule =
-    //     Provider.of<BookService>(context, listen: false).selectedTime;
-    // var coupon =
-    //     Provider.of<CouponService>(context, listen: false).appliedCoupon;
-    // var selectedPaymentGateway =
-    //     Provider.of<BookService>(context, listen: false).selectedPayment;
+    var formData;
+    var dio = Dio();
+    dio.options.headers['Content-Type'] = 'multipart/form-data';
+    dio.options.headers['Accept'] = 'application/json';
+    dio.options.headers['x-api-key'] = xApiKey;
+    dio.options.headers['Authorization'] = "Bearer $token";
 
-    // var isOnline =
-    //     Provider.of<PersonalizationService>(context, listen: false).isOnline;
+    formData = FormData.fromMap({
+      'name': address['name'],
+      'email': address['email'],
+      'phone': address['phone'],
+      'country': countryId,
+      'state': '1', //TODO change state id
+      'address': address['address'],
+      'city': address['city'],
+      'shipping_method': selectedShipId,
+      'used_coupon': coupon ?? '',
+      'message': '',
+      'payment_gateway': selectedPaymentMethodName,
+      // 'bank_payment_input': imagePath !=null ? await MultipartFile.fromFile(imagePath,
+      //     filename: '${address['name']}$imagePath.jpg') : null,
 
-    // if (isOnline == 0) {
-    //   total = Provider.of<BookConfirmationService>(context, listen: false)
-    //           .totalPriceAfterAllcalculation -
-    //       Provider.of<BookConfirmationService>(context, listen: false).taxPrice;
-    //   subtotal = Provider.of<BookConfirmationService>(context, listen: false)
-    //       .subTotalAfterAllCalculation;
-    // } else {
-    //   total = Provider.of<BookConfirmationService>(context, listen: false)
-    //           .totalPriceOnlineServiceAfterAllCalculation -
-    //       Provider.of<BookConfirmationService>(context, listen: false).taxPrice;
-    //   subtotal = Provider.of<BookConfirmationService>(context, listen: false)
-    //       .subTotalOnlineServiceAfterAllCalculation;
-    // }
+      'cart': jsonEncode(cartItems)
+    });
 
-    // //includes list
-    // for (int i = 0; i < includes.length; i++) {
-    //   includesList.add({
-    //     'order_id': "1",
-    //     "title": includes[i]['title'],
-    //     "price": includes[i]['price'],
-    //     "quantity": includes[i]['qty']
-    //   });
-    // }
+    var response = await dio.post(
+      ApiUrl.checkoutUri,
+      data: formData,
+    );
 
-    // //extras list
-    // for (int i = 0; i < extras.length; i++) {
-    //   if (extras[i]['selected'] == true) {
-    //     extrasList.add({
-    //       'order_id': "1",
-    //       "additional_service_title": extras[i]['title'],
-    //       "additional_service_price": extras[i]['price'],
-    //       "quantity": includes[i]['qty']
-    //     });
-    //   }
-    // }
+    if (response.statusCode == 200) {
+      print(response.data);
 
-    // var formData;
-    // var dio = Dio();
-    // dio.options.headers['Content-Type'] = 'multipart/form-data';
-    // dio.options.headers['Accept'] = 'application/json';
-    // dio.options.headers['Authorization'] = "Bearer $token";
+      orderId = response.data['order_id'];
+      print('order id is $orderId');
 
-    // if (isOnline == 0) {
-    //   print('not online service');
-    //   //if it's not online service
-    //   if (imagePath != null) {
-    //     //if manual transfer selected then image upload is mandatory
-    //     formData = FormData.fromMap({
-    //       'service_id': serviceId.toString(),
-    //       'seller_id': sellerId.toString(),
-    //       'buyer_id': buyerId.toString(),
-    //       'name': name,
-    //       'email': email,
-    //       'phone': phone, //amount he paid in bkash ucash etc
-    //       'post_code': post,
-    //       'address': address,
-    //       'choose_service_city': city.toString(),
-    //       'choose_service_area': area.toString(),
-    //       'choose_service_country': country.toString(),
-    //       'date': selectedDate.toString(),
-    //       'schedule': schedule.toString(),
-    //       'include_services': jsonEncode({"include_services": includesList}),
-    //       'additional_services':
-    //           jsonEncode({"additional_services": extrasList}),
-    //       'coupon_code': coupon.toString(),
-    //       'selected_payment_gateway': selectedPaymentGateway.toString(),
-    //       'manual_payment_image': await MultipartFile.fromFile(imagePath,
-    //           filename: 'bankTransfer$name$address$imagePath.jpg'),
-    //       'is_service_online': 0,
-    //     });
-    //   } else {
-    //     //other payment method selected
-    //     formData = FormData.fromMap({
-    //       'service_id': serviceId.toString(),
-    //       'seller_id': sellerId.toString(),
-    //       'buyer_id': buyerId.toString(),
-    //       'name': name,
-    //       'email': email,
-    //       'phone': phone, //amount he paid in bkash ucash etc
-    //       'post_code': post,
-    //       'address': address,
-    //       'choose_service_city': city.toString(),
-    //       'choose_service_area': area.toString(),
-    //       'choose_service_country': country.toString(),
-    //       'date': selectedDate.toString(),
-    //       'schedule': schedule.toString(),
-    //       'include_services': jsonEncode({"include_services": includesList}),
-    //       'additional_services':
-    //           jsonEncode({"additional_services": extrasList}),
-    //       'coupon_code': coupon.toString(),
-    //       'selected_payment_gateway': selectedPaymentGateway.toString(),
-    //       'is_service_online': 0,
-    //     });
-    //   }
-    // } else {
-    //   print('this was an online service');
+      notifyListeners();
 
-    //   //else it is online service. so, some fields will not be given to api
-    //   if (imagePath != null) {
-    //     //if manual transfer selected then image upload is mandatory
-    //     formData = FormData.fromMap({
-    //       'service_id': serviceId.toString(),
-    //       'seller_id': sellerId.toString(),
-    //       'buyer_id': buyerId.toString(),
-    //       'name': name,
-    //       'email': email,
-    //       'phone': phone,
-    //       'additional_services':
-    //           jsonEncode({"additional_services": extrasList}),
-    //       'coupon_code': coupon.toString(),
-    //       'selected_payment_gateway': selectedPaymentGateway.toString(),
-    //       'manual_payment_image': await MultipartFile.fromFile(imagePath,
-    //           filename: 'bankTransfer$name$address$imagePath.jpg'),
-    //       'is_service_online': '1',
-    //     });
-    //   } else {
-    //     //other payment method selected
-    //     formData = FormData.fromMap({
-    //       'service_id': serviceId.toString(),
-    //       'seller_id': sellerId.toString(),
-    //       'buyer_id': buyerId.toString(),
-    //       'name': name,
-    //       'email': email,
-    //       'phone': phone, //amount he paid in bkash ucash etc
-    //       'additional_services':
-    //           jsonEncode({"additional_services": extrasList}),
-    //       'coupon_code': coupon.toString(),
-    //       'selected_payment_gateway': selectedPaymentGateway.toString(),
-    //       'is_service_online': '1',
-    //     });
-    //   }
-    // }
+      if (isManualOrCod == true) {
+        //cod means cash on delivery
+        //if user placed order in manual transfer or cash on delivery then make payment pending
+        Provider.of<PlaceOrderService>(context, listen: false)
+            .makePaymentSuccess(context); //make payment status pending
+        doNext(context, 'Pending');
+      }
 
-    // //For paytm
-    // //=============>
-    // var data = jsonEncode({
-    //   'service_id': serviceId.toString(),
-    //   'seller_id': sellerId.toString(),
-    //   'buyer_id': buyerId.toString(),
-    //   'name': name,
-    //   'email': email,
-    //   'phone': phone, //amount he paid in bkash ucash etc
-    //   'post_code': post,
-    //   'address': address,
-    //   'choose_service_city': city,
-    //   'choose_service_area': area,
-    //   'choose_service_country': country,
-    //   'date': selectedDate.toString(),
-    //   'schedule': schedule.toString(),
-    //   'include_services': jsonEncode({"include_services": includesList}),
-    //   'additional_services': jsonEncode({"additional_services": extrasList}),
-    //   'coupon_code': coupon.toString(),
-    //   'selected_payment_gateway': selectedPaymentGateway.toString(),
-    //   'is_service_online': 0,
-    //   'paytm': true
-    // });
+      setLoadingFalse();
+      return true;
+    } else {
+      setLoadingFalse();
+      print(response.data);
 
-    // var header = {
-    //   //if header type is application/json then the data should be in jsonEncode method
-    //   "Accept": "application/json",
-    //   "Content-Type": "application/json",
-    //   "Authorization": "Bearer $token",
-    // };
+      if (response.data.containsKey('message')) {
+        showToast(response.data['message'].toString(), Colors.black);
+      } else {
+        showToast('Something went wrong', Colors.black);
+      }
 
-    // var response = await dio.post(
-    //   '$baseApi/service/order',
-    //   data: formData,
-    // );
-
-    // //if paytm payment selected
-    // // =================>
-
-    // if (paytmPaymentSelected == true) {
-    //   var paytmRes = await http.post(Uri.parse('$baseApi/service/order-paytm'),
-    //       headers: header, body: data);
-
-    //   paytmHtmlForm = paytmRes.body;
-    //   notifyListeners();
-    // }
-
-    // // if (paytmPaymentSelected == true) {
-    // //   var paytmRes = await dio.post(
-    // //     '$baseApi/service/order',
-    // //     data: formData,
-    // //   );
-
-    // //   print('paytm response is' + paytmRes.data);
-    // //   if (paytmRes.statusCode == 200) {
-    // //     paytmHtmlForm = paytmRes.data;
-    // //     print(paytmHtmlForm);
-    // //     notifyListeners();
-    // //   }
-    // // }
-
-    // // =====================>
-    // // ===============>
-
-    // if (response.statusCode == 201) {
-    //   print(response.data);
-
-    //   orderId = response.data['order_id'];
-    //   successUrl = response.data['success_url'];
-    //   cancelUrl = response.data['cancel_url'];
-
-    //   print('order id is $orderId');
-
-    //   notifyListeners();
-
-    //   if (isManualOrCod == true) {
-    //     //if user placed order in manual transfer or cash on delivery then no need to hit the api- make payment success
-    //     //because in this case payment needs to stay pending anyway.
-    //     doNext(context, 'Pending');
-    //     setLoadingFalse();
-    //   }
-    //   return true;
-    // } else {
-    //   setLoadingFalse();
-    //   print(response.data);
-    //   showToast('Something went wrong', Colors.black);
-    //   return false;
-    // }
+      return false;
+    }
 
     //
   }
 
-  // make payment successfull
+  //make payment successfull
   makePaymentSuccess(BuildContext context) async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // var token = prefs.getString('token');
+//payment status =====>
+// 0 Pending , 1 Complete , 2 Failed
 
-    // var connection = await checkConnection();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
 
-    // if (connection) {
-    //   var header = {
-    //     //if header type is application/json then the data should be in jsonEncode method
-    //     "Accept": "application/json",
-    //     "Content-Type": "application/json",
-    //     "Authorization": "Bearer $token",
-    //   };
+    var connection = await checkConnection();
 
-    //   print('order id is $orderId');
+    if (connection) {
+      var header = {
+        //if header type is application/json then the data should be in jsonEncode method
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      };
 
-    //   var data = jsonEncode({
-    //     'order_id': orderId,
-    //   });
+      print('order id is $orderId');
 
-    //   var response = await http.post(
-    //       Uri.parse('$baseApi/user/payment-status-update'),
-    //       headers: header,
-    //       body: data);
-    //   setLoadingFalse();
-    //   if (response.statusCode == 201) {
-    //     showToast('Order placed successfully', Colors.black);
-    //     doNext(context, 'Complete');
-    //   } else {
-    //     print(response.body);
-    //     showToast(
-    //         'Failed to make payment status successfull', Colors.black);
-    //     doNext(context, 'Pending');
-    //   }
-    // } else {
-    //   showToast(
-    //       'Check your internet connection and try again', Colors.black);
-    // }
+      var data = jsonEncode({'order_id': orderId, 'payment_status': '1'});
+
+      var response = await http.post(Uri.parse(ApiUrl.paymentUpdateUri),
+          headers: header, body: data);
+      setLoadingFalse();
+      if (response.statusCode == 200) {
+        showToast('Order placed successfully', Colors.black);
+        doNext(context, 'Complete');
+        //make cart table empty
+        ProductDbService().emptyCartTable();
+      } else {
+        print(response.body);
+        showToast('Failed to make payment status successfull', Colors.black);
+        doNext(context, 'Pending');
+      }
+    } else {
+      showToast('Check your internet connection and try again', Colors.black);
+    }
   }
 
-  /////////==========>
+  ///////////==========>
   doNext(BuildContext context, String paymentStatus) {
     //Refresh profile page so that user can see updated total orders
-    // Provider.of<ProfileService>(context, listen: false)
-    //     .getProfileDetails(isFromProfileupdatePage: true);
 
-    // Navigator.of(context).pushAndRemoveUntil(
-    //     MaterialPageRoute(builder: (context) => const LandingPage()),
-    //     (Route<dynamic> route) => false);
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LandingPage()),
+        (Route<dynamic> route) => false);
 
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute<void>(
-    //     builder: (BuildContext context) => PaymentSuccessPage(
-    //       paymentStatus: paymentStatus,
-    //     ),
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => const OrderSuccessPage(),
+      ),
+    );
   }
 }
