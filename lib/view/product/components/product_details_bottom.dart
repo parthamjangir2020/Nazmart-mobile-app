@@ -154,6 +154,11 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
         qty: provider.qty,
         color: provider.selectedInventorySet['color_code'],
         size: provider.selectedInventorySet['Size'],
-        productId: provider.productDetails?.product?.id.toString() ?? '1');
+        productId: provider.productDetails?.product?.id.toString() ?? '1',
+        category: usedCategories['category'],
+        subcategory: usedCategories['subcategory'],
+        childCategory: usedCategories['childcategory'],
+        attributes: attributes,
+        variantId: variantId);
   }
 }

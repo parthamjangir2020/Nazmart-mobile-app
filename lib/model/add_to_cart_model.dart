@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, prefer_collection_literals
 
 class AddtocartModel {
   late String productId;
@@ -11,8 +11,13 @@ class AddtocartModel {
   var priceWithAttr;
   late int qty;
 
+  var category;
+  var subcategory;
+  var childCategory;
+  var attributes;
+  var variantId;
+
   cartMap() {
-    // ignore: unused_local_variable, prefer_collection_literals
     var mapping = Map<String, dynamic>();
     mapping['productId'] = productId;
     mapping['title'] = title;
@@ -23,6 +28,11 @@ class AddtocartModel {
     mapping['qty'] = qty;
     mapping['color'] = color;
     mapping['size'] = size;
+    mapping['category'] = category;
+    mapping['subcategory'] = subcategory;
+    mapping['childCategory'] = childCategory;
+    mapping['attributes'] = attributes;
+    mapping['variantId'] = variantId;
     return mapping;
   }
 }

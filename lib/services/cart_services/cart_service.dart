@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables
 
 import 'package:flutter/cupertino.dart';
 import 'package:no_name_ecommerce/model/add_to_cart_model.dart';
@@ -139,7 +139,12 @@ class CartService with ChangeNotifier {
       required int qty,
       required String? color,
       required String? size,
-      required priceWithAttr}) async {
+      required priceWithAttr,
+      required category,
+      required subcategory,
+      required childCategory,
+      required attributes,
+      required variantId}) async {
     var connection = await ProductDbService().getdatabase;
     var prod = await connection.rawQuery(
         "SELECT * FROM cart_table WHERE productId=? and title =?",
@@ -157,6 +162,12 @@ class CartService with ChangeNotifier {
       cartObj.priceWithAttr = priceWithAttr;
       cartObj.color = color;
       cartObj.size = size;
+      cartObj.category = category;
+      cartObj.subcategory = subcategory;
+      cartObj.childCategory = childCategory;
+      cartObj.attributes = attributes;
+      cartObj.variantId = variantId;
+
       await connection.insert('cart_table', cartObj.cartMap());
 
       print('Added to cart');
