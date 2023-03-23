@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:cashfree_pg/cashfree_pg.dart';
@@ -6,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +17,31 @@ class CashfreeService {
     String amount = Provider.of<CartService>(context, listen: false)
         .totalPrice
         .toStringAsFixed(2);
+
+    String name;
+    String phone;
+    String email;
+    String orderId;
+    Provider.of<PlaceOrderService>(context, listen: false).setLoadingFalse();
+
+    orderId = Provider.of<PlaceOrderService>(context, listen: false)
+        .orderId
+        .toString();
+    name = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .name ??
+        'test';
+    phone = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .mobile ??
+        '111111111';
+    email = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .email ??
+        'test@test.com';
 
     var header = {
       //if header type is application/json then the data should be in jsonEncode method
@@ -29,10 +57,9 @@ class CashfreeService {
       "Content-Type": "application/json"
     };
 
-    String orderId = '1';
     String orderCurrency = "INR";
     var data = jsonEncode({
-      'orderId': orderId,
+      'orderId': "$name$amount$orderId",
       'orderAmount': amount,
       'orderCurrency': orderCurrency
     });
@@ -47,7 +74,7 @@ class CashfreeService {
 
     if (jsonDecode(response.body)['status'] == "OK") {
       cashFreePay(jsonDecode(response.body)['cftoken'], orderId, orderCurrency,
-          context, '100', 'name', 'phone', 'email');
+          context, amount, name, phone, email);
     } else {
       showToast('Something went wrong', Colors.black);
     }
@@ -67,7 +94,7 @@ class CashfreeService {
     String notifyUrl = "";
 
     Map<String, dynamic> inputParams = {
-      "orderId": orderId,
+      "orderId": "$name$amount$orderId",
       "orderAmount": amount,
       "customerName": name,
       "orderCurrency": orderCurrency,

@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/model/product_details_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:http/http.dart' as http;
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 class ProductDetailsService with ChangeNotifier {
   //
@@ -338,6 +339,9 @@ class ProductDetailsService with ChangeNotifier {
       print(allAtrributes);
       notifyListeners();
       return;
+    } else {
+      showToast('Error fetching product details', Colors.black);
+      print(response.body);
     }
     print(allAtrributes);
 

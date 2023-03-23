@@ -161,6 +161,7 @@ class CountryStatesService with ChangeNotifier {
 
       notifyListeners();
     } else {
+      print(response.body);
       //error fetching data
       statesDropdownList.add('Select State');
       statesDropdownIndexList.add('0');
@@ -217,8 +218,8 @@ class CountryStatesService with ChangeNotifier {
       }
     } else {
       if (data != null) {
-        selectedState = data.serviceCities[0].serviceCity;
-        selectedStateId = data.serviceCities[0].id;
+        selectedState = data.state[0].name;
+        selectedStateId = data.state[0].id;
       }
     }
 

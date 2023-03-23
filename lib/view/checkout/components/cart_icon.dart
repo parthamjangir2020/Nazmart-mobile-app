@@ -24,6 +24,7 @@ class CartIcon extends StatelessWidget {
       child: Consumer<CartService>(
         builder: (context, p, child) => Stack(
           clipBehavior: Clip.none,
+          alignment: Alignment.centerRight,
           children: [
             Container(
               padding: const EdgeInsets.only(left: 70, top: 5, bottom: 5),

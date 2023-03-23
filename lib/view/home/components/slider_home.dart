@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
 class SliderHome extends StatelessWidget {
@@ -113,7 +114,7 @@ class SliderHome extends StatelessWidget {
                 ),
               ),
             )
-          : Container(),
+          : showLoading(primaryColor),
     );
   }
 }

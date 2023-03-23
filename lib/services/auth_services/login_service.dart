@@ -50,7 +50,7 @@ class LoginService with ChangeNotifier {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => LandingPage(),
+            builder: (BuildContext context) => const LandingPage(),
           ),
         );
 

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/intro_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
-import 'package:no_name_ecommerce/view/auth/login/login.dart';
+import 'package:no_name_ecommerce/view/home/landing_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
@@ -136,7 +136,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                       onTap: () {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                                builder: (context) => const LoginPage()),
+                                builder: (context) => const LandingPage()),
                             (Route<dynamic> route) => false);
                       },
                       child: Container(
@@ -166,7 +166,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LoginPage()));
+                                  builder: (context) => const LandingPage()));
                         } else {
                           _pageController.animateToPage(_selectedSlide + 1,
                               duration: const Duration(milliseconds: 300),

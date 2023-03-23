@@ -40,9 +40,6 @@ class PaymentGatewayListService with ChangeNotifier {
   }
 
   Future fetchGatewayList() async {
-//TODO if no payment gateway is selected by user.
-//set default public and secret key
-
     //if payment list already loaded, then don't load again
     if (paymentList.isNotEmpty) {
       return;
@@ -56,7 +53,6 @@ class PaymentGatewayListService with ChangeNotifier {
       var token = prefs.getString('token');
 
       var header = {
-        //if header type is application/json then the data should be in jsonEncode method
         "x-api-key": xApiKey,
         "Authorization": "Bearer $token",
       };
@@ -168,6 +164,9 @@ class PaymentGatewayListService with ChangeNotifier {
         publicKey = paymentList[index]['credentials']['api_key'];
         secretKey = paymentList[index]['credentials']['api_secret'];
         isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
+
+        print(publicKey);
+        print(secretKey);
         notifyListeners();
         break;
 
@@ -175,6 +174,9 @@ class PaymentGatewayListService with ChangeNotifier {
         publicKey = paymentList[index]['credentials']['public_key'];
         secretKey = paymentList[index]['credentials']['secret_key'];
         isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
+
+        print(publicKey);
+        print(secretKey);
         notifyListeners();
         break;
 
@@ -202,8 +204,13 @@ class PaymentGatewayListService with ChangeNotifier {
       case 'billplz':
         publicKey = paymentList[index]['credentials']['key'];
         secretKey = paymentList[index]['credentials']['x_signature'];
-        billPlzCollectionName = paymentList[index]['collection_name'];
+        billPlzCollectionName =
+            paymentList[index]['credentials']['collection_name'];
         isTestMode = paymentList[index]['test_mode'] == 1 ? true : false;
+
+        print(publicKey);
+        print(secretKey);
+        print(billPlzCollectionName);
         notifyListeners();
         break;
 

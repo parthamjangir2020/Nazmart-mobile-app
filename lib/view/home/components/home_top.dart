@@ -14,55 +14,62 @@ class HomeTop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TranslateStringService>(
       builder: (context, ln, child) => Consumer<ProfileService>(
-        builder: (context, profileProvider, child) =>
-            profileProvider.profileDetails != null
-                ? profileProvider.profileDetails != 'error'
-                    ? InkWell(
-                        onTap: () {
-                          Provider.of<BottomNavService>(context, listen: false)
-                              .setCurrentIndex(3);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 25),
-                          child: Row(
-                            children: [
-                              //name
-                              Expanded(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+          builder: (context, profileProvider, child) => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  profileProvider.profileDetails != null
+                      ? Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              Provider.of<BottomNavService>(context,
+                                      listen: false)
+                                  .setCurrentIndex(3);
+                            },
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25),
+                              child: Row(
                                 children: [
-                                  Text(
-                                    '${ln.getString(ConstString.hi)}' ',',
-                                    style: const TextStyle(
-                                      color: greyParagraph,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    profileProvider
-                                            .profileDetails?.userDetails.name ??
-                                        '',
-                                    style: const TextStyle(
-                                      color: blackCustomColor,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  //name
+                                  Expanded(
+                                      child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${ln.getString(ConstString.hi)}' ',',
+                                        style: const TextStyle(
+                                          color: greyParagraph,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        profileProvider.profileDetails
+                                                ?.userDetails.name ??
+                                            '',
+                                        style: const TextStyle(
+                                          color: blackCustomColor,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
                                 ],
-                              )),
-
-                              //Cart icon
-                              const CartIcon()
-                            ],
+                              ),
+                            ),
                           ),
-                        ),
-                      )
-                    : Text(ln.getString(ConstString.couldNotLoadProfileInfo))
-                : Container(),
-      ),
+                        )
+                      : Container(),
+                  Expanded(
+                      child: Container(
+                          margin: const EdgeInsets.only(right: 30),
+                          child: const CartIcon()))
+                ],
+              )),
     );
   }
 }

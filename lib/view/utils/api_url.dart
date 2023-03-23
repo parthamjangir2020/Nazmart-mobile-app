@@ -16,7 +16,7 @@ class ApiUrl {
   static const String departmentUri = '$baseUri/user/get-department';
   static const String gatewayListUri = '$baseUri/payment-gateway-list';
   static const String addShippingUri = '$baseUri/user/add-shipping-address';
-  static const String paymentUpdateUri = '$baseUri/payment-update';
+  static const String paymentUpdateUri = '$baseUri/update-payment';
   static const String removeShippingUri =
       '$baseUri/user/shipping-address/delete';
   static const String shipAddressListUri = "$baseUri/user/all-shipping-address";
@@ -39,7 +39,7 @@ class ApiUrl {
   static const String campaignListUri = '$baseUri/campaign';
   static const String categoryUri = '$baseUri/category';
   static const String childCategoryUri = '$baseUri/child-category';
-  static const String stateListUri = '$baseUri/country/service-city';
+  static const String stateListUri = '$baseUri/state';
   static const String countryListUri = '$baseUri/country';
   static const String currencyUri = '$baseUri/get-currency-symbol';
   static const String discoverProductsUri = '$baseUri/product?name=&page';

@@ -51,7 +51,6 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
     emailController.text = address['email'];
     phoneController.text = address['phone'];
     cityController.text = address['city'];
-    zipController.text = address['zip'];
     addressController.text = address['address'];
   }
 

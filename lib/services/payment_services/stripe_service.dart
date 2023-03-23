@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,6 +103,11 @@ class StripeService with ChangeNotifier {
 
   Future<void> makePayment(BuildContext context) async {
     var name;
+    name = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .name ??
+        'test';
 
     String amount = Provider.of<CartService>(context, listen: false)
         .totalPrice
@@ -140,22 +147,20 @@ class StripeService with ChangeNotifier {
     var token = prefs.getString('token');
 
     var header = {
-      //if header type is application/json then the data should be in jsonEncode method
-      "Accept": "application/json",
-      "Content-Type": "application/json",
+      "x-api-key": xApiKey,
       "Authorization": "Bearer $token",
     };
 
     var response =
         await http.post(Uri.parse(ApiUrl.gatewayListUri), headers: header);
     print(response.statusCode);
-    if (response.statusCode == 201) {
+    if (response.statusCode == 201 || response.statusCode == 200) {
       var paymentList = jsonDecode(response.body)['gateway_list'];
       var publicKey;
 
       for (int i = 0; i < paymentList.length; i++) {
         if (paymentList[i]['name'] == 'stripe') {
-          publicKey = paymentList[i]['public_key'];
+          publicKey = paymentList[i]['credentials']['public_key'];
         }
       }
       print('stripe public key is $publicKey');

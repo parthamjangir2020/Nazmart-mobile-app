@@ -69,6 +69,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: greyFour),
         leading: InkWell(
           onTap: () {

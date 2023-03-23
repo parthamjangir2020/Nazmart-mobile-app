@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/payments/midtrans_payment.dart';
 import 'package:provider/provider.dart';
 
@@ -14,13 +15,33 @@ class MidtransService {
         .totalPrice
         .toStringAsFixed(2);
 
+    String name;
+    String phone;
+    String email;
+
+    name = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .name ??
+        'test';
+    phone = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .mobile ??
+        '111111111';
+    email = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .email ??
+        'test@test.com';
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) => MidtransPayment(
           amount: amount,
-          name: 'name',
-          phone: 'phone',
-          email: 'email',
+          name: name,
+          phone: phone,
+          email: email,
         ),
       ),
     );

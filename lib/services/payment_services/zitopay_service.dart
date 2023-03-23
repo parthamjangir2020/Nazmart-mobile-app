@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/view/payments/zitopay_payment_page.dart';
 import 'package:provider/provider.dart';
 
@@ -11,11 +12,15 @@ class ZitopayService {
         .totalPrice
         .toStringAsFixed(2);
 
+    var userName =
+        Provider.of<PaymentGatewayListService>(context, listen: false)
+            .zitopayUserName;
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) => ZitopayPaymentPage(
           amount: amount,
-          userName: 'userName',
+          userName: userName,
         ),
       ),
     );

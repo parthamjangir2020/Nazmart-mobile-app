@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:no_name_ecommerce/services/featured_product_service.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
+import 'package:no_name_ecommerce/services/payment_services/bank_transfer_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
 import 'package:no_name_ecommerce/services/refund_products_service.dart';
 import 'package:no_name_ecommerce/services/refund_ticket_service/create_refund_ticket_service.dart';
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CouponService()),
         ChangeNotifierProvider(create: (_) => PaymentGatewayListService()),
         ChangeNotifierProvider(create: (_) => DeliveryAddressService()),
+        ChangeNotifierProvider(create: (_) => BankTransferService()),
         ChangeNotifierProvider(create: (_) => CartService()),
         ChangeNotifierProvider(create: (_) => SearchProductService()),
         ChangeNotifierProvider(create: (_) => FavouriteService()),
@@ -126,7 +128,7 @@ class MyApp extends StatelessWidget {
           }),
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: Colors.white,
-          appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.blue),
           buttonTheme: const ButtonThemeData(buttonColor: primaryColor),
           textSelectionTheme:
               const TextSelectionThemeData(cursorColor: primaryColor),

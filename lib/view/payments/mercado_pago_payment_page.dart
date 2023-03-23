@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:provider/provider.dart';
@@ -89,9 +90,12 @@ class _MercadopagoPaymentPageState extends State<MercadopagoPaymentPage> {
   }
 
   Future<dynamic> getPaymentUrl(BuildContext context) async {
-    String amount = Provider.of<CartService>(context, listen: false)
+    dynamic amount = Provider.of<CartService>(context, listen: false)
         .totalPrice
         .toStringAsFixed(2);
+
+    amount = double.parse(amount);
+
     String mercadoKey =
         Provider.of<PaymentGatewayListService>(context, listen: false)
                 .secretKey ??
@@ -101,6 +105,11 @@ class _MercadopagoPaymentPageState extends State<MercadopagoPaymentPage> {
         Provider.of<PlaceOrderService>(context, listen: false).orderId;
 
     var email = '';
+    email = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .email ??
+        'test@test.com';
 
     var header = {
       "Accept": "application/json",

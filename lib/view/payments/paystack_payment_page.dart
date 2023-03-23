@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -137,11 +138,21 @@ class PaystackPaymentPage extends StatelessWidget {
     final orderId =
         Provider.of<PlaceOrderService>(context, listen: false).orderId;
 
-    var email = '';
-    var paystackSecretKey = '';
-    String amount = Provider.of<CartService>(context, listen: false)
+    var email = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .email ??
+        'test@test.com';
+    String paystackSecretKey =
+        Provider.of<PaymentGatewayListService>(context, listen: false)
+                .secretKey ??
+            '';
+
+    dynamic amount;
+    amount = Provider.of<CartService>(context, listen: false)
         .totalPrice
-        .toStringAsFixed(2);
+        .toStringAsFixed(0);
+    amount = int.parse(amount);
 
     print(orderId);
 

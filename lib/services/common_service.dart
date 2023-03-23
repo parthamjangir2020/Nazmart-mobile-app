@@ -1,10 +1,12 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:intl/intl.dart';
 import 'package:no_name_ecommerce/services/campaign_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/featured_product_service.dart';
+import 'package:no_name_ecommerce/services/payment_services/stripe_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
@@ -61,6 +63,8 @@ runAtHomeScreen(BuildContext context) {
 runAtStart(BuildContext context) {
   Provider.of<TranslateStringService>(context, listen: false)
       .fetchTranslatedStrings();
+
+  startStripe();
   // Provider.of<RtlService>(context, listen: false).fetchDirection();
 
   // //fetch payment gateway list
@@ -82,4 +86,12 @@ gotoProductDetails(BuildContext context, productId) {
       ),
     );
   });
+}
+
+startStripe() async {
+  //start stripe
+  //============>
+  var publishableKey = await StripeService().getStripeKey();
+  Stripe.publishableKey = publishableKey;
+  Stripe.instance.applySettings();
 }

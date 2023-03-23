@@ -4,6 +4,7 @@ import 'package:flutterwave_standard/models/subaccount.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:provider/provider.dart';
 
 import 'package:uuid/uuid.dart';
@@ -19,10 +20,25 @@ class FlutterwaveService {
     String amount = Provider.of<CartService>(context, listen: false)
         .totalPrice
         .toStringAsFixed(2);
-    var name = '';
-    var phone = '';
-    var email = '';
+    String name;
+    String phone;
+    String email;
 
+    name = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .name ??
+        'test';
+    phone = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .mobile ??
+        '111111111';
+    email = Provider.of<ProfileService>(context, listen: false)
+            .profileDetails
+            ?.userDetails
+            .email ??
+        'test@test.com';
     // String publicKey = 'FLWPUBK_TEST-86cce2ec43c63e09a517290a8347fcab-X';
     String publicKey =
         Provider.of<PaymentGatewayListService>(context, listen: false)

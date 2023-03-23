@@ -9,7 +9,6 @@ import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../view/auth/login/login.dart';
 import '../common_service.dart';
 
 class LogoutService with ChangeNotifier {
@@ -48,13 +47,17 @@ class LogoutService with ChangeNotifier {
         notifyListeners();
 
 //pop sidebar
-        Navigator.pushAndRemoveUntil<dynamic>(
-          context,
-          MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => const LoginPage(),
-          ),
-          (route) => false,
-        );
+        // Navigator.pushAndRemoveUntil<dynamic>(
+        //   context,
+        //   MaterialPageRoute<dynamic>(
+        //     builder: (BuildContext context) => const LoginPage(),
+        //   ),
+        //   (route) => false,
+        // );
+
+        Navigator.pop(context);
+
+        showToast('User logged out', Colors.black);
 
         // clear profile data =====>
         Future.delayed(const Duration(microseconds: 5500), () {

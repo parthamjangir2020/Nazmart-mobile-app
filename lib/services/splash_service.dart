@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/services/auth_services/google_sign_service.dar
 import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/services/intro_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/login.dart';
+import 'package:no_name_ecommerce/view/home/landing_page.dart';
 import 'package:no_name_ecommerce/view/intro/introduction_page.dart';
 
 import 'package:provider/provider.dart';
@@ -32,7 +33,7 @@ class SplashService {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const LoginPage(),
+            builder: (BuildContext context) => const LandingPage(),
           ),
         );
       });

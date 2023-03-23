@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/profile_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
-import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -75,9 +74,7 @@ class ProfileService with ChangeNotifier {
         setLoadingFalse();
         notifyListeners();
       } else {
-        profileDetails == 'error';
         setLoadingFalse();
-        showToast('Something went wrong', Colors.black);
         notifyListeners();
       }
     }

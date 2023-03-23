@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/order/order_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -54,7 +56,7 @@ class OrderSuccessPage extends StatelessWidget {
                         color: greyParagraph, fontSize: 15, height: 1.4),
                     children: <TextSpan>[
                       TextSpan(
-                          text: '#$orderId',
+                          text: '  #$orderId',
                           style: const TextStyle(
                               color: primaryColor,
                               fontWeight: FontWeight.bold)),
@@ -65,40 +67,45 @@ class OrderSuccessPage extends StatelessWidget {
               ]),
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: 75,
-        child: Row(children: [
-          Expanded(
-              child: Container(
-            margin: const EdgeInsets.only(left: 20, bottom: 20),
-            child: borderButtonPrimary(ConstString.backToHome, () {
-              Provider.of<BottomNavService>(context, listen: false)
-                  .setCurrentIndex(0);
+      bottomNavigationBar: Consumer<ProfileService>(
+        builder: (context, profileProvider, child) => SizedBox(
+          height: 75,
+          child: Row(children: [
+            Expanded(
+                child: Container(
+              margin: const EdgeInsets.only(left: 20, bottom: 20),
+              child: borderButtonPrimary(ConstString.backToHome, () {
+                Provider.of<BottomNavService>(context, listen: false)
+                    .setCurrentIndex(0);
 
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const LandingPage()),
-                  (Route<dynamic> route) => false);
-            }),
-          )),
-          const SizedBox(
-            width: 18,
-          ),
-          Expanded(
-              child: Container(
-            margin: const EdgeInsets.only(right: 20, bottom: 20),
-            child: buttonPrimary(ConstString.seeOrderDetails, () {
-              // Provider.of<OrderDetailsService>(context, listen: false)
-              //     .fetchOrderDetails(orderId);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute<void>(
-              //     builder: (BuildContext context) =>
-              //         OrderDetailsPage(orderId: orderId),
-              //   ),
-              // );
-            }),
-          ))
-        ]),
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => const LandingPage()),
+                    (Route<dynamic> route) => false);
+              }),
+            )),
+            const SizedBox(
+              width: 18,
+            ),
+            if (profileProvider.profileDetails != null)
+              Expanded(
+                  child: Container(
+                margin: const EdgeInsets.only(right: 20, bottom: 20),
+                child: buttonPrimary(ConstString.seeOrderDetails, () {
+                  // Provider.of<OrderDetailsService>(context, listen: false)
+                  //     .fetchOrderDetails(orderId);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => OrderDetailsPage(
+                        orderId: orderId,
+                      ),
+                    ),
+                  );
+                }),
+              ))
+          ]),
+        ),
       ),
     );
   }

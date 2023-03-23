@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/coupon_field.dart';
 import 'package:no_name_ecommerce/view/checkout/components/shipping_select.dart';
@@ -344,13 +345,13 @@ class _CartpageState extends State<Cartpage> {
 
                                     gapH(25),
                                     buttonPrimary(ConstString.checkout, () {
-                                      // if (dProvider.enteredDeliveryAddress ==
-                                      //     null) {
-                                      //   showToast(
-                                      //       'Please enter the delivery address and save it',
-                                      //       Colors.black);
-                                      //   return;
-                                      // }
+                                      if (dProvider.enteredDeliveryAddress ==
+                                          null) {
+                                        showToast(
+                                            'Please enter the delivery address and save it',
+                                            Colors.black);
+                                        return;
+                                      }
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute<void>(

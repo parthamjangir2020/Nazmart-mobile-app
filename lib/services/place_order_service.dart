@@ -24,7 +24,7 @@ class PlaceOrderService with ChangeNotifier {
   bool isloading = false;
 
   var orderId;
-  var successUrl;
+  var successUrl = 'https://www.google.com/';
   var cancelUrl;
 
   var paytmHtmlForm;
@@ -76,7 +76,7 @@ class PlaceOrderService with ChangeNotifier {
       'email': address['email'],
       'phone': address['phone'],
       'country': countryId,
-      'state': '1', //TODO change state id
+      'state': stateId,
       'address': address['address'],
       'city': address['city'],
       'shipping_method': selectedShipId,
@@ -148,12 +148,12 @@ class PlaceOrderService with ChangeNotifier {
 
       print('order id is $orderId');
 
-      var data = jsonEncode({'order_id': orderId, 'payment_status': '1'});
+      var data = jsonEncode({'order_id': orderId, 'status': '1'});
 
       var response = await http.post(Uri.parse(ApiUrl.paymentUpdateUri),
           headers: header, body: data);
       setLoadingFalse();
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         showToast('Order placed successfully', Colors.black);
         doNext(context, 'Complete');
         //make cart table empty
