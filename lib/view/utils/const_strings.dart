@@ -57,6 +57,8 @@ class ConstString {
   static const String plzEnterYourCity = 'Please enter your city';
   static const String enterYourCity = "Enter your city";
   static const String iAgreeTerms = "I agree with the terms and conditons";
+  static const String createAccountWithTheseDetails =
+      "Create account with these details";
   static const String signUp = "Sign up";
   static const String mustAgreeTermsToRegister =
       'You must agree with the terms and conditions to register';

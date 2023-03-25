@@ -196,5 +196,7 @@ var translateStrings = {
   ConstString.chat: ConstString.chat,
   ConstString.changePriority: ConstString.changePriority,
   ConstString.changeStatus: ConstString.changeStatus,
-  ConstString.somethingWentWrong: ConstString.somethingWentWrong
+  ConstString.somethingWentWrong: ConstString.somethingWentWrong,
+  ConstString.createAccountWithTheseDetails:
+      ConstString.createAccountWithTheseDetails
 };

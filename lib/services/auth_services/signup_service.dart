@@ -22,15 +22,14 @@ class SignupService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future signup(
-    BuildContext context, {
-    required userName,
-    required password,
-    required fullName,
-    required email,
-    required mobile,
-    required cityName,
-  }) async {
+  Future<bool> signup(BuildContext context,
+      {required userName,
+      required password,
+      required fullName,
+      required email,
+      required mobile,
+      required cityName,
+      bool isFromDeliveryAddressPage = false}) async {
     var connection = await checkConnection();
 
     var countryName = Provider.of<CountryStatesService>(context, listen: false)
@@ -76,6 +75,8 @@ class SignupService with ChangeNotifier {
       String token = jsonDecode(response.body)['token'];
 
       int userId = jsonDecode(response.body)['users']['id'];
+
+      if (isFromDeliveryAddressPage) return true;
 
       //Send otp
       var isOtepSent =
@@ -124,6 +125,8 @@ class SignupService with ChangeNotifier {
       showToast(error['password'][0], Colors.black);
     } else if (error.containsKey('message')) {
       showToast(error['message'][0], Colors.black);
+    } else if (error.containsKey('mobile')) {
+      showToast(error['mobile'][0], Colors.black);
     } else {
       showToast('Something went wrong', Colors.black);
     }

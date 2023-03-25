@@ -127,29 +127,29 @@ class ProductCard extends StatelessWidget {
                     gapH(5),
 
                     //Rating
-                    if (ratingAverage != null)
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.star_rounded,
-                            color: orangeColor,
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          paragraphCommon(ratingAverage.toString(),
-                              lineHeight: 1,
-                              fontsize: 13,
-                              color: greyParagraph,
-                              fontweight: FontWeight.bold),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          if (ratingCount != null)
-                            paragraphCommon('($ratingCount)',
-                                lineHeight: 1, fontsize: 13)
-                        ],
-                      ),
+                    // if (ratingAverage != null)
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star_rounded,
+                          color: orangeColor,
+                        ),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        paragraphCommon('${ratingAverage ?? 0.0}',
+                            lineHeight: 1,
+                            fontsize: 13,
+                            color: greyParagraph,
+                            fontweight: FontWeight.bold),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        // if (ratingCount != null)
+                        paragraphCommon('(${ratingCount ?? 0})',
+                            lineHeight: 1, fontsize: 13)
+                      ],
+                    ),
                   ],
                 ),
               ],

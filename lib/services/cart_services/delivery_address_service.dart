@@ -5,15 +5,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/shipping_cost_model.dart';
+import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
+import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
+import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DeliveryAddressService with ChangeNotifier {
-  var enteredDeliveryAddress;
+  Map enteredDeliveryAddress = {};
 
   ShippingCostModel? shippingCostDetails;
   bool hasError = false;
@@ -28,6 +31,24 @@ class DeliveryAddressService with ChangeNotifier {
   double? vatPercentage = 0;
 
   int selectedShippingIndex = -1;
+
+  bool createAccountWithDeliveryDetails = false;
+
+  setCreateAccountStatus(bool status) {
+    createAccountWithDeliveryDetails = status;
+    notifyListeners();
+  }
+
+  setPass(v) {
+    var oldAddress = enteredDeliveryAddress;
+
+    oldAddress["pass"] = v;
+
+    enteredDeliveryAddress = oldAddress;
+    notifyListeners();
+
+    print('entererer $enteredDeliveryAddress');
+  }
 
   setSelectedShipIndex(value) {
     selectedShippingIndex = value;
@@ -68,8 +89,6 @@ class DeliveryAddressService with ChangeNotifier {
   }
 
   bool isLoading = false;
-  bool vatLoading = false;
-
   setLoadingTrue() {
     isLoading = true;
     notifyListeners();
@@ -160,51 +179,42 @@ class DeliveryAddressService with ChangeNotifier {
     }
   }
 
-  //fetch vat amount ===============>
-  // fetchShippingCostAndVat(BuildContext context) async {
-  //   vatLoading = true;
-  //   notifyListeners();
+  Future<bool> registerUsingDeliveryAddress(BuildContext context) async {
+    if (createAccountWithDeliveryDetails == false) return false;
 
-  //   var countryId = Provider.of<CountryStatesService>(context, listen: false)
-  //       .selectedCountryId;
+    print(enteredDeliveryAddress);
+    print(enteredDeliveryAddress);
+    if (enteredDeliveryAddress["pass"] == null) {
+      showToast('Enter a password', Colors.black);
+      return false;
+    }
+    if (enteredDeliveryAddress["pass"] != null) {
+      if (enteredDeliveryAddress["pass"].length < 6) {
+        showToast('Password must be at least 6 characters long', Colors.black);
+        return false;
+      }
+    }
 
-  //   var stateId = Provider.of<CountryStatesService>(context, listen: false)
-  //       .selectedStateId;
+    var res = await Provider.of<SignupService>(context, listen: false).signup(
+        context,
+        userName: enteredDeliveryAddress['name'],
+        password: enteredDeliveryAddress['pass'],
+        fullName: enteredDeliveryAddress['name'],
+        email: enteredDeliveryAddress['email'],
+        mobile: enteredDeliveryAddress['phone'],
+        cityName: enteredDeliveryAddress['city'],
+        isFromDeliveryAddressPage: true);
 
-  //   var appliedCoupon =
-  //       Provider.of<CouponService>(context, listen: false).appliedCoupon;
+    if (res == true) {
+      await Provider.of<LoginService>(context, listen: false).login(
+          enteredDeliveryAddress['email'],
+          enteredDeliveryAddress['pass'],
+          context,
+          true,
+          isFromCheckout: true);
 
-  //   var couponAmount =
-  //       Provider.of<CouponService>(context, listen: false).couponDiscount ?? 0;
-
-  //   List cartItemList =
-  //       Provider.of<CartService>(context, listen: false).cartItemList;
-
-  //   List productIds = [];
-
-  //   for (int i = 0; i < cartItemList.length; i++) {
-  //     productIds.add(cartItemList[i]['productId']);
-  //   }
-
-  //   var subtotal = Provider.of<CartService>(context, listen: false).subTotal;
-
-  //   var response = await http.get(Uri.parse(
-  //       '${ApiUrl.vatAndShipCostUri}=$countryId&state=$stateId&coupon=$appliedCoupon&selected_shipping_option=$selectedShipId&products_ids=$productIds&sub_total=$subtotal&coupon_amount=$couponAmount'));
-
-  //   vatLoading = false;
-  //   if (response.statusCode == 200) {
-  //     var data = jsonDecode(response.body);
-
-  //     print('vat' + data['tax_amount']);
-  //     setVatAndincreaseTotal(
-  //         double.parse(data['tax_amount'].toString()), context);
-  //     Navigator.pop(context);
-  //   } else {
-  //     showToast(
-  //         'Error fetching vat amount. Please try again later', Colors.black);
-  //     print('error fetching vat ${response.body}');
-  //   }
-
-  //   notifyListeners();
-  // }
+      Provider.of<ProfileService>(context, listen: false).fetchData();
+    }
+    return res;
+  }
 }

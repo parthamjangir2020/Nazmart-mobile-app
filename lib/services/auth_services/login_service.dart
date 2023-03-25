@@ -27,7 +27,7 @@ class LoginService with ChangeNotifier {
   }
 
   Future<bool> login(email, pass, BuildContext context, bool keepLoggedIn,
-      {isFromLoginPage = true}) async {
+      {isFromLoginPage = true, isFromCheckout = false}) async {
     var connection = await checkConnection();
     if (connection) {
       setLoadingTrue();
@@ -47,13 +47,6 @@ class LoginService with ChangeNotifier {
       if (response.statusCode == 200) {
         setLoadingFalse();
 
-        Navigator.pushReplacement<void, void>(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const LandingPage(),
-          ),
-        );
-
         String token = jsonDecode(response.body)['token'];
         int userId = jsonDecode(response.body)['users']['id'];
 
@@ -64,6 +57,18 @@ class LoginService with ChangeNotifier {
         }
 
         print(response.body);
+
+        if (isFromCheckout) {
+          // Provider.of<ProfileService>(context, listen: false).fetchData();
+          return true;
+        }
+
+        Navigator.pushReplacement<void, void>(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => const LandingPage(),
+          ),
+        );
 
         return true;
       } else {

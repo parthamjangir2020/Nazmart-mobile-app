@@ -93,7 +93,7 @@ class _SearchPageState extends State<SearchPage> {
                                       crossAxisCount: 2,
                                       mainAxisSpacing: 25,
                                       crossAxisSpacing: 25,
-                                      height: 280),
+                                      height: 230),
                                   shrinkWrap: true,
                                   itemCount: provider.productList.length,
                                   physics: const NeverScrollableScrollPhysics(),
