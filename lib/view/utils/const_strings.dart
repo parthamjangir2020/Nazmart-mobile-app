@@ -65,7 +65,7 @@ class ConstString {
   static const String passDidntMatch = "Password didn't match";
   static const String mustEnterPhone = 'You must enter a phone';
   static const String alreadyHaveAccount = "Already have an account?";
-  static const String campaignProducts = 'Campaign products';
+  static const String saleCampaign = 'Sale Campaign';
   static const String days = 'Days';
   static const String hours = 'Hours';
   static const String minutes = 'Minutes';

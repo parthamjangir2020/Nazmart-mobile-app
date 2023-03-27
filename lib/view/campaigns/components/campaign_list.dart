@@ -34,7 +34,7 @@ class _CampaignListState extends State<CampaignList> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SectionTitle(
-                  title: ConstString.campaignProducts,
+                  title: ConstString.saleCampaign,
                   hasSeeAllBtn: false,
                 ),
                 gapH(15),

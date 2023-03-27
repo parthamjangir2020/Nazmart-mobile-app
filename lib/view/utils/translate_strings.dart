@@ -61,7 +61,7 @@ var translateStrings = {
   ConstString.passDidntMatch: ConstString.passDidntMatch,
   ConstString.mustEnterPhone: ConstString.mustEnterPhone,
   ConstString.alreadyHaveAccount: ConstString.alreadyHaveAccount,
-  ConstString.campaignProducts: ConstString.campaignProducts,
+  ConstString.saleCampaign: ConstString.saleCampaign,
   ConstString.days: ConstString.days,
   ConstString.hours: ConstString.hours,
   ConstString.minutes: ConstString.minutes,

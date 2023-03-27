@@ -7,4 +7,9 @@ class BottomNavService with ChangeNotifier {
     currentIndex = value;
     notifyListeners();
   }
+
+  resetIndex() {
+    currentIndex = 0;
+    notifyListeners();
+  }
 }

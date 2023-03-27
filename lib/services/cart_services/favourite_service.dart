@@ -1,8 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/favourite_product_model.dart';
 import 'package:no_name_ecommerce/services/product_db_service.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 class FavouriteService with ChangeNotifier {
   int favProductsLength = 0;
@@ -40,6 +41,8 @@ class FavouriteService with ChangeNotifier {
       await connection.insert('fav_table', favObj.favouriteMap());
       print('added to favourite');
 
+      showToast('Added to favourite', Colors.black);
+
       return true;
     } else {
       // else already added to favourite. so remove it
@@ -59,6 +62,8 @@ class FavouriteService with ChangeNotifier {
         [productId, title]);
     fetchFavProducts();
     print('removed from favourite');
+
+    showToast('Removed to favourite', Colors.black);
   }
 
   //check if added to favourite then change fav button color accordingly

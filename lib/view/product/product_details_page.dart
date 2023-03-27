@@ -103,9 +103,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                               const ProductDetailsSlider(),
 
                               gapH(16),
-
-                              paragraphCommon(
-                                  'SKU:  ${provider.productDetails?.product?.inventory?.sku ?? '-'}'),
+                              if (provider.productDetails?.product?.inventory
+                                      ?.sku !=
+                                  null)
+                                paragraphCommon(
+                                    'SKU:  ${provider.productDetails?.product?.inventory?.sku}'),
 
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

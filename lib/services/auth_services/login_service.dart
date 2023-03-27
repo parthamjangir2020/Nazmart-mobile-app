@@ -4,10 +4,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/view/home/landing_page.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,7 +29,9 @@ class LoginService with ChangeNotifier {
   }
 
   Future<bool> login(email, pass, BuildContext context, bool keepLoggedIn,
-      {isFromLoginPage = true, isFromCheckout = false}) async {
+      {isFromLoginPage = true,
+      isFromCheckout = false,
+      isFromSettingsPage = false}) async {
     var connection = await checkConnection();
     if (connection) {
       setLoadingTrue();
@@ -62,6 +66,8 @@ class LoginService with ChangeNotifier {
           // Provider.of<ProfileService>(context, listen: false).fetchData();
           return true;
         }
+
+        Provider.of<BottomNavService>(context, listen: false).resetIndex();
 
         Navigator.pushReplacement<void, void>(
           context,

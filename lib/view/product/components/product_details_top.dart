@@ -120,15 +120,16 @@ class _ProductDetailsTopState extends State<ProductDetailsTop> {
                   gapH(5),
 
                   //Rating
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.star_rounded,
-                        color: orangeColor,
-                      ),
-                      paragraphCommon('(${provider.ratingCount})')
-                    ],
-                  ),
+                  if (provider.ratingCount > 0)
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star_rounded,
+                          color: orangeColor,
+                        ),
+                        paragraphCommon('(${provider.ratingCount})')
+                      ],
+                    ),
                 ],
               ),
 

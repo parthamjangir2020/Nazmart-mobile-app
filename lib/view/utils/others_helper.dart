@@ -19,6 +19,7 @@ showLoading(Color color) {
 // }
 
 void showToast(String msg, Color? color) {
+  Fluttertoast.cancel();
   Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_LONG,

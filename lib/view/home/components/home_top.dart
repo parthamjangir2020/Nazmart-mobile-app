@@ -64,10 +64,9 @@ class HomeTop extends StatelessWidget {
                           ),
                         )
                       : Container(),
-                  Expanded(
-                      child: Container(
-                          margin: const EdgeInsets.only(right: 30),
-                          child: const CartIcon()))
+                  Container(
+                      margin: const EdgeInsets.only(right: 30),
+                      child: const CartIcon())
                 ],
               )),
     );

@@ -55,14 +55,14 @@ class _ProductDetailsBottomState extends State<ProductDetailsBottom> {
                             context,
                             MaterialPageRoute<void>(
                               builder: (BuildContext context) =>
-                                  const WriteReviewPage(
-                                productId: '1',
+                                  WriteReviewPage(
+                                productId: provider.productDetails?.product?.id,
                               ),
                             ),
                           );
                         }, bgColor: successColor, borderRadius: 100),
                         const SizedBox(
-                          height: 9,
+                          height: 13,
                         ),
                       ],
                     )

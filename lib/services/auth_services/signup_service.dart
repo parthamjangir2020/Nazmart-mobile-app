@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -98,6 +99,8 @@ class SignupService with ChangeNotifier {
       } else {
         showToast('Otp send failed', Colors.black);
       }
+
+      Provider.of<BottomNavService>(context, listen: false).resetIndex();
 
       return true;
     } else {

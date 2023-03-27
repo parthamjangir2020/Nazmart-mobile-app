@@ -63,6 +63,11 @@ class ProductCard extends StatelessWidget {
                         height: 150,
                         width: double.infinity,
                         imageUrl: imageLink,
+                        placeholder: (context, url) => Icon(
+                          Icons.image_outlined,
+                          size: 45,
+                          color: Colors.grey.withOpacity(.4),
+                        ),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
                         fit: BoxFit.cover,
