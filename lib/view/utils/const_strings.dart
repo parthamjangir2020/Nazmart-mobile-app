@@ -144,6 +144,7 @@ class ConstString {
   static const String privacyPolicy = 'Privacy policy';
   static const String termsCondition = 'Terms & Condition';
   static const String featuredProducts = 'Featured products';
+  static const String recentProducts = 'Recent products';
   static const String writeReview = 'Write a review';
   static const String buyNow = 'Buy now';
   static const String youMustSelectAllAttr = 'You must select all attributes';
@@ -182,6 +183,7 @@ class ConstString {
   static const String subCategory = 'Sub Category';
   static const String childCategory = 'Child Category';
   static const String minPrice = 'Min Price';
+  static const String maxPrice = 'Max Price';
   static const String enterMinPrice = 'Enter min price';
   static const String enterMaxPrice = 'Enter max price';
   static const String ratings = 'Ratings';

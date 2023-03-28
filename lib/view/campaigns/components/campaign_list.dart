@@ -57,7 +57,9 @@ class _CampaignListState extends State<CampaignList> {
                               context,
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) =>
-                                    const CampaignProductByCategory(),
+                                    CampaignProductByCategory(
+                                  endDate: p.campaignList[i].endDate,
+                                ),
                               ),
                             );
                           }),

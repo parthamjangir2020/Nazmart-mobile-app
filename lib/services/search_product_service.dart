@@ -24,7 +24,7 @@ class SearchProductService with ChangeNotifier {
 
   int currentPage = 1;
 
-  String? searchText;
+  String searchText = '';
 
   var categoryName;
   var subCategoryName;
@@ -130,6 +130,7 @@ class SearchProductService with ChangeNotifier {
         //but we dont want to show it when some products were found and user
         //goes to the next page and there are no more products
         noProductFound = true;
+        print(response.body);
       }
       notifyListeners();
       print('no more data');

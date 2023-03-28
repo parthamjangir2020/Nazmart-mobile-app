@@ -10,9 +10,6 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //fetch country
-    Provider.of<CategoryService>(context, listen: false).fetchCategory(context);
-
     return Consumer<CategoryService>(
       builder: (context, provider, child) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,

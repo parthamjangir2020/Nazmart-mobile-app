@@ -24,6 +24,19 @@ class ProductFilter extends StatefulWidget {
 }
 
 class _ProductFilterState extends State<ProductFilter> {
+  @override
+  void initState() {
+    super.initState();
+    fillInitialData();
+  }
+
+  fillInitialData() {
+    minPriceController.text =
+        Provider.of<SearchProductService>(context, listen: false).minPrice;
+    maxPriceController.text =
+        Provider.of<SearchProductService>(context, listen: false).maxPrice;
+  }
+
   int selectedCategory = 0;
   int selectedColor = 0;
 
@@ -97,7 +110,7 @@ class _ProductFilterState extends State<ProductFilter> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           paragraphCommon(
-                              ln.getString(ConstString.minPrice) + ':'),
+                              ln.getString(ConstString.maxPrice) + ':'),
                           gapH(10),
                           CustomInput(
                             hintText: ln.getString(ConstString.enterMaxPrice),
@@ -151,12 +164,8 @@ class _ProductFilterState extends State<ProductFilter> {
                                 listen: false)
                             .setFirstValue();
 
-                        Provider.of<SearchProductService>(context,
-                                listen: false)
-                            .setMinPrice('');
-                        Provider.of<SearchProductService>(context,
-                                listen: false)
-                            .setMaxPrice('');
+                        provider.setMinPrice('');
+                        provider.setMaxPrice('');
 
                         minPriceController.clear();
                         maxPriceController.clear();
@@ -182,6 +191,7 @@ class _ProductFilterState extends State<ProductFilter> {
                     Expanded(
                       child: buttonPrimary(ConstString.apply, () {
                         Navigator.pop(context);
+                        provider.searchProducts(context, isSearching: true);
                       }, borderRadius: 100),
                     )
                   ],

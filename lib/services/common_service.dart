@@ -5,6 +5,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:intl/intl.dart';
 import 'package:no_name_ecommerce/services/campaign_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/featured_product_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/stripe_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
@@ -14,6 +15,7 @@ import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<bool> checkConnection() async {
   var connectivityResult = await (Connectivity().checkConnectivity());
@@ -49,15 +51,11 @@ runAtHomeScreen(BuildContext context) {
       .fetchCampaignList(context);
   Provider.of<FeaturedProductService>(context, listen: false)
       .fetchFeaturedProducts(context);
+  //
+  Provider.of<CategoryService>(context, listen: false).fetchCategory(context);
 
-  // Provider.of<QuickDonationDropdownService>(context, listen: false)
-  //     .fetchCampaign(context);
-  // Provider.of<FeaturedCampaignService>(context, listen: false)
-  //     .fetchFeaturedCampaign();
-  // Provider.of<CategoryService>(context, listen: false).fetchCategory();
-  // Provider.of<RecentCampaignService>(context, listen: false)
-  //     .fetchRecentCampaign();
   Provider.of<ProfileService>(context, listen: false).getProfileDetails();
+  firstAppOpenSet();
 }
 
 runAtStart(BuildContext context) {
@@ -94,4 +92,9 @@ startStripe() async {
   var publishableKey = await StripeService().getStripeKey();
   Stripe.publishableKey = publishableKey;
   Stripe.instance.applySettings();
+}
+
+firstAppOpenSet() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('firstRun', false);
 }

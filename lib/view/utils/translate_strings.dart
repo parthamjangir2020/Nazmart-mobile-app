@@ -193,6 +193,8 @@ var translateStrings = {
   ConstString.youDontHaveAddressSaved: ConstString.youDontHaveAddressSaved,
   ConstString.addOrReplaceAddress: ConstString.addOrReplaceAddress,
   ConstString.department: ConstString.department,
+  ConstString.recentProducts: ConstString.recentProducts,
+  ConstString.maxPrice: ConstString.maxPrice,
   ConstString.chat: ConstString.chat,
   ConstString.changePriority: ConstString.changePriority,
   ConstString.changeStatus: ConstString.changeStatus,

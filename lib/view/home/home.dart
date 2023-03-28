@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/view/home/components/categories_horizontal.dart';
 import 'package:no_name_ecommerce/view/home/components/home_top.dart';
 import 'package:no_name_ecommerce/view/campaigns/components/campaign_list.dart';
 import 'package:no_name_ecommerce/view/product/components/featured_products.dart';
@@ -71,12 +72,16 @@ class _HomepageState extends State<Homepage> {
                     //Slider ========>
                     const SliderHome(),
 
-                    gapH(24),
+                    gapH(14),
 
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       margin: const EdgeInsets.only(bottom: 25),
                       child: Column(children: [
+                        //categories
+                        const CategoriesHorizontal(),
+
+                        gapH(24),
                         //Featured product
                         const FeaturedProducts(),
 

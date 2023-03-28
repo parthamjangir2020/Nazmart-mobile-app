@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
@@ -69,8 +68,6 @@ class _ColorAndSizeState extends State<ColorAndSize> {
         r'^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*,?\s*\)?)(,\s*(0?\.\d+)?|1)?\)');
 
     List<Widget> list = [];
-    bool rtl =
-        Provider.of<RtlService>(context, listen: false).direction == 'rtl';
     String value = '';
     final keys = mapdata.keys;
     for (var elemnt in keys) {
@@ -176,8 +173,6 @@ class _ColorAndSizeState extends State<ColorAndSize> {
   Widget colorBox(BuildContext context, ProductDetailsService pdService,
       fieldName, value, mapdata) {
     final color = value.replaceAll('#', '0xff');
-    bool rtl =
-        Provider.of<RtlService>(context, listen: false).direction == 'rtl';
     return Stack(
       children: [
         Container(
