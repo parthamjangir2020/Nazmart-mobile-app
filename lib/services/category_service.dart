@@ -45,25 +45,45 @@ class CategoryService with ChangeNotifier {
   fetchCategory(BuildContext context) async {
     if (categoryDropdownList.isNotEmpty) return;
 
-    if (categoryDropdownList.isEmpty) {
-      var response = await http.get(Uri.parse(ApiUrl.categoryUri));
-      print(response.body);
+    var response = await http.get(Uri.parse(ApiUrl.categoryUri));
+    print(response.body);
 
-      setDummyValue();
+    setDummyValue();
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var data = CategoryModel.fromJson(jsonDecode(response.body));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      var data = CategoryModel.fromJson(jsonDecode(response.body));
 
-        for (int i = 0; i < data.categories.length; i++) {
-          categoryDropdownList.add(data.categories[i].name);
-          categoryDropdownIndexList.add(data.categories[i].id);
-        }
-        setFirstValue();
-        Provider.of<SubCategoryService>(context, listen: false)
-            .fetchSubCategory(context);
-      } else {
-        //error fetching data
+      for (int i = 0; i < data.categories.length; i++) {
+        categoryDropdownList.add(data.categories[i].name);
+        categoryDropdownIndexList.add(data.categories[i].id);
       }
+      setFirstValue();
+
+      Provider.of<SubCategoryService>(context, listen: false)
+          .fetchSubCategory(context);
+    } else {
+      //error fetching data
+    }
+  }
+
+  // fetch category for homepage
+  // ==================>
+
+  List<Category> categoryHome = [];
+
+  fetchCategoryForHome(BuildContext context) async {
+    if (categoryHome.isNotEmpty) return;
+
+    var response = await http.get(Uri.parse(ApiUrl.categoryUri));
+    print(response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      var data = CategoryModel.fromJson(jsonDecode(response.body));
+
+      categoryHome = data.categories;
+      notifyListeners();
+    } else {
+      //error fetching data
     }
   }
 }

@@ -82,6 +82,7 @@ class CountryStatesService with ChangeNotifier {
 //Set state based on user profile
 //==============================>
   setStateBasedOnUserProfile(BuildContext context) {
+    print('setting state based on user profile');
     selectedState = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
             ?.userDetails
@@ -194,11 +195,23 @@ class CountryStatesService with ChangeNotifier {
   }
 
 //==============>
-  set_State(BuildContext context, {data}) {
+  set_State(BuildContext context, {StateDropdownModel? data}) {
     var profileData =
         Provider.of<ProfileService>(context, listen: false).profileDetails;
+    var profileStateName = Provider.of<ProfileService>(context, listen: false)
+        .profileDetails
+        ?.userDetails
+        .userState
+        ?.name;
+    var profileStateId = Provider.of<ProfileService>(context, listen: false)
+        .profileDetails
+        ?.userDetails
+        .userState
+        ?.id;
 
-    if (profileData != null) {
+    if (profileData != null &&
+        profileStateName != null &&
+        profileStateId != null) {
       var userCountryId = Provider.of<ProfileService>(context, listen: false)
           .profileDetails
           ?.userDetails
@@ -212,8 +225,8 @@ class CountryStatesService with ChangeNotifier {
         setStateBasedOnUserProfile(context);
       } else {
         if (data != null) {
-          selectedState = data.serviceCities[0].serviceCity;
-          selectedStateId = data.serviceCities[0].id;
+          selectedState = data.state[0].name;
+          selectedStateId = data.state[0].id;
         }
       }
     } else {

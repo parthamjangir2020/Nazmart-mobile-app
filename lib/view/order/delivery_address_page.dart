@@ -39,8 +39,15 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
   @override
   void initState() {
     super.initState();
+    var enteredDeliveryAddress =
+        Provider.of<DeliveryAddressService>(context, listen: false)
+            .enteredDeliveryAddress;
 
-    addressNewEntered();
+    if (enteredDeliveryAddress.isEmpty) {
+      addressFromProfile();
+    } else {
+      addressNewEntered();
+    }
   }
 
   addressNewEntered() {

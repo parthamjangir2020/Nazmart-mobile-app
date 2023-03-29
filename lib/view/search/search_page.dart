@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
-import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/search/components/search_bar.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
@@ -112,16 +112,8 @@ class _SearchPageState extends State<SearchPage> {
                                       ratingAverage:
                                           provider.productList[i].avgRatting,
                                       pressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute<void>(
-                                            builder: (BuildContext context) =>
-                                                ProductDetailsPage(
-                                              productId:
-                                                  provider.productList[i].prdId,
-                                            ),
-                                          ),
-                                        );
+                                        gotoProductDetails(context,
+                                            provider.productList[i].prdId);
                                       },
                                     );
                                   })

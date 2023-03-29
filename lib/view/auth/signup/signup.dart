@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/components/login_slider.dart';
 import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
 import 'package:no_name_ecommerce/view/auth/signup/pages/signup_phone_pass.dart';
+import 'package:no_name_ecommerce/view/others/terms_condition_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
@@ -124,32 +125,48 @@ class _SignupPageState extends State<SignupPage> {
 
                             //Agreement checkbox ===========>
 
-                            CheckboxListTile(
-                              checkColor: Colors.white,
-                              activeColor: primaryColor,
-                              contentPadding: const EdgeInsets.all(0),
-                              title: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: Text(
-                                  ln.getString(ConstString.iAgreeTerms),
-                                  style: const TextStyle(
-                                      color: greyFour,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 55,
+                                  child: CheckboxListTile(
+                                    checkColor: Colors.white,
+                                    activeColor: primaryColor,
+                                    contentPadding: const EdgeInsets.all(0),
+                                    value: termsAgree,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        termsAgree = !termsAgree;
+                                      });
+                                    },
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                  ),
                                 ),
-                              ),
-                              value: termsAgree,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  termsAgree = !termsAgree;
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity.leading,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    paragraphCommon(
+                                        ln.getString(ConstString.iAgreeTerms)),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const TermsConditionPage()));
+                                      },
+                                      child: paragraphCommon('(Click to see)',
+                                          fontweight: FontWeight.w600,
+                                          color: Colors.blue),
+                                    )
+                                  ],
+                                ),
+                              ],
                             ),
                             // sign up button
                             const SizedBox(
-                              height: 10,
+                              height: 15,
                             ),
                             buttonPrimary(ConstString.signUp, () {
                               if (_formKey.currentState!.validate()) {

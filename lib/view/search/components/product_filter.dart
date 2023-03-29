@@ -35,6 +35,7 @@ class _ProductFilterState extends State<ProductFilter> {
         Provider.of<SearchProductService>(context, listen: false).minPrice;
     maxPriceController.text =
         Provider.of<SearchProductService>(context, listen: false).maxPrice;
+    Provider.of<CategoryService>(context, listen: false).fetchCategory(context);
   }
 
   int selectedCategory = 0;

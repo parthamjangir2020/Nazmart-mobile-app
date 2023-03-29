@@ -52,7 +52,8 @@ runAtHomeScreen(BuildContext context) {
   Provider.of<FeaturedProductService>(context, listen: false)
       .fetchFeaturedProducts(context);
   //
-  Provider.of<CategoryService>(context, listen: false).fetchCategory(context);
+  Provider.of<CategoryService>(context, listen: false)
+      .fetchCategoryForHome(context);
 
   Provider.of<ProfileService>(context, listen: false).getProfileDetails();
   firstAppOpenSet();

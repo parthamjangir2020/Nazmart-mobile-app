@@ -59,29 +59,33 @@ class SearchBar extends StatelessWidget {
                 ),
               ),
 
-              InkWell(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    enableDrag: false,
-                    builder: (context) => const ProductFilter(),
-                  );
-                },
-                child: Container(
-                    padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.only(left: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        border: Border.all(color: inputFieldBorderColor)),
-                    child: SvgPicture.asset(
-                      'assets/svg/filter.svg',
-                      height: 23,
-                    )),
-              ),
+              productFilterIcon(context),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+InkWell productFilterIcon(BuildContext context) {
+  return InkWell(
+    onTap: () {
+      showModalBottomSheet(
+        context: context,
+        enableDrag: false,
+        builder: (context) => const ProductFilter(),
+      );
+    },
+    child: Container(
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.only(left: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(7),
+            border: Border.all(color: inputFieldBorderColor)),
+        child: SvgPicture.asset(
+          'assets/svg/filter.svg',
+          height: 23,
+        )),
+  );
 }

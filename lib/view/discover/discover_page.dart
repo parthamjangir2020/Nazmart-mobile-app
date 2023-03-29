@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/services/discover_products_service.dart';
+import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
+import 'package:no_name_ecommerce/view/search/components/search_bar.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -23,8 +24,6 @@ class DiscoverPage extends StatefulWidget {
 class _DiscoverPageState extends State<DiscoverPage> {
   @override
   void initState() {
-    // Provider.of<CategoryDropdownService>(context, listen: false)
-    //     .fetchCategory(context);
     super.initState();
   }
 
@@ -47,18 +46,29 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   fontWeight: FontWeight.w600),
             ),
           ),
+          actions: [
+            Row(
+              children: [
+                SizedBox(
+                  height: 45,
+                  child: productFilterIcon(context),
+                ),
+                gapW(20)
+              ],
+            )
+          ],
           backgroundColor: Colors.transparent,
           elevation: 0),
       body: SmartRefresher(
         controller: refreshController,
         enablePullUp: true,
-        enablePullDown: context.watch<DiscoverProductsService>().currentPage > 1
+        enablePullDown: context.watch<SearchProductService>().currentPage > 1
             ? false
             : true,
         onRefresh: () async {
           final result =
-              await Provider.of<DiscoverProductsService>(context, listen: false)
-                  .fetchProducts(context);
+              await Provider.of<SearchProductService>(context, listen: false)
+                  .searchProducts(context);
           if (result) {
             refreshController.refreshCompleted();
           } else {
@@ -67,8 +77,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
         },
         onLoading: () async {
           final result =
-              await Provider.of<DiscoverProductsService>(context, listen: false)
-                  .fetchProducts(context);
+              await Provider.of<SearchProductService>(context, listen: false)
+                  .searchProducts(context);
           if (result) {
             debugPrint('loadcomplete ran');
             //loadcomplete function loads the data again
@@ -86,48 +96,58 @@ class _DiscoverPageState extends State<DiscoverPage> {
         child: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: screenPadHorizontal),
-            child: Consumer<DiscoverProductsService>(
-              builder: (context, provider, child) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    gapH(10),
-                    provider.productList.isNotEmpty
-                        ? GridView.builder(
-                            gridDelegate: const FlutterzillaFixedGridView(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 25,
-                                crossAxisSpacing: 25,
-                                height: 230),
-                            shrinkWrap: true,
-                            itemCount: provider.productList.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, i) {
-                              return ProductCard(
-                                imageLink: provider.productList[i].imgUrl ??
-                                    placeHolderUrl,
-                                title: provider.productList[i].title,
-                                width: 180,
-                                marginRight: 0,
-                                discountPrice:
-                                    provider.productList[i].discountPrice,
-                                oldPrice: provider.productList[i].price,
-                                productId: provider.productList[i].prdId,
-                                ratingAverage:
-                                    provider.productList[i].avgRatting,
-                                pressed: () {
-                                  gotoProductDetails(
-                                      context, provider.productList[i].prdId);
-                                },
-                              );
-                            })
-                        : Container(
-                            alignment: Alignment.center,
-                            height: screenHeight - 180,
-                            child: showLoading(primaryColor),
-                          ),
-                    gapH(30),
-                  ]),
+            child: Consumer<TranslateStringService>(
+              builder: (context, ln, child) => Consumer<SearchProductService>(
+                builder: (context, provider, child) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      gapH(10),
+                      provider.noProductFound == false
+                          ? provider.productList.isNotEmpty
+                              ? GridView.builder(
+                                  gridDelegate: const FlutterzillaFixedGridView(
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 25,
+                                      crossAxisSpacing: 25,
+                                      height: 230),
+                                  shrinkWrap: true,
+                                  itemCount: provider.productList.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, i) {
+                                    return ProductCard(
+                                      imageLink:
+                                          provider.productList[i].imgUrl ??
+                                              placeHolderUrl,
+                                      title: provider.productList[i].title,
+                                      width: 180,
+                                      marginRight: 0,
+                                      discountPrice:
+                                          provider.productList[i].discountPrice,
+                                      oldPrice: provider.productList[i].price,
+                                      productId: provider.productList[i].prdId,
+                                      ratingAverage:
+                                          provider.productList[i].avgRatting,
+                                      pressed: () {
+                                        gotoProductDetails(context,
+                                            provider.productList[i].prdId);
+                                      },
+                                    );
+                                  })
+                              : Container(
+                                  alignment: Alignment.center,
+                                  height: screenHeight - 120,
+                                  child: showLoading(primaryColor),
+                                )
+                          : Container(
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(top: 60),
+                              child: Text(
+                                  ln.getString(ConstString.noProductFound)),
+                            ),
+                      gapH(30),
+                    ]),
+              ),
             ),
           ),
         ),
