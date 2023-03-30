@@ -123,6 +123,7 @@ class CartProducts extends StatelessWidget {
                                     cProvider.decreaseQtyAndPrice(
                                         cProvider.cartItemList[i]['productId'],
                                         cProvider.cartItemList[i]['title'],
+                                        cProvider.cartItemList[i]['attributes'],
                                         context);
                                   },
                                   child: Container(
@@ -152,6 +153,7 @@ class CartProducts extends StatelessWidget {
                                     cProvider.increaseQtandPrice(
                                         cProvider.cartItemList[i]['productId'],
                                         cProvider.cartItemList[i]['title'],
+                                        cProvider.cartItemList[i]['attributes'],
                                         context);
                                   },
                                   child: Container(

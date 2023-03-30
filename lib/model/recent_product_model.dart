@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final recentProductModel = recentProductModelFromJson(jsonString);
+//     final recentProductModel = recentProductModelFromJson(jsondynamic);
 
 import 'dart:convert';
 
@@ -15,11 +15,11 @@ class RecentProductModel {
     required this.recentProducts,
   });
 
-  RecentProducts recentProducts;
+  RecentProductsDatas recentProducts;
 
   factory RecentProductModel.fromJson(Map<dynamic, dynamic> json) =>
       RecentProductModel(
-        recentProducts: RecentProducts.fromJson(json["recentProducts"]),
+        recentProducts: RecentProductsDatas.fromJson(json["recentProducts"]),
       );
 
   Map<dynamic, dynamic> toJson() => {
@@ -27,8 +27,8 @@ class RecentProductModel {
       };
 }
 
-class RecentProducts {
-  RecentProducts({
+class RecentProductsDatas {
+  RecentProductsDatas({
     this.currentPage,
     required this.data,
     this.firstPageUrl,
@@ -58,7 +58,8 @@ class RecentProducts {
   dynamic to;
   dynamic total;
 
-  factory RecentProducts.fromJson(Map<dynamic, dynamic> json) => RecentProducts(
+  factory RecentProductsDatas.fromJson(Map<dynamic, dynamic> json) =>
+      RecentProductsDatas(
         currentPage: json["current_page"],
         data: List<RecentProductsList>.from(
             json["data"].map((x) => RecentProductsList.fromJson(x))),
@@ -117,6 +118,7 @@ class RecentProductsList {
     this.updatedAt,
     this.deletedAt,
     this.inventoryDetailCount,
+    this.image,
     required this.category,
     required this.inventoryDetail,
   });
@@ -144,6 +146,7 @@ class RecentProductsList {
   DateTime? updatedAt;
   dynamic deletedAt;
   dynamic inventoryDetailCount;
+  dynamic image;
   Category category;
   List<InventoryDetail> inventoryDetail;
 
@@ -172,6 +175,7 @@ class RecentProductsList {
         updatedAt: DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
         inventoryDetailCount: json["inventory_detail_count"],
+        image: json["image"],
         category: Category.fromJson(json["category"]),
         inventoryDetail: List<InventoryDetail>.from(
             json["inventory_detail"].map((x) => InventoryDetail.fromJson(x))),
@@ -197,10 +201,11 @@ class RecentProductsList {
         "is_refundable": isRefundable,
         "is_in_house": isInHouse,
         "is_inventory_warn_able": isInventoryWarnAble,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "deleted_at": deletedAt,
         "inventory_detail_count": inventoryDetailCount,
+        "image": image,
         "category": category.toJson(),
         "inventory_detail":
             List<dynamic>.from(inventoryDetail.map((x) => x.toJson())),
@@ -252,8 +257,8 @@ class Category {
         "description": description,
         "image_id": imageId,
         "status_id": statusId,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "deleted_at": deletedAt,
         "laravel_through_key": laravelThroughKey,
       };
@@ -272,6 +277,8 @@ class InventoryDetail {
     this.image,
     this.stockCount,
     this.soldCount,
+    this.attribute,
+    this.attrImage,
   });
 
   dynamic id;
@@ -285,6 +292,8 @@ class InventoryDetail {
   dynamic image;
   dynamic stockCount;
   dynamic soldCount;
+  List<Attribute>? attribute;
+  AttrImage? attrImage;
 
   factory InventoryDetail.fromJson(Map<dynamic, dynamic> json) =>
       InventoryDetail(
@@ -299,6 +308,13 @@ class InventoryDetail {
         image: json["image"],
         stockCount: json["stock_count"],
         soldCount: json["sold_count"],
+        attribute: json["attribute"] != null
+            ? List<Attribute>.from(
+                json["attribute"].map((x) => Attribute.fromJson(x)))
+            : null,
+        attrImage: json["attr_image"] != null
+            ? AttrImage.fromJson(json["attr_image"])
+            : null,
       );
 
   Map<dynamic, dynamic> toJson() => {
@@ -313,6 +329,10 @@ class InventoryDetail {
         "image": image,
         "stock_count": stockCount,
         "sold_count": soldCount,
+        "attribute": attribute != null
+            ? List<dynamic>.from(attribute!.map((x) => x.toJson()))
+            : null,
+        "attr_image": attrImage?.toJson(),
       };
 }
 
@@ -363,8 +383,8 @@ class AttrImage {
         "user_type": userType,
         "user_id": userId,
         "dimensions": dimensions,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }
 

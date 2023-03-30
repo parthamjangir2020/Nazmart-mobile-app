@@ -10,6 +10,7 @@ import 'package:no_name_ecommerce/services/featured_product_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/stripe_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/services/recent_product_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
@@ -51,6 +52,9 @@ runAtHomeScreen(BuildContext context) {
       .fetchCampaignList(context);
   Provider.of<FeaturedProductService>(context, listen: false)
       .fetchFeaturedProducts(context);
+
+  Provider.of<RecentProductService>(context, listen: false)
+      .fetchRecentProducts(context);
   //
   Provider.of<CategoryService>(context, listen: false)
       .fetchCategoryForHome(context);

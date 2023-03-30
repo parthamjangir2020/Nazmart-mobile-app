@@ -18,7 +18,7 @@ class RecentProductService with ChangeNotifier {
     var connection = await checkConnection();
     if (!connection) return;
 
-    var response = await http.get(Uri.parse(ApiUrl.featuredProductsUri));
+    var response = await http.get(Uri.parse(ApiUrl.recentProductsUri));
 
     if (response.statusCode == 200) {
       var data = RecentProductModel.fromJson(jsonDecode(response.body));
@@ -73,7 +73,7 @@ class RecentProductService with ChangeNotifier {
     setLoadingStatus(false);
 
     if (response.statusCode == 200 &&
-        jsonDecode(response.body)['data'].isNotEmpty) {
+        jsonDecode(response.body)['recentProducts']['data'].isNotEmpty) {
       var data = RecentProductModel.fromJson(jsonDecode(response.body));
 
       setTotalPage(data.recentProducts.lastPage);

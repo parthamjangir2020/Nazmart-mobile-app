@@ -1,4 +1,6 @@
-// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables
+// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables, avoid_print
+
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:no_name_ecommerce/model/add_to_cart_model.dart';
@@ -52,25 +54,29 @@ class CartService with ChangeNotifier {
   }
 
   //increase quantity and price
-  increaseQtandPrice(productId, title, BuildContext context) async {
-    var data = await ProductDbService().getSingleProduct(productId, title);
+  increaseQtandPrice(productId, title, attributes, BuildContext context) async {
+    var data =
+        await ProductDbService().getSingleProduct(productId, title, attributes);
+
     var newQty = data[0]['qty'] + 1;
 
     await ProductDbService()
-        .updateQtandPrice(productId, title, newQty, context);
+        .updateQtandPrice(productId, title, newQty, attributes, context);
 
     fetchCartProducts(context);
     calculateSubtotal(context);
   }
 
   //decrease quantity and price
-  decreaseQtyAndPrice(productId, title, BuildContext context) async {
-    var data = await ProductDbService().getSingleProduct(productId, title);
+  decreaseQtyAndPrice(
+      productId, title, attributes, BuildContext context) async {
+    var data =
+        await ProductDbService().getSingleProduct(productId, title, attributes);
     if (data[0]['qty'] > 1) {
       var newQty = data[0]['qty'] - 1;
 
       await ProductDbService()
-          .updateQtandPrice(productId, title, newQty, context);
+          .updateQtandPrice(productId, title, newQty, attributes, context);
 
       fetchCartProducts(context);
       calculateSubtotal(context);
@@ -152,38 +158,105 @@ class CartService with ChangeNotifier {
 
     if (prod.isEmpty) {
       //if product is not already added to cart
-      var cartObj = AddtocartModel();
-      cartObj.productId = productId;
-      cartObj.title = title;
-      cartObj.thumbnail = thumbnail;
-      cartObj.discountPrice = discountPrice;
-      cartObj.oldPrice = oldPrice;
-      cartObj.qty = qty;
-      cartObj.priceWithAttr = priceWithAttr;
-      cartObj.color = color;
-      cartObj.size = size;
-      cartObj.category = category;
-      cartObj.subcategory = subcategory;
-      cartObj.childCategory = childCategory;
-      cartObj.attributes = attributes;
-      cartObj.variantId = variantId;
-
-      await connection.insert('cart_table', cartObj.cartMap());
-
-      print('Added to cart');
-
-      showSnackBar(context, 'Added to cart', successColor);
-      fetchCartProductNumber();
+      addToCart(
+          context: context,
+          productId: productId,
+          title: title,
+          thumbnail: thumbnail,
+          discountPrice: discountPrice,
+          oldPrice: oldPrice,
+          qty: qty,
+          priceWithAttr: priceWithAttr,
+          color: color,
+          size: size,
+          category: category,
+          subcategory: subcategory,
+          childCategory: childCategory,
+          attributes: attributes,
+          variantId: variantId);
       return true;
     } else {
-      //product already added to cart, so increase quantity
+      //product already added to cart,
+      //but check if the already added product has same
+      //attributes than the new one, if so, then increase quantity
+      //else add to cart as new product
 
-      Provider.of<CartService>(context, listen: false)
-          .increaseQtandPrice(productId, title, context);
+      if (prod[0]['attributes'] == jsonEncode(attributes) &&
+          prod[0]['productId'] == productId) {
+        //then, increase quantity
+        print('same product and same attributes');
 
-      showSnackBar(context, 'Quantity increased', successColor);
+        Provider.of<CartService>(context, listen: false)
+            .increaseQtandPrice(productId, title, attributes, context);
 
-      return false;
+        showSnackBar(context, 'Quantity increased', successColor);
+
+        return false;
+      } else {
+        print('different attributes');
+        //so, add to cart as new product
+
+        addToCart(
+            context: context,
+            productId: productId,
+            title: title,
+            thumbnail: thumbnail,
+            discountPrice: discountPrice,
+            oldPrice: oldPrice,
+            qty: qty,
+            priceWithAttr: priceWithAttr,
+            color: color,
+            size: size,
+            category: category,
+            subcategory: subcategory,
+            childCategory: childCategory,
+            attributes: attributes,
+            variantId: variantId);
+
+        return false;
+      }
     }
+  }
+
+  addToCart(
+      {required BuildContext context,
+      required productId,
+      required title,
+      required thumbnail,
+      required discountPrice,
+      required oldPrice,
+      required qty,
+      required priceWithAttr,
+      required color,
+      required size,
+      required category,
+      required subcategory,
+      required childCategory,
+      required attributes,
+      required variantId}) async {
+    var cartObj = AddtocartModel();
+    cartObj.productId = productId;
+    cartObj.title = title;
+    cartObj.thumbnail = thumbnail;
+    cartObj.discountPrice = discountPrice;
+    cartObj.oldPrice = oldPrice;
+    cartObj.qty = qty;
+    cartObj.priceWithAttr = priceWithAttr;
+    cartObj.color = color;
+    cartObj.size = size;
+    cartObj.category = category;
+    cartObj.subcategory = subcategory;
+    cartObj.childCategory = childCategory;
+    cartObj.attributes = attributes;
+    cartObj.variantId = variantId;
+
+    var connection = await ProductDbService().getdatabase;
+
+    await connection.insert('cart_table', cartObj.cartMap());
+
+    print('Added to cart');
+
+    showSnackBar(context, 'Added to cart', successColor);
+    fetchCartProductNumber();
   }
 }

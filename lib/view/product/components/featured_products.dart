@@ -48,11 +48,11 @@ class FeaturedProducts extends StatelessWidget {
                           imageLink: p.featuredProducts?.data[i].imgUrl ??
                               placeHolderUrl,
                           title: p.featuredProducts?.data[i].title,
-                          width: 200,
+                          width: 180,
                           oldPrice: p.featuredProducts?.data[i].price,
                           discountPrice:
                               p.featuredProducts?.data[i].discountPrice,
-                          marginRight: 5,
+                          marginRight: 20,
                           productId: p.featuredProducts?.data[i].prdId,
                           ratingAverage: p.featuredProducts?.data[i].avgRatting,
                           discountPercent:

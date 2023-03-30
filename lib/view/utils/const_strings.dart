@@ -154,6 +154,10 @@ class ConstString {
   static const String howWasProduct = 'How was the product';
   static const String postReview = 'Post a review';
   static const String allFeaturedProducts = 'All featured products';
+  static const String allRecentProducts = 'All recent products';
+  static const String notLoggedIn = 'Not Logged In';
+  static const String accountInfoNotAvailable =
+      "Account information's are not available, please log in to check informations.";
   static const String noProductFound = 'No product found';
   static const String desc = 'Description';
   static const String review = 'Review';

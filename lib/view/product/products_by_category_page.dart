@@ -72,7 +72,6 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
                 .fetchProductByCategory(context, widget.categoryName);
             if (result) {
               debugPrint('loadcomplete ran');
-              //loadcomplete function loads the data again
               refreshController.loadComplete();
             } else {
               debugPrint('no more data');

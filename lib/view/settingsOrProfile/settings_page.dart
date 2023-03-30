@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
-import 'package:no_name_ecommerce/view/auth/login/login.dart';
 import 'package:no_name_ecommerce/view/auth/reset_password/change_password_page.dart';
 import 'package:no_name_ecommerce/view/order/my_orders_page.dart';
 import 'package:no_name_ecommerce/view/others/privacy_policy_page.dart';
@@ -219,60 +218,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                 ),
 
                               gapH(20),
-
-                              if (profileProvider.profileDetails == null)
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 30),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
-                                  child: buttonPrimary('Login', () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginPage()));
-                                  }),
-                                )
                             ],
                           )),
                 ),
               ),
-
-              //chat icon ========>
-              // Positioned(
-              //   right: 20,
-              //   bottom: 20,
-              //   child: InkWell(
-              //     splashColor: Colors.transparent,
-              //     highlightColor: Colors.transparent,
-              //     onTap: () {
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute<void>(
-              //           builder: (BuildContext context) => const LiveChatPage(),
-              //         ),
-              //       );
-              //     },
-              //     child: Container(
-              //       decoration: BoxDecoration(
-              //         shape: BoxShape.circle,
-              //         boxShadow: [
-              //           BoxShadow(
-              //             color: Colors.grey.withOpacity(0.2),
-              //             spreadRadius: 3,
-              //             blurRadius: 12,
-              //             offset:
-              //                 const Offset(0, 5), // changes position of shadow
-              //           ),
-              //         ],
-              //       ),
-              //       child: SvgPicture.asset(
-              //         'assets/svg/message-green.svg',
-              //         height: 48,
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ));

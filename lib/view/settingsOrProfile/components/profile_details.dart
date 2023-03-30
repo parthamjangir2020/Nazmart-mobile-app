@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/view/auth/login/login.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/settings_helper.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/profile_edit_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
@@ -139,7 +140,35 @@ class ProfileDetails extends StatelessWidget {
                   SettingsHelper().borderBold(35, 8),
                 ],
               )
-            : Container(),
+            : Container(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        'assets/images/notlogin.png',
+                        height: 160,
+                      ),
+                    ),
+                    gapH(6),
+                    titleCommon(ln.getString(ConstString.notLoggedIn)),
+                    gapH(5),
+                    paragraphCommon(ConstString.accountInfoNotAvailable),
+                    gapH(15),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: buttonPrimary(ConstString.login, () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()));
+                      }),
+                    )
+                  ],
+                ),
+              ),
       ),
     );
   }

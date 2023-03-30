@@ -67,20 +67,20 @@ class ProductDbService {
   }
 
   //single product
-  getSingleProduct(String productId, String title) async {
+  getSingleProduct(String productId, String title, attributes) async {
     var connection = await getdatabase;
     var prod = connection.rawQuery(
-        "SELECT * FROM cart_table WHERE productId=? and title =?",
-        [productId, title]);
+        "SELECT * FROM cart_table WHERE productId=? and title =? and attributes =?",
+        [productId, title, attributes]);
     return prod;
   }
 
-  Future<bool> updateQtandPrice(
-      String productId, String title, int qty, BuildContext context) async {
+  Future<bool> updateQtandPrice(String productId, String title, int qty,
+      attributes, BuildContext context) async {
     var connection = await getdatabase;
     connection.rawUpdate(
-        "UPDATE cart_table SET qty=? WHERE productId=? and title =?",
-        [qty, productId, title]);
+        "UPDATE cart_table SET qty=? WHERE productId=? and title =? and attributes =?",
+        [qty, productId, title, attributes]);
     return true;
   }
 

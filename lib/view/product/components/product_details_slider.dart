@@ -23,6 +23,8 @@ class _ProductDetailsSliderState extends State<ProductDetailsSlider> {
         int galleryLength =
             provider.productDetails?.product?.galleryImages.length ?? 0;
         var galleryImages = provider.productDetails?.product?.galleryImages;
+
+        var slideCountLength = galleryLength == 0 ? 1 : galleryLength;
         var image = provider.productDetails?.product?.image ?? placeHolderUrl;
         return Column(
           children: [
@@ -61,7 +63,7 @@ class _ProductDetailsSliderState extends State<ProductDetailsSlider> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       //if image gallery exists in database then show it, else show only the thumbnail image
-                      for (int i = 0; i < 3; i++)
+                      for (int i = 0; i < slideCountLength; i++)
                         AnimatedContainer(
                           //slider dot /pagination
                           duration: const Duration(milliseconds: 450),

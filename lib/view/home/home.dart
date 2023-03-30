@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/model/recent_product_model.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/home/components/categories_horizontal.dart';
@@ -7,6 +8,7 @@ import 'package:no_name_ecommerce/view/campaigns/components/campaign_list.dart';
 import 'package:no_name_ecommerce/view/product/components/featured_products.dart';
 import 'package:no_name_ecommerce/view/home/components/slider_home.dart';
 import 'package:no_name_ecommerce/view/home/homepage_helper.dart';
+import 'package:no_name_ecommerce/view/product/components/recent_products.dart';
 import 'package:no_name_ecommerce/view/search/search_page.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -80,6 +82,9 @@ class _HomepageState extends State<Homepage> {
                       child: Column(children: [
                         //categories
                         const CategoriesHorizontal(),
+
+                        gapH(24),
+                        const RecentProducts(),
 
                         gapH(24),
                         //Featured product
