@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
-import 'package:no_name_ecommerce/view/product/product_details_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -25,6 +27,12 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
     super.initState();
     Provider.of<FavouriteService>(context, listen: false).fetchFavProducts();
   }
+
+  List favPopupList = [
+    ConstString.viewDetails,
+    ConstString.addToCart,
+    ConstString.removeFromFav
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,22 +56,8 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                           for (int i = 0; i < fProvider.favItemList.length; i++)
                             InkWell(
                               onTap: () {
-                                Provider.of<ProductDetailsService>(context,
-                                        listen: false)
-                                    .fetchProductDetails(context,
-                                        productId: fProvider.favItemList[i]
-                                            ['productId']);
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        ProductDetailsPage(
-                                      productId: fProvider.favItemList[i]
-                                          ['productId'],
-                                    ),
-                                  ),
-                                );
+                                gotoProductDetails(context,
+                                    fProvider.favItemList[i]['productId']);
                               },
                               child: Column(
                                 children: [
@@ -125,26 +119,121 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                                           ),
                                         ],
                                       )),
-                                      //Delete button
-                                      InkWell(
-                                        onTap: () {
-                                          //remove from list
-                                          //to remove we only need to pass id and title
-                                          fProvider.addOrRemoveFavourite(
-                                              context,
-                                              productId: fProvider
-                                                  .favItemList[i]['productId'],
-                                              thumbnail: '',
-                                              discountPrice: '',
-                                              oldPrice: '',
-                                              title: fProvider.favItemList[i]
-                                                      ['title'] ??
-                                                  '');
-                                        },
-                                        child: SvgPicture.asset(
-                                          'assets/svg/trash.svg',
-                                          height: 33,
-                                        ),
+
+                                      //popup
+                                      // ========>
+
+                                      PopupMenuButton(
+                                        itemBuilder: (BuildContext context) =>
+                                            <PopupMenuEntry>[
+                                          //view details
+                                          PopupMenuItem(
+                                            onTap: () {
+                                              Future.delayed(Duration.zero, () {
+                                                gotoProductDetails(
+                                                    context,
+                                                    fProvider.favItemList[i]
+                                                        ['productId']);
+                                              });
+                                            },
+                                            child: Text(
+                                                ln.getString(favPopupList[0])),
+                                          ),
+
+                                          //add to cart
+
+                                          if (jsonDecode(fProvider
+                                                  .favItemList[i]['attributes'])
+                                              .isEmpty)
+                                            PopupMenuItem(
+                                              onTap: () {
+                                                Future.delayed(Duration.zero,
+                                                    () {
+                                                  var cProvider =
+                                                      Provider.of<CartService>(
+                                                          context,
+                                                          listen: false);
+
+                                                  cProvider
+                                                      .addToCartOrUpdateQty(
+                                                    context,
+                                                    title:
+                                                        fProvider.favItemList[i]
+                                                            ['title'],
+                                                    thumbnail:
+                                                        fProvider.favItemList[i]
+                                                            ['thumbnail'],
+                                                    discountPrice: fProvider
+                                                        .favItemList[i]
+                                                            ['discountPrice']
+                                                        .toString(),
+                                                    oldPrice: fProvider
+                                                        .favItemList[i]
+                                                            ['oldPrice']
+                                                        .toString(),
+                                                    priceWithAttr:
+                                                        fProvider.favItemList[i]
+                                                            ['priceWithAttr'],
+                                                    qty: 1,
+                                                    color: null,
+                                                    size: null,
+                                                    productId: fProvider
+                                                        .favItemList[i]
+                                                            ['productId']
+                                                        .toString(),
+                                                    category:
+                                                        fProvider.favItemList[i]
+                                                            ['category'],
+                                                    subcategory:
+                                                        fProvider.favItemList[i]
+                                                            ['subcategory'],
+                                                    childCategory:
+                                                        fProvider.favItemList[i]
+                                                            ['childCategory'],
+                                                    attributes: null,
+                                                    variantId:
+                                                        fProvider.favItemList[i]
+                                                            ['variantId'],
+                                                            isFromFavouritePage: true
+                                                  );
+                                                });
+                                              },
+                                              child: Text(ln
+                                                  .getString(favPopupList[1])),
+                                            ),
+
+                                          //remove from favourite
+                                          PopupMenuItem(
+                                            onTap: () {
+                                              Future.delayed(Duration.zero, () {
+                                                //Delete
+                                                fProvider.addOrRemoveFavourite(
+                                                    context,
+                                                    productId:
+                                                        fProvider.favItemList[i]
+                                                            ['productId'],
+                                                    thumbnail: '',
+                                                    discountPrice: '',
+                                                    oldPrice: '',
+                                                    title:
+                                                        fProvider.favItemList[i]
+                                                                ['title'] ??
+                                                            '',
+                                                    attributes: null,
+                                                    category: null,
+                                                    childCategory: null,
+                                                    color: null,
+                                                    priceWithAttr: null,
+                                                    qty: 1,
+                                                    size: null,
+                                                    subcategory: null,
+                                                    variantId: null);
+                                              });
+                                            },
+                                            child: Text(
+                                                ln.getString(favPopupList[2])),
+                                          ),
+                                        ],
                                       )
                                     ],
                                   ),

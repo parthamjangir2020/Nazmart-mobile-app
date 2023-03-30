@@ -60,6 +60,25 @@ class _ProductDetailsTopState extends State<ProductDetailsTop> {
 
                       InkWell(
                         onTap: () async {
+                          var provider = Provider.of<ProductDetailsService>(
+                              context,
+                              listen: false);
+
+                          final usedCategories = {
+                            "category":
+                                provider.productDetails?.product?.category?.id,
+                            "subcategory": provider
+                                .productDetails?.product?.subCategory?.id,
+                            "childcategory": provider
+                                .productDetails?.product?.childCategory
+                                .map((e) => e.id)
+                                .toList(),
+                          };
+
+                          final allAttributes = provider.allAtrributes;
+
+                          final variantId = provider.variantId;
+
                           await fProvider.addOrRemoveFavourite(context,
                               productId:
                                   provider.productDetails?.product?.id ?? 0,
@@ -70,8 +89,16 @@ class _ProductDetailsTopState extends State<ProductDetailsTop> {
                                       placeHolderUrl,
                               discountPrice:
                                   provider.productDetails?.product?.salePrice,
-                              oldPrice:
-                                  provider.productDetails?.product?.price);
+                              oldPrice: provider.productDetails?.product?.price,
+                              priceWithAttr: provider.productSalePrice,
+                              qty: provider.qty,
+                              color: null,
+                              size: null,
+                              category: usedCategories['category'],
+                              subcategory: usedCategories['subcategory'],
+                              childCategory: usedCategories['childcategory'],
+                              attributes: allAttributes,
+                              variantId: variantId);
 
                           checkFav();
                         },

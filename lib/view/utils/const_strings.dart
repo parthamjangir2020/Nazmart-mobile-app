@@ -156,6 +156,10 @@ class ConstString {
   static const String allFeaturedProducts = 'All featured products';
   static const String allRecentProducts = 'All recent products';
   static const String notLoggedIn = 'Not Logged In';
+  static const String viewDetails = 'View Details';
+  static const String removeFromFav = 'Remove from favourite';
+  static const String qtyIncreased = 'Quantity increased';
+  static const String addedToCart = 'Added to cart';
   static const String accountInfoNotAvailable =
       "Account information's are not available, please log in to check informations.";
   static const String noProductFound = 'No product found';

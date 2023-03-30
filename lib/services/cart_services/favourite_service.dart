@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/model/favourite_product_model.dart';
+import 'package:no_name_ecommerce/model/add_to_cart_model.dart';
 import 'package:no_name_ecommerce/services/product_db_service.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
@@ -16,14 +16,21 @@ class FavouriteService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> addOrRemoveFavourite(
-    BuildContext context, {
-    required productId,
-    required String title,
-    required String thumbnail,
-    required discountPrice,
-    required oldPrice,
-  }) async {
+  Future<bool> addOrRemoveFavourite(BuildContext context,
+      {required productId,
+      required String title,
+      required String thumbnail,
+      required discountPrice,
+      required oldPrice,
+      required int qty,
+      required String? color,
+      required String? size,
+      required priceWithAttr,
+      required category,
+      required subcategory,
+      required childCategory,
+      required attributes,
+      required variantId}) async {
     var connection = await ProductDbService().getdatabase;
     var favaudio = await connection.rawQuery(
         "SELECT * FROM fav_table WHERE title=? and productId=?",
@@ -31,14 +38,24 @@ class FavouriteService with ChangeNotifier {
     if (favaudio.isEmpty) {
       //if already not added to favourite
 
-      var favObj = FavouriteProductModel();
-      favObj.productId = productId;
-      favObj.title = title;
-      favObj.thumbnail = thumbnail;
-      favObj.discountPrice = discountPrice;
-      favObj.oldPrice = oldPrice;
+      var cartObj =
+          AddtocartModel(); //this model is enough for us, favmodel is not necessary
+      cartObj.productId = productId;
+      cartObj.title = title;
+      cartObj.thumbnail = thumbnail;
+      cartObj.discountPrice = discountPrice;
+      cartObj.oldPrice = oldPrice;
+      cartObj.qty = qty;
+      cartObj.priceWithAttr = priceWithAttr;
+      cartObj.color = color;
+      cartObj.size = size;
+      cartObj.category = category;
+      cartObj.subcategory = subcategory;
+      cartObj.childCategory = childCategory;
+      cartObj.attributes = attributes;
+      cartObj.variantId = variantId;
 
-      await connection.insert('fav_table', favObj.favouriteMap());
+      await connection.insert('fav_table', cartObj.cartMap());
       print('added to favourite');
 
       showToast('Added to favourite', Colors.black);

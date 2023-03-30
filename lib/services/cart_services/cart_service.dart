@@ -7,6 +7,7 @@ import 'package:no_name_ecommerce/model/add_to_cart_model.dart';
 import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/product_db_service.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -54,14 +55,18 @@ class CartService with ChangeNotifier {
   }
 
   //increase quantity and price
-  increaseQtandPrice(productId, title, attributes, BuildContext context) async {
-    var data =
-        await ProductDbService().getSingleProduct(productId, title, attributes);
+  increaseQtandPrice(productId, title, attributes, BuildContext context,
+      {bool isFromFavouritePage = false}) async {
+    var data = await ProductDbService().getSingleProduct(
+        productId, title, attributes,
+        isFromFavouritePage: isFromFavouritePage);
 
     var newQty = data[0]['qty'] + 1;
+    print('daaaa $data');
 
-    await ProductDbService()
-        .updateQtandPrice(productId, title, newQty, attributes, context);
+    await ProductDbService().updateQtandPrice(
+        productId, title, newQty, attributes, context,
+        isFromFavouritePage: isFromFavouritePage);
 
     fetchCartProducts(context);
     calculateSubtotal(context);
@@ -150,7 +155,8 @@ class CartService with ChangeNotifier {
       required subcategory,
       required childCategory,
       required attributes,
-      required variantId}) async {
+      required variantId,
+      bool isFromFavouritePage = false}) async {
     var connection = await ProductDbService().getdatabase;
     var prod = await connection.rawQuery(
         "SELECT * FROM cart_table WHERE productId=? and title =?",
@@ -186,10 +192,11 @@ class CartService with ChangeNotifier {
         //then, increase quantity
         print('same product and same attributes');
 
-        Provider.of<CartService>(context, listen: false)
-            .increaseQtandPrice(productId, title, attributes, context);
+        Provider.of<CartService>(context, listen: false).increaseQtandPrice(
+            productId, title, attributes, context,
+            isFromFavouritePage: isFromFavouritePage);
 
-        showSnackBar(context, 'Quantity increased', successColor);
+        showSnackBar(context, ConstString.qtyIncreased, successColor);
 
         return false;
       } else {
@@ -256,7 +263,7 @@ class CartService with ChangeNotifier {
 
     print('Added to cart');
 
-    showSnackBar(context, 'Added to cart', successColor);
+    showSnackBar(context, ConstString.addedToCart, successColor);
     fetchCartProductNumber();
   }
 }

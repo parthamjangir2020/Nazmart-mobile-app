@@ -22,7 +22,7 @@ class ProductDbService {
         "CREATE TABLE cart_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId TEXT, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL,priceWithAttr REAL, qty INTEGER, color TEXT,size TEXT,category INTEGER,subcategory INTEGER,childCategory INTEGER,attributes TEXT,variantId INTEGER)");
 
     await database.execute(
-        "CREATE TABLE fav_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId TEXT, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL)");
+        "CREATE TABLE fav_table(id INTEGER PRIMARY KEY AUTOINCREMENT, productId TEXT, title TEXT, thumbnail TEXT, discountPrice REAL,oldPrice REAL,priceWithAttr REAL, qty INTEGER, color TEXT,size TEXT,category INTEGER,subcategory INTEGER,childCategory INTEGER,attributes TEXT,variantId INTEGER)");
   }
 
   Future<Database> get getdatabase async {
@@ -67,20 +67,39 @@ class ProductDbService {
   }
 
   //single product
-  getSingleProduct(String productId, String title, attributes) async {
+  getSingleProduct(String productId, String title, attributes,
+      {bool isFromFavouritePage = false}) async {
     var connection = await getdatabase;
-    var prod = connection.rawQuery(
-        "SELECT * FROM cart_table WHERE productId=? and title =? and attributes =?",
-        [productId, title, attributes]);
+    Future<List<Map<String, Object?>>> prod;
+
+    if (isFromFavouritePage) {
+      prod = connection.rawQuery(
+          "SELECT * FROM cart_table WHERE productId=? and title =?",
+          [productId, title]);
+    } else {
+      prod = connection.rawQuery(
+          "SELECT * FROM cart_table WHERE productId=? and title =? and attributes =?",
+          [productId, title, attributes]);
+    }
+
     return prod;
   }
 
-  Future<bool> updateQtandPrice(String productId, String title, int qty,
-      attributes, BuildContext context) async {
+  Future<bool> updateQtandPrice(
+      String productId, String title, int qty, attributes, BuildContext context,
+      {bool isFromFavouritePage = false}) async {
     var connection = await getdatabase;
-    connection.rawUpdate(
-        "UPDATE cart_table SET qty=? WHERE productId=? and title =? and attributes =?",
-        [qty, productId, title, attributes]);
+
+    if (isFromFavouritePage) {
+      await connection.rawUpdate(
+          "UPDATE cart_table SET qty=? WHERE productId=? and title =?",
+          [qty, productId, title]);
+    } else {
+      await connection.rawUpdate(
+          "UPDATE cart_table SET qty=? WHERE productId=? and title =? and attributes =?",
+          [qty, productId, title, attributes]);
+    }
+
     return true;
   }
 

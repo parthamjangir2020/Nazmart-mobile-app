@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 class AddtocartModel {
-  late String productId;
+  late var productId;
   late String title;
   late String thumbnail;
   late String? color;
