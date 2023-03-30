@@ -134,4 +134,26 @@ class SignupService with ChangeNotifier {
       showToast('Something went wrong', Colors.black);
     }
   }
+
+  //live check username
+
+  var usernameData;
+
+  checkUsername(username, BuildContext context) async {
+    //check internet connection
+    var connection = await checkConnection();
+    if (!connection) return;
+
+    var data = {'username': username};
+
+    var response =
+        await http.post(Uri.parse(ApiUrl.usernameCheckUri), body: data);
+
+    if (response.statusCode == 200) {
+      usernameData = jsonDecode(response.body)['msg'];
+      notifyListeners();
+    } else {
+      print(response.body);
+    }
+  }
 }

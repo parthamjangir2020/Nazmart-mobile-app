@@ -1,7 +1,11 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/cupertino.dart';
+import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
+import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
 import 'package:provider/provider.dart';
 
@@ -20,57 +24,68 @@ class EmailNameFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TranslateStringService>(
-      builder: (context, ln, child) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //Name ============>
-          labelCommon(ConstString.fullName),
+      builder: (context, ln, child) => Consumer<SignupService>(
+        builder: (context, provider, child) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //Name ============>
+            labelCommon(ConstString.fullName),
 
-          CustomInput(
-            controller: fullNameController,
-            paddingHorizontal: 20,
-            validation: (value) {
-              if (value == null || value.isEmpty) {
-                return ln.getString(ConstString.plzEnterFullName);
-              }
-              return null;
-            },
-            hintText: ln.getString(ConstString.enterFullName),
-            textInputAction: TextInputAction.next,
-          ),
+            CustomInput(
+              controller: fullNameController,
+              paddingHorizontal: 20,
+              validation: (value) {
+                if (value == null || value.isEmpty) {
+                  return ln.getString(ConstString.plzEnterFullName);
+                }
+                return null;
+              },
+              hintText: ln.getString(ConstString.enterFullName),
+              textInputAction: TextInputAction.next,
+            ),
 
-          //User name ============>
-          labelCommon(ConstString.userName),
+            //User name ============>
+            labelCommon(ConstString.userName),
 
-          CustomInput(
-            controller: userNameController,
-            paddingHorizontal: 20,
-            validation: (value) {
-              if (value == null || value.isEmpty) {
-                return ln.getString(ConstString.plzEnterUsername);
-              }
-              return null;
-            },
-            hintText: ln.getString(ConstString.enterUsername),
-            textInputAction: TextInputAction.next,
-          ),
+            CustomInput(
+              controller: userNameController,
+              paddingHorizontal: 20,
+              marginBottom: 5,
+              validation: (value) {
+                if (value == null || value.isEmpty) {
+                  return ln.getString(ConstString.plzEnterUsername);
+                }
+                return null;
+              },
+              hintText: ln.getString(ConstString.enterUsername),
+              textInputAction: TextInputAction.next,
+              onChanged: (v) {
+                provider.checkUsername(v, context);
+              },
+            ),
 
-          //Email ============>
-          labelCommon(ConstString.email),
+            if (provider.usernameData != null)
+              paragraphCommon(provider.usernameData),
 
-          CustomInput(
-            controller: emailController,
-            paddingHorizontal: 20,
-            validation: (value) {
-              if (value == null || value.isEmpty) {
-                return ln.getString(ConstString.plzEnterYourEmail);
-              }
-              return null;
-            },
-            hintText: ConstString.enterEmail,
-            textInputAction: TextInputAction.next,
-          ),
-        ],
+            //Email ============>
+
+            gapH(16),
+            labelCommon(ConstString.email),
+
+            CustomInput(
+              controller: emailController,
+              paddingHorizontal: 20,
+              validation: (value) {
+                if (value == null || value.isEmpty) {
+                  return ln.getString(ConstString.plzEnterYourEmail);
+                }
+                return null;
+              },
+              hintText: ConstString.enterEmail,
+              textInputAction: TextInputAction.next,
+            ),
+          ],
+        ),
       ),
     );
   }

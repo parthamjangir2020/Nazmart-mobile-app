@@ -7,7 +7,9 @@ import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -75,56 +77,69 @@ class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
             padding: EdgeInsets.symmetric(horizontal: screenPadHorizontal),
             child: Consumer<TranslateStringService>(
               builder: (context, ln, child) => Consumer<FeaturedProductService>(
-                builder: (context, provider, child) => provider
-                        .allFeaturedProducts.isNotEmpty
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                            gapH(10),
-                            GridView.builder(
-                                gridDelegate: const FlutterzillaFixedGridView(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 25,
-                                    crossAxisSpacing: 20,
-                                    height: 230),
-                                shrinkWrap: true,
-                                itemCount: provider.allFeaturedProducts.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, i) {
-                                  return ProductCard(
-                                    imageLink: provider
-                                            .allFeaturedProducts[i].imgUrl ??
-                                        placeHolderUrl,
-                                    title:
-                                        provider.allFeaturedProducts[i].title,
-                                    width: 200,
-                                    oldPrice:
-                                        provider.allFeaturedProducts[i].price,
-                                    discountPrice: provider
-                                        .allFeaturedProducts[i].discountPrice,
-                                    marginRight: 5,
-                                    productId:
-                                        provider.allFeaturedProducts[i].prdId,
-                                    ratingAverage: provider
-                                        .allFeaturedProducts[i].avgRatting,
-                                    discountPercent: provider
-                                        .allFeaturedProducts[i]
-                                        .campaignPercentage,
-                                    pressed: () {
-                                      gotoProductDetails(
-                                          context,
-                                          provider
-                                              .allFeaturedProducts[i].prdId);
-                                    },
-                                  );
-                                })
-                          ])
-                    : Container(
-                        alignment: Alignment.center,
-                        height: screenHeight - 200,
-                        child: Text(ln.getString(ConstString.noProductFound)),
-                      ),
+                builder: (context, provider, child) =>
+                    provider.noProductFound != true
+                        ? provider.allFeaturedProducts.isNotEmpty
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                    gapH(10),
+                                    GridView.builder(
+                                        gridDelegate:
+                                            const FlutterzillaFixedGridView(
+                                                crossAxisCount: 2,
+                                                mainAxisSpacing: 25,
+                                                crossAxisSpacing: 20,
+                                                height: 230),
+                                        shrinkWrap: true,
+                                        itemCount:
+                                            provider.allFeaturedProducts.length,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, i) {
+                                          return ProductCard(
+                                            imageLink: provider
+                                                    .allFeaturedProducts[i]
+                                                    .imgUrl ??
+                                                placeHolderUrl,
+                                            title: provider
+                                                .allFeaturedProducts[i].title,
+                                            width: 200,
+                                            oldPrice: provider
+                                                .allFeaturedProducts[i].price,
+                                            discountPrice: provider
+                                                .allFeaturedProducts[i]
+                                                .discountPrice,
+                                            marginRight: 5,
+                                            productId: provider
+                                                .allFeaturedProducts[i].prdId,
+                                            ratingAverage: provider
+                                                .allFeaturedProducts[i]
+                                                .avgRatting,
+                                            discountPercent: provider
+                                                .allFeaturedProducts[i]
+                                                .campaignPercentage,
+                                            pressed: () {
+                                              gotoProductDetails(
+                                                  context,
+                                                  provider
+                                                      .allFeaturedProducts[i]
+                                                      .prdId);
+                                            },
+                                          );
+                                        })
+                                  ])
+                            : Container(
+                                alignment: Alignment.center,
+                                height: screenHeight - 200,
+                                child: showLoading(primaryColor),
+                              )
+                        : Container(
+                            alignment: Alignment.center,
+                            height: screenHeight - 200,
+                            child:
+                                Text(ln.getString(ConstString.noProductFound))),
               ),
             ),
           ),

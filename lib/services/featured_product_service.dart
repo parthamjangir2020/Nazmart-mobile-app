@@ -35,7 +35,7 @@ class FeaturedProductService with ChangeNotifier {
 
   bool isLoading = false;
   late int totalPages;
-
+  bool noProductFound = false;
   int currentPage = 1;
 
   setLoadingStatus(bool status) {
@@ -98,6 +98,14 @@ class FeaturedProductService with ChangeNotifier {
       notifyListeners();
       return true;
     } else {
+      if (allFeaturedProducts.isEmpty) {
+        //if user searched for a product and not even a single product found
+        //then show no product found
+        //but we dont want to show it when some products were found and user
+        //goes to the next page and there are no more products
+        noProductFound = true;
+        print(response.body);
+      }
       print('no more data');
 
       return false;
