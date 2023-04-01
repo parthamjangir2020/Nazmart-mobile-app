@@ -94,7 +94,7 @@ class SearchProductService with ChangeNotifier {
     if (!connection) return;
 
     var response = await http.get(Uri.parse(
-        "${ApiUrl.searchUri}=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&min_price=$minPrice&max_price=$maxPrice&rating=$rating"));
+        "${ApiUrl.searchUri}=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&from_price=$minPrice&to_price=$maxPrice&rating=$rating"));
 
     setLoadingStatus(false);
 
