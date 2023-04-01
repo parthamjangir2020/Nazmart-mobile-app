@@ -8,6 +8,7 @@ import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/home/components/categories.dart';
 import 'package:no_name_ecommerce/view/home/components/child_categories.dart';
 import 'package:no_name_ecommerce/view/home/components/sub_categories.dart';
+import 'package:no_name_ecommerce/view/search/components/color_size_for_filter.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -86,7 +87,7 @@ class _ProductFilterState extends State<ProductFilter> {
                 const ChildCategories(),
 
                 //=========>
-                // const ColorAndSize(),
+                const ColorAndSizeForFilter(),
 
                 //Price range =========>
                 gapH(18),
