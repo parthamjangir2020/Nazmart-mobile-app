@@ -43,27 +43,22 @@ class RecentProducts extends StatelessWidget {
                     shrinkWrap: true,
                     clipBehavior: Clip.none,
                     children: [
-                      for (int i = 0;
-                          i < p.recentProducts!.recentProducts.data.length;
-                          i++)
+                      for (int i = 0; i < p.recentProducts!.data.length; i++)
                         ProductCard(
-                          imageLink:
-                              p.recentProducts!.recentProducts.data[i].image ??
-                                  placeHolderUrl,
-                          title: p.recentProducts!.recentProducts.data[i].name,
+                          imageLink: p.recentProducts!.data[i].imgUrl ??
+                              placeHolderUrl,
+                          title: p.recentProducts!.data[i].title,
                           width: 180,
-                          oldPrice:
-                              p.recentProducts!.recentProducts.data[i].price,
-                          discountPrice: p
-                              .recentProducts!.recentProducts.data[i].salePrice,
+                          oldPrice: p.recentProducts!.data[i].price,
+                          discountPrice:
+                              p.recentProducts!.data[i].discountPrice,
                           marginRight: 20,
-                          productId:
-                              p.recentProducts!.recentProducts.data[i].id,
+                          productId: p.recentProducts!.data[i].prdId,
                           ratingAverage: null,
                           discountPercent: null,
                           pressed: () {
-                            gotoProductDetails(context,
-                                p.recentProducts!.recentProducts.data[i].id);
+                            gotoProductDetails(
+                                context, p.recentProducts!.data[i].prdId);
                           },
                         )
                     ],

@@ -77,18 +77,18 @@ class RecentProductService with ChangeNotifier {
         jsonDecode(response.body)['recentProducts']['data'].isNotEmpty) {
       var data = RecentProductModel.fromJson(jsonDecode(response.body));
 
-      setTotalPage(data.recentProducts.lastPage);
+      setTotalPage(data.lastPage);
 
       if (isrefresh) {
         print('refresh true');
         //if refreshed, then remove all service from list and insert new data
         allRecentProducts = [];
-        allRecentProducts = data.recentProducts.data;
+        allRecentProducts = data.data;
         notifyListeners();
       } else {
         print('add new data');
-        for (int i = 0; i < data.recentProducts.data.length; i++) {
-          allRecentProducts.add(data.recentProducts.data[i]);
+        for (int i = 0; i < data.data.length; i++) {
+          allRecentProducts.add(data.data[i]);
         }
         notifyListeners();
       }

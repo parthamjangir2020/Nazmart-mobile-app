@@ -100,23 +100,25 @@ class _AllRecentProductsPageState extends State<AllRecentProductsPage> {
                                     itemBuilder: (context, i) {
                                       return ProductCard(
                                         imageLink: provider
-                                                .allRecentProducts[i].image ??
+                                                .allRecentProducts[i].imgUrl ??
                                             placeHolderUrl,
                                         title:
-                                            provider.allRecentProducts[i].name,
+                                            provider.allRecentProducts[i].title,
                                         width: 200,
                                         oldPrice:
                                             provider.allRecentProducts[i].price,
                                         discountPrice: provider
-                                            .allRecentProducts[i].salePrice,
+                                            .allRecentProducts[i].discountPrice,
                                         marginRight: 5,
                                         productId:
-                                            provider.allRecentProducts[i].id,
+                                            provider.allRecentProducts[i].prdId,
                                         ratingAverage: null,
                                         discountPercent: null,
                                         pressed: () {
-                                          gotoProductDetails(context,
-                                              provider.allRecentProducts[i].id);
+                                          gotoProductDetails(
+                                              context,
+                                              provider
+                                                  .allRecentProducts[i].prdId);
                                         },
                                       );
                                     })

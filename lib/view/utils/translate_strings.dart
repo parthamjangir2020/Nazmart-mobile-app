@@ -195,6 +195,7 @@ var translateStrings = {
   ConstString.viewDetails: ConstString.viewDetails,
   ConstString.removeFromFav: ConstString.removeFromFav,
   ConstString.qtyIncreased: ConstString.qtyIncreased,
+  ConstString.priceRange: ConstString.priceRange,
   ConstString.addedToCart: ConstString.addedToCart,
   ConstString.youDontHaveAddressSaved: ConstString.youDontHaveAddressSaved,
   ConstString.addOrReplaceAddress: ConstString.addOrReplaceAddress,

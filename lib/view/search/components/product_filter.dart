@@ -12,8 +12,6 @@ import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
-import 'package:no_name_ecommerce/view/utils/custom_input.dart';
-import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
 
 class ProductFilter extends StatefulWidget {
@@ -30,26 +28,36 @@ class _ProductFilterState extends State<ProductFilter> {
     fillInitialData();
   }
 
+  late RangeValues _currentRangeValues;
+
   fillInitialData() {
-    minPriceController.text =
+    dynamic startPrice;
+    dynamic endPrice;
+
+    startPrice =
         Provider.of<SearchProductService>(context, listen: false).minPrice;
-    maxPriceController.text =
+    endPrice =
         Provider.of<SearchProductService>(context, listen: false).maxPrice;
     Provider.of<CategoryService>(context, listen: false).fetchCategory(context);
+
+    startPrice = double.parse(startPrice);
+    endPrice = double.parse(endPrice);
+
+    _currentRangeValues = RangeValues(startPrice, endPrice);
   }
 
   int selectedCategory = 0;
   int selectedColor = 0;
 
-  final minPriceController = TextEditingController();
-  final maxPriceController = TextEditingController();
+  // final minPriceController = TextEditingController();
+  // final maxPriceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Consumer<TranslateStringService>(
       builder: (context, ln, child) => Consumer<SearchProductService>(
         builder: (context, provider, child) => Container(
-          height: screenHeight / 2 + 210,
+          // height: screenHeight / 2 + 300,
           color: Colors.white,
           padding: EdgeInsets.symmetric(
               horizontal: screenPadHorizontal, vertical: 20),
@@ -82,52 +90,78 @@ class _ProductFilterState extends State<ProductFilter> {
 
                 //Price range =========>
                 gapH(18),
+                paragraphCommon(ln.getString(ConstString.priceRange) + ':'),
 
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          paragraphCommon(
-                              ln.getString(ConstString.minPrice) + ':'),
-                          gapH(10),
-                          CustomInput(
-                            hintText: ln.getString(ConstString.enterMinPrice),
-                            borderRadius: 5,
-                            paddingHorizontal: 15,
-                            isNumberField: true,
-                            controller: minPriceController,
-                            onChanged: (v) {
-                              provider.setMinPrice(v);
-                            },
-                          ),
-                        ],
-                      ),
+                SliderTheme(
+                  data: const SliderThemeData(
+                    trackHeight: 1,
+                  ),
+                  child: RangeSlider(
+                    values: _currentRangeValues,
+                    max: 2000,
+                    divisions: 20,
+                    activeColor: primaryColor,
+                    inactiveColor: Colors.grey.withOpacity(.2),
+                    labels: RangeLabels(
+                      _currentRangeValues.start.round().toString(),
+                      _currentRangeValues.end.round().toString(),
                     ),
-                    gapW(20),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          paragraphCommon(
-                              ln.getString(ConstString.maxPrice) + ':'),
-                          gapH(10),
-                          CustomInput(
-                            hintText: ln.getString(ConstString.enterMaxPrice),
-                            borderRadius: 5,
-                            paddingHorizontal: 15,
-                            isNumberField: true,
-                            controller: maxPriceController,
-                            onChanged: (v) {
-                              provider.setMaxPrice(v);
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                    onChanged: (RangeValues values) {
+                      provider
+                          .setMinPrice(_currentRangeValues.start.toString());
+                      provider.setMaxPrice(_currentRangeValues.end.toString());
+                      setState(() {
+                        _currentRangeValues = values;
+                      });
+                    },
+                  ),
                 ),
+
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           paragraphCommon(
+                //               ln.getString(ConstString.minPrice) + ':'),
+                //           gapH(10),
+                //           CustomInput(
+                //             hintText: ln.getString(ConstString.enterMinPrice),
+                //             borderRadius: 5,
+                //             paddingHorizontal: 15,
+                //             isNumberField: true,
+                //             controller: minPriceController,
+                //             onChanged: (v) {
+                //               provider.setMinPrice(v);
+                //             },
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //     gapW(20),
+                //     Expanded(
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           paragraphCommon(
+                //               ln.getString(ConstString.maxPrice) + ':'),
+                //           gapH(10),
+                //           CustomInput(
+                //             hintText: ln.getString(ConstString.enterMaxPrice),
+                //             borderRadius: 5,
+                //             paddingHorizontal: 15,
+                //             isNumberField: true,
+                //             controller: maxPriceController,
+                //             onChanged: (v) {
+                //               provider.setMaxPrice(v);
+                //             },
+                //           ),
+                //         ],
+                //       ),
+                //     )
+                //   ],
+                // ),
 
                 paragraphCommon(ln.getString(ConstString.ratings) + ':'),
                 gapH(10),
@@ -168,8 +202,8 @@ class _ProductFilterState extends State<ProductFilter> {
                         provider.setMinPrice('');
                         provider.setMaxPrice('');
 
-                        minPriceController.clear();
-                        maxPriceController.clear();
+                        // minPriceController.clear();
+                        // maxPriceController.clear();
                       },
                       child: Container(
                           width: double.infinity,

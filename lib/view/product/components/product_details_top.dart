@@ -179,6 +179,29 @@ class _ProductDetailsTopState extends State<ProductDetailsTop> {
                           lineHeight: 1.1,
                           fontweight: FontWeight.w600,
                           color: provider.inStock ? successColor : Colors.red)),
+
+                  //total sale
+                  if (provider
+                      .productDetails!.product!.inventoryDetail.isNotEmpty)
+                    if (provider.productDetails!.product!.inventoryDetail[0]
+                            .soldCount !=
+                        null)
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 7, horizontal: 11),
+                        margin: const EdgeInsets.only(top: 10, left: 9),
+                        decoration: BoxDecoration(
+                            color: successColor.withOpacity(.15),
+                            borderRadius: BorderRadius.circular(20)),
+                        child: paragraphCommon(
+                          "${provider.productDetails!.product!.inventoryDetail[0].soldCount} items sold",
+                          color: successColor,
+                          fontsize: 11,
+                          lineHeight: 1.1,
+                          fontweight: FontWeight.w600,
+                        ),
+                      )
                 ],
               )
             ],

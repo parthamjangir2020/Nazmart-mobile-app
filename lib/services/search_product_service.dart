@@ -16,8 +16,8 @@ class SearchProductService with ChangeNotifier {
   bool noProductFound = false;
   bool isLoading = false;
 
-  String minPrice = '';
-  String maxPrice = '';
+  String minPrice = '0.0';
+  String maxPrice = '1000.0';
   double rating = 5;
 
   late int totalPages;
@@ -92,6 +92,9 @@ class SearchProductService with ChangeNotifier {
     } else {}
     var connection = await checkConnection();
     if (!connection) return;
+
+    print('max $maxPrice');
+    print('min pr $minPrice');
 
     var response = await http.get(Uri.parse(
         "${ApiUrl.searchUri}=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&from_price=$minPrice&to_price=$maxPrice&rating=$rating"));

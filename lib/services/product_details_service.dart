@@ -281,8 +281,6 @@ class ProductDetailsService with ChangeNotifier {
         Uri.parse('${ApiUrl.productDetailsUri}/$productId'),
         headers: header);
 
-    print('${ApiUrl.productDetailsUri}/$productId');
-
     if (response.statusCode == 200) {
       productDetails = ProductDetailsModel.fromJson(jsonDecode(response.body));
       final productInvenSet = productDetails!.productInventorySet;

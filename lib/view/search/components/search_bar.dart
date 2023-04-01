@@ -73,7 +73,9 @@ InkWell productFilterIcon(BuildContext context) {
     onTap: () {
       showModalBottomSheet(
         context: context,
-        enableDrag: false,
+        enableDrag: true,
+        isScrollControlled: true,
+        isDismissible: true,
         builder: (context) => const ProductFilter(),
       );
     },

@@ -192,6 +192,7 @@ class ConstString {
   static const String childCategory = 'Child Category';
   static const String minPrice = 'Min Price';
   static const String maxPrice = 'Max Price';
+  static const String priceRange = 'Price range';
   static const String enterMinPrice = 'Enter min price';
   static const String enterMaxPrice = 'Enter max price';
   static const String ratings = 'Ratings';

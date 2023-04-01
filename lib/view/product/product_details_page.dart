@@ -152,6 +152,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                                     labelColor: primaryColor,
                                     unselectedLabelColor: greyFour,
                                     indicatorColor: primaryColor,
+                                    isScrollable: true,
                                     unselectedLabelStyle: const TextStyle(
                                         color: greyParagraph,
                                         fontWeight: FontWeight.normal),

@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
+import 'package:no_name_ecommerce/view/product/products_by_category_page.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -83,30 +84,29 @@ class SliderHome extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                height: 7,
+                                height: 10,
                               ),
-                              // ElevatedButton(
-                              //     style: ElevatedButton.styleFrom(
-                              //       backgroundColor: primaryColor,
-                              //       elevation: 0,
-                              //       shape: RoundedRectangleBorder(
-                              //         borderRadius: BorderRadius.circular(8),
-                              //       ),
-                              //     ),
-                              //     onPressed: () {
-                              //       // Navigator.push(
-                              //       //   context,
-                              //       //   MaterialPageRoute<void>(
-                              //       //     builder: (BuildContext context) =>
-                              //       //         DonationPaymentChoosePage(
-                              //       //             campaignId: sliderProvider
-                              //       //                     .sliderImageList[
-                              //       //                 itemIndex]['campaignId']),
-                              //       //   ),
-                              //       // );
-                              //     },
-                              //     child: Text(
-                              //         '${sliderProvider.sliderImageList[i].buttonText}'))
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: primaryColor,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductsByCategoryPage(
+                                                  categoryName: sliderProvider
+                                                      .sliderImageList[i]
+                                                      .category,
+                                                )));
+                                  },
+                                  child: Text(
+                                      '${sliderProvider.sliderImageList[i].buttonText}'))
                             ],
                           )),
                     )
