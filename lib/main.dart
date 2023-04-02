@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:no_name_ecommerce/services/featured_product_service.dart';
+import 'package:no_name_ecommerce/services/filter_color_size_service.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/bank_transfer_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
@@ -116,6 +117,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PlaceOrderService()),
         ChangeNotifierProvider(create: (_) => FeaturedProductService()),
         ChangeNotifierProvider(create: (_) => ProductByCategoryService()),
+        ChangeNotifierProvider(create: (_) => FilterColorSizeService()),
         ChangeNotifierProvider(create: (_) => RecentProductService()),
         ChangeNotifierProvider(
             create: (_) => AddRemoveShippingAddressService()),

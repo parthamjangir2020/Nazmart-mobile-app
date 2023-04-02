@@ -73,7 +73,8 @@ class CouponService with ChangeNotifier {
 
     setLoadingFalse();
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 &&
+        jsonDecode(response.body)['discounted_price'] != 0) {
       oldCouponDiscount = couponDiscount;
       couponDiscount = jsonDecode(response.body)['discounted_price'];
       appliedCoupon = couponCode;

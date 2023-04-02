@@ -51,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Column(children: [
                                   SettingsHelper().settingOption(
-                                      'assets/svg/message-circle.svg',
+                                      'assets/svg/my-orders.svg',
                                       ln.getString(ConstString.myOrders), () {
                                     if (profileProvider.profileDetails ==
                                         null) {
@@ -73,7 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   //
 
                                   SettingsHelper().settingOption(
-                                      'assets/svg/message-circle.svg',
+                                      'assets/svg/refund.svg',
                                       ln.getString(ConstString.refundProducts),
                                       () {
                                     if (profileProvider.profileDetails ==
@@ -95,7 +95,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                                   //
                                   SettingsHelper().settingOption(
-                                      'assets/svg/message-circle.svg',
+                                      'assets/svg/message.svg',
                                       ln.getString(ConstString.supportTickets),
                                       () {
                                     if (profileProvider.profileDetails ==
@@ -115,7 +115,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   }),
                                   dividerCommon(),
                                   SettingsHelper().settingOption(
-                                      'assets/svg/profile-edit.svg',
+                                      'assets/svg/user-edit.svg',
                                       ln.getString(ConstString.editProfile),
                                       () {
                                     if (profileProvider.profileDetails ==
@@ -135,7 +135,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   }),
                                   dividerCommon(),
                                   SettingsHelper().settingOption(
-                                      'assets/svg/lock-circle.svg',
+                                      'assets/svg/lock.svg',
                                       ln.getString(ConstString.changePass), () {
                                     if (profileProvider.profileDetails ==
                                         null) {
@@ -155,7 +155,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                                   dividerCommon(),
                                   SettingsHelper().settingOption(
-                                      'assets/svg/profile-edit.svg',
+                                      'assets/svg/house.svg',
                                       ln.getString(ConstString.shippingAddress),
                                       () {
                                     if (profileProvider.profileDetails ==
@@ -176,7 +176,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                                   dividerCommon(),
                                   SettingsHelper().settingOption(
-                                      'assets/svg/profile-edit.svg',
+                                      'assets/svg/terms.svg',
                                       ln.getString(ConstString.termsCondition),
                                       () {
                                     Navigator.push(
@@ -190,7 +190,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                                   dividerCommon(),
                                   SettingsHelper().settingOption(
-                                      'assets/svg/profile-edit.svg',
+                                      'assets/svg/policy.svg',
                                       ln.getString(ConstString.privacyPolicy),
                                       () {
                                     Navigator.push(
@@ -211,7 +211,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                   child: SettingsHelper().settingOption(
-                                      'assets/svg/logout-circle.svg',
+                                      'assets/svg/logout.svg',
                                       ln.getString(ConstString.logout), () {
                                     SettingsHelper().logoutPopup(context);
                                   }),

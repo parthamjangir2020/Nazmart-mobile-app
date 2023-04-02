@@ -7,6 +7,7 @@ import 'package:no_name_ecommerce/model/search_model.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/filter_color_size_service.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:provider/provider.dart';
@@ -96,8 +97,15 @@ class SearchProductService with ChangeNotifier {
     print('max $maxPrice');
     print('min pr $minPrice');
 
+    var selectedSize =
+        Provider.of<FilterColorSizeService>(context, listen: false)
+            .selectedSizeCode;
+    var selectedColor =
+        Provider.of<FilterColorSizeService>(context, listen: false)
+            .selectedColorName;
+
     var response = await http.get(Uri.parse(
-        "${ApiUrl.searchUri}=$searchText&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&from_price=$minPrice&to_price=$maxPrice&rating=$rating"));
+        "${ApiUrl.searchUri}=$searchText&color=$selectedColor&size=$selectedSize&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&from_price=$minPrice&to_price=$maxPrice&rating=$rating"));
 
     setLoadingStatus(false);
 

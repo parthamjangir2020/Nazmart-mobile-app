@@ -6,6 +6,7 @@ class ApiUrl {
   static const String logoutUri = '$baseUri/user/logout';
   static const String checkoutUri = '$baseUri/checkout';
   static const String changePassUri = '$baseUri/user/change-password';
+  static const String searchItemsUri = '$baseUri/search-items';
   static const String usernameCheckUri = '$baseUri/username';
   static const String sendOtpUri = '$baseUri/send-otp-in-mail';
   static const String otpSuccessUri = '$baseUri/otp-success';

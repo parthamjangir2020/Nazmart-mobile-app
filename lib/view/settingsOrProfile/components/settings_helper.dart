@@ -32,7 +32,7 @@ class SettingsHelper {
       onTap: pressed,
       leading: SvgPicture.asset(
         icon,
-        height: 35,
+        height: 23,
       ),
       title: Text(
         title,

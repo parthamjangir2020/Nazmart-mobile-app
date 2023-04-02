@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
+import 'package:no_name_ecommerce/services/filter_color_size_service.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
@@ -202,6 +203,11 @@ class _ProductFilterState extends State<ProductFilter> {
 
                         provider.setMinPrice('');
                         provider.setMaxPrice('');
+
+                        //clear color size
+                        Provider.of<FilterColorSizeService>(context,
+                                listen: false)
+                            .setDefault();
 
                         // minPriceController.clear();
                         // maxPriceController.clear();
