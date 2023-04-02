@@ -86,27 +86,31 @@ class SliderHome extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: primaryColor,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
+                              if (sliderProvider
+                                      .sliderImageList[i].buttonText !=
+                                  null)
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: primaryColor,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                     ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductsByCategoryPage(
-                                                  categoryName: sliderProvider
-                                                      .sliderImageList[i]
-                                                      .category,
-                                                )));
-                                  },
-                                  child: Text(
-                                      '${sliderProvider.sliderImageList[i].buttonText}'))
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProductsByCategoryPage(
+                                                    categoryName: sliderProvider
+                                                        .sliderImageList[i]
+                                                        .category,
+                                                  )));
+                                    },
+                                    child: Text(sliderProvider
+                                            .sliderImageList[i].buttonText ??
+                                        ''))
                             ],
                           )),
                     )
