@@ -262,7 +262,7 @@ class _LoginPageState extends State<LoginPage> {
                             RichText(
                               text: TextSpan(
                                 text:
-                                    '${ln.getString(ConstString.donotHaveAccount)}                         ',
+                                    '${ln.getString(ConstString.donotHaveAccount)}  ',
                                 style: const TextStyle(
                                     color: Color(0xff646464), fontSize: 14),
                                 children: <TextSpan>[

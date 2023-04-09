@@ -3,7 +3,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:no_name_ecommerce/services/country_states_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -60,11 +61,12 @@ class ProfileEditService with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
-    var countryName = Provider.of<CountryStatesService>(context, listen: false)
-        .selectedCountry;
+    var countryName =
+        Provider.of<CountryDropdownService>(context, listen: false)
+            .selectedCountry;
 
     var stateName =
-        Provider.of<CountryStatesService>(context, listen: false).selectedState;
+        Provider.of<StateDropdownService>(context, listen: false).selectedState;
 
     var dio = Dio();
     // dio.options.headers['Accept'] = 'application/json';
@@ -98,11 +100,15 @@ class ProfileEditService with ChangeNotifier {
       setLoadingFalse();
       showToast('Profile updated successfully', Colors.black);
       print(response.data);
-      Navigator.pop(context);
 
       //re fetch profile data again
-      Provider.of<ProfileService>(context, listen: false)
+      await Provider.of<ProfileService>(context, listen: false)
           .getProfileDetails(isFromProfileupdatePage: true);
+
+      // Future.delayed(const Duration(microseconds: 1600), () {
+      Navigator.pop(context);
+      // });
+
       return true;
     } else {
       setLoadingFalse();

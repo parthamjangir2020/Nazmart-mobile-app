@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/featured_product_service.dart';
 import 'package:no_name_ecommerce/services/filter_color_size_service.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
@@ -24,7 +26,6 @@ import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/campaign_service.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
-import 'package:no_name_ecommerce/services/country_states_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
 import 'package:no_name_ecommerce/services/discover_products_service.dart';
@@ -73,7 +74,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => LoginService()),
         ChangeNotifierProvider(create: (_) => SignupService()),
-        ChangeNotifierProvider(create: (_) => CountryStatesService()),
+        ChangeNotifierProvider(create: (_) => CountryDropdownService()),
+        ChangeNotifierProvider(create: (_) => StateDropdownService()),
         ChangeNotifierProvider(create: (_) => ProfileService()),
         ChangeNotifierProvider(create: (_) => ChangePassService()),
         ChangeNotifierProvider(create: (_) => EmailVerifyService()),

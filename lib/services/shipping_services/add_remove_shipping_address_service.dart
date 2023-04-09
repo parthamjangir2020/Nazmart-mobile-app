@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:no_name_ecommerce/services/country_states_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/shipping_services/shipping_list_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -26,10 +27,10 @@ class AddRemoveShippingAddressService with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
-    var countryId = Provider.of<CountryStatesService>(context, listen: false)
+    var countryId = Provider.of<CountryDropdownService>(context, listen: false)
         .selectedCountryId;
 
-    var stateId = Provider.of<CountryStatesService>(context, listen: false)
+    var stateId = Provider.of<StateDropdownService>(context, listen: false)
         .selectedStateId;
 
     if (stateId == '0') {

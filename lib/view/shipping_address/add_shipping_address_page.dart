@@ -4,7 +4,7 @@ import 'package:no_name_ecommerce/services/profile_edit_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/shipping_services/add_remove_shipping_address_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
-import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
+import 'package:no_name_ecommerce/view/auth/signup/dropdowns/country_states_dropdowns.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';

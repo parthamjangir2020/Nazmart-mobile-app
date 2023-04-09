@@ -18,6 +18,8 @@ class ApiUrl {
   static const String departmentUri = '$baseUri/user/get-department';
   static const String gatewayListUri = '$baseUri/payment-gateway-list';
   static const String addShippingUri = '$baseUri/user/add-shipping-address';
+  static const String stateSearchUri = '$baseUri/search/state';
+  static const String countrySearchUri = '$baseUri/search/country';
   static const String paymentUpdateUri = '$baseUri/update-payment';
   static const String removeShippingUri =
       '$baseUri/user/shipping-address/delete';

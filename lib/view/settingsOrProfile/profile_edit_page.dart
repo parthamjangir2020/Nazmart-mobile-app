@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
-import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
+import 'package:no_name_ecommerce/view/auth/signup/dropdowns/country_states_dropdowns.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/profile_image_pick.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
@@ -227,12 +227,12 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           labelCommon(ConstString.zipCode),
                           CustomInput(
                             controller: zipCodeController,
-                            validation: (value) {
-                              if (value == null || value.isEmpty) {
-                                return ln.getString(ConstString.plzEnterZip);
-                              }
-                              return null;
-                            },
+                            // validation: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return ln.getString(ConstString.plzEnterZip);
+                            //   }
+                            //   return null;
+                            // },
                             hintText: ln.getString(ConstString.enterZip),
                             paddingHorizontal: 20,
                             textInputAction: TextInputAction.next,

@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -12,7 +14,6 @@ import 'package:provider/provider.dart';
 
 import '../../view/auth/signup/components/email_verify_page.dart';
 import '../common_service.dart';
-import '../country_states_service.dart';
 import 'email_verify_service.dart';
 
 class SignupService with ChangeNotifier {
@@ -33,10 +34,11 @@ class SignupService with ChangeNotifier {
       bool isFromDeliveryAddressPage = false}) async {
     var connection = await checkConnection();
 
-    var countryName = Provider.of<CountryStatesService>(context, listen: false)
-        .selectedCountry;
+    var countryName =
+        Provider.of<CountryDropdownService>(context, listen: false)
+            .selectedCountry;
     var stateName =
-        Provider.of<CountryStatesService>(context, listen: false).selectedState;
+        Provider.of<StateDropdownService>(context, listen: false).selectedState;
     if (stateName == 'Select State') {
       stateName = null;
     }

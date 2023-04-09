@@ -6,7 +6,7 @@ import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
-import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
+import 'package:no_name_ecommerce/view/auth/signup/dropdowns/country_states_dropdowns.dart';
 import 'package:no_name_ecommerce/view/checkout/create_account_on_checkout.dart';
 import 'package:no_name_ecommerce/view/order/components/free_ship_option.dart';
 import 'package:no_name_ecommerce/view/order/components/shipping_option.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/auth/login/components/login_slider.dart';
-import 'package:no_name_ecommerce/view/auth/signup/components/country_states_dropdowns.dart';
+import 'package:no_name_ecommerce/view/auth/signup/dropdowns/country_states_dropdowns.dart';
 import 'package:no_name_ecommerce/view/auth/signup/pages/signup_phone_pass.dart';
 import 'package:no_name_ecommerce/view/others/terms_condition_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
@@ -96,9 +96,7 @@ class _SignupPageState extends State<SignupPage> {
                             //Country dropdown =====>
                             const CountryStatesDropdowns(),
 
-                            gapH(20),
-
-                            // ==============>
+                            gapH(18),
 
                             //city ============>
                             labelCommon(ConstString.city),

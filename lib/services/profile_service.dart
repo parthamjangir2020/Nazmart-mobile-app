@@ -29,12 +29,13 @@ class ProfileService with ChangeNotifier {
     notifyListeners();
   }
 
-  getProfileDetails({bool isFromProfileupdatePage = false}) async {
+  Future<bool> getProfileDetails({bool isFromProfileupdatePage = false}) async {
     if (isFromProfileupdatePage == true) {
       //if from update profile page then load it anyway
       print('is from profile update page true');
-      setEverythingToDefault();
-      fetchData();
+
+      var res = await fetchData();
+      return res;
     } else {
       //not from profile page. check if data already loaded
       if (profileDetails == null) {
@@ -42,41 +43,45 @@ class ProfileService with ChangeNotifier {
       } else {
         print('profile data already loaded');
       }
+
+      return false;
     }
   }
 
-  fetchData() async {
+  Future<bool> fetchData() async {
     print('fetching profile data');
     var connection = await checkConnection();
-    if (connection) {
-      //internet connection is on
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var token = prefs.getString('token');
+    if (!connection) return false;
+    //internet connection is on
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
 
-      setLoadingTrue();
+    setLoadingTrue();
 
-      var header = {
-        //if header type is application/json then the data should be in jsonEncode method
-        "Accept": "application/json",
-        // "Content-Type": "application/json"
-        "Authorization": "Bearer $token",
-      };
+    var header = {
+      //if header type is application/json then the data should be in jsonEncode method
+      "Accept": "application/json",
+      // "Content-Type": "application/json"
+      "Authorization": "Bearer $token",
+    };
 
-      var response =
-          await http.get(Uri.parse(ApiUrl.profileDataUri), headers: header);
+    var response =
+        await http.get(Uri.parse(ApiUrl.profileDataUri), headers: header);
 
-      if (response.statusCode == 200) {
-        var data = ProfileModel.fromJson(jsonDecode(response.body));
-        profileDetails = data;
+    if (response.statusCode == 200) {
+      var data = ProfileModel.fromJson(jsonDecode(response.body));
+      profileDetails = data;
 
-        print('profile details is $profileDetails');
+      print('profile details is $profileDetails');
 
-        setLoadingFalse();
-        notifyListeners();
-      } else {
-        setLoadingFalse();
-        notifyListeners();
-      }
+      setLoadingFalse();
+      notifyListeners();
+
+      return true;
+    } else {
+      setLoadingFalse();
+      notifyListeners();
+      return false;
     }
   }
 }

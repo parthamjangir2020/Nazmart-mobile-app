@@ -8,7 +8,8 @@ import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/checkout_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/services/country_states_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/product_db_service.dart';
 import 'package:no_name_ecommerce/view/home/landing_page.dart';
@@ -57,9 +58,9 @@ class PlaceOrderService with ChangeNotifier {
     var coupon =
         Provider.of<CouponService>(context, listen: false).appliedCoupon;
 
-    var countryId = Provider.of<CountryStatesService>(context, listen: false)
+    var countryId = Provider.of<CountryDropdownService>(context, listen: false)
         .selectedCountryId;
-    var stateId = Provider.of<CountryStatesService>(context, listen: false)
+    var stateId = Provider.of<StateDropdownService>(context, listen: false)
         .selectedStateId;
 
     var cartItems = await CheckoutService().formatCart(context);

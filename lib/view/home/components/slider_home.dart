@@ -20,7 +20,7 @@ class SliderHome extends StatelessWidget {
       builder: (context, sliderProvider, child) => sliderProvider
               .sliderImageList.isNotEmpty
           ? SizedBox(
-              height: 175,
+              height: 165,
               width: double.infinity,
               child: CarouselSlider.builder(
                 itemCount: sliderProvider.sliderImageList.length,
@@ -84,7 +84,7 @@ class SliderHome extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 13,
                               ),
                               if (sliderProvider
                                       .sliderImageList[i].buttonText !=
