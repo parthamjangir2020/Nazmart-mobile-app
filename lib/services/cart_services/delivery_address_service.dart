@@ -28,7 +28,7 @@ class DeliveryAddressService with ChangeNotifier {
   var defaultShipName = '';
 
   var vatAmount = 0.0;
-  double? vatPercentage = 0;
+  dynamic vatPercentage = 0;
 
   int selectedShippingIndex = -1;
 

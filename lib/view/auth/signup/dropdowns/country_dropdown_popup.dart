@@ -86,7 +86,7 @@ class CountryDropdownPopup extends StatelessWidget {
                                             p.countryDropdownList.indexOf(
                                                 p.countryDropdownList[i])]);
 
-                                    Navigator.pop(context);
+                                    // Navigator.pop(context);
 
                                     Provider.of<StateDropdownService>(context,
                                             listen: false)

@@ -5,6 +5,7 @@ import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +66,7 @@ class EmailNameFields extends StatelessWidget {
             ),
 
             if (provider.usernameData != null)
-              paragraphCommon(provider.usernameData),
+              paragraphCommon(provider.usernameData, color: successColor),
 
             //Email ============>
 

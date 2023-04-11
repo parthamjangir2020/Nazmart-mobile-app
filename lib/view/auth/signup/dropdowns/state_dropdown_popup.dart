@@ -85,7 +85,7 @@ class StateDropdownPopup extends StatelessWidget {
                                             .statesDropdownList
                                             .indexOf(p.statesDropdownList[i])]);
 
-                                    Navigator.pop(context);
+                                    // Navigator.pop(context);
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(

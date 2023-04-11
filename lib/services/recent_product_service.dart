@@ -74,7 +74,7 @@ class RecentProductService with ChangeNotifier {
     setLoadingStatus(false);
 
     if (response.statusCode == 200 &&
-        jsonDecode(response.body)['recentProducts']['data'].isNotEmpty) {
+        jsonDecode(response.body)['data'].isNotEmpty) {
       var data = RecentProductModel.fromJson(jsonDecode(response.body));
 
       setTotalPage(data.lastPage);

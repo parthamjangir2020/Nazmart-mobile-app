@@ -12,6 +12,9 @@ import 'package:http/http.dart' as http;
 
 class OrderService with ChangeNotifier {
   List<OrderList> orderList = [];
+
+  bool hasOrder = true;
+
   List productList = [];
 
   late int totalPages;
@@ -47,6 +50,9 @@ class OrderService with ChangeNotifier {
     var connection = await checkConnection();
     if (!connection) return false;
 
+    hasOrder = true;
+    notifyListeners();
+
     var response = await http.get(
         Uri.parse('${ApiUrl.orderListUri}?page=$currentPage'),
         headers: header);
@@ -77,6 +83,9 @@ class OrderService with ChangeNotifier {
       return true;
     } else {
       print(response.body);
+
+      hasOrder = false;
+      notifyListeners();
       return false;
     }
   }
