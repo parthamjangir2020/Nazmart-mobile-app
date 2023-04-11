@@ -37,7 +37,7 @@ class FeaturedProducts extends StatelessWidget {
           builder: (context, p, child) => p.featuredProducts != null
               ? Container(
                   margin: const EdgeInsets.only(top: 5),
-                  height: 235,
+                  height: 266,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
@@ -57,6 +57,12 @@ class FeaturedProducts extends StatelessWidget {
                           ratingAverage: p.featuredProducts?.data[i].avgRatting,
                           discountPercent:
                               p.featuredProducts?.data[i].campaignPercentage,
+                          isCartAble: p.featuredProducts?.data[i].isCartAble,
+                          category: p.featuredProducts?.data[i].categoryId,
+                          subcategory:
+                              p.featuredProducts?.data[i].subCategoryId,
+                          childCategory:
+                              p.featuredProducts?.data[i].childCategoryIds,
                           pressed: () {
                             gotoProductDetails(
                                 context, p.featuredProducts?.data[i].prdId);

@@ -68,11 +68,11 @@ class ProductDbService {
 
   //single product
   getSingleProduct(String productId, String title, attributes,
-      {bool isFromFavouritePage = false}) async {
+      {bool ignoreAttribute = false}) async {
     var connection = await getdatabase;
     Future<List<Map<String, Object?>>> prod;
 
-    if (isFromFavouritePage) {
+    if (ignoreAttribute) {
       prod = connection.rawQuery(
           "SELECT * FROM cart_table WHERE productId=? and title =?",
           [productId, title]);
@@ -87,10 +87,10 @@ class ProductDbService {
 
   Future<bool> updateQtandPrice(
       String productId, String title, int qty, attributes, BuildContext context,
-      {bool isFromFavouritePage = false}) async {
+      {bool ignoreAttribute = false}) async {
     var connection = await getdatabase;
 
-    if (isFromFavouritePage) {
+    if (ignoreAttribute) {
       await connection.rawUpdate(
           "UPDATE cart_table SET qty=? WHERE productId=? and title =?",
           [qty, productId, title]);

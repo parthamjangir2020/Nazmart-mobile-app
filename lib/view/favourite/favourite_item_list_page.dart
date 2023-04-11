@@ -154,48 +154,33 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                                                           context,
                                                           listen: false);
 
-                                                  cProvider
-                                                      .addToCartOrUpdateQty(
-                                                    context,
-                                                    title:
-                                                        fProvider.favItemList[i]
-                                                            ['title'],
-                                                    thumbnail:
-                                                        fProvider.favItemList[i]
-                                                            ['thumbnail'],
-                                                    discountPrice: fProvider
-                                                        .favItemList[i]
-                                                            ['discountPrice']
-                                                        .toString(),
-                                                    oldPrice: fProvider
-                                                        .favItemList[i]
-                                                            ['oldPrice']
-                                                        .toString(),
-                                                    priceWithAttr:
-                                                        fProvider.favItemList[i]
-                                                            ['priceWithAttr'],
-                                                    qty: 1,
-                                                    color: null,
-                                                    size: null,
-                                                    productId: fProvider
-                                                        .favItemList[i]
-                                                            ['productId']
-                                                        .toString(),
-                                                    category:
-                                                        fProvider.favItemList[i]
-                                                            ['category'],
-                                                    subcategory:
-                                                        fProvider.favItemList[i]
-                                                            ['subcategory'],
-                                                    childCategory:
-                                                        fProvider.favItemList[i]
-                                                            ['childCategory'],
-                                                    attributes: null,
-                                                    variantId:
-                                                        fProvider.favItemList[i]
-                                                            ['variantId'],
-                                                            isFromFavouritePage: true
-                                                  );
+                                                  cProvider.addToCartOrUpdateQty(context,
+                                                      title: fProvider.favItemList[i]
+                                                          ['title'],
+                                                      thumbnail: fProvider.favItemList[i]
+                                                          ['thumbnail'],
+                                                      discountPrice: fProvider
+                                                          .favItemList[i]
+                                                              ['discountPrice']
+                                                          .toString(),
+                                                      oldPrice: fProvider.favItemList[i]
+                                                              ['oldPrice']
+                                                          .toString(),
+                                                      priceWithAttr:
+                                                          fProvider.favItemList[i]
+                                                              ['priceWithAttr'],
+                                                      qty: 1,
+                                                      color: null,
+                                                      size: null,
+                                                      productId: fProvider
+                                                          .favItemList[i]['productId']
+                                                          .toString(),
+                                                      category: fProvider.favItemList[i]['category'],
+                                                      subcategory: fProvider.favItemList[i]['subcategory'],
+                                                      childCategory: fProvider.favItemList[i]['childCategory'],
+                                                      attributes: {},
+                                                      variantId: fProvider.favItemList[i]['variantId'],
+                                                      ignoreAttribute: true);
                                                 });
                                               },
                                               child: Text(ln

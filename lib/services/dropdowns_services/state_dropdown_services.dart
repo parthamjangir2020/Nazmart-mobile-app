@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/dropdown_models/states_dropdown_model.dart';
+import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
@@ -166,6 +167,16 @@ class StateDropdownService with ChangeNotifier {
 
     Future.delayed(const Duration(milliseconds: 500), () {
       notifyListeners();
+    });
+
+    var selectedCountryId =
+        Provider.of<CountryDropdownService>(context, listen: false)
+            .selectedCountryId;
+
+    Future.delayed(const Duration(milliseconds: 700), () {
+      Provider.of<DeliveryAddressService>(context, listen: false)
+          .fetchCountryShippingCost(context,
+              countryId: selectedCountryId, stateId: selectedStateId);
     });
   }
 

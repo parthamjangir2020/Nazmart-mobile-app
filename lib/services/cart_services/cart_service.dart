@@ -56,17 +56,17 @@ class CartService with ChangeNotifier {
 
   //increase quantity and price
   increaseQtandPrice(productId, title, attributes, BuildContext context,
-      {bool isFromFavouritePage = false}) async {
+      {bool ignoreAttribute = false}) async {
     var data = await ProductDbService().getSingleProduct(
         productId, title, attributes,
-        isFromFavouritePage: isFromFavouritePage);
+        ignoreAttribute: ignoreAttribute);
 
     var newQty = data[0]['qty'] + 1;
     print('daaaa $data');
 
     await ProductDbService().updateQtandPrice(
         productId, title, newQty, attributes, context,
-        isFromFavouritePage: isFromFavouritePage);
+        ignoreAttribute: ignoreAttribute);
 
     fetchCartProducts(context);
     calculateSubtotal(context);
@@ -156,7 +156,7 @@ class CartService with ChangeNotifier {
       required childCategory,
       required attributes,
       required variantId,
-      bool isFromFavouritePage = false}) async {
+      bool ignoreAttribute = false}) async {
     var connection = await ProductDbService().getdatabase;
     var prod = await connection.rawQuery(
         "SELECT * FROM cart_table WHERE productId=? and title =?",
@@ -194,7 +194,7 @@ class CartService with ChangeNotifier {
 
         Provider.of<CartService>(context, listen: false).increaseQtandPrice(
             productId, title, attributes, context,
-            isFromFavouritePage: isFromFavouritePage);
+            ignoreAttribute: ignoreAttribute);
 
         showSnackBar(context, ConstString.qtyIncreased, successColor);
 

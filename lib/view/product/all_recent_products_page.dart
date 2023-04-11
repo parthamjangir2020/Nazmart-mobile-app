@@ -91,7 +91,7 @@ class _AllRecentProductsPageState extends State<AllRecentProductsPage> {
                                             crossAxisCount: 2,
                                             mainAxisSpacing: 25,
                                             crossAxisSpacing: 20,
-                                            height: 230),
+                                            height: 266),
                                     shrinkWrap: true,
                                     itemCount:
                                         provider.allRecentProducts.length,
@@ -112,8 +112,17 @@ class _AllRecentProductsPageState extends State<AllRecentProductsPage> {
                                         marginRight: 5,
                                         productId:
                                             provider.allRecentProducts[i].prdId,
+                                        isCartAble: provider
+                                            .allRecentProducts[i].isCartAble,
                                         ratingAverage: null,
                                         discountPercent: null,
+                                        category: provider
+                                            .allRecentProducts[i].categoryId,
+                                        subcategory: provider
+                                            .allRecentProducts[i].subCategoryId,
+                                        childCategory: provider
+                                            .allRecentProducts[i]
+                                            .childCategoryIds,
                                         pressed: () {
                                           gotoProductDetails(
                                               context,

@@ -3,8 +3,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +26,10 @@ class ProductCard extends StatelessWidget {
     required this.ratingAverage,
     this.ratingCount,
     this.discountPercent,
+    required this.isCartAble,
+    required this.category,
+    required this.subcategory,
+    required this.childCategory,
   }) : super(key: key);
 
   final productId;
@@ -37,6 +43,10 @@ class ProductCard extends StatelessWidget {
   final double width;
   final double marginRight;
   final VoidCallback pressed;
+  final isCartAble;
+  final category;
+  final subcategory;
+  final childCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +139,7 @@ class ProductCard extends StatelessWidget {
                       ],
                     ),
 
-                    gapH(5),
+                    gapH(4),
 
                     //Rating
                     if (ratingAverage != null)
@@ -138,6 +148,7 @@ class ProductCard extends StatelessWidget {
                           const Icon(
                             Icons.star_rounded,
                             color: orangeColor,
+                            size: 18,
                           ),
                           const SizedBox(
                             width: 2,
@@ -155,11 +166,57 @@ class ProductCard extends StatelessWidget {
                                 lineHeight: 1, fontsize: 13)
                         ],
                       ),
+
+                    isCartAble == true
+                        ? addToCartViewDetailsBtn(context, () {
+                            cProvider.addToCartOrUpdateQty(context,
+                                title: title ?? '',
+                                thumbnail: imageLink ?? placeHolderUrl,
+                                discountPrice: discountPrice.toString(),
+                                oldPrice: oldPrice.toString(),
+                                priceWithAttr: discountPrice,
+                                qty: 1,
+                                color: null,
+                                size: null,
+                                productId: productId.toString(),
+                                category: category,
+                                subcategory: subcategory,
+                                childCategory: childCategory.isNotEmpty
+                                    ? childCategory[0]
+                                    : '0',
+                                attributes: {},
+                                variantId: null,
+                                ignoreAttribute: true);
+                          }, 'Add to cart')
+                        : addToCartViewDetailsBtn(context, () {
+                            gotoProductDetails(context, productId);
+                          }, 'View Details'),
                   ],
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  InkWell addToCartViewDetailsBtn(
+      BuildContext context, VoidCallback onTap, String btnText) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        alignment: Alignment.center,
+        margin: const EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+        decoration: BoxDecoration(
+            border: Border.all(color: greyFive, width: .8),
+            borderRadius: BorderRadius.circular(4)),
+        child: Text(
+          btnText,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+              fontSize: 11, color: greyParagraph, fontWeight: FontWeight.w600),
         ),
       ),
     );

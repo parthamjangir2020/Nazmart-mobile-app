@@ -104,7 +104,7 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
                                               crossAxisCount: 2,
                                               mainAxisSpacing: 25,
                                               crossAxisSpacing: 20,
-                                              height: 230),
+                                              height: 266),
                                       shrinkWrap: true,
                                       itemCount: provider.productList.length,
                                       physics:
@@ -128,6 +128,14 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
                                           discountPercent: provider
                                               .productList[i]
                                               .campaignPercentage,
+                                          isCartAble: provider
+                                              .productList[i].isCartAble,
+                                          category: provider
+                                              .productList[i].categoryId,
+                                          subcategory: provider
+                                              .productList[i].subCategoryId,
+                                          childCategory: provider
+                                              .productList[i].childCategoryIds,
                                           pressed: () {
                                             gotoProductDetails(context,
                                                 provider.productList[i].prdId);

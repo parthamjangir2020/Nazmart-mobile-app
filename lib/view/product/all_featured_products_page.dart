@@ -91,7 +91,7 @@ class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
                                                 crossAxisCount: 2,
                                                 mainAxisSpacing: 25,
                                                 crossAxisSpacing: 20,
-                                                height: 230),
+                                                height: 266),
                                         shrinkWrap: true,
                                         itemCount:
                                             provider.allFeaturedProducts.length,
@@ -120,6 +120,18 @@ class _AllFeaturedProductsPageState extends State<AllFeaturedProductsPage> {
                                             discountPercent: provider
                                                 .allFeaturedProducts[i]
                                                 .campaignPercentage,
+                                            isCartAble: provider
+                                                .allFeaturedProducts[i]
+                                                .isCartAble,
+                                            category: provider
+                                                .allFeaturedProducts[i]
+                                                .categoryId,
+                                            subcategory: provider
+                                                .allFeaturedProducts[i]
+                                                .subCategoryId,
+                                            childCategory: provider
+                                                .allFeaturedProducts[i]
+                                                .childCategoryIds,
                                             pressed: () {
                                               gotoProductDetails(
                                                   context,

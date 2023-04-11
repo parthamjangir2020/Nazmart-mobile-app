@@ -110,7 +110,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                                       crossAxisCount: 2,
                                       mainAxisSpacing: 25,
                                       crossAxisSpacing: 25,
-                                      height: 230),
+                                      height: 266),
                                   shrinkWrap: true,
                                   itemCount: provider.productList.length,
                                   physics: const NeverScrollableScrollPhysics(),
@@ -128,6 +128,14 @@ class _DiscoverPageState extends State<DiscoverPage> {
                                       productId: provider.productList[i].prdId,
                                       ratingAverage:
                                           provider.productList[i].avgRatting,
+                                      isCartAble:
+                                          provider.productList[i].isCartAble,
+                                      category:
+                                          provider.productList[i].categoryId,
+                                      subcategory:
+                                          provider.productList[i].subCategoryId,
+                                      childCategory: provider
+                                          .productList[i].childCategoryIds,
                                       pressed: () {
                                         gotoProductDetails(context,
                                             provider.productList[i].prdId);

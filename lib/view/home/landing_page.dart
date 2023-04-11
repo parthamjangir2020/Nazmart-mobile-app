@@ -24,7 +24,6 @@ class _LandingPageState extends State<LandingPage> {
     Homepage(),
     DiscoverPage(),
     FavouriteItemListPage(),
-    // Cartpage(),
     SettingsPage()
   ];
 

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/dropdown_models/country_dropdown_model.dart';
+import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:provider/provider.dart';
@@ -147,6 +148,11 @@ class CountryDropdownService with ChangeNotifier {
     }
     Future.delayed(const Duration(milliseconds: 500), () {
       notifyListeners();
+    });
+
+    Future.delayed(const Duration(milliseconds: 700), () {
+      Provider.of<DeliveryAddressService>(context, listen: false)
+          .fetchCountryShippingCost(context, countryId: selectedCountryId);
     });
   }
 

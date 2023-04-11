@@ -60,7 +60,7 @@ dropdownPlaceholder({required String hintText}) {
         border: Border.all(
           color: greyFive,
         ),
-        borderRadius: BorderRadius.circular(8)),
+        borderRadius: BorderRadius.circular(50)),
     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       paragraphCommon(hintText),
       const Icon(Icons.keyboard_arrow_down)

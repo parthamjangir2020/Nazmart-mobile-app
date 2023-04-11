@@ -36,9 +36,9 @@ class CampaignProductByCategory extends StatelessWidget {
                         GridView.builder(
                             gridDelegate: const FlutterzillaFixedGridView(
                                 crossAxisCount: 2,
-                                mainAxisSpacing: 10,
+                                mainAxisSpacing: 15,
                                 crossAxisSpacing: 15,
-                                height: 240),
+                                height: 266),
                             shrinkWrap: true,
                             itemCount: p.productList.length,
                             physics: const NeverScrollableScrollPhysics(),
@@ -55,6 +55,11 @@ class CampaignProductByCategory extends StatelessWidget {
                                 ratingAverage: p.productList[i].avgRatting,
                                 discountPercent:
                                     p.productList[i].campaignPercentage,
+                                isCartAble: p.productList[i].isCartAble,
+                                category: p.productList[i].categoryId,
+                                subcategory: p.productList[i].subCategoryId,
+                                childCategory:
+                                    p.productList[i].childCategoryIds,
                                 pressed: () {
                                   gotoProductDetails(
                                       context, p.productList[i].prdId);
