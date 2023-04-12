@@ -6,6 +6,7 @@ import 'package:no_name_ecommerce/services/cart_services/delivery_address_servic
 import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +14,7 @@ class StateDropdownService with ChangeNotifier {
   var statesDropdownList = [];
   var statesDropdownIndexList = [];
 
-  dynamic selectedState = 'Select City';
+  dynamic selectedState = ConstString.selectCity;
   dynamic selectedStateId = defaultId;
 
   bool isLoading = false;
@@ -35,7 +36,7 @@ class StateDropdownService with ChangeNotifier {
   setStateDefault() {
     statesDropdownList = [];
     statesDropdownIndexList = [];
-    selectedState = 'Select City';
+    selectedState = ConstString.selectCity;
     selectedStateId = defaultId;
 
     currentPage = 1;
@@ -100,9 +101,9 @@ class StateDropdownService with ChangeNotifier {
       //error fetching data
 
       if (statesDropdownList.isEmpty) {
-        statesDropdownList.add('Select City');
+        statesDropdownList.add(ConstString.selectCity);
         statesDropdownIndexList.add(defaultId);
-        selectedState = 'Select City';
+        selectedState = ConstString.selectCity;
         selectedStateId = defaultId;
         notifyListeners();
       }
@@ -117,7 +118,7 @@ class StateDropdownService with ChangeNotifier {
     var profileProvider =
         Provider.of<ProfileService>(context, listen: false).profileDetails;
 
-    selectedState = profileProvider?.userDetails.city ?? 'Select City';
+    selectedState = profileProvider?.userDetails.city ?? ConstString.selectCity;
     selectedStateId = profileProvider?.userDetails.userState != null
         ? profileProvider?.userDetails.userState?.id
         : defaultId;
@@ -209,9 +210,9 @@ class StateDropdownService with ChangeNotifier {
       return true;
     } else {
       //error fetching data
-      statesDropdownList.add('Select City');
+      statesDropdownList.add(ConstString.selectCity);
       statesDropdownIndexList.add(defaultId);
-      selectedState = 'Select City';
+      selectedState = ConstString.selectCity;
       selectedStateId = defaultId;
       notifyListeners();
       return false;

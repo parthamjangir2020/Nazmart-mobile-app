@@ -23,7 +23,14 @@ class AddRemoveShippingAddressService with ChangeNotifier {
     notifyListeners();
   }
 
-  addAddress(context, {name, email, phone, address, city, zip}) async {
+  addAddress(context,
+      {required shippingName,
+      required name,
+      required email,
+      required phone,
+      required address,
+      required city,
+      required zip}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
@@ -33,8 +40,12 @@ class AddRemoveShippingAddressService with ChangeNotifier {
     var stateId = Provider.of<StateDropdownService>(context, listen: false)
         .selectedStateId;
 
-    if (stateId == '0') {
+    if (stateId == defaultId) {
       showToast('You must select a state', Colors.black);
+      return;
+    }
+    if (countryId == defaultId) {
+      showToast('You must select a country', Colors.black);
       return;
     }
 
@@ -47,6 +58,7 @@ class AddRemoveShippingAddressService with ChangeNotifier {
       'zip_code': zip,
       'country_id': countryId,
       'address': address,
+      'shipping_address_name': shippingName
     });
     var header = {
       //if header type is application/json then the data should be in jsonEncode method

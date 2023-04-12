@@ -6,6 +6,7 @@ import 'package:no_name_ecommerce/model/dropdown_models/country_dropdown_model.d
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:provider/provider.dart';
 
 var defaultId = '0';
@@ -13,7 +14,7 @@ var defaultId = '0';
 class CountryDropdownService with ChangeNotifier {
   var countryDropdownList = [];
   var countryDropdownIndexList = [];
-  dynamic selectedCountry = 'Select Country';
+  dynamic selectedCountry = ConstString.selectCountry;
   dynamic selectedCountryId = defaultId;
 
   bool isLoading = false;
@@ -56,7 +57,7 @@ class CountryDropdownService with ChangeNotifier {
   setDefault() {
     countryDropdownList = [];
     countryDropdownIndexList = [];
-    selectedCountry = 'Select Country';
+    selectedCountry = ConstString.selectCountry;
     selectedCountryId = defaultId;
     notifyListeners();
   }
@@ -97,9 +98,9 @@ class CountryDropdownService with ChangeNotifier {
         return true;
       } else {
         //error fetching data
-        countryDropdownList.add('Select Country');
+        countryDropdownList.add(ConstString.selectCountry);
         countryDropdownIndexList.add(defaultId);
-        selectedCountry = 'Select Country';
+        selectedCountry = ConstString.selectCountry;
         selectedCountryId = defaultId;
         notifyListeners();
 
@@ -121,7 +122,7 @@ class CountryDropdownService with ChangeNotifier {
             .profileDetails
             ?.userDetails
             .country ??
-        'Select Country';
+        ConstString.selectCountry;
     selectedCountryId = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
             ?.userDetails
@@ -185,9 +186,9 @@ class CountryDropdownService with ChangeNotifier {
     } else {
       //error fetching data
       if (countryDropdownList.isEmpty) {
-        countryDropdownList.add('Select Country');
+        countryDropdownList.add(ConstString.selectCountry);
         countryDropdownIndexList.add(defaultId);
-        selectedCountry = 'Select Country';
+        selectedCountry = ConstString.selectCountry;
         selectedCountryId = defaultId;
         notifyListeners();
       }

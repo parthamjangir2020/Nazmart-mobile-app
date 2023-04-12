@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
@@ -60,7 +61,7 @@ class CountryDropdownPopup extends StatelessWidget {
                 children: [
                   gapH(30),
                   CustomInput(
-                    hintText: 'Search country',
+                    hintText: ConstString.searchCountry,
                     paddingHorizontal: 17,
                     icon: 'assets/icons/search.png',
                     onChanged: (v) {
@@ -69,7 +70,7 @@ class CountryDropdownPopup extends StatelessWidget {
                   ),
                   gapH(10),
                   p.countryDropdownList.isNotEmpty
-                      ? p.countryDropdownList[0] != 'Select Country'
+                      ? p.countryDropdownList[0] != ConstString.selectCountry
                           ? ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
@@ -86,7 +87,7 @@ class CountryDropdownPopup extends StatelessWidget {
                                             p.countryDropdownList.indexOf(
                                                 p.countryDropdownList[i])]);
 
-                                    // Navigator.pop(context);
+                                    Navigator.pop(context);
 
                                     Provider.of<StateDropdownService>(context,
                                             listen: false)
@@ -106,7 +107,7 @@ class CountryDropdownPopup extends StatelessWidget {
                                   ),
                                 );
                               })
-                          : paragraphCommon('No country found')
+                          : paragraphCommon(ConstString.noCountryFound)
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [showLoading(primaryColor)],

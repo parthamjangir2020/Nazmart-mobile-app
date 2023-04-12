@@ -18,6 +18,7 @@ import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:no_name_ecommerce/view/utils/responsive.dart';
 import 'package:provider/provider.dart';
 
 class Cartpage extends StatefulWidget {
@@ -39,27 +40,28 @@ class _CartpageState extends State<Cartpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: appbarCommon(ConstString.cart, context, () {
-        Navigator.pop(context);
-      }, hasBackButton: true),
-      body: SafeArea(
-        child: Listener(
-          onPointerDown: (_) {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.focusedChild?.unfocus();
-            }
-          },
-          child: SingleChildScrollView(
+        backgroundColor: Colors.white,
+        appBar: appbarCommon(ConstString.cart, context, () {
+          Navigator.pop(context);
+        }, hasBackButton: true),
+        body: SafeArea(
+          child: Listener(
+            onPointerDown: (_) {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus) {
+                currentFocus.focusedChild?.unfocus();
+              }
+            },
+            child: SingleChildScrollView(
               child: Container(
-            padding: EdgeInsets.symmetric(horizontal: screenPadHorizontal),
-            child: Consumer<CartService>(
-                builder: (context, cProvider, child) => cProvider
-                        .cartItemList.isNotEmpty
-                    ? Consumer<DeliveryAddressService>(
-                        builder: (context, dProvider, child) =>
-                            Consumer<CurrencyService>(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: screenPadHorizontal),
+                  child: Consumer<CartService>(
+                    builder: (context, cProvider, child) => cProvider
+                            .cartItemList.isNotEmpty
+                        ? Consumer<DeliveryAddressService>(
+                            builder: (context, dProvider, child) => Consumer<
+                                    CurrencyService>(
                                 builder: (context, cP, child) =>
                                     Consumer<TranslateStringService>(
                                       builder: (context, ln, child) =>
@@ -124,7 +126,8 @@ class _CartpageState extends State<Cartpage> {
                                           if (dProvider
                                               .enteredDeliveryAddress.isEmpty) {
                                             showToast(
-                                                'Please enter the delivery address and save it',
+                                                ConstString
+                                                    .plzEnterDeliveryAndSave,
                                                 Colors.black);
                                             return;
                                           }
@@ -140,11 +143,34 @@ class _CartpageState extends State<Cartpage> {
                                         gapH(30)
                                       ]),
                                     )),
-                      )
-                    : nothingfound(context, ConstString.noProdAddedToCart)),
-          )),
-        ),
-      ),
-    );
+                          )
+                        : Container(
+                            alignment: Alignment.center,
+                            height: screenHeight - 200,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: screenHeight / 3,
+                                  width: double.infinity,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/empty-basket.png'),
+                                    ),
+                                  ),
+                                ),
+                                titleCommon(ConstString.emptyCart,
+                                    fontweight: FontWeight.w600, fontsize: 23),
+                                gapH(10),
+                                paragraphCommon(
+                                    ConstString.nothingInCartAddFromStore)
+                              ],
+                            ),
+                          ),
+                  )),
+            ),
+          ),
+        ));
   }
 }

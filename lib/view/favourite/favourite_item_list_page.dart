@@ -235,16 +235,26 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                       )
                     : Container(
                         alignment: Alignment.center,
-                        height: screenHeight - 140,
+                        height: screenHeight - 200,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              Icons.hourglass_empty,
-                              color: greyFour,
+                            Container(
+                              height: screenHeight / 3,
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/wishlist.png'),
+                                  // fit: BoxFit.fitWidth,
+                                ),
+                              ),
                             ),
+                            titleCommon(ConstString.nothingInWishlist,
+                                fontweight: FontWeight.w600, fontsize: 23),
                             gapH(10),
-                            Text(ln.getString(ConstString.noProdAddedToFav)),
+                            paragraphCommon(
+                                ConstString.nothingInWishlistAddFromStore)
                           ],
                         ),
                       ),

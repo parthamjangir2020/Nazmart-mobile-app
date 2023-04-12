@@ -37,7 +37,11 @@ class ConstString {
   static const String chooseCountry = "Choose country";
   static const String chooseStates = "Choose states";
   static const String fullName = "Full name";
+  static const String shippingName = "Shipping name";
+  static const String plzEnterShippingName =
+      'Please enter shpping address name';
   static const String plzEnterFullName = 'Please enter your full name';
+  static const String enterShippingName = "Enter shipping address name";
   static const String enterFullName = "Enter your full name";
   static const String userName = "Username";
   static const String plzEnterUsername = 'Please enter your username';
@@ -82,10 +86,16 @@ class ConstString {
   static const String shipping = 'Shipping';
   static const String total = 'Total';
   static const String checkout = 'Checkout';
-  static const String noProdAddedToCart = 'No product added to cart';
+  static const String plzEnterDeliveryAndSave =
+      'Please enter the delivery address and save it';
+  static const String emptyCart = 'Empty cart';
+  static const String nothingInCartAddFromStore =
+      'There is nothing the cart please add some items from the store';
   static const String discover = 'Discover';
   static const String favourite = 'Favourite';
-  static const String noProdAddedToFav = "No products added to favourite";
+  static const String nothingInWishlist = 'Nothing in Wishlist';
+  static const String nothingInWishlistAddFromStore =
+      'There is nothing the wishlist please add something from the store';
   static const String hi = 'Hi';
   static const String couldNotLoadProfileInfo =
       'Could not load user profile info';
@@ -216,5 +226,11 @@ class ConstString {
   static const String changePriority = 'Change priority';
   static const String changeStatus = 'Change status';
   static const String somethingWentWrong = "Something went wrong";
+  static const String selectCountry = 'Select Country';
+  static const String selectCity = 'Select City';
+  static const String noCountryFound = 'No country found';
+  static const String searchCountry = 'Search country';
+  static const String searchState = 'Search state';
+  static const String noCityFound = 'No city found';
   // static const String welcome = ;
 }

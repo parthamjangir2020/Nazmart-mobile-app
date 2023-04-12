@@ -95,6 +95,8 @@ class PlaceOrderService with ChangeNotifier {
       data: formData,
     );
 
+    print(response.data);
+
     if (response.statusCode == 200) {
       print(response.data);
 

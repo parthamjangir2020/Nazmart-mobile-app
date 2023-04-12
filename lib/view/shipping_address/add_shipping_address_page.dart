@@ -19,6 +19,7 @@ class AddShippingAddressPage extends StatefulWidget {
 }
 
 class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
+  TextEditingController shippingNameController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -80,7 +81,6 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
       }, centerTitle: false),
       body: WillPopScope(
         onWillPop: () {
-          Provider.of<ProfileEditService>(context, listen: false).setDefault();
           return Future.value(true);
         },
         child: Listener(
@@ -100,6 +100,24 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          //Name ============>
+                          labelCommon(ConstString.shippingName),
+
+                          CustomInput(
+                            controller: shippingNameController,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return ln.getString(
+                                    ConstString.plzEnterShippingName);
+                              }
+                              return null;
+                            },
+                            hintText:
+                                ln.getString(ConstString.enterShippingName),
+                            paddingHorizontal: 20,
+                            textInputAction: TextInputAction.next,
+                          ),
+
                           //Name ============>
                           labelCommon(ConstString.fullName),
 
@@ -164,17 +182,6 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                             textInputAction: TextInputAction.next,
                           ),
 
-                          // IntlPhoneField(
-                          //   controller: phoneController,
-                          //   decoration: SignupHelper().phoneFieldDecoration(),
-                          //   initialCountryCode: countryCode,
-                          //   onChanged: (phone) {
-                          //     provider.setCountryCode(phone.countryISOCode);
-                          //   },
-                          // ),
-
-                          //Country dropdown =====>
-
                           const CountryStatesDropdowns(),
 
                           // Zip ======>
@@ -216,12 +223,14 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                             if (provider.isloading == false) {
                               if (_formKey.currentState!.validate()) {
                                 await provider.addAddress(context,
-                                    name: fullNameController.text,
-                                    email: emailController.text,
-                                    phone: phoneController.text,
-                                    zip: zipCodeController.text,
-                                    address: addressController.text,
-                                    city: cityController.text);
+                                    shippingName:
+                                        shippingNameController.text.trim(),
+                                    name: fullNameController.text.trim(),
+                                    email: emailController.text.trim(),
+                                    phone: phoneController.text.trim(),
+                                    zip: zipCodeController.text.trim(),
+                                    address: addressController.text.trim(),
+                                    city: cityController.text.trim());
                               }
                             }
                           }, isloading: provider.isloading, borderRadius: 100),

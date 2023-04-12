@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
@@ -59,7 +60,7 @@ class StateDropdownPopup extends StatelessWidget {
                 children: [
                   gapH(30),
                   CustomInput(
-                    hintText: 'Search state',
+                    hintText: ConstString.searchState,
                     paddingHorizontal: 17,
                     icon: 'assets/icons/search.png',
                     onChanged: (v) {
@@ -68,7 +69,7 @@ class StateDropdownPopup extends StatelessWidget {
                   ),
                   gapH(10),
                   p.statesDropdownList.isNotEmpty
-                      ? p.statesDropdownList[0] != 'Select City'
+                      ? p.statesDropdownList[0] != ConstString.selectCity
                           ? ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
@@ -85,7 +86,7 @@ class StateDropdownPopup extends StatelessWidget {
                                             .statesDropdownList
                                             .indexOf(p.statesDropdownList[i])]);
 
-                                    // Navigator.pop(context);
+                                    Navigator.pop(context);
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
@@ -101,7 +102,7 @@ class StateDropdownPopup extends StatelessWidget {
                                   ),
                                 );
                               })
-                          : paragraphCommon('No city found')
+                          : paragraphCommon(ConstString.noCityFound)
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [showLoading(primaryColor)],
