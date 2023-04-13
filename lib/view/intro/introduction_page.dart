@@ -58,6 +58,11 @@ class _IntroductionPageState extends State<IntroductionPage> {
                                 child: CachedNetworkImage(
                                   imageUrl: v.introDataList[i]['image'] ??
                                       placeHolderUrl,
+                                  placeholder: (context, url) => Icon(
+                                    Icons.image_outlined,
+                                    size: 45,
+                                    color: Colors.grey.withOpacity(.4),
+                                  ),
                                   errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
                                   fit: BoxFit.fitHeight,

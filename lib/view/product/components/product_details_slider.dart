@@ -48,6 +48,11 @@ class _ProductDetailsSliderState extends State<ProductDetailsSlider> {
                                 '${galleryLength == 0 ? image : provider.productDetails?.product?.galleryImages[i].image}',
                             errorWidget: (context, url, error) =>
                                 const Icon(Icons.error),
+                            placeholder: (context, url) => Icon(
+                              Icons.image_outlined,
+                              size: 45,
+                              color: Colors.grey.withOpacity(.4),
+                            ),
                             fit: BoxFit.cover,
                           );
                         }),

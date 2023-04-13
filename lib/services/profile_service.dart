@@ -29,8 +29,8 @@ class ProfileService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> getProfileDetails({bool isFromProfileupdatePage = false}) async {
-    if (isFromProfileupdatePage == true) {
+  Future<bool> getProfileDetails({bool loadAnyway = false}) async {
+    if (loadAnyway == true) {
       //if from update profile page then load it anyway
       print('is from profile update page true');
 

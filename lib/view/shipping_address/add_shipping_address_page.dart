@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/shipping_services/add_remove_shipping_address_service.dart';
@@ -9,6 +11,7 @@ import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
 class AddShippingAddressPage extends StatefulWidget {
@@ -189,6 +192,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                           labelCommon(ConstString.zipCode),
                           CustomInput(
                             controller: zipCodeController,
+                            isNumberField: true,
                             validation: (value) {
                               if (value == null || value.isEmpty) {
                                 return ln.getString(ConstString.plzEnterZip);
@@ -222,6 +226,23 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                           buttonPrimary(ConstString.save, () async {
                             if (provider.isloading == false) {
                               if (_formKey.currentState!.validate()) {
+                                var countryProvider =
+                                    Provider.of<CountryDropdownService>(context,
+                                        listen: false);
+                                var stateProvider =
+                                    Provider.of<StateDropdownService>(context,
+                                        listen: false);
+
+                                if (countryProvider.selectedCountryId ==
+                                        defaultId ||
+                                    stateProvider.selectedStateId ==
+                                        defaultId) {
+                                  showToast(
+                                      'You must select a country and state',
+                                      Colors.black);
+                                  return;
+                                }
+
                                 await provider.addAddress(context,
                                     shippingName:
                                         shippingNameController.text.trim(),

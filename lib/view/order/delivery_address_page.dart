@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/auth/signup/dropdowns/country_states_dropdowns.dart';
@@ -42,12 +44,28 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
     var enteredDeliveryAddress =
         Provider.of<DeliveryAddressService>(context, listen: false)
             .enteredDeliveryAddress;
+    var profileProvider = Provider.of<ProfileService>(context, listen: false);
 
-    if (enteredDeliveryAddress.isEmpty) {
+    if (profileProvider.profileDetails?.userDetails.deliveryAddress != null) {
+      savedDeliveryAddress();
+    } else if (enteredDeliveryAddress.isEmpty) {
       addressFromProfile();
     } else {
       addressNewEntered();
     }
+  }
+
+  savedDeliveryAddress() {
+    var savedAddress = Provider.of<ProfileService>(context, listen: false)
+        .profileDetails
+        ?.userDetails
+        .deliveryAddress;
+
+    fullNameController.text = savedAddress?.fullName ?? '';
+    emailController.text = savedAddress?.email ?? '';
+    phoneController.text = savedAddress?.phone ?? '';
+    addressController.text = savedAddress?.address ?? '';
+    cityController.text = savedAddress?.city ?? '';
   }
 
   addressNewEntered() {
@@ -63,39 +81,15 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
 
 //==================>
   addressFromProfile() {
-    fullNameController.text =
-        Provider.of<ProfileService>(context, listen: false)
-                .profileDetails
-                ?.userDetails
-                .name ??
-            '';
+    var userDetails = Provider.of<ProfileService>(context, listen: false)
+        .profileDetails
+        ?.userDetails;
 
-    emailController.text = Provider.of<ProfileService>(context, listen: false)
-            .profileDetails
-            ?.userDetails
-            .email ??
-        '';
-
-    phoneController.text = Provider.of<ProfileService>(context, listen: false)
-            .profileDetails
-            ?.userDetails
-            .mobile ??
-        '';
-    // zipController.text = Provider.of<ProfileService>(context, listen: false)
-    //         .profileDetails
-    //         ?.userDetails
-    //         ?.zipcode ??
-    // '';
-    addressController.text = Provider.of<ProfileService>(context, listen: false)
-            .profileDetails
-            ?.userDetails
-            .address ??
-        '';
-    cityController.text = Provider.of<ProfileService>(context, listen: false)
-            .profileDetails
-            ?.userDetails
-            .city ??
-        '';
+    fullNameController.text = userDetails?.name ?? '';
+    emailController.text = userDetails?.email ?? '';
+    phoneController.text = userDetails?.mobile ?? '';
+    addressController.text = userDetails?.address ?? '';
+    cityController.text = userDetails?.city ?? '';
   }
 
   @override
@@ -208,24 +202,6 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                             ),
 
                             gapH(5),
-
-                            //Zip code ============>
-                            // labelCommon(ConstString.zipCode),
-
-                            // CustomInput(
-                            //   controller: zipController,
-                            //   validation: (value) {
-                            //     if (value == null || value.isEmpty) {
-                            //       return ln.getString(ConstString.plzEnterZip);
-                            //     }
-                            //     return null;
-                            //   },
-                            //   hintText: ln.getString(ConstString.enterZip),
-                            //   paddingHorizontal: 17,
-                            //   textInputAction: TextInputAction.next,
-                            // ),
-
-                            // gapH(5),
 
                             //Zip code ============>
                             labelCommon(ConstString.address),
@@ -414,6 +390,26 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                     buttonPrimary(ConstString.save, () async {
                                       if (_formKey.currentState!.validate()) {
                                         if (rP.isloading == true) {
+                                          return;
+                                        }
+
+                                        var countryProvider =
+                                            Provider.of<CountryDropdownService>(
+                                                context,
+                                                listen: false);
+                                        var stateProvider =
+                                            Provider.of<StateDropdownService>(
+                                                context,
+                                                listen: false);
+
+                                        if (countryProvider.selectedCountryId ==
+                                                defaultId ||
+                                            stateProvider.selectedStateId ==
+                                                defaultId) {
+                                          showToast(
+                                              ConstString
+                                                  .mustSelectCountryState,
+                                              Colors.black);
                                           return;
                                         }
 

@@ -103,7 +103,7 @@ class ProfileEditService with ChangeNotifier {
 
       //re fetch profile data again
       await Provider.of<ProfileService>(context, listen: false)
-          .getProfileDetails(isFromProfileupdatePage: true);
+          .getProfileDetails(loadAnyway: true);
 
       // Future.delayed(const Duration(microseconds: 1600), () {
       Navigator.pop(context);

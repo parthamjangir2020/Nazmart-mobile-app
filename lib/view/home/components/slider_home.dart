@@ -42,6 +42,11 @@ class SliderHome extends StatelessWidget {
                         child: CachedNetworkImage(
                           imageUrl: sliderProvider.sliderImageList[i].image ??
                               placeHolderUrl,
+                          placeholder: (context, url) => Icon(
+                            Icons.image_outlined,
+                            size: 45,
+                            color: Colors.grey.withOpacity(.4),
+                          ),
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                           fit: BoxFit.cover,

@@ -42,6 +42,8 @@ class ConstString {
       'Please enter shpping address name';
   static const String plzEnterFullName = 'Please enter your full name';
   static const String enterShippingName = "Enter shipping address name";
+  static const String mustSelectCountryState =
+      'You must select a country and state';
   static const String enterFullName = "Enter your full name";
   static const String userName = "Username";
   static const String plzEnterUsername = 'Please enter your username';
