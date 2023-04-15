@@ -153,7 +153,7 @@ class CountryDropdownService with ChangeNotifier {
 
     Future.delayed(const Duration(milliseconds: 700), () {
       Provider.of<DeliveryAddressService>(context, listen: false)
-          .fetchCountryShippingCost(context, countryId: selectedCountryId);
+          .fetchCountryStateShippingCost(context);
     });
   }
 

@@ -82,6 +82,7 @@ var translateStrings = {
   ConstString.plzEnterShippingName: ConstString.plzEnterShippingName,
   ConstString.enterShippingName: ConstString.enterShippingName,
   ConstString.mustSelectCountryState: ConstString.mustSelectCountryState,
+  ConstString.plzEnterCouponFirst: ConstString.plzEnterCouponFirst,
   ConstString.nothingInCartAddFromStore: ConstString.nothingInCartAddFromStore,
   ConstString.emptyCart: ConstString.emptyCart,
   ConstString.plzEnterDeliveryAndSave: ConstString.plzEnterDeliveryAndSave,

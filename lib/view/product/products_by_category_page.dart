@@ -3,6 +3,7 @@ import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/product_by_category_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
@@ -41,7 +42,11 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
         Navigator.pop(context);
         Provider.of<ProductByCategoryService>(context, listen: false)
             .setEverythingToDefault();
-      }),
+      }, actions: [
+        Container(
+            margin: const EdgeInsets.only(right: 25, top: 10),
+            child: const CartIcon()),
+      ]),
       body: WillPopScope(
         onWillPop: () {
           Provider.of<ProductByCategoryService>(context, listen: false)

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/view/auth/signup/dropdowns/country_dropdown.dart';
 import 'package:no_name_ecommerce/view/auth/signup/dropdowns/state_dropdown.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 class CountryStatesDropdowns extends StatefulWidget {
@@ -31,7 +32,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            labelCommon("Choose country"),
+            labelCommon(ConstString.chooseCountry),
             const CountryDropdown(),
           ],
         ),
@@ -43,7 +44,7 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            labelCommon("Choose city"),
+            labelCommon(ConstString.chooseStates),
             const StateDropdown(),
           ],
         ),

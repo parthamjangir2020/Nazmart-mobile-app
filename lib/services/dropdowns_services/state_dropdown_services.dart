@@ -118,7 +118,8 @@ class StateDropdownService with ChangeNotifier {
     var profileProvider =
         Provider.of<ProfileService>(context, listen: false).profileDetails;
 
-    selectedState = profileProvider?.userDetails.city ?? ConstString.selectCity;
+    selectedState =
+        profileProvider?.userDetails.state ?? ConstString.selectCity;
     selectedStateId = profileProvider?.userDetails.userState != null
         ? profileProvider?.userDetails.userState?.id
         : defaultId;
@@ -176,8 +177,9 @@ class StateDropdownService with ChangeNotifier {
 
     Future.delayed(const Duration(milliseconds: 700), () {
       Provider.of<DeliveryAddressService>(context, listen: false)
-          .fetchCountryShippingCost(context,
-              countryId: selectedCountryId, stateId: selectedStateId);
+          .fetchCountryStateShippingCost(
+        context,
+      );
     });
   }
 

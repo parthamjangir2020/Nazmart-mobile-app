@@ -3,6 +3,7 @@ import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:no_name_ecommerce/services/campaign_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/campaigns/components/campaign_timer.dart';
+import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
@@ -21,7 +22,11 @@ class CampaignProductByCategory extends StatelessWidget {
     return Scaffold(
       appBar: appbarCommon('', context, (() {
         Navigator.pop(context);
-      })),
+      }), actions: [
+        Container(
+            margin: const EdgeInsets.only(right: 25, top: 10),
+            child: const CartIcon()),
+      ]),
       body: SingleChildScrollView(
         child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),

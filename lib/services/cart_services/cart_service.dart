@@ -69,7 +69,10 @@ class CartService with ChangeNotifier {
         ignoreAttribute: ignoreAttribute);
 
     fetchCartProducts(context);
-    calculateSubtotal(context);
+    await calculateSubtotal(context);
+    Provider.of<DeliveryAddressService>(context, listen: false)
+        .calculateVatAmountOnly(context);
+    await calculateSubtotal(context);
   }
 
   //decrease quantity and price
@@ -84,12 +87,17 @@ class CartService with ChangeNotifier {
           .updateQtandPrice(productId, title, newQty, attributes, context);
 
       fetchCartProducts(context);
-      calculateSubtotal(context);
+      await calculateSubtotal(context);
+
+      Provider.of<DeliveryAddressService>(context, listen: false)
+          .calculateVatAmountOnly(context);
+
+      await calculateSubtotal(context);
     }
   }
 
 // subtotal ====================>
-  calculateSubtotal(BuildContext context) async {
+  Future<bool> calculateSubtotal(BuildContext context) async {
     List products = await ProductDbService().allCartProducts();
     subTotal = 0;
 
@@ -111,6 +119,8 @@ class CartService with ChangeNotifier {
 
     totalPrice = (subTotal + vatAmount + shipCost) - couponDiscount;
     notifyListeners();
+
+    return true;
   }
 
 // total after coupon applied ======================>

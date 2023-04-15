@@ -3,6 +3,7 @@ import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/checkout/components/cart_icon.dart';
 import 'package:no_name_ecommerce/view/home/components/product_card.dart';
 import 'package:no_name_ecommerce/view/search/components/search_bar.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
@@ -35,27 +36,34 @@ class _DiscoverPageState extends State<DiscoverPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          centerTitle: true,
+          // centerTitle: true,
           iconTheme: const IconThemeData(color: greyPrimary),
           title: Consumer<TranslateStringService>(
-            builder: (context, ln, child) => Text(
-              ln.getString(ConstString.discover),
-              style: const TextStyle(
-                  color: greyPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600),
+            builder: (context, ln, child) => Container(
+              margin: const EdgeInsets.only(left: 10),
+              child: Text(
+                ln.getString(ConstString.discover),
+                style: const TextStyle(
+                    color: greyPrimary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
+              ),
             ),
           ),
           actions: [
             Row(
               children: [
-                SizedBox(
+                Container(
+                    margin: const EdgeInsets.only(right: 20),
+                    height: 45,
+                    child: const CartIcon()),
+                Container(
+                  margin: const EdgeInsets.only(right: 25),
                   height: 45,
                   child: productFilterIcon(context),
                 ),
-                gapW(20)
               ],
-            )
+            ),
           ],
           backgroundColor: Colors.transparent,
           elevation: 0),

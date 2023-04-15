@@ -35,7 +35,7 @@ class ConstString {
   static const String newPassShouldBeDifferent =
       "Your new password should be different from previously used passwords";
   static const String chooseCountry = "Choose country";
-  static const String chooseStates = "Choose states";
+  static const String chooseStates = "Choose state";
   static const String fullName = "Full name";
   static const String shippingName = "Shipping name";
   static const String plzEnterShippingName =
@@ -92,13 +92,14 @@ class ConstString {
       'Please enter the delivery address and save it';
   static const String emptyCart = 'Empty cart';
   static const String nothingInCartAddFromStore =
-      'There is nothing the cart please add some items from the store';
+      'There is nothing in the cart, please add some items from the store';
   static const String discover = 'Discover';
   static const String favourite = 'Favourite';
   static const String nothingInWishlist = 'Nothing in Wishlist';
   static const String nothingInWishlistAddFromStore =
-      'There is nothing the wishlist please add something from the store';
+      'There is nothing in the wishlist, please add something from the store';
   static const String hi = 'Hi';
+  static const String plzEnterCouponFirst = 'Please enter a coupon first';
   static const String couldNotLoadProfileInfo =
       'Could not load user profile info';
   static const String seeAll = 'See all';

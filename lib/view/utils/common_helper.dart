@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 //common appbar
 appbarCommon(String title, BuildContext context, VoidCallback pressed,
-    {bool hasBackButton = true, bool centerTitle = true}) {
+    {bool hasBackButton = true, bool centerTitle = true, actions}) {
   return AppBar(
     centerTitle: centerTitle ? true : false,
     iconTheme: const IconThemeData(color: greyPrimary),
@@ -23,6 +23,7 @@ appbarCommon(String title, BuildContext context, VoidCallback pressed,
     ),
     backgroundColor: Colors.transparent,
     elevation: 0,
+    actions: actions,
     leading: hasBackButton
         ? InkWell(
             onTap: pressed,

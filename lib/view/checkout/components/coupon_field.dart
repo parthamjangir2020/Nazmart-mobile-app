@@ -6,6 +6,7 @@ import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import '../../utils/common_helper.dart';
 
@@ -40,11 +41,14 @@ class CouponField extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 10),
                   width: 100,
                   child: buttonPrimary(ConstString.apply, () {
-                    if (couponController.text.isNotEmpty) {
-                      if (couponProvider.isloading == false) {
-                        couponProvider.getCouponDiscount(
-                            cartItemList, couponController.text, context);
-                      }
+                    if (couponController.text.isEmpty) {
+                      showToast(ln.getString(ConstString.plzEnterCouponFirst),
+                          Colors.black);
+                      return;
+                    }
+                    if (couponProvider.isloading == false) {
+                      couponProvider.getCouponDiscount(
+                          cartItemList, couponController.text, context);
                     }
                   }, isloading: couponProvider.isloading, borderRadius: 100),
                 )

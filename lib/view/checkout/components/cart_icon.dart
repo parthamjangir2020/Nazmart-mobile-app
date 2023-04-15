@@ -27,7 +27,7 @@ class CartIcon extends StatelessWidget {
           alignment: Alignment.centerRight,
           children: [
             Container(
-              padding: const EdgeInsets.only(left: 70, top: 5, bottom: 5),
+              padding: const EdgeInsets.only(left: 20, top: 5, bottom: 5),
               child: SvgPicture.asset(
                 'assets/svg/cart.svg',
                 height: 27,

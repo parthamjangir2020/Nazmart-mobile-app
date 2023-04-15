@@ -9,6 +9,8 @@ import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -73,6 +75,14 @@ class DeliveryAddressService with ChangeNotifier {
 
     Provider.of<CartService>(context, listen: false)
         .increaseTotal(oldVat, vatAmount);
+
+    notifyListeners();
+  }
+
+  calculateVatAmountOnly(BuildContext context) {
+    var subtotal = Provider.of<CartService>(context, listen: false).subTotal;
+    vatAmount = (subtotal * vatPercentage) / 100;
+    notifyListeners();
   }
 
   setShipIdAndCosts(shipId, shipCost, shipName, BuildContext context) {
@@ -106,11 +116,16 @@ class DeliveryAddressService with ChangeNotifier {
   }
 
 //fetch country shipping cost ======>
-  fetchCountryShippingCost(BuildContext context, {countryId, stateId}) async {
+  fetchCountryStateShippingCost(BuildContext context) async {
     Future.delayed(const Duration(milliseconds: 500), () {
       setLoadingTrue();
       setShipCostDeafault();
     });
+
+    var countryId = Provider.of<CountryDropdownService>(context, listen: false)
+        .selectedCountryId;
+    var stateId = Provider.of<StateDropdownService>(context, listen: false)
+        .selectedStateId;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
