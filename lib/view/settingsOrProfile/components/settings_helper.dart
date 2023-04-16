@@ -20,13 +20,6 @@ class SettingsHelper {
     );
   }
 
-  // List<SettingsGridCard> cardContent = [
-  //   SettingsGridCard('assets/svg/pending-circle.svg', 'Pending orders'),
-  //   SettingsGridCard('assets/svg/active-circle.svg', 'Active orders'),
-  //   SettingsGridCard('assets/svg/completed-circle.svg', 'Completed orders'),
-  //   SettingsGridCard('assets/svg/receipt-circle.svg', 'Total orders'),
-  // ];
-
   settingOption(String icon, String title, VoidCallback pressed) {
     return ListTile(
       onTap: pressed,
@@ -113,11 +106,4 @@ class SettingsHelper {
           ),
         )).show();
   }
-}
-
-class SettingsGridCard {
-  String iconLink;
-  String text;
-
-  SettingsGridCard(this.iconLink, this.text);
 }

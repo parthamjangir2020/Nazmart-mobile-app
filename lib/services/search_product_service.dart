@@ -105,7 +105,7 @@ class SearchProductService with ChangeNotifier {
             .selectedColorName;
 
     var response = await http.get(Uri.parse(
-        "${ApiUrl.searchUri}=$searchText&color=$selectedColor&size=$selectedSize&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&from_price=$minPrice&to_price=$maxPrice&rating=$rating"));
+        "${ApiUrl.searchUri}?name=$searchText&color=$selectedColor&size=$selectedSize&page=$currentPage&category=$categoryName&sub_category=$subCategoryName&child_category=$childCategoryName&from_price=$minPrice&to_price=$maxPrice&rating=$rating"));
 
     setLoadingStatus(false);
 

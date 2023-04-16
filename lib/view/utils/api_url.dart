@@ -55,9 +55,10 @@ class ApiUrl {
   static const String productDetailsUri = '$baseUri/product';
   static const String updateProfileUri = '$baseUri/user/update-profile';
   static const String profileDataUri = '$baseUri/user/profile';
+  static const String deleteAccountUri = '$baseUri/user/account/delete';
   static const String rtlUri = '$baseUri/currency';
   static const String languageUri = '$baseUri/language';
-  static const String searchUri = '$baseUri/product?name';
+  static const String searchUri = '$baseUri/product';
   static const String sliderUri = '$baseUri/mobile-slider';
   static const String subcategoryUri = '$baseUri/subcategory';
   static const String translateUri = '$baseUri/translate-string';

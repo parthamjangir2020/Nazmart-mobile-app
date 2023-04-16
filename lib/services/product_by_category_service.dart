@@ -52,7 +52,7 @@ class ProductByCategoryService with ChangeNotifier {
     if (!connection) return;
 
     var response = await http.get(Uri.parse(
-        "${ApiUrl.searchUri}=&page=$currentPage&category=$categoryName&sub_category=&child_category=&min_price=&max_price=&rating="));
+        "${ApiUrl.searchUri}?name=&page=$currentPage&category=$categoryName&sub_category=&child_category=&min_price=&max_price=&rating="));
 
     setLoadingStatus(false);
 

@@ -25,8 +25,13 @@ class ConstString {
   static const String resetPass = 'Reset password';
   static const String enterEmailToGetInstruction =
       "Enter the email you used to creat account and we’ll send instruction for restting password";
-  static const String enterEmail = "Enter Email";
+  static const String enterEmail = "Enter email";
+  static const String makeSureRepeatedPassCorrectly =
+      'Make sure you repeated new password correctly';
   static const String sendInstruction = "Send Instructions";
+  static const String passChangedSuccessfully = "Password changed successfully";
+  static const String registrationSuccessful = "Registration successful";
+  static const String otpSendFailed = 'Otp send failed';
   static const String enterFourDigit = "Enter the 4 digit code";
   static const String enterFourDigitToResetPass =
       'Enter the 4 digit code we sent to to your email in order to reset password';
@@ -86,7 +91,10 @@ class ConstString {
   static const String discount = 'Discount';
   static const String vat = 'Vat';
   static const String shipping = 'Shipping';
+  static const String plzSelectCountryState =
+      'Please select a country and state';
   static const String total = 'Total';
+  static const String deleteAccount = 'Delete account';
   static const String checkout = 'Checkout';
   static const String plzEnterDeliveryAndSave =
       'Please enter the delivery address and save it';
@@ -235,5 +243,11 @@ class ConstString {
   static const String searchCountry = 'Search country';
   static const String searchState = 'Search state';
   static const String noCityFound = 'No city found';
+  static const String otpDidntMatch = "Otp didn't match";
+  static const String otpFailedToSend = 'Otp failed to send';
+  static const String invalidEmailOrPass = "Invalid Email or Password";
+  static const String userLoggedOut = 'User logged out';
+  static const String youEnteredOtpCorrectButSomethingWrong =
+      'You entered the otp correctly but something else went wrong';
   // static const String welcome = ;
 }

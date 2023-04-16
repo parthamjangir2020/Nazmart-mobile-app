@@ -73,6 +73,7 @@ var translateStrings = {
   ConstString.addDeliveryAddress: ConstString.addDeliveryAddress,
   ConstString.cart: ConstString.cart,
   ConstString.subtotal: ConstString.subtotal,
+  ConstString.deleteAccount: ConstString.deleteAccount,
   ConstString.discount: ConstString.discount,
   ConstString.vat: ConstString.vat,
   ConstString.shipping: ConstString.shipping,
@@ -83,6 +84,7 @@ var translateStrings = {
   ConstString.enterShippingName: ConstString.enterShippingName,
   ConstString.mustSelectCountryState: ConstString.mustSelectCountryState,
   ConstString.plzEnterCouponFirst: ConstString.plzEnterCouponFirst,
+  ConstString.plzSelectCountryState: ConstString.plzSelectCountryState,
   ConstString.nothingInCartAddFromStore: ConstString.nothingInCartAddFromStore,
   ConstString.emptyCart: ConstString.emptyCart,
   ConstString.plzEnterDeliveryAndSave: ConstString.plzEnterDeliveryAndSave,
@@ -220,7 +222,18 @@ var translateStrings = {
   ConstString.chat: ConstString.chat,
   ConstString.changePriority: ConstString.changePriority,
   ConstString.changeStatus: ConstString.changeStatus,
+  ConstString.otpDidntMatch: ConstString.otpDidntMatch,
+  ConstString.otpFailedToSend: ConstString.otpFailedToSend,
+  ConstString.invalidEmailOrPass: ConstString.invalidEmailOrPass,
   ConstString.somethingWentWrong: ConstString.somethingWentWrong,
+  ConstString.userLoggedOut: ConstString.userLoggedOut,
+  ConstString.registrationSuccessful: ConstString.registrationSuccessful,
+  ConstString.otpSendFailed: ConstString.otpSendFailed,
+  ConstString.youEnteredOtpCorrectButSomethingWrong:
+      ConstString.youEnteredOtpCorrectButSomethingWrong,
+  ConstString.passChangedSuccessfully: ConstString.passChangedSuccessfully,
+  ConstString.makeSureRepeatedPassCorrectly:
+      ConstString.makeSureRepeatedPassCorrectly,
   ConstString.createAccountWithTheseDetails:
       ConstString.createAccountWithTheseDetails
 };

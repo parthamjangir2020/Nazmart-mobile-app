@@ -19,7 +19,7 @@ class CategoriesHorizontal extends StatelessWidget {
                 shrinkWrap: true,
                 clipBehavior: Clip.none,
                 children: [
-                  for (int i = 1; i < cp.categoryHome.length; i++)
+                  for (int i = 0; i < cp.categoryHome.length; i++)
                     InkWell(
                       onTap: () {
                         Navigator.push(

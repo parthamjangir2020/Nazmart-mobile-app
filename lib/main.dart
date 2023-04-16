@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
-import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/featured_product_service.dart';
 import 'package:no_name_ecommerce/services/filter_color_size_service.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
@@ -51,6 +50,7 @@ import 'package:provider/provider.dart';
 import 'services/cart_services/cart_service.dart';
 import 'services/cart_services/coupon_service.dart';
 import 'services/cart_services/delivery_address_service.dart';
+import 'services/dropdown_services/state_dropdown_services.dart';
 import 'services/ticket_services/create_ticket_service.dart';
 import 'services/ticket_services/support_messages_service.dart';
 import 'services/ticket_services/support_ticket_service.dart';

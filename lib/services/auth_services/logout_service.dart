@@ -4,7 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,56 +26,48 @@ class LogoutService with ChangeNotifier {
     notifyListeners();
   }
 
-  logout(BuildContext context) async {
+  Future<bool> logout(BuildContext context) async {
     var connection = await checkConnection();
-    if (connection) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var token = prefs.getString('token');
+    if (!connection) return false;
 
-      var header = {
-        //if header type is application/json then the data should be in jsonEncode method
-        "Accept": "application/json",
-        // "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
-      };
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
 
-      setLoadingTrue();
-      var response = await http.post(
-        Uri.parse(ApiUrl.logoutUri),
-        headers: header,
-      );
-      setLoadingFalse();
-      if (response.statusCode == 200) {
-        notifyListeners();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
 
-//pop sidebar
-        // Navigator.pushAndRemoveUntil<dynamic>(
-        //   context,
-        //   MaterialPageRoute<dynamic>(
-        //     builder: (BuildContext context) => const LoginPage(),
-        //   ),
-        //   (route) => false,
-        // );
+    var header = {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token",
+    };
 
-        Navigator.pop(context);
+    setLoadingTrue();
+    var response = await http.post(
+      Uri.parse(ApiUrl.logoutUri),
+      headers: header,
+    );
+    setLoadingFalse();
+    if (response.statusCode == 200) {
+      notifyListeners();
 
-        showToast('User logged out', Colors.black);
+      Navigator.pop(context);
 
-        // clear profile data =====>
-        Future.delayed(const Duration(microseconds: 5500), () {
-          Provider.of<ProfileService>(context, listen: false)
-              .setEverythingToDefault();
-        });
+      showToast(ln.getString(ConstString.userLoggedOut), Colors.black);
 
-        //set landing page index to 0
-        Provider.of<BottomNavService>(context, listen: false)
-            .setCurrentIndex(0);
+      // clear profile data =====>
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Provider.of<ProfileService>(context, listen: false)
+            .setEverythingToDefault();
+      });
 
-        clear();
-      } else {
-        print(response.body);
-        showToast('Something went wrong', Colors.black);
-      }
+      //set landing page index to 0
+      Provider.of<BottomNavService>(context, listen: false).setCurrentIndex(0);
+
+      clear();
+      return true;
+    } else {
+      print(response.body);
+      showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
+      return false;
     }
   }
 

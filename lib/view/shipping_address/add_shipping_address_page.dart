@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
-import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/shipping_services/add_remove_shipping_address_service.dart';

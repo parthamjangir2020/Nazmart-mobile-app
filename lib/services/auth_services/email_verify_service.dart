@@ -2,12 +2,14 @@
 
 import 'dart:convert';
 
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/login_service.dart';
 import 'package:no_name_ecommerce/services/auth_services/reset_password_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/home/landing_page.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:provider/provider.dart';
@@ -31,42 +33,41 @@ class EmailVerifyService with ChangeNotifier {
 
   Future<bool> sendOtpForEmailValidation(
       email, BuildContext context, token) async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      showToast("Please turn on your internet connection", Colors.black);
-      return false;
+    var connection = await checkConnection();
+    if (!connection) return false;
+
+    var header = {
+      //if header type is application/json then the data should be in jsonEncode method
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    };
+    var data = jsonEncode({
+      'email': email,
+    });
+
+    var response = await http.post(Uri.parse(ApiUrl.sendOtpUri),
+        headers: header, body: data);
+    if (response.statusCode == 200) {
+      var otpNumber = jsonDecode(response.body)['otp'];
+      Provider.of<ResetPasswordService>(context, listen: false)
+          .setOtp(otpNumber);
+
+      debugPrint('otp is $otpNumber');
+      notifyListeners();
+
+      return true;
     } else {
-      var header = {
-        //if header type is application/json then the data should be in jsonEncode method
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      };
-      var data = jsonEncode({
-        'email': email,
-      });
+      print(response.body);
+      showToast(jsonDecode(response.body)['message'], Colors.black);
 
-      var response = await http.post(Uri.parse(ApiUrl.sendOtpUri),
-          headers: header, body: data);
-      if (response.statusCode == 200) {
-        var otpNumber = jsonDecode(response.body)['otp'];
-        Provider.of<ResetPasswordService>(context, listen: false)
-            .setOtp(otpNumber);
-
-        debugPrint('otp is $otpNumber');
-        notifyListeners();
-
-        return true;
-      } else {
-        print(response.body);
-        showToast(jsonDecode(response.body)['message'], Colors.black);
-
-        return false;
-      }
+      return false;
     }
   }
 
   verifyOtpAndLogin(
       enteredOtp, BuildContext context, email, password, token, userId) async {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     var otpNumber =
         Provider.of<ResetPasswordService>(context, listen: false).otpNumber;
     if (otpNumber != null) {
@@ -96,7 +97,7 @@ class EmailVerifyService with ChangeNotifier {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute<void>(
-              builder: (BuildContext context) => LandingPage(),
+              builder: (BuildContext context) => const LandingPage(),
             ),
           );
 
@@ -105,14 +106,14 @@ class EmailVerifyService with ChangeNotifier {
         } else {
           print(response.body);
           showToast(
-              'Your entered the otp correctly but something went wrong. Please try again later',
+              ln.getString(ConstString.youEnteredOtpCorrectButSomethingWrong),
               Colors.black);
         }
       } else {
-        showToast('Otp didn\'t match', Colors.black);
+        showToast(ConstString.otpDidntMatch, Colors.black);
       }
     } else {
-      showToast('Otp is null', Colors.black);
+      showToast(ConstString.otpFailedToSend, Colors.black);
     }
   }
 }

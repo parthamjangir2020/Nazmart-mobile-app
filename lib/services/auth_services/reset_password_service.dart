@@ -2,12 +2,15 @@
 
 import 'dart:convert';
 
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:provider/provider.dart';
 
 import '../../view/auth/login/login.dart';
 import '../../view/auth/reset_password/reset_pass_otp_page.dart';
@@ -33,87 +36,83 @@ class ResetPasswordService with ChangeNotifier {
   }
 
   sendOtp(email, BuildContext context, {isFromOtpPage = false}) async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      showToast("Please turn on your internet connection", Colors.black);
-      return false;
-    } else {
-      var header = {
-        //if header type is application/json then the data should be in jsonEncode method
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      };
-      var data = jsonEncode({
-        'email': email,
-      });
+    var connection = await checkConnection();
+    if (!connection) return false;
 
-      setLoadingTrue();
-      var response = await http.post(Uri.parse(ApiUrl.sendOtpUri),
-          headers: header, body: data);
-      if (response.statusCode == 200) {
-        otpNumber = jsonDecode(response.body)['otp'];
-        debugPrint('otp is $otpNumber');
-        notifyListeners();
-        if (!isFromOtpPage) {
-          Navigator.push(
-            context,
-            MaterialPageRoute<void>(
-              builder: (BuildContext context) => ResetPassOtpPage(
-                email: email,
-              ),
+    var header = {
+      //if header type is application/json then the data should be in jsonEncode method
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    };
+    var data = jsonEncode({
+      'email': email,
+    });
+
+    setLoadingTrue();
+    var response = await http.post(Uri.parse(ApiUrl.sendOtpUri),
+        headers: header, body: data);
+    if (response.statusCode == 200) {
+      otpNumber = jsonDecode(response.body)['otp'];
+      debugPrint('otp is $otpNumber');
+      notifyListeners();
+      if (!isFromOtpPage) {
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => ResetPassOtpPage(
+              email: email,
             ),
-          );
-        }
-        setLoadingFalse();
-      } else {
-        showToast(jsonDecode(response.body)['message'], Colors.black);
-        setLoadingFalse();
+          ),
+        );
       }
+      setLoadingFalse();
+    } else {
+      showToast(jsonDecode(response.body)['message'], Colors.black);
+      setLoadingFalse();
     }
   }
 
   resetPassword(newPass, repeatNewPass, email, BuildContext context) async {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     if (newPass != repeatNewPass) {
-      showToast('Password didn\'t match', Colors.black);
+      showToast(ln.getString(ConstString.passDidntMatch), Colors.black);
+      return;
+    }
+
+    var connection = await checkConnection();
+    if (!connection) return false;
+
+    //internet connection is on
+    var header = {
+      //if header type is application/json then the data should be in jsonEncode method
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    };
+
+    var data = jsonEncode({'email': email, 'password': newPass});
+
+    print(data);
+    setLoadingTrue();
+
+    var response = await http.post(Uri.parse(ApiUrl.resetPassUri),
+        headers: header, body: data);
+
+    print(response.body);
+    if (response.statusCode == 200) {
+      showToast(
+          ln.getString(ConstString.passChangedSuccessfully), Colors.black);
+      setLoadingFalse();
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => const LoginPage(),
+        ),
+      );
     } else {
-      //check internet connection
-      var connectivityResult = await (Connectivity().checkConnectivity());
-      if (connectivityResult == ConnectivityResult.none) {
-        //internet off
-        showToast("Please turn on your internet connection", Colors.black);
-        return false;
-      } else {
-        //internet connection is on
-        var header = {
-          //if header type is application/json then the data should be in jsonEncode method
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        };
-
-        var data = jsonEncode({'email': email, 'password': newPass});
-
-        print(data);
-        setLoadingTrue();
-
-        var response = await http.post(Uri.parse(ApiUrl.resetPassUri),
-            headers: header, body: data);
-
-        print(response.body);
-        if (response.statusCode == 200) {
-          showToast("Password updated successfully", Colors.black);
-          setLoadingFalse();
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute<void>(
-              builder: (BuildContext context) => const LoginPage(),
-            ),
-          );
-        } else {
-          showToast(jsonDecode(response.body)['message'], Colors.black);
-          setLoadingFalse();
-        }
-      }
+      showToast(jsonDecode(response.body)['message'], Colors.black);
+      setLoadingFalse();
     }
   }
 }

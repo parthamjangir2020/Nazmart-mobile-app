@@ -5,9 +5,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
-import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
-import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +35,8 @@ class SignupService with ChangeNotifier {
       required cityName,
       bool isFromDeliveryAddressPage = false}) async {
     var connection = await checkConnection();
+
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
 
     var countryName =
         Provider.of<CountryDropdownService>(context, listen: false)
@@ -72,7 +76,7 @@ class SignupService with ChangeNotifier {
     setLoadingStatus(false);
 
     if (response.statusCode == 200) {
-      showToast("Registration successful", successColor);
+      showToast(ln.getString(ConstString.registrationSuccessful), successColor);
 
       print('token is ${jsonDecode(response.body)['token']}');
       String token = jsonDecode(response.body)['token'];
@@ -99,7 +103,7 @@ class SignupService with ChangeNotifier {
           ),
         );
       } else {
-        showToast('Otp send failed', Colors.black);
+        showToast(ln.getString(ConstString.otpSendFailed), Colors.black);
       }
 
       Provider.of<BottomNavService>(context, listen: false).resetIndex();
@@ -110,7 +114,7 @@ class SignupService with ChangeNotifier {
       print(response.body);
 
       if (jsonDecode(response.body).containsKey('validation_errors')) {
-        showError(jsonDecode(response.body)['validation_errors']);
+        showError(jsonDecode(response.body)['validation_errors'], context);
       } else {
         showToast(jsonDecode(response.body)['message'], Colors.black);
       }
@@ -119,7 +123,9 @@ class SignupService with ChangeNotifier {
     }
   }
 
-  showError(error) {
+  showError(error, BuildContext context) {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     if (error.containsKey('email')) {
       showToast(error['email'][0], Colors.black);
     } else if (error.containsKey('username')) {
@@ -133,7 +139,7 @@ class SignupService with ChangeNotifier {
     } else if (error.containsKey('mobile')) {
       showToast(error['mobile'][0], Colors.black);
     } else {
-      showToast('Something went wrong', Colors.black);
+      showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
     }
   }
 

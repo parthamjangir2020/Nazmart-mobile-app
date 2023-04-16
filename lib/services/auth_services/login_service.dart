@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/home/landing_page.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +36,8 @@ class LoginService with ChangeNotifier {
       isFromSettingsPage = false}) async {
     var connection = await checkConnection();
     if (connection) {
+      var ln = Provider.of<TranslateStringService>(context, listen: false);
+
       setLoadingTrue();
       var data = jsonEncode({
         'username': email,
@@ -81,7 +85,7 @@ class LoginService with ChangeNotifier {
         print(response.body);
         //Login unsuccessful ==========>
         if (isFromLoginPage) {
-          showToast("Invalid Email or Password", warningColor);
+          showToast(ln.getString(ConstString.invalidEmailOrPass), warningColor);
         }
         setLoadingFalse();
         return false;

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_edit_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/auth/signup/dropdowns/country_states_dropdowns.dart';
+import 'package:no_name_ecommerce/view/settingsOrProfile/components/profile_helper.dart';
 import 'package:no_name_ecommerce/view/settingsOrProfile/components/profile_image_pick.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/custom_input.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -37,15 +41,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   @override
   void initState() {
     super.initState();
-    // countryCode = Provider.of<ProfileService>(context, listen: false)
-    //     .profileDetails
-    //     .userDetails
-    //     .countryCode;
-    // set country code
-    // Future.delayed(const Duration(milliseconds: 600), () {
-    //   Provider.of<ProfileEditService>(context, listen: false)
-    //       .setCountryCode(countryCode);
-    // });
 
     fullNameController.text =
         Provider.of<ProfileService>(context, listen: false)
@@ -65,11 +60,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             ?.userDetails
             .mobile ??
         '';
-    // zipCodeController.text = Provider.of<ProfileService>(context, listen: false)
-    //         .profileDetails
-    //         ?.userDetails
-    //         .po ??
-    //     '';
     addressController.text = Provider.of<ProfileService>(context, listen: false)
             .profileDetails
             ?.userDetails
@@ -89,7 +79,25 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       appBar: appbarCommon(ConstString.editProfile, context, () {
         Provider.of<ProfileEditService>(context, listen: false).setDefault();
         Navigator.pop(context);
-      }, centerTitle: false),
+      }, centerTitle: false, actions: [
+        Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 25),
+              width: 114,
+              height: 35,
+              child: borderButtonPrimary(ConstString.deleteAccount, () {
+                ProfileHelper().deleteAccountPopup(context);
+              },
+                  fontsize: 14,
+                  paddingVertical: 7,
+                  borderRadius: 4,
+                  borderColor: Colors.red,
+                  color: Colors.red),
+            ),
+          ],
+        )
+      ]),
       body: WillPopScope(
         onWillPop: () {
           Provider.of<ProfileEditService>(context, listen: false).setDefault();
@@ -209,17 +217,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                             textInputAction: TextInputAction.next,
                           ),
 
-                          // IntlPhoneField(
-                          //   controller: phoneController,
-                          //   decoration: SignupHelper().phoneFieldDecoration(),
-                          //   initialCountryCode: countryCode,
-                          //   onChanged: (phone) {
-                          //     provider.setCountryCode(phone.countryISOCode);
-                          //   },
-                          // ),
-
-                          //Country dropdown =====>
-
                           const CountryStatesDropdowns(),
 
                           // Zip ======>
@@ -260,6 +257,23 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           buttonPrimary(ConstString.save, () async {
                             if (provider.isloading == false) {
                               if (_formKey.currentState!.validate()) {
+                                var countryId =
+                                    Provider.of<CountryDropdownService>(context,
+                                            listen: false)
+                                        .selectedCountryId;
+
+                                var stateId = Provider.of<StateDropdownService>(
+                                        context,
+                                        listen: false)
+                                    .selectedStateId;
+
+                                if (countryId == defaultId ||
+                                    stateId == defaultId) {
+                                  showToast(ConstString.plzSelectCountryState,
+                                      Colors.black);
+                                  return;
+                                }
+
                                 showTopSnackBar(
                                     context,
                                     CustomSnackBar.success(

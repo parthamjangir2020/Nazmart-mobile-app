@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/reset_password_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:provider/provider.dart';
@@ -8,6 +10,8 @@ import '../../view/auth/reset_password/reset_password_page.dart';
 
 class ResetPasswordOtpService {
   checkOtp(enteredOtp, email, BuildContext context) {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     var otp =
         Provider.of<ResetPasswordService>(context, listen: false).otpNumber;
     if (otp != null) {
@@ -21,10 +25,10 @@ class ResetPasswordOtpService {
           ),
         );
       } else {
-        showToast('Otp didn\'t match', Colors.black);
+        showToast(ln.getString(ConstString.otpDidntMatch), Colors.black);
       }
     } else {
-      showToast('Something went wrong', Colors.black);
+      showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
     }
   }
 }

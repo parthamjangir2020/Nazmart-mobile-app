@@ -1,11 +1,15 @@
-// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables, use_build_context_synchronously
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/profile_model.dart';
+import 'package:no_name_ecommerce/services/auth_services/logout_service.dart';
+import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -52,16 +56,13 @@ class ProfileService with ChangeNotifier {
     print('fetching profile data');
     var connection = await checkConnection();
     if (!connection) return false;
-    //internet connection is on
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
     setLoadingTrue();
 
     var header = {
-      //if header type is application/json then the data should be in jsonEncode method
       "Accept": "application/json",
-      // "Content-Type": "application/json"
       "Authorization": "Bearer $token",
     };
 
@@ -81,6 +82,61 @@ class ProfileService with ChangeNotifier {
     } else {
       setLoadingFalse();
       notifyListeners();
+      return false;
+    }
+  }
+
+  // =============>
+  // delete account
+  // =============>
+
+  Future<bool> deleteProfile(BuildContext context,
+      {required email, required pass}) async {
+    var connection = await checkConnection();
+    if (!connection) return false;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var userId = prefs.getInt('userId');
+
+    setLoadingTrue();
+
+    var header = {
+      "Accept": "application/json",
+      // "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    };
+
+    var data = {'email': email, 'password': pass};
+
+    var response = await http.post(
+        Uri.parse('${ApiUrl.deleteAccountUri}/$userId'),
+        headers: header,
+        body: data);
+
+    print('delete profile response ${response.body}');
+
+    setLoadingFalse();
+
+    if (response.statusCode == 200) {
+      showToast('Profile deleted successfully', Colors.black);
+
+      // clear profile data =====>
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Provider.of<ProfileService>(context, listen: false)
+            .setEverythingToDefault();
+      });
+
+      //set landing page index to 0
+      Provider.of<BottomNavService>(context, listen: false).setCurrentIndex(0);
+
+      LogoutService().clear();
+      Navigator.pop(context);
+      Navigator.pop(context);
+
+      return true;
+    } else {
+      showToast('Something went wrong', Colors.black);
       return false;
     }
   }

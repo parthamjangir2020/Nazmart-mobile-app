@@ -242,13 +242,6 @@ class _LoginPageState extends State<LoginPage> {
                                     context,
                                     keepLoggedIn);
                               }
-                              // Navigator.pushReplacement<void, void>(
-                              //   context,
-                              //   MaterialPageRoute<void>(
-                              //     builder: (BuildContext context) =>
-                              //         const LandingPage(),
-                              //   ),
-                              // );
                             }
                           }, isloading: provider.isloading, borderRadius: 100),
                         ),

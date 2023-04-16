@@ -3,8 +3,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:no_name_ecommerce/services/dropdowns_services/country_dropdown_service.dart';
-import 'package:no_name_ecommerce/services/dropdowns_services/state_dropdown_services.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_service.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
@@ -56,8 +56,6 @@ class ProfileEditService with ChangeNotifier {
       required zip,
       required address,
       required city}) async {
-    setLoadingTrue();
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
@@ -67,6 +65,8 @@ class ProfileEditService with ChangeNotifier {
 
     var stateName =
         Provider.of<StateDropdownService>(context, listen: false).selectedState;
+
+    setLoadingTrue();
 
     var dio = Dio();
     // dio.options.headers['Accept'] = 'application/json';

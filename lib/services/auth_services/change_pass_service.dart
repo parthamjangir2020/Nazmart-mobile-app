@@ -5,8 +5,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,8 +30,11 @@ class ChangePassService with ChangeNotifier {
 
   changePassword(
       currentPass, newPass, repeatNewPass, BuildContext context) async {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     if (newPass != repeatNewPass) {
-      showToast('Make sure you repeated new password correctly', Colors.black);
+      showToast(ln.getString(ConstString.makeSureRepeatedPassCorrectly),
+          Colors.black);
       return;
     }
 
@@ -54,7 +60,8 @@ class ChangePassService with ChangeNotifier {
     print(response.body);
 
     if (response.statusCode == 200) {
-      showToast("Password changed successfully", Colors.black);
+      showToast(
+          ln.getString(ConstString.passChangedSuccessfully), Colors.black);
       setLoadingFalse();
 
       prefs.setString("pass", newPass);

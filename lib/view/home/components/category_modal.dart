@@ -23,7 +23,7 @@ class CategoryModal extends StatelessWidget {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      for (int i = 1; i < cp.categoryHome.length; i++)
+                      for (int i = 0; i < cp.categoryHome.length; i++)
                         InkWell(
                           onTap: () {
                             Navigator.push(
