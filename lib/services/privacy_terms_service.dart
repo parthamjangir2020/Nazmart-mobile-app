@@ -14,7 +14,7 @@ class PrivacyTermsService with ChangeNotifier {
   fetchTerms(BuildContext context) async {
     if (termsData != null) return;
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     var response = await http.get(Uri.parse(ApiUrl.termsUri));
@@ -30,7 +30,7 @@ class PrivacyTermsService with ChangeNotifier {
   fetchPrivacyData(BuildContext context) async {
     if (privacyData != null) return;
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     var response = await http.get(Uri.parse(ApiUrl.privacyPolicyUri));

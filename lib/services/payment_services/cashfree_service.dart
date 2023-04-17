@@ -9,6 +9,8 @@ import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +25,7 @@ class CashfreeService {
     String email;
     String orderId;
     Provider.of<PlaceOrderService>(context, listen: false).setLoadingFalse();
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
 
     orderId = Provider.of<PlaceOrderService>(context, listen: false)
         .orderId
@@ -76,7 +79,7 @@ class CashfreeService {
       cashFreePay(jsonDecode(response.body)['cftoken'], orderId, orderCurrency,
           context, amount, name, phone, email);
     } else {
-      showToast('Something went wrong', Colors.black);
+      showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
     }
     // if()
   }
@@ -106,12 +109,6 @@ class CashfreeService {
       "notifyUrl": notifyUrl
     };
 
-    // CashfreePGSDK.doPayment(inputParams)
-    //     .then((value) => value?.forEach((key, value) {
-    //           print("$key : $value");
-    //           print('it worked');
-    //           //Do something with the result
-    //         }));
     CashfreePGSDK.doPayment(
       inputParams,
     ).then((value) {

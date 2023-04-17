@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 
 class TicketStatusDropdownService with ChangeNotifier {
-  var statusDropdownList = ['Open', 'Close'];
-  var statusDropdownIndexList = ['Open', 'Close'];
-  var selectedstatus = 'Open';
-  var selectedstatusId = 'Open';
+  var statusDropdownList = [ConstString.open, ConstString.close];
+  var statusDropdownIndexList = [ConstString.open, ConstString.close];
+  var selectedstatus = ConstString.open;
+  var selectedstatusId = ConstString.open;
 
   setstatusValue(value) {
     selectedstatus = value;

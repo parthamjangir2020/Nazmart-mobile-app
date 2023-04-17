@@ -7,7 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/support_ticket_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +20,8 @@ class CreateTicketService with ChangeNotifier {
   //create ticket ====>
 
   createTicket(title, subject, description, BuildContext context) async {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
@@ -43,7 +47,7 @@ class CreateTicketService with ChangeNotifier {
       'departments': departmentId.toString()
     });
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (connection) {
       isLoading = true;
       notifyListeners();
@@ -55,7 +59,8 @@ class CreateTicketService with ChangeNotifier {
 
       print(response.statusCode);
       if (response.statusCode == 200) {
-        showToast('Ticket created successfully', Colors.black);
+        showToast(
+            ln.getString(ConstString.ticketCreatedSuccessfully), Colors.black);
 
         //add ticket to ticket list
         Provider.of<SupportTicketService>(context, listen: false)
@@ -65,7 +70,7 @@ class CreateTicketService with ChangeNotifier {
         //======>
         Navigator.pop(context);
       } else {
-        showToast('Something went wrong', Colors.black);
+        showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
         print('ticket create failed ${response.body}');
       }
     }

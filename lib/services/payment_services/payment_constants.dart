@@ -20,6 +20,8 @@ import 'package:no_name_ecommerce/services/payment_services/square_service.dart'
 import 'package:no_name_ecommerce/services/payment_services/stripe_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/zitopay_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +33,7 @@ randomOrderId() {
 payAction(String method, BuildContext context, imagePath) {
   //to know method names visit PaymentGatewayListService class where payment
   //methods list are fetching with method name
+  var ln = Provider.of<TranslateStringService>(context, listen: false);
 
   switch (method) {
     case 'paypal':
@@ -130,7 +133,7 @@ payAction(String method, BuildContext context, imagePath) {
 
     case 'manual_payment':
       if (imagePath == null) {
-        showToast('You must upload the cheque image', Colors.black);
+        showToast(ln.getString(ConstString.youMustUploadCheque), Colors.black);
       } else {
         Provider.of<PlaceOrderService>(context, listen: false)
             .placeOrder(context, imagePath.path, isManualOrCod: true);

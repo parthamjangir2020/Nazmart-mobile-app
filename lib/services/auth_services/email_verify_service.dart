@@ -33,7 +33,7 @@ class EmailVerifyService with ChangeNotifier {
 
   Future<bool> sendOtpForEmailValidation(
       email, BuildContext context, token) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
 
     var header = {

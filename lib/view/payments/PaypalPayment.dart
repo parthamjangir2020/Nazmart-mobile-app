@@ -1,8 +1,7 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/payment_services/paypal_service.dart';
-import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -60,14 +59,14 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
         final transactions = getOrderParams(
             widget.amount, widget.name, widget.phone, widget.email);
-        final res =
-            await services.createPaypalPayment(transactions, accessToken);
+        final res = await services.createPaypalPayment(
+            transactions, accessToken, context);
         setState(() {
           checkoutUrl = res["approvalUrl"];
           executeUrl = res["executeUrl"];
         });
       } catch (e) {
-        print('exception: ' + e.toString());
+        print('exception: $e');
         final snackBar = SnackBar(
           content: Text(e.toString()),
           duration: const Duration(seconds: 10),
@@ -144,7 +143,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
             "items": items,
             if (isEnableShipping && isEnableAddress)
               "shipping_address": {
-                "recipient_name": userFirstName + " " + userLastName,
+                "recipient_name": "$userFirstName $userLastName",
                 "line1": addressStreet,
                 "line2": "",
                 "city": addressCity,
@@ -169,7 +168,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
     if (checkoutUrl != null) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           leading: GestureDetector(
             child: const Icon(Icons.arrow_back_ios),
             onTap: () => Navigator.pop(context),

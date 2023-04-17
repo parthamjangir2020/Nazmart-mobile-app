@@ -33,17 +33,18 @@ class ProfileService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> getProfileDetails({bool loadAnyway = false}) async {
+  Future<bool> getProfileDetails(BuildContext context,
+      {bool loadAnyway = false}) async {
     if (loadAnyway == true) {
       //if from update profile page then load it anyway
       print('is from profile update page true');
 
-      var res = await fetchData();
+      var res = await fetchData(context);
       return res;
     } else {
       //not from profile page. check if data already loaded
       if (profileDetails == null) {
-        fetchData();
+        fetchData(context);
       } else {
         print('profile data already loaded');
       }
@@ -52,9 +53,9 @@ class ProfileService with ChangeNotifier {
     }
   }
 
-  Future<bool> fetchData() async {
+  Future<bool> fetchData(BuildContext context) async {
     print('fetching profile data');
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -92,7 +93,7 @@ class ProfileService with ChangeNotifier {
 
   Future<bool> deleteProfile(BuildContext context,
       {required email, required pass}) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();

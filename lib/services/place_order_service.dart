@@ -139,7 +139,7 @@ class PlaceOrderService with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
 
     if (connection) {
       var header = {

@@ -12,7 +12,9 @@ import 'package:no_name_ecommerce/services/cart_services/coupon_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,7 +51,7 @@ class DeliveryAddressService with ChangeNotifier {
     enteredDeliveryAddress = oldAddress;
     notifyListeners();
 
-    print('entererer $enteredDeliveryAddress');
+    print('entered delivery address $enteredDeliveryAddress');
   }
 
   setSelectedShipIndex(value) {
@@ -165,16 +167,6 @@ class DeliveryAddressService with ChangeNotifier {
     }
   }
 
-  getShipOptionSubtitle(settingPreset, minOrderPrice) {
-    if (settingPreset == 'min_order_or_coupon') {
-      return 'Minimum Order Amount: $minOrderPrice Or Coupon Needed';
-    } else if (settingPreset == 'min_order_and_coupon') {
-      return 'Minimum Order Amount: $minOrderPrice And Coupon Needed';
-    } else {
-      return '';
-    }
-  }
-
   checkIfCouponNeed(shippingCoupon, BuildContext context) {
     var appliedCoupon =
         Provider.of<CouponService>(context, listen: false).appliedCoupon;
@@ -197,15 +189,15 @@ class DeliveryAddressService with ChangeNotifier {
   Future<bool> registerUsingDeliveryAddress(BuildContext context) async {
     if (createAccountWithDeliveryDetails == false) return false;
 
-    print(enteredDeliveryAddress);
-    print(enteredDeliveryAddress);
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     if (enteredDeliveryAddress["pass"] == null) {
-      showToast('Enter a password', Colors.black);
+      showToast(ln.getString(ConstString.enterPass), Colors.black);
       return false;
     }
     if (enteredDeliveryAddress["pass"] != null) {
       if (enteredDeliveryAddress["pass"].length < 6) {
-        showToast('Password must be at least 6 characters long', Colors.black);
+        showToast(ln.getString(ConstString.passMustBeSix), Colors.black);
         return false;
       }
     }
@@ -228,7 +220,7 @@ class DeliveryAddressService with ChangeNotifier {
           true,
           isFromCheckout: true);
 
-      Provider.of<ProfileService>(context, listen: false).fetchData();
+      Provider.of<ProfileService>(context, listen: false).fetchData(context);
     }
     return res;
   }

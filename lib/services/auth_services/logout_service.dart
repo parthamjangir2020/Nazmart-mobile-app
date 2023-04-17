@@ -27,7 +27,7 @@ class LogoutService with ChangeNotifier {
   }
 
   Future<bool> logout(BuildContext context) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
 
     var ln = Provider.of<TranslateStringService>(context, listen: false);

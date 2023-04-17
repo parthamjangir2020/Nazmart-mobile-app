@@ -34,7 +34,7 @@ class DiscoverProductsService with ChangeNotifier {
 
   //     setCurrentPage(currentPage);
   //   } else {}
-  //   var connection = await checkConnection();
+  //   var connection = await checkConnection(context);
   //   if (!connection) return;
 
   //   var response = await http.get(Uri.parse(

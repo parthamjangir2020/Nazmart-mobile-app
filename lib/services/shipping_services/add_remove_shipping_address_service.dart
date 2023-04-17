@@ -5,7 +5,9 @@ import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_se
 import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/shipping_services/shipping_list_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +34,8 @@ class AddRemoveShippingAddressService with ChangeNotifier {
       required address,
       required city,
       required zip}) async {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
@@ -42,11 +46,11 @@ class AddRemoveShippingAddressService with ChangeNotifier {
         .selectedStateId;
 
     if (stateId == defaultId) {
-      showToast('You must select a state', Colors.black);
+      showToast(ln.getString(ConstString.youMustSelectAstate), Colors.black);
       return;
     }
     if (countryId == defaultId) {
-      showToast('You must select a country', Colors.black);
+      showToast(ln.getString(ConstString.youMustSelectAcountry), Colors.black);
       return;
     }
 
@@ -76,21 +80,23 @@ class AddRemoveShippingAddressService with ChangeNotifier {
     setLoadingFalse();
 
     if (response.statusCode == 200) {
-      showToast('Address saved', Colors.black);
+      showToast(ln.getString(ConstString.addressSaved), Colors.black);
 
       Provider.of<ShippingListService>(context, listen: false)
           .fetchAddressList(isFromAddAddressPage: true);
 
       Navigator.pop(context);
       Provider.of<ProfileService>(context, listen: false)
-          .getProfileDetails(loadAnyway: true);
+          .getProfileDetails(context, loadAnyway: true);
     } else {
-      showToast('Something went wrong', Colors.black);
-      print('delivery address save failed${response.body}');
+      showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
+      print('delivery address save failed ${response.body}');
     }
   }
 
   removeAddress(addressId, context) async {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     setLoadingTrue();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -119,7 +125,7 @@ class AddRemoveShippingAddressService with ChangeNotifier {
       // pop alert dialogue
       Navigator.pop(context);
     } else {
-      showToast('Something went wrong', Colors.black);
+      showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
       print('shipping address delete failed${response.body}');
     }
   }

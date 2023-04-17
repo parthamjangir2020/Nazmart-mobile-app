@@ -5,7 +5,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
@@ -37,11 +39,14 @@ class CouponService with ChangeNotifier {
 
   Future<bool> getCouponDiscount(
       cartItemList, couponCode, BuildContext context) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
 
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     if (couponCode == appliedCoupon) {
-      showToast('You already applied this coupon', primaryColor);
+      showToast(
+          ln.getString(ConstString.youAlreadyAppliedThisCoupon), primaryColor);
       return false;
     }
 
@@ -80,7 +85,8 @@ class CouponService with ChangeNotifier {
       appliedCoupon = couponCode;
       print('coupon amount is $couponDiscount');
 
-      showToast('Coupon Applied Successfully', Colors.black);
+      showToast(
+          ln.getString(ConstString.couponAppliedSuccessfully), Colors.black);
 
       Provider.of<CartService>(context, listen: false)
           .calculateTotalAfterCouponApplied(
@@ -92,7 +98,7 @@ class CouponService with ChangeNotifier {
       //something went wrong
       print(response.body);
 
-      showToast('Please enter a valid coupon', Colors.black);
+      showToast(ln.getString(ConstString.plzEnterValidCoupon), Colors.black);
       return false;
     }
   }

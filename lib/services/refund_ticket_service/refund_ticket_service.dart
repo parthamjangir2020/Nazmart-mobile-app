@@ -63,7 +63,7 @@ class RefundTicketService with ChangeNotifier {
       "Authorization": "Bearer $token",
     };
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
     //if connection is ok
 
@@ -130,6 +130,6 @@ class RefundTicketService with ChangeNotifier {
 
     //fetch message
     Provider.of<RefundTicketMessagesService>(context, listen: false)
-        .fetchMessages(id);
+        .fetchMessages(id, context);
   }
 }

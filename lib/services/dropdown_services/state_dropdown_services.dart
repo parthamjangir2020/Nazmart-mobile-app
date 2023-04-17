@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -170,10 +172,6 @@ class StateDropdownService with ChangeNotifier {
     Future.delayed(const Duration(milliseconds: 500), () {
       notifyListeners();
     });
-
-    var selectedCountryId =
-        Provider.of<CountryDropdownService>(context, listen: false)
-            .selectedCountryId;
 
     Future.delayed(const Duration(milliseconds: 700), () {
       Provider.of<DeliveryAddressService>(context, listen: false)

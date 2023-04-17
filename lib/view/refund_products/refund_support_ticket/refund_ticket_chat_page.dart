@@ -346,10 +346,10 @@ class _RefundTicketChatPageState extends State<RefundTicketChatPage> {
                               FocusScope.of(context).unfocus();
                               //send message
                               provider.sendMessage(
-                                ticketId: widget.ticketId,
-                                message: sendMessageController.text,
-                                filePath: pickedFile?.path,
-                              );
+                                  ticketId: widget.ticketId,
+                                  message: sendMessageController.text,
+                                  filePath: pickedFile?.path,
+                                  context: context);
 
                               //clear input field
                               sendMessageController.clear();

@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/add_to_cart_model.dart';
 import 'package:no_name_ecommerce/services/product_db_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:provider/provider.dart';
 
 class FavouriteService with ChangeNotifier {
   int favProductsLength = 0;
@@ -31,6 +34,8 @@ class FavouriteService with ChangeNotifier {
       required childCategory,
       required attributes,
       required variantId}) async {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     var connection = await ProductDbService().getdatabase;
     var favaudio = await connection.rawQuery(
         "SELECT * FROM fav_table WHERE title=? and productId=?",
@@ -58,7 +63,7 @@ class FavouriteService with ChangeNotifier {
       await connection.insert('fav_table', cartObj.cartMap());
       print('added to favourite');
 
-      showToast('Added to favourite', Colors.black);
+      showToast(ln.getString(ConstString.addedToFav), Colors.black);
 
       return true;
     } else {
@@ -73,14 +78,15 @@ class FavouriteService with ChangeNotifier {
   // ======>
   // remove from favourite
   removeFromFavourite(productId, title, BuildContext context) async {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
     var connection = await ProductDbService().getdatabase;
+
     await connection.rawDelete(
         "DELETE FROM fav_table WHERE productId=? and title=?",
         [productId, title]);
     fetchFavProducts();
-    print('removed from favourite');
 
-    showToast('Removed to favourite', Colors.black);
+    showToast(ln.getString(ConstString.removedFromFav), Colors.black);
   }
 
   //check if added to favourite then change fav button color accordingly

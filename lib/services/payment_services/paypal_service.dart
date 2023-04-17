@@ -13,22 +13,6 @@ import 'package:provider/provider.dart';
 
 class PaypalService {
   payByPaypal(BuildContext context) {
-    // var bcProvider =
-    //     Provider.of<BookConfirmationService>(context, listen: false);
-    // var pProvider = Provider.of<PersonalizationService>(context, listen: false);
-    // var bookProvider = Provider.of<BookService>(context, listen: false);
-
-    // var name = bookProvider.name ?? '';
-    // var phone = bookProvider.phone ?? '';
-    // var email = bookProvider.email ?? '';
-
-    // if (pProvider.isOnline == 0) {
-    //   amount = bcProvider.totalPriceAfterAllcalculation.toStringAsFixed(2);
-    // } else {
-    //   amount = bcProvider.totalPriceOnlineServiceAfterAllCalculation
-    //       .toStringAsFixed(2);
-    // }
-
     String amount = Provider.of<CartService>(context, listen: false)
         .totalPrice
         .toStringAsFixed(2);
@@ -54,17 +38,15 @@ class PaypalService {
     );
   }
 
-  String domain = "https://api.sandbox.paypal.com"; // for sandbox mode
-//  String domain = "https://api.paypal.com"; // for production mode
-
-  // change clientId and secret with your own, provided by paypal
-
-  // for getting the access token from Paypal
   Future<String> getAccessToken(BuildContext context) async {
-    // String clientId =
-    //     'AUP7AuZMwJbkee-2OmsSZrU-ID1XUJYE-YB-2JOrxeKV-q9ZJZYmsr-UoKuJn4kwyCv5ak26lrZyb-gb';
-    // String secret =
-    //     'EEIxCuVnbgING9EyzcF2q-gpacLneVbngQtJ1mbx-42Lbq-6Uf6PEjgzF7HEayNsI4IFmB9_CZkECc3y';
+    bool isTestMode =
+        Provider.of<PaymentGatewayListService>(context, listen: false)
+                .isTestMode ??
+            false;
+    String domain = isTestMode
+        ? "https://api.sandbox.paypal.com"
+        : "https://api.paypal.com";
+
     String clientId =
         Provider.of<PaymentGatewayListService>(context, listen: false)
                 .publicKey ??
@@ -89,7 +71,15 @@ class PaypalService {
 
   // for creating the payment request with Paypal
   Future<Map<String, String>> createPaypalPayment(
-      transactions, accessToken) async {
+      transactions, accessToken, BuildContext context) async {
+    bool isTestMode =
+        Provider.of<PaymentGatewayListService>(context, listen: false)
+                .isTestMode ??
+            false;
+    String domain = isTestMode
+        ? "https://api.sandbox.paypal.com"
+        : "https://api.paypal.com";
+
     try {
       var response = await http.post(Uri.parse("$domain/v1/payments/payment"),
           body: convert.jsonEncode(transactions),

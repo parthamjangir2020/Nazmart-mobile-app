@@ -358,7 +358,8 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                   filePath: pickedFile?.path,
                                   departmentId: widget.departmentId,
                                   description: widget.description,
-                                  priority: widget.priority);
+                                  priority: widget.priority,
+                                  context: context);
 
                               //clear input field
                               sendMessageController.clear();

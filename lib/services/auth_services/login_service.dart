@@ -34,7 +34,7 @@ class LoginService with ChangeNotifier {
       {isFromLoginPage = true,
       isFromCheckout = false,
       isFromSettingsPage = false}) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (connection) {
       var ln = Provider.of<TranslateStringService>(context, listen: false);
 

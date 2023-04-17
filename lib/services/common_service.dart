@@ -14,14 +14,17 @@ import 'package:no_name_ecommerce/services/recent_product_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<bool> checkConnection() async {
+Future<bool> checkConnection(BuildContext context) async {
+  var ln = Provider.of<TranslateStringService>(context, listen: false);
+
   var connectivityResult = await (Connectivity().checkConnectivity());
   if (connectivityResult == ConnectivityResult.none) {
-    showToast("Please turn on your internet connection", Colors.black);
+    showToast(ln.getString(ConstString.plzCheckInternet), Colors.black);
     return false;
   } else {
     return true;
@@ -59,20 +62,16 @@ runAtHomeScreen(BuildContext context) {
   Provider.of<CategoryService>(context, listen: false)
       .fetchCategoryForHome(context);
 
-  Provider.of<ProfileService>(context, listen: false).getProfileDetails();
+  Provider.of<ProfileService>(context, listen: false)
+      .getProfileDetails(context);
   firstAppOpenSet();
 }
 
 runAtStart(BuildContext context) {
   Provider.of<TranslateStringService>(context, listen: false)
-      .fetchTranslatedStrings();
+      .fetchTranslatedStrings(context);
 
   startStripe();
-  // Provider.of<RtlService>(context, listen: false).fetchDirection();
-
-  // //fetch payment gateway list
-  // Provider.of<PaymentChooseService>(context, listen: false).fetchGatewayList();
-  // Provider.of<DonateService>(context, listen: false).fetchAmounts(context);
 }
 
 gotoProductDetails(BuildContext context, productId) {

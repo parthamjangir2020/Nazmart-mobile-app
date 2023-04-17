@@ -5,6 +5,8 @@ import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/place_order_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:provider/provider.dart';
 
 import 'package:uuid/uuid.dart';
@@ -45,8 +47,10 @@ class FlutterwaveService {
                 .publicKey ??
             '';
 
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     final style = FlutterwaveStyle(
-      appBarText: "Flutterwave payment",
+      appBarText: ln.getString(ConstString.flutterwavePayment),
       buttonColor: Colors.blue,
       buttonTextStyle: const TextStyle(
         color: Colors.white,
@@ -66,7 +70,7 @@ class FlutterwaveService {
           const TextStyle(color: Colors.black, fontSize: 17, letterSpacing: 2),
       dialogBackgroundColor: Colors.white,
       appBarIcon: const Icon(Icons.arrow_back, color: Colors.white),
-      buttonText: "Pay \$ $amount",
+      buttonText: "${ln.getString(ConstString.pay)} \$ $amount",
       appBarTitleTextStyle: const TextStyle(
         color: Colors.white,
         fontSize: 18,

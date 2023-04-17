@@ -91,7 +91,7 @@ class SearchProductService with ChangeNotifier {
 
       setCurrentPage(currentPage);
     } else {}
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     print('max $maxPrice');

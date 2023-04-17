@@ -15,7 +15,7 @@ class FeaturedProductService with ChangeNotifier {
   fetchFeaturedProducts(BuildContext context) async {
     if (featuredProducts != null) return;
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     var response = await http.get(Uri.parse(ApiUrl.featuredProductsUri));
@@ -64,7 +64,7 @@ class FeaturedProductService with ChangeNotifier {
 
       setCurrentPage(currentPage);
     } else {}
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     var response = await http

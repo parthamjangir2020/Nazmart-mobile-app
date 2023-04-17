@@ -39,7 +39,7 @@ class ChangePassService with ChangeNotifier {
     }
 
     //check internet connection
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
     //internet connection is on
     SharedPreferences prefs = await SharedPreferences.getInstance();

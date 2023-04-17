@@ -65,7 +65,7 @@ class SupportTicketService with ChangeNotifier {
       "Authorization": "Bearer $token",
     };
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
     //if connection is ok
 
@@ -137,6 +137,6 @@ class SupportTicketService with ChangeNotifier {
 
     //fetch message
     Provider.of<SupportMessagesService>(context, listen: false)
-        .fetchMessages(id);
+        .fetchMessages(id, context);
   }
 }

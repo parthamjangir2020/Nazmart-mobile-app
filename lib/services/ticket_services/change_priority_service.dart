@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/support_ticket_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,8 +22,10 @@ class ChangePriorityService with ChangeNotifier {
   }
 
   Future<bool> changePriority(BuildContext context, {required id}) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
+
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
 
     var priority = Provider.of<PriorityAndDepartmentDropdownService>(context,
             listen: false)
@@ -52,7 +56,7 @@ class ChangePriorityService with ChangeNotifier {
       await Provider.of<SupportTicketService>(context, listen: false)
           .fetchTicketList(context);
 
-      showToast('Priority changed', Colors.black);
+      showToast(ln.getString(ConstString.priorityChanged), Colors.black);
 
       Navigator.pop(context);
 

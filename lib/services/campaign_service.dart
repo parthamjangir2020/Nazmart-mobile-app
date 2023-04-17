@@ -13,7 +13,7 @@ class CampaignService with ChangeNotifier {
   fetchCampaignList(BuildContext context) async {
     if (campaignList.isNotEmpty) return;
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     var response = await http.get(Uri.parse(ApiUrl.campaignListUri));
@@ -41,7 +41,7 @@ class CampaignService with ChangeNotifier {
   fetchCampaignProducts(BuildContext context, id) async {
     productList = [];
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     setLoadingStatus(true);

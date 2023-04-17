@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/department_dropdown_model.dart';
+import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PriorityAndDepartmentDropdownService with ChangeNotifier {
@@ -70,10 +72,10 @@ class PriorityAndDepartmentDropdownService with ChangeNotifier {
       notifyListeners();
     } else {
       //error fetching data
-      departmentDropdownList.add('Select Department');
-      departmentDropdownIndexList.add('0');
-      selectedDepartment = 'Select Department';
-      selectedDepartmentId = '0';
+      departmentDropdownList.add(ConstString.selectDepartment);
+      departmentDropdownIndexList.add(defaultId);
+      selectedDepartment = ConstString.selectDepartment;
+      selectedDepartmentId = defaultId;
       notifyListeners();
     }
   }

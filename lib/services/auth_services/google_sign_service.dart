@@ -65,7 +65,7 @@ class GoogleSignInService with ChangeNotifier {
   Future<bool> socialLogin(
       email, username, id, int isGoogle, BuildContext context,
       {bool isGoogleLogin = true}) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (connection) {
       if (isGoogleLogin == true) {
         setLoadingTrue();

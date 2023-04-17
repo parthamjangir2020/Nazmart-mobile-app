@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/model/category_model.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:provider/provider.dart';
 
 class CategoryService with ChangeNotifier {
@@ -35,9 +36,9 @@ class CategoryService with ChangeNotifier {
   }
 
   setDummyValue() {
-    categoryDropdownList.add('Select Category');
+    categoryDropdownList.add(ConstString.selectCategory);
     categoryDropdownIndexList.add(null);
-    selectedCategory = 'Select Category';
+    selectedCategory = ConstString.selectCategory;
     selectedCategoryId = null;
     notifyListeners();
   }

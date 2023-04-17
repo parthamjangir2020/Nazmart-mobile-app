@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:no_name_ecommerce/model/ticket_messages_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SupportMessagesService with ChangeNotifier {
@@ -49,41 +52,38 @@ class SupportMessagesService with ChangeNotifier {
     }
   }
 
-  fetchMessages(ticketId) async {
-    var connection = await checkConnection();
-    if (connection) {
-      messagesList = [];
+  fetchMessages(ticketId, BuildContext context) async {
+    var connection = await checkConnection(context);
+    if (!connection) return;
+    messagesList = [];
 
-      setLoadingTrue();
+    setLoadingTrue();
 
-      //if connection is ok
+    //if connection is ok
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var token = prefs.getString('token');
-      var header = {
-        //if header type is application/json then the data should be in jsonEncode method
-        "Accept": "application/json",
-        // "Content-Type": "application/json"
-        "Authorization": "Bearer $token",
-      };
-      var response = await http.get(
-          Uri.parse('${ApiUrl.ticketMessageUri}/$ticketId'),
-          headers: header);
-      setLoadingFalse();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var header = {
+      //if header type is application/json then the data should be in jsonEncode method
+      "Accept": "application/json",
+      // "Content-Type": "application/json"
+      "Authorization": "Bearer $token",
+    };
+    var response = await http.get(
+        Uri.parse('${ApiUrl.ticketMessageUri}/$ticketId'),
+        headers: header);
+    setLoadingFalse();
 
-      if (response.statusCode == 200 &&
-          jsonDecode(response.body)['all_messages'].isNotEmpty) {
-        var data = TicketMessagesModel.fromJson(jsonDecode(response.body));
+    if (response.statusCode == 200 &&
+        jsonDecode(response.body)['all_messages'].isNotEmpty) {
+      var data = TicketMessagesModel.fromJson(jsonDecode(response.body));
 
-        setMessageList(data.allMessages);
+      setMessageList(data.allMessages);
 
-        notifyListeners();
-      } else {
-        //Something went wrong
-        print(response.body);
-      }
+      notifyListeners();
     } else {
-      showToast('Please check your internet connection', Colors.black);
+      //Something went wrong
+      print(response.body);
     }
   }
 
@@ -109,7 +109,10 @@ class SupportMessagesService with ChangeNotifier {
       required filePath,
       required priority,
       required description,
-      required departmentId}) async {
+      required departmentId,
+      required BuildContext context}) async {
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
@@ -130,7 +133,7 @@ class SupportMessagesService with ChangeNotifier {
           : null
     });
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (connection) {
       setSendLoadingTrue();
       //if connection is ok
@@ -146,12 +149,12 @@ class SupportMessagesService with ChangeNotifier {
         addNewMessage(message, filePath);
         return true;
       } else {
-        showToast('Something went wrong', Colors.black);
+        showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
         print(response.data);
         return false;
       }
     } else {
-      showToast('Please check your internet connection', Colors.black);
+      showToast(ln.getString(ConstString.plzCheckInternet), Colors.black);
       return false;
     }
   }

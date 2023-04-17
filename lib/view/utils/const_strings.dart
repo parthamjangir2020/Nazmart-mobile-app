@@ -32,7 +32,29 @@ class ConstString {
   static const String passChangedSuccessfully = "Password changed successfully";
   static const String registrationSuccessful = "Registration successful";
   static const String otpSendFailed = 'Otp send failed';
+  static const String youAlreadyAppliedThisCoupon =
+      'You already applied this coupon';
   static const String enterFourDigit = "Enter the 4 digit code";
+  static const String couponAppliedSuccessfully = 'Coupon Applied Successfully';
+  static const String plzEnterValidCoupon = 'Please enter a valid coupon';
+  static const String addedToFav = 'Added to favourite';
+  static const String removedFromFav = 'Removed from favourite';
+  static const String selectDepartment = 'Select Department';
+  static const String open = 'Open';
+  static const String close = 'Close';
+  static const String flutterwavePayment = "Flutterwave payment";
+  static const String pay = "Pay";
+  static const String ticketCreatedSuccessfully = 'Ticket created successfully';
+  static const String youMustSelectAstate = 'You must select a state';
+  static const String youMustSelectAcountry = 'You must select a country';
+  static const String addressSaved = 'Address saved';
+  static const String priorityChanged = 'Priority changed';
+  static const String statusChanged = 'Status changed';
+  static const String selectCategory = 'Select Category';
+  static const String selectChildCategory = 'Select child category';
+  static const String plzCheckInternet =
+      'Please check your internet connection';
+  static const String youMustUploadCheque = 'You must upload the cheque image';
   static const String enterFourDigitToResetPass =
       'Enter the 4 digit code we sent to to your email in order to reset password';
   static const String didntReceive = "Didn't receive?";

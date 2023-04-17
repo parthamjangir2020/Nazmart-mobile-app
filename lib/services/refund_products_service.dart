@@ -40,7 +40,7 @@ class RefundProductsService with ChangeNotifier {
       "Authorization": "Bearer $token",
     };
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
 
     var response = await http.get(Uri.parse(ApiUrl.refundProductsListUri),

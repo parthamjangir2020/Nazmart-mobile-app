@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/refund_ticket_service/refund_ticket_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,8 +34,10 @@ class CreateRefundTicketService with ChangeNotifier {
       'description': description,
     });
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (connection) {
+      var ln = Provider.of<TranslateStringService>(context, listen: false);
+
       isLoading = true;
       notifyListeners();
       //if connection is ok
@@ -44,7 +48,8 @@ class CreateRefundTicketService with ChangeNotifier {
 
       print(response.statusCode);
       if (response.statusCode == 200) {
-        showToast('Ticket created successfully', Colors.black);
+        showToast(
+            ln.getString(ConstString.ticketCreatedSuccessfully), Colors.black);
 
         //add ticket to ticket list
         Provider.of<RefundTicketService>(context, listen: false)
@@ -54,7 +59,7 @@ class CreateRefundTicketService with ChangeNotifier {
         //======>
         Navigator.pop(context);
       } else {
-        showToast('Something went wrong', Colors.black);
+        showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
         print('ticket create failed ${response.body}');
       }
     }

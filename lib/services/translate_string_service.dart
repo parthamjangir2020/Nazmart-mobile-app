@@ -23,12 +23,12 @@ class TranslateStringService with ChangeNotifier {
     notifyListeners();
   }
 
-  fetchTranslatedStrings() async {
+  fetchTranslatedStrings(BuildContext context) async {
     if (tStrings != null) {
       //if already loaded. no need to load again
       return;
     }
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (connection) {
       //internet connection is on
       SharedPreferences prefs = await SharedPreferences.getInstance();

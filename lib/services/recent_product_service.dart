@@ -15,7 +15,7 @@ class RecentProductService with ChangeNotifier {
   fetchRecentProducts(BuildContext context) async {
     if (recentProducts != null) return;
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     var response = await http.get(Uri.parse(ApiUrl.recentProductsUri));
@@ -65,7 +65,7 @@ class RecentProductService with ChangeNotifier {
 
       setCurrentPage(currentPage);
     } else {}
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     var response = await http

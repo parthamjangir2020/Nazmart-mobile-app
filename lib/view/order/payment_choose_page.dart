@@ -37,7 +37,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
   Widget build(BuildContext context) {
     //fetch payment gateway list
     Provider.of<PaymentGatewayListService>(context, listen: false)
-        .fetchGatewayList();
+        .fetchGatewayList(context);
 
     return Scaffold(
         backgroundColor: Colors.white,

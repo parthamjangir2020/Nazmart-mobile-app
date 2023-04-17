@@ -34,7 +34,7 @@ class SignupService with ChangeNotifier {
       required mobile,
       required cityName,
       bool isFromDeliveryAddressPage = false}) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
 
     var ln = Provider.of<TranslateStringService>(context, listen: false);
 
@@ -149,7 +149,7 @@ class SignupService with ChangeNotifier {
 
   checkUsername(username, BuildContext context) async {
     //check internet connection
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     var data = {'username': username};

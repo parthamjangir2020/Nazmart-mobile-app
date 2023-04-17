@@ -11,7 +11,7 @@ class IntroService with ChangeNotifier {
   List introDataList = [];
 
   Future<bool> fetchIntro(BuildContext context) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
 
     var response = await http.get(Uri.parse(ApiUrl.introUri));

@@ -261,7 +261,7 @@ class ProductDetailsService with ChangeNotifier {
 
   fetchProductDetails(BuildContext context, {required productId}) async {
     //check internet connection
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     clearProductDetails();

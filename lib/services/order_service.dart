@@ -47,7 +47,7 @@ class OrderService with ChangeNotifier {
       "Authorization": "Bearer $token",
     };
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
 
     hasOrder = true;
@@ -108,7 +108,7 @@ class OrderService with ChangeNotifier {
   List detailsProductList = [];
 
   fetchOrderDetails(BuildContext context, {required orderId}) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     orderDetails = null;
@@ -157,7 +157,7 @@ class OrderService with ChangeNotifier {
 
   refundProduct(BuildContext context,
       {required orderId, required productId}) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();

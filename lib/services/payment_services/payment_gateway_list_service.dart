@@ -39,13 +39,13 @@ class PaymentGatewayListService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future fetchGatewayList() async {
+  Future fetchGatewayList(BuildContext context) async {
     //if payment list already loaded, then don't load again
     if (paymentList.isNotEmpty) {
       return;
     }
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (connection) {
       setLoadingTrue();
 

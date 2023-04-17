@@ -36,7 +36,7 @@ class ResetPasswordService with ChangeNotifier {
   }
 
   sendOtp(email, BuildContext context, {isFromOtpPage = false}) async {
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
 
     var header = {
@@ -80,7 +80,7 @@ class ResetPasswordService with ChangeNotifier {
       return;
     }
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return false;
 
     //internet connection is on

@@ -46,7 +46,7 @@ class FilterColorSizeService with ChangeNotifier {
   fetchColorSize(BuildContext context) async {
     if (colorSize != null) return;
 
-    var connection = await checkConnection();
+    var connection = await checkConnection(context);
     if (!connection) return;
 
     var response = await http.get(Uri.parse(ApiUrl.searchItemsUri));
