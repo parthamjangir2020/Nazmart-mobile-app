@@ -10,6 +10,7 @@ import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/filter_color_size_service.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:provider/provider.dart';
 
 class SearchProductService with ChangeNotifier {
@@ -161,14 +162,15 @@ class SearchProductService with ChangeNotifier {
         Provider.of<ChildCategoryService>(context, listen: false)
             .selectedChildCategory;
 
-    if (categoryName == null || categoryName == 'Select Category') {
+    if (categoryName == null || categoryName == ConstString.selectCategory) {
       categoryName = '';
     }
-    if (subCategoryName == null || subCategoryName == 'Select Subcategory') {
+    if (subCategoryName == null ||
+        subCategoryName == ConstString.selectSubCategory) {
       subCategoryName = '';
     }
     if (childCategoryName == null ||
-        childCategoryName == 'Select child category') {
+        childCategoryName == ConstString.selectChildCategory) {
       childCategoryName = '';
     }
   }

@@ -7,7 +7,9 @@ import 'package:no_name_ecommerce/model/profile_model.dart';
 import 'package:no_name_ecommerce/services/auth_services/logout_service.dart';
 import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -96,6 +98,8 @@ class ProfileService with ChangeNotifier {
     var connection = await checkConnection(context);
     if (!connection) return false;
 
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     var userId = prefs.getInt('userId');
@@ -120,7 +124,8 @@ class ProfileService with ChangeNotifier {
     setLoadingFalse();
 
     if (response.statusCode == 200) {
-      showToast('Profile deleted successfully', Colors.black);
+      showToast(
+          ln.getString(ConstString.profileDeletedSuccessfully), Colors.black);
 
       // clear profile data =====>
       Future.delayed(const Duration(milliseconds: 500), () {
@@ -137,7 +142,7 @@ class ProfileService with ChangeNotifier {
 
       return true;
     } else {
-      showToast('Something went wrong', Colors.black);
+      showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
       return false;
     }
   }

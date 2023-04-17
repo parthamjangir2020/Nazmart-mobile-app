@@ -1,10 +1,13 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ProductDbService {
@@ -52,13 +55,16 @@ class ProductDbService {
   removeFromCart(productId, title, BuildContext context) async {
     var connection = await getdatabase;
 
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     await connection.rawDelete(
         "DELETE FROM cart_table WHERE productId=? and title=?",
         [productId, title]);
 
     print('removed from cart');
 
-    showSnackBar(context, 'Removed from cart', primaryColor);
+    showSnackBar(
+        context, ln.getString(ConstString.removedFromCart), primaryColor);
   }
 
   allCartProducts() async {

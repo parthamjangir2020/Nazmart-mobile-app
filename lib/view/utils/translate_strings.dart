@@ -239,7 +239,14 @@ var translateStrings = {
   ConstString.statusChanged: ConstString.statusChanged,
   ConstString.plzCheckInternet: ConstString.plzCheckInternet,
   ConstString.selectCategory: ConstString.selectCategory,
+  ConstString.selectSubCategory: ConstString.selectSubCategory,
+  ConstString.profileDeletedSuccessfully:
+      ConstString.profileDeletedSuccessfully,
   ConstString.selectChildCategory: ConstString.selectChildCategory,
+  ConstString.refundReqSuccessful: ConstString.refundReqSuccessful,
+  ConstString.orderPlacedSuccessfully: ConstString.orderPlacedSuccessfully,
+  ConstString.failedToMakePaymentStatusSuccess:
+      ConstString.failedToMakePaymentStatusSuccess,
   ConstString.changePriority: ConstString.changePriority,
   ConstString.changeStatus: ConstString.changeStatus,
   ConstString.otpDidntMatch: ConstString.otpDidntMatch,
@@ -247,6 +254,9 @@ var translateStrings = {
   ConstString.invalidEmailOrPass: ConstString.invalidEmailOrPass,
   ConstString.somethingWentWrong: ConstString.somethingWentWrong,
   ConstString.userLoggedOut: ConstString.userLoggedOut,
+  ConstString.removedFromCart: ConstString.removedFromCart,
+  ConstString.profileUpdatedSuccessfully:
+      ConstString.profileUpdatedSuccessfully,
   ConstString.registrationSuccessful: ConstString.registrationSuccessful,
   ConstString.otpSendFailed: ConstString.otpSendFailed,
   ConstString.youEnteredOtpCorrectButSomethingWrong:

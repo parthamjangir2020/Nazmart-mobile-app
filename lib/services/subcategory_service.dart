@@ -8,6 +8,7 @@ import 'package:no_name_ecommerce/model/subcategory_model.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:provider/provider.dart';
 
 class SubCategoryService with ChangeNotifier {
@@ -37,9 +38,9 @@ class SubCategoryService with ChangeNotifier {
   }
 
   setDummyValue() {
-    subCategoryDropdownList.add('Select Subcategory');
+    subCategoryDropdownList.add(ConstString.selectSubCategory);
     subCategoryDropdownIndexList.add(null);
-    selectedSubCategory = 'Select Subcategory';
+    selectedSubCategory = ConstString.selectSubCategory;
     selectedSubCategoryId = null;
     notifyListeners();
   }

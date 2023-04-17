@@ -51,6 +51,7 @@ class ConstString {
   static const String priorityChanged = 'Priority changed';
   static const String statusChanged = 'Status changed';
   static const String selectCategory = 'Select Category';
+  static const String refundReqSuccessful = 'Refund request successfull';
   static const String selectChildCategory = 'Select child category';
   static const String plzCheckInternet =
       'Please check your internet connection';
@@ -174,8 +175,17 @@ class ConstString {
   static const String payment = 'Payment';
   static const String oops = 'Oops';
   static const String orderFailed = 'Order failed';
+  static const String selectSubCategory = 'Select Subcategory';
   static const String backToHome = 'Back to home';
+  static const String profileDeletedSuccessfully =
+      'Profile deleted successfully';
+  static const String removedFromCart = 'Removed from cart';
+  static const String profileUpdatedSuccessfully =
+      'Profile updated successfully';
+  static const String failedToMakePaymentStatusSuccess =
+      'Failed to make payment status successfull';
   static const String orderSuccessful = 'Order successful';
+  static const String orderPlacedSuccessfully = 'Order placed successfully';
   static const String orderPlacedIdIs =
       'Your order has been successfully Placed!  Your order ID is';
   static const String seeOrderDetails = 'See order details';

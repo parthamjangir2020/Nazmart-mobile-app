@@ -12,10 +12,12 @@ import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_se
 import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/payment_services/payment_gateway_list_service.dart';
 import 'package:no_name_ecommerce/services/product_db_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/home/landing_page.dart';
 import 'package:no_name_ecommerce/view/order/order_success_page.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
 import 'package:no_name_ecommerce/view/utils/config.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -43,6 +45,9 @@ class PlaceOrderService with ChangeNotifier {
   Future<bool> placeOrder(BuildContext context, String? imagePath,
       {bool isManualOrCod = false}) async {
     setLoadingTrue();
+
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
@@ -110,7 +115,7 @@ class PlaceOrderService with ChangeNotifier {
         //if user placed order in manual transfer or cash on delivery then make payment pending
         Provider.of<PlaceOrderService>(context, listen: false)
             .makePaymentSuccess(context); //make payment status pending
-        doNext(context, 'Pending');
+        doNext(context, ln.getString(ConstString.pending));
       }
 
       setLoadingFalse();
@@ -122,7 +127,7 @@ class PlaceOrderService with ChangeNotifier {
       if (response.data.containsKey('message')) {
         showToast(response.data['message'].toString(), Colors.black);
       } else {
-        showToast('Something went wrong', Colors.black);
+        showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
       }
 
       return false;
@@ -136,38 +141,39 @@ class PlaceOrderService with ChangeNotifier {
 //payment status =====>
 // 0 Pending , 1 Complete , 2 Failed
 
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
     var connection = await checkConnection(context);
 
-    if (connection) {
-      var header = {
-        //if header type is application/json then the data should be in jsonEncode method
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
-      };
+    if (!connection) return;
+    var header = {
+      //if header type is application/json then the data should be in jsonEncode method
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    };
 
-      print('order id is $orderId');
+    print('order id is $orderId');
 
-      var data = jsonEncode({'order_id': orderId, 'status': '1'});
+    var data = jsonEncode({'order_id': orderId, 'status': '1'});
 
-      var response = await http.post(Uri.parse(ApiUrl.paymentUpdateUri),
-          headers: header, body: data);
-      setLoadingFalse();
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        showToast('Order placed successfully', Colors.black);
-        doNext(context, 'Complete');
-        //make cart table empty
-        ProductDbService().emptyCartTable();
-      } else {
-        print(response.body);
-        showToast('Failed to make payment status successfull', Colors.black);
-        doNext(context, 'Pending');
-      }
+    var response = await http.post(Uri.parse(ApiUrl.paymentUpdateUri),
+        headers: header, body: data);
+    setLoadingFalse();
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      showToast(
+          ln.getString(ConstString.orderPlacedSuccessfully), Colors.black);
+      doNext(context, ln.getString(ConstString.completed));
+      //make cart table empty
+      ProductDbService().emptyCartTable();
     } else {
-      showToast('Check your internet connection and try again', Colors.black);
+      print(response.body);
+      showToast(ln.getString(ConstString.failedToMakePaymentStatusSuccess),
+          Colors.black);
+      doNext(context, ln.getString(ConstString.pending));
     }
   }
 

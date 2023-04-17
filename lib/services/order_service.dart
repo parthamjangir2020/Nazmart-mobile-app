@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/model/order_details_model.dart';
 import 'package:no_name_ecommerce/model/order_list_model.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/api_url.dart';
+import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -111,6 +114,8 @@ class OrderService with ChangeNotifier {
     var connection = await checkConnection(context);
     if (!connection) return;
 
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     orderDetails = null;
     notifyListeners();
 
@@ -134,7 +139,7 @@ class OrderService with ChangeNotifier {
 
       notifyListeners();
     } else {
-      showToast('Something went wrong', Colors.black);
+      showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
     }
   }
 
@@ -160,6 +165,8 @@ class OrderService with ChangeNotifier {
     var connection = await checkConnection(context);
     if (!connection) return;
 
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
@@ -184,10 +191,10 @@ class OrderService with ChangeNotifier {
     print(response.statusCode);
 
     if (response.statusCode == 200) {
-      showToast('Refund request successfull', Colors.black);
+      showToast(ln.getString(ConstString.refundReqSuccessful), Colors.black);
       Navigator.pop(context);
     } else {
-      showToast('Something went wrong', Colors.black);
+      showToast(ln.getString(ConstString.somethingWentWrong), Colors.black);
     }
   }
 }
