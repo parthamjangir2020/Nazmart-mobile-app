@@ -152,7 +152,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                                   })
                               : Container(
                                   alignment: Alignment.center,
-                                  height: screenHeight - 120,
+                                  height: getScreenHeight(context) - 120,
                                   child: showLoading(primaryColor),
                                 )
                           : Container(

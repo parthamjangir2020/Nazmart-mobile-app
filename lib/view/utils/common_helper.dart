@@ -186,7 +186,7 @@ nothingfound(BuildContext context, String title) {
   return Consumer<TranslateStringService>(
     builder: (context, ln, child) => Container(
       alignment: Alignment.center,
-      height: screenHeight - 140,
+      height: getScreenHeight(context) - 140,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

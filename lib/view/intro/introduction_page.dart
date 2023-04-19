@@ -33,7 +33,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: screenHeight - 170,
+                  height: getScreenHeight(context) - 170,
                   alignment: Alignment.center,
                   child: PageView.builder(
                       controller: _pageController,
@@ -51,7 +51,8 @@ class _IntroductionPageState extends State<IntroductionPage> {
                             children: [
                               Container(
                                 width: double.infinity,
-                                height: screenHeight < fourinchScreenHeight
+                                height: getScreenHeight(context) <
+                                        fourinchScreenHeight
                                     ? 60
                                     : 180,
                                 margin: const EdgeInsets.only(bottom: 24),

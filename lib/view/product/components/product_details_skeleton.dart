@@ -32,7 +32,7 @@ class ProductDetailsSkeleton extends StatelessWidget {
               children: [
                 Container(
                   height: 15,
-                  width: screenWidth / 2,
+                  width: getScreenWidth(context) / 2,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15), color: greyFive),
                 ),
@@ -49,7 +49,7 @@ class ProductDetailsSkeleton extends StatelessWidget {
           ...Iterable.generate(4).map(
             (e) => Container(
               height: 10,
-              width: screenWidth -
+              width: getScreenWidth(context) -
                   Random()
                       .nextInt(
                         100,

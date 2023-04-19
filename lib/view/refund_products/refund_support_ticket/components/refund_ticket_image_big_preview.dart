@@ -30,8 +30,8 @@ class RefundImageBigPreviewPage extends StatelessWidget {
                     placeholder: (context, url) {
                       return Image.asset('assets/images/placeholder.png');
                     },
-                    height: screenHeight - 150,
-                    width: screenWidth,
+                    height: getScreenHeight(context) - 150,
+                    width: getScreenWidth(context),
                     // fit: BoxFit.fitHeight,
                   ),
                 )
@@ -40,8 +40,8 @@ class RefundImageBigPreviewPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Image.file(
                     File(assetImgLink),
-                    height: screenHeight - 150,
-                    width: screenWidth,
+                    height: getScreenHeight(context) - 150,
+                    width: getScreenWidth(context),
                     // fit: BoxFit.cover,
                   )),
         ],

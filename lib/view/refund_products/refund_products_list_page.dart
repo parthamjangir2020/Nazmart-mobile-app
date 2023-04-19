@@ -114,7 +114,7 @@ class _RefundProductsListPageState extends State<RefundProductsListPage> {
                   )
                 : Container(
                     alignment: Alignment.center,
-                    height: screenHeight - 180,
+                    height: getScreenHeight(context) - 180,
                     child: paragraphCommon(
                         ln.getString(ConstString.noProductFound)),
                   ),

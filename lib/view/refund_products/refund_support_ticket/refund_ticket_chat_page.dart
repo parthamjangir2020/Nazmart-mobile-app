@@ -234,7 +234,8 @@ class _RefundTicketChatPageState extends State<RefundTicketChatPage> {
                                                                   'assets/images/placeholder.png');
                                                             },
                                                             height: 150,
-                                                            width: screenWidth /
+                                                            width: getScreenWidth(
+                                                                        context) /
                                                                     2 -
                                                                 50,
                                                             fit:
@@ -265,7 +266,8 @@ class _RefundTicketChatPageState extends State<RefundTicketChatPage> {
                                                                     index]
                                                                 ['attachment']),
                                                             height: 150,
-                                                            width: screenWidth /
+                                                            width: getScreenWidth(
+                                                                        context) /
                                                                     2 -
                                                                 50,
                                                             fit: BoxFit.cover,

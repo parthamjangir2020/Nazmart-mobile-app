@@ -58,7 +58,7 @@ class _RefundTicketsPageState extends State<RefundTicketsPage> {
           actions: [
             Consumer<TranslateStringService>(
               builder: (context, ln, child) => Container(
-                width: screenWidth / 4,
+                width: getScreenWidth(context) / 4,
                 padding: const EdgeInsets.symmetric(
                   vertical: 9,
                 ),

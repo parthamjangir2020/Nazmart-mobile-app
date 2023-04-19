@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 
 late bool isIos;
 
-late double screenWidth;
-late double screenHeight;
+getScreenHeight(BuildContext context) {
+  return MediaQuery.of(context).size.height;
+}
 
-getScreenSize(BuildContext context) {
-  screenWidth = MediaQuery.of(context).size.width;
-  screenHeight = MediaQuery.of(context).size.height;
+getScreenWidth(BuildContext context) {
+  return MediaQuery.of(context).size.width;
 }
 
 screenSizeAndPlatform(BuildContext context) {
-  getScreenSize(context);
   checkPlatform();
 }
 //responsive screen codes ========>

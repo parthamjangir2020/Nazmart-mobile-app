@@ -139,12 +139,12 @@ class _AllRecentProductsPageState extends State<AllRecentProductsPage> {
                               ])
                         : Container(
                             alignment: Alignment.center,
-                            height: screenHeight - 200,
+                            height: getScreenHeight(context) - 200,
                             child: showLoading(primaryColor),
                           )
                     : Container(
                         alignment: Alignment.center,
-                        height: screenHeight - 200,
+                        height: getScreenHeight(context) - 200,
                         child: Text(ln.getString(ConstString.noProductFound))),
               ),
             ),

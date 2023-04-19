@@ -235,12 +235,12 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                       )
                     : Container(
                         alignment: Alignment.center,
-                        height: screenHeight - 200,
+                        height: getScreenHeight(context) - 200,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              height: screenHeight / 3,
+                              height: getScreenHeight(context) / 3,
                               width: double.infinity,
                               decoration: const BoxDecoration(
                                 image: DecorationImage(

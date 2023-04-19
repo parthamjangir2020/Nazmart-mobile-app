@@ -241,7 +241,8 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                                                   'assets/images/placeholder.png');
                                                             },
                                                             height: 150,
-                                                            width: screenWidth /
+                                                            width: getScreenWidth(
+                                                                        context) /
                                                                     2 -
                                                                 50,
                                                             fit:
@@ -272,7 +273,8 @@ class _TicketChatPageState extends State<TicketChatPage> {
                                                                     index]
                                                                 ['attachment']),
                                                             height: 150,
-                                                            width: screenWidth /
+                                                            width: getScreenWidth(
+                                                                        context) /
                                                                     2 -
                                                                 50,
                                                             fit: BoxFit.cover,

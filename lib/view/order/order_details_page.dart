@@ -95,7 +95,7 @@ class OrderDetailsPage extends StatelessWidget {
                   )
                 : Container(
                     alignment: Alignment.center,
-                    height: screenHeight - 150,
+                    height: getScreenHeight(context) - 150,
                     child: showLoading(primaryColor),
                   ),
           ),

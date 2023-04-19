@@ -59,7 +59,7 @@ class _ProductFilterState extends State<ProductFilter> {
     return Consumer<TranslateStringService>(
       builder: (context, ln, child) => Consumer<SearchProductService>(
         builder: (context, provider, child) => Container(
-          // height: screenHeight / 2 + 300,
+          // height: getScreenHeight(context) / 2 + 300,
           color: Colors.white,
           padding: EdgeInsets.symmetric(
               horizontal: screenPadHorizontal, vertical: 20),

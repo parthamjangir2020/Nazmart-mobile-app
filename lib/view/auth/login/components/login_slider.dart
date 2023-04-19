@@ -20,7 +20,7 @@ class LoginSlider extends StatelessWidget {
         color: const Color(0xffF9FAFB),
         padding: const EdgeInsets.symmetric(horizontal: 25),
         width: double.infinity,
-        height: screenHeight / 4 - 10,
+        height: getScreenHeight(context) / 4 - 10,
         alignment: Alignment.center,
         child: Row(
           children: [

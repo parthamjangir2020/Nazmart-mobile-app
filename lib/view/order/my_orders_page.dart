@@ -251,7 +251,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                               ),
                           ])
                     : Container(
-                        height: screenHeight - 200,
+                        height: getScreenHeight(context) - 200,
                         alignment: Alignment.center,
                         child: paragraphCommon('No order found'),
                       ),
