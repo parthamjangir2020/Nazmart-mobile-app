@@ -181,9 +181,7 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                                                   color: primaryColor,
                                                 ),
                                               ),
-                                              // put the hamburger icon here
                                               PopupMenuButton(
-                                                // initialValue: 2,
                                                 child:
                                                     const Icon(Icons.more_vert),
                                                 itemBuilder: (context) {

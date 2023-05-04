@@ -6,7 +6,10 @@ import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 class CountryStatesDropdowns extends StatefulWidget {
-  const CountryStatesDropdowns({Key? key}) : super(key: key);
+  const CountryStatesDropdowns({Key? key, this.isFromDeliveryPage = false})
+      : super(key: key);
+
+  final bool isFromDeliveryPage;
 
   @override
   State<CountryStatesDropdowns> createState() => _CountryStatesDropdownsState();
@@ -33,7 +36,9 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             labelCommon(ConstString.chooseCountry),
-            const CountryDropdown(),
+            CountryDropdown(
+              isFromDeliveryPage: widget.isFromDeliveryPage,
+            ),
           ],
         ),
 
@@ -45,7 +50,9 @@ class _CountryStatesDropdownsState extends State<CountryStatesDropdowns> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             labelCommon(ConstString.chooseStates),
-            const StateDropdown(),
+            StateDropdown(
+              isFromDeliveryPage: widget.isFromDeliveryPage,
+            ),
           ],
         ),
       ],

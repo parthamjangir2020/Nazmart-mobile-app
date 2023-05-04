@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
+import 'package:no_name_ecommerce/services/write_review_service.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
+import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/utils/textarea_field.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -70,7 +72,22 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                 hintText: ln.getString(ConstString.writeReview),
               ),
               gapH(20),
-              buttonPrimary(ConstString.postReview, (() {}))
+              Consumer<WriteReviewService>(
+                builder: (context, lfProvider, child) =>
+                    buttonPrimary(ConstString.postReview, () {
+                  if (reviewController.text.isEmpty) {
+                    showSnackBar(
+                        context, 'Please write something first', Colors.red);
+                    return;
+                  }
+                  if (lfProvider.isloading == false) {
+                    lfProvider.leaveFeedback(context,
+                        comment: reviewController.text,
+                        productId: widget.productId,
+                        rating: rating);
+                  }
+                }, isloading: lfProvider.isloading),
+              )
             ]),
           ),
         ),

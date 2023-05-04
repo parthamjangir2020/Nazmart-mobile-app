@@ -60,6 +60,8 @@ class ConstString {
       'Enter the 4 digit code we sent to to your email in order to reset password';
   static const String didntReceive = "Didn't receive?";
   static const String sendAgain = 'Send again';
+  static const String settingShipChargePlzWait =
+      'Setting shipping charge, please wait....';
   static const String newPassShouldBeDifferent =
       "Your new password should be different from previously used passwords";
   static const String chooseCountry = "Choose country";

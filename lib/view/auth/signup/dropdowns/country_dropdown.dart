@@ -5,7 +5,10 @@ import 'package:no_name_ecommerce/view/auth/signup/dropdowns/country_states_drop
 import 'package:provider/provider.dart';
 
 class CountryDropdown extends StatelessWidget {
-  const CountryDropdown({Key? key}) : super(key: key);
+  const CountryDropdown({Key? key, this.isFromDeliveryPage = false})
+      : super(key: key);
+
+  final bool isFromDeliveryPage;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,9 @@ class CountryDropdown extends StatelessWidget {
           showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {
-                return const CountryDropdownPopup();
+                return CountryDropdownPopup(
+                  isFromDeliveryPage: isFromDeliveryPage,
+                );
               });
         },
         child: dropdownPlaceholder(hintText: p.selectedCountry),

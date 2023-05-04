@@ -75,6 +75,8 @@ class DeliveryAddressService with ChangeNotifier {
     var oldVat = vatAmount;
     vatAmount = (subtotal * newVatPercent) / 100;
 
+    print('set vat fun ran');
+
     Provider.of<CartService>(context, listen: false)
         .increaseTotal(oldVat, vatAmount);
 
@@ -118,11 +120,9 @@ class DeliveryAddressService with ChangeNotifier {
   }
 
 //fetch country shipping cost ======>
-  fetchCountryStateShippingCost(BuildContext context) async {
-    Future.delayed(const Duration(milliseconds: 500), () {
-      setLoadingTrue();
-      setShipCostDeafault();
-    });
+  Future<bool> fetchCountryStateShippingCost(BuildContext context) async {
+    setLoadingTrue();
+    setShipCostDeafault();
 
     var countryId = Provider.of<CountryDropdownService>(context, listen: false)
         .selectedCountryId;
@@ -160,10 +160,13 @@ class DeliveryAddressService with ChangeNotifier {
       setVatAndincreaseTotal(data.tax?.toDouble() ?? 0, context);
 
       notifyListeners();
+
+      return true;
     } else {
       //error fetching data
       hasError = true;
       notifyListeners();
+      return false;
     }
   }
 

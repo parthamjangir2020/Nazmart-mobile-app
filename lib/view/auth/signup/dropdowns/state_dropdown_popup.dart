@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -11,7 +14,9 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class StateDropdownPopup extends StatelessWidget {
-  const StateDropdownPopup({Key? key}) : super(key: key);
+  const StateDropdownPopup({Key? key, this.isFromDeliveryPage = false})
+      : super(key: key);
+  final bool isFromDeliveryPage;
 
   @override
   Widget build(BuildContext context) {
@@ -56,66 +61,93 @@ class StateDropdownPopup extends StatelessWidget {
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Consumer<StateDropdownService>(
-              builder: (context, p, child) => Column(
-                children: [
-                  gapH(30),
-                  CustomInput(
-                    hintText: ConstString.searchState,
-                    paddingHorizontal: 17,
-                    icon: 'assets/icons/search.png',
-                    onChanged: (v) {
-                      p.searchState(context, v, isSearching: true);
-                    },
-                  ),
-                  gapH(10),
-                  p.statesDropdownList.isNotEmpty
-                      ? p.statesDropdownList[0] != ConstString.selectCity
-                          ? ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: p.statesDropdownList.length,
-                              itemBuilder: (context, i) {
-                                return InkWell(
-                                  onTap: () {
-                                    p.setStatesValue(p.statesDropdownList[i]);
+            child: Consumer<TranslateStringService>(
+              builder: (_, ln, child) => Consumer<DeliveryAddressService>(
+                  builder: (_, dProvider, child) => (dProvider.isLoading ==
+                              true &&
+                          isFromDeliveryPage == true)
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            gapH(50),
+                            paragraphCommon(ln.getString(
+                                ConstString.settingShipChargePlzWait)),
+                            gapH(10),
+                            showLoading(primaryColor)
+                          ],
+                        )
+                      : Consumer<StateDropdownService>(
+                          builder: (_, p, child) => Column(
+                            children: [
+                              gapH(30),
+                              CustomInput(
+                                hintText: ConstString.searchState,
+                                paddingHorizontal: 17,
+                                icon: 'assets/icons/search.png',
+                                onChanged: (v) {
+                                  p.searchState(context, v, isSearching: true);
+                                },
+                              ),
+                              gapH(10),
+                              p.statesDropdownList.isNotEmpty
+                                  ? p.statesDropdownList[0] !=
+                                          ConstString.selectCity
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount:
+                                              p.statesDropdownList.length,
+                                          itemBuilder: (_, i) {
+                                            return InkWell(
+                                              onTap: () async {
+                                                p.setStatesValue(
+                                                    p.statesDropdownList[i]);
 
-                                    //                         // setting the id of selected value
-                                    p.setSelectedStatesId(
-                                        p.statesDropdownIndexList[p
-                                            .statesDropdownList
-                                            .indexOf(p.statesDropdownList[i])]);
+                                                //                         // setting the id of selected value
+                                                p.setSelectedStatesId(
+                                                    p.statesDropdownIndexList[p
+                                                        .statesDropdownList
+                                                        .indexOf(
+                                                            p.statesDropdownList[
+                                                                i])]);
 
-                                    Navigator.pop(context);
+                                                if (isFromDeliveryPage) {
+                                                  await Provider.of<
+                                                              DeliveryAddressService>(
+                                                          context,
+                                                          listen: false)
+                                                      .fetchCountryStateShippingCost(
+                                                          context);
+                                                }
 
-                                    Provider.of<DeliveryAddressService>(context,
-                                            listen: false)
-                                        .fetchCountryStateShippingCost(
-                                      context,
-                                    );
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 18),
-                                    decoration: const BoxDecoration(
-                                        border: Border(
-                                            bottom:
-                                                BorderSide(color: greyFive))),
-                                    child: paragraphCommon(
-                                      '${p.statesDropdownList[i]}',
-                                      textAlign: TextAlign.left,
+                                                Navigator.pop(context);
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 18),
+                                                decoration: const BoxDecoration(
+                                                    border: Border(
+                                                        bottom: BorderSide(
+                                                            color: greyFive))),
+                                                child: paragraphCommon(
+                                                  '${p.statesDropdownList[i]}',
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                              ),
+                                            );
+                                          })
+                                      : paragraphCommon(ConstString.noCityFound)
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [showLoading(primaryColor)],
                                     ),
-                                  ),
-                                );
-                              })
-                          : paragraphCommon(ConstString.noCityFound)
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [showLoading(primaryColor)],
-                        ),
-                ],
-              ),
+                            ],
+                          ),
+                        )),
             ),
           ),
         ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 
 //===========================>
 
-showLoading(Color color) {
+showLoading(Color? color) {
   return SpinKitThreeBounce(
-    color: color,
+    color: color ?? primaryColor,
     size: 16.0,
   );
 }

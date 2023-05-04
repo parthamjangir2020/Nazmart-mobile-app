@@ -158,12 +158,18 @@ capsule(String capsuleText) {
 
 getCapsuleColor(String status) {
   if (status.toLowerCase() == 'pending' || status.toLowerCase() == 'open') {
-    return Colors.orange[600];
+    return successColor;
   } else if (status.toLowerCase() == 'cancel') {
     return Colors.red;
   } else if (status.toLowerCase() == 'complete' ||
       status.toLowerCase() == 'close') {
+    return Colors.orange[600];
+  } else if (status.toLowerCase() == 'low' ||
+      status.toLowerCase() == 'medium') {
     return successColor;
+  } else if (status.toLowerCase() == 'high' ||
+      status.toLowerCase() == 'urgent') {
+    return Colors.red;
   } else {
     return Colors.grey[600];
   }

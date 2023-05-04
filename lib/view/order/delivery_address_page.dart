@@ -120,7 +120,9 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const CountryStatesDropdowns(),
+                            const CountryStatesDropdowns(
+                              isFromDeliveryPage: true,
+                            ),
 
                             gapH(20),
                             //Name ============>
@@ -403,7 +405,8 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                 builder: (context, rP, child) =>
                                     buttonPrimary(ConstString.save, () async {
                                       if (_formKey.currentState!.validate()) {
-                                        if (rP.isloading == true) {
+                                        if (rP.isloading == true ||
+                                            dProvider.isLoading) {
                                           return;
                                         }
 

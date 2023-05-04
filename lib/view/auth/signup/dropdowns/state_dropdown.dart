@@ -5,7 +5,9 @@ import 'package:no_name_ecommerce/view/auth/signup/dropdowns/state_dropdown_popu
 import 'package:provider/provider.dart';
 
 class StateDropdown extends StatelessWidget {
-  const StateDropdown({Key? key}) : super(key: key);
+  const StateDropdown({Key? key, this.isFromDeliveryPage = false})
+      : super(key: key);
+  final bool isFromDeliveryPage;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,9 @@ class StateDropdown extends StatelessWidget {
           showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {
-                return const StateDropdownPopup();
+                return StateDropdownPopup(
+                  isFromDeliveryPage: isFromDeliveryPage,
+                );
               });
         },
         child: dropdownPlaceholder(hintText: p.selectedState),

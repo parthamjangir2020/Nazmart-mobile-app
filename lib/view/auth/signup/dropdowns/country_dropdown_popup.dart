@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
+import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -12,7 +15,10 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CountryDropdownPopup extends StatelessWidget {
-  const CountryDropdownPopup({Key? key}) : super(key: key);
+  const CountryDropdownPopup({Key? key, this.isFromDeliveryPage = false})
+      : super(key: key);
+
+  final bool isFromDeliveryPage;
 
   @override
   Widget build(BuildContext context) {
@@ -57,68 +63,99 @@ class CountryDropdownPopup extends StatelessWidget {
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Consumer<CountryDropdownService>(
-              builder: (context, p, child) => Column(
-                children: [
-                  gapH(30),
-                  CustomInput(
-                    hintText: ConstString.searchCountry,
-                    paddingHorizontal: 17,
-                    icon: 'assets/icons/search.png',
-                    onChanged: (v) {
-                      p.searchCountry(context, v, isSearching: true);
-                    },
-                  ),
-                  gapH(10),
-                  p.countryDropdownList.isNotEmpty
-                      ? p.countryDropdownList[0] != ConstString.selectCountry
-                          ? ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: p.countryDropdownList.length,
-                              itemBuilder: (context, i) {
-                                return InkWell(
-                                  onTap: () {
-                                    p.setCountryValue(p.countryDropdownList[i]);
-
-                                    //                         // setting the id of selected value
-                                    p.setSelectedCountryId(
-                                        p.countryDropdownIndexList[
-                                            p.countryDropdownList.indexOf(
-                                                p.countryDropdownList[i])]);
-
-                                    Navigator.pop(context);
-
-                                    Provider.of<StateDropdownService>(context,
-                                            listen: false)
-                                        .setStateDefault();
-
-                                    Provider.of<DeliveryAddressService>(context,
-                                            listen: false)
-                                        .fetchCountryStateShippingCost(context);
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 18),
-                                    decoration: const BoxDecoration(
-                                        border: Border(
-                                            bottom:
-                                                BorderSide(color: greyFive))),
-                                    child: paragraphCommon(
-                                      '${p.countryDropdownList[i]}',
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                );
-                              })
-                          : paragraphCommon(ConstString.noCountryFound)
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [showLoading(primaryColor)],
+            child: Consumer<TranslateStringService>(
+              builder: (_, ln, child) => Consumer<DeliveryAddressService>(
+                  builder: (_, dProvider, child) => (dProvider.isLoading ==
+                              true &&
+                          isFromDeliveryPage == true)
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            gapH(50),
+                            paragraphCommon(ln.getString(
+                                ConstString.settingShipChargePlzWait)),
+                            gapH(10),
+                            showLoading(primaryColor)
+                          ],
                         )
-                ],
-              ),
+                      : Consumer<CountryDropdownService>(
+                          builder: (cPContext, p, child) => Column(
+                            children: [
+                              gapH(30),
+                              CustomInput(
+                                hintText: ConstString.searchCountry,
+                                paddingHorizontal: 17,
+                                icon: 'assets/icons/search.png',
+                                onChanged: (v) {
+                                  p.searchCountry(context, v,
+                                      isSearching: true);
+                                },
+                              ),
+                              gapH(10),
+                              p.countryDropdownList.isNotEmpty
+                                  ? p.countryDropdownList[0] !=
+                                          ConstString.selectCountry
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount:
+                                              p.countryDropdownList.length,
+                                          itemBuilder: (listContext, i) {
+                                            return InkWell(
+                                              onTap: () async {
+                                                p.setCountryValue(
+                                                    p.countryDropdownList[i]);
+
+                                                //                         // setting the id of selected value
+                                                p.setSelectedCountryId(p
+                                                        .countryDropdownIndexList[
+                                                    p.countryDropdownList.indexOf(
+                                                        p.countryDropdownList[
+                                                            i])]);
+
+                                                Provider.of<StateDropdownService>(
+                                                        context,
+                                                        listen: false)
+                                                    .setStateDefault();
+
+                                                if (isFromDeliveryPage) {
+                                                  await Provider.of<
+                                                              DeliveryAddressService>(
+                                                          context,
+                                                          listen: false)
+                                                      .fetchCountryStateShippingCost(
+                                                          context);
+                                                }
+
+                                                Navigator.pop(context);
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 18),
+                                                decoration: const BoxDecoration(
+                                                    border: Border(
+                                                        bottom: BorderSide(
+                                                            color: greyFive))),
+                                                child: paragraphCommon(
+                                                  '${p.countryDropdownList[i]}',
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                              ),
+                                            );
+                                          })
+                                      : paragraphCommon(
+                                          ConstString.noCountryFound)
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [showLoading(primaryColor)],
+                                    )
+                            ],
+                          ),
+                        )),
             ),
           ),
         ),

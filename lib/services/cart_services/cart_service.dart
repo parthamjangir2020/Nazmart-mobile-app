@@ -137,8 +137,11 @@ class CartService with ChangeNotifier {
 
 //increase total amount (ex: vat, shipping)
   increaseTotal(oldValueToSubtract, newValueToAdd) {
+    print('increase total price fun ran');
     totalPrice = (totalPrice - oldValueToSubtract) + newValueToAdd;
     notifyListeners();
+
+    print('total price is $totalPrice');
   }
 
   //cart product number

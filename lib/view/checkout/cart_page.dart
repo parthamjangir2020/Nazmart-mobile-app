@@ -1,21 +1,14 @@
-// ignore_for_file: unused_import
-
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
 import 'package:no_name_ecommerce/services/currency_service.dart';
-import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_products.dart';
 import 'package:no_name_ecommerce/view/checkout/components/coupon_field.dart';
 import 'package:no_name_ecommerce/view/checkout/components/shipping_select.dart';
 import 'package:no_name_ecommerce/view/order/payment_choose_page.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
-import 'package:no_name_ecommerce/view/utils/config.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
-import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:no_name_ecommerce/view/utils/others_helper.dart';
 import 'package:no_name_ecommerce/view/utils/responsive.dart';

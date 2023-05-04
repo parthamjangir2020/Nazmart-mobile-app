@@ -42,6 +42,7 @@ import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/services/subcategory_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/change_priority_service.dart';
 import 'package:no_name_ecommerce/services/ticket_services/change_ticket_status_service.dart';
+import 'package:no_name_ecommerce/services/write_review_service.dart';
 import 'package:no_name_ecommerce/view/intro/splash.dart';
 import 'package:no_name_ecommerce/services/shipping_services/shipping_list_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
@@ -119,6 +120,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductByCategoryService()),
         ChangeNotifierProvider(create: (_) => FilterColorSizeService()),
         ChangeNotifierProvider(create: (_) => RecentProductService()),
+        ChangeNotifierProvider(create: (_) => WriteReviewService()),
         ChangeNotifierProvider(
             create: (_) => AddRemoveShippingAddressService()),
         ChangeNotifierProvider(
