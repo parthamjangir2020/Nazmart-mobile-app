@@ -65,6 +65,8 @@ class ConstString {
   static const String newPassShouldBeDifferent =
       "Your new password should be different from previously used passwords";
   static const String chooseCountry = "Choose country";
+  static const String plzWaitOrderProcessed =
+      'Please wait while the order is being processed';
   static const String chooseStates = "Choose state";
   static const String fullName = "Full name";
   static const String shippingName = "Shipping name";

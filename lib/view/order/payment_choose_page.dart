@@ -39,290 +39,315 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
     Provider.of<PaymentGatewayListService>(context, listen: false)
         .fetchGatewayList(context);
 
+    var placeOrderProvider =
+        Provider.of<PlaceOrderService>(context, listen: false);
+    var ln = Provider.of<TranslateStringService>(context, listen: false);
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: appbarCommon(ConstString.payment, context, () {
+          if (placeOrderProvider.isloading) {
+            showSnackBar(context,
+                ln.getString(ConstString.plzWaitOrderProcessed), Colors.red);
+            return;
+          }
           Navigator.pop(context);
         }),
-        body: SingleChildScrollView(
-          child: Consumer<CartService>(
-            builder: (context, cP, child) => Consumer<TranslateStringService>(
-              builder: (context, ln, child) => Container(
-                padding: EdgeInsets.symmetric(horizontal: screenPadHorizontal),
-                child: Consumer<PaymentGatewayListService>(
-                  builder: (context, pgProvider, child) => pgProvider
-                          .paymentList.isNotEmpty
-                      ? Consumer<PlaceOrderService>(
-                          builder: (context, provider, child) => Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 20),
-                                  child: dividerCommon(),
-                                ),
+        body: WillPopScope(
+          onWillPop: () {
+            if (placeOrderProvider.isloading) {
+              showSnackBar(context,
+                  ln.getString(ConstString.plzWaitOrderProcessed), Colors.red);
+              return Future.value(false);
+            }
+            return Future.value(true);
+          },
+          child: SingleChildScrollView(
+            child: Consumer<CartService>(
+              builder: (context, cP, child) => Consumer<TranslateStringService>(
+                builder: (context, ln, child) => Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: screenPadHorizontal),
+                  child: Consumer<PaymentGatewayListService>(
+                    builder: (context, pgProvider, child) => pgProvider
+                            .paymentList.isNotEmpty
+                        ? Consumer<PlaceOrderService>(
+                            builder: (context, provider, child) => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 20),
+                                    child: dividerCommon(),
+                                  ),
 
-                                //total
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    titleCommon(
-                                        ln.getString(ConstString.total) + ' :',
-                                        fontsize: 17),
-                                    paragraphCommon('\$${cP.totalPrice}',
-                                        fontweight: FontWeight.w600,
-                                        fontsize: 18)
-                                  ],
-                                ),
+                                  //total
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      titleCommon(
+                                          ln.getString(ConstString.total) +
+                                              ' :',
+                                          fontsize: 17),
+                                      paragraphCommon('\$${cP.totalPrice}',
+                                          fontweight: FontWeight.w600,
+                                          fontsize: 18)
+                                    ],
+                                  ),
 
-                                //border
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 20, bottom: 20),
-                                  child: dividerCommon(),
-                                ),
+                                  //border
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        top: 20, bottom: 20),
+                                    child: dividerCommon(),
+                                  ),
 
-                                titleCommon(
-                                    ln.getString(ConstString.choosePayMethod)),
+                                  titleCommon(ln
+                                      .getString(ConstString.choosePayMethod)),
 
-                                //payment method card
-                                GridView.builder(
-                                  gridDelegate: const FlutterzillaFixedGridView(
-                                      crossAxisCount: 3,
-                                      mainAxisSpacing: 15,
-                                      crossAxisSpacing: 15,
-                                      height: 60),
-                                  padding: const EdgeInsets.only(top: 30),
-                                  itemCount: pgProvider.paymentList.length,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  clipBehavior: Clip.none,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          selectedMethod = index;
-                                        });
+                                  //payment method card
+                                  GridView.builder(
+                                    gridDelegate:
+                                        const FlutterzillaFixedGridView(
+                                            crossAxisCount: 3,
+                                            mainAxisSpacing: 15,
+                                            crossAxisSpacing: 15,
+                                            height: 60),
+                                    padding: const EdgeInsets.only(top: 30),
+                                    itemCount: pgProvider.paymentList.length,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    clipBehavior: Clip.none,
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedMethod = index;
+                                          });
 
-                                        pgProvider.setSelectedMethodName(
-                                            pgProvider
-                                                    .paymentList[selectedMethod]
-                                                ['name']);
+                                          pgProvider.setSelectedMethodName(
+                                              pgProvider.paymentList[
+                                                  selectedMethod]['name']);
 
-                                        //set key
-                                        pgProvider.setKey(
-                                            pgProvider
-                                                    .paymentList[selectedMethod]
-                                                ['name'],
-                                            index);
-                                      },
-                                      child: Stack(
-                                        clipBehavior: Clip.none,
+                                          //set key
+                                          pgProvider.setKey(
+                                              pgProvider.paymentList[
+                                                  selectedMethod]['name'],
+                                              index);
+                                        },
+                                        child: Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            Container(
+                                              width: double.infinity,
+                                              height: 60,
+                                              padding: const EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                    color:
+                                                        selectedMethod == index
+                                                            ? primaryColor
+                                                            : borderColor),
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl: pgProvider
+                                                        .paymentList[index]
+                                                    ['image'],
+                                                placeholder: (context, url) {
+                                                  return Image.asset(
+                                                      'assets/images/placeholder.png');
+                                                },
+                                                // fit: BoxFit.fitWidth,
+                                              ),
+                                            ),
+                                            selectedMethod == index
+                                                ? Positioned(
+                                                    right: -7,
+                                                    top: -9,
+                                                    child: checkCircle())
+                                                : Container()
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+
+                                  if (selectedMethod > 0)
+                                    pgProvider.paymentList[selectedMethod]
+                                                ['name'] ==
+                                            'manual_payment'
+                                        ?
+                                        //pick image ==========>
+                                        Consumer<BankTransferService>(
+                                            builder:
+                                                (context, btProvider, child) =>
+                                                    Column(
+                                                      children: [
+                                                        //pick image button =====>
+                                                        Column(
+                                                          children: [
+                                                            const SizedBox(
+                                                              height: 30,
+                                                            ),
+                                                            buttonPrimary(
+                                                                ln.getString(
+                                                                    ConstString
+                                                                        .chooseImages),
+                                                                () {
+                                                              btProvider
+                                                                  .pickImage(
+                                                                      context);
+                                                            }),
+                                                          ],
+                                                        ),
+                                                        btProvider.pickedImage !=
+                                                                null
+                                                            ? Column(
+                                                                children: [
+                                                                  const SizedBox(
+                                                                    height: 30,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: 80,
+                                                                    child:
+                                                                        ListView(
+                                                                      clipBehavior:
+                                                                          Clip.none,
+                                                                      scrollDirection:
+                                                                          Axis.horizontal,
+                                                                      shrinkWrap:
+                                                                          true,
+                                                                      children: [
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              () {},
+                                                                          child:
+                                                                              Column(
+                                                                            children: [
+                                                                              Container(
+                                                                                margin: const EdgeInsets.only(right: 10),
+                                                                                child: Image.file(
+                                                                                  File(btProvider.pickedImage.path),
+                                                                                  height: 80,
+                                                                                  width: 80,
+                                                                                  fit: BoxFit.cover,
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            : Container(),
+                                                      ],
+                                                    ))
+                                        : Container(),
+
+                                  //Agreement checkbox ===========>
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 55,
+                                        child: CheckboxListTile(
+                                          checkColor: Colors.white,
+                                          activeColor: primaryColor,
+                                          contentPadding:
+                                              const EdgeInsets.all(0),
+                                          value: termsAgree,
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              termsAgree = !termsAgree;
+                                            });
+                                          },
+                                          controlAffinity:
+                                              ListTileControlAffinity.leading,
+                                        ),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            width: double.infinity,
-                                            height: 60,
-                                            padding: const EdgeInsets.all(10),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                  color: selectedMethod == index
-                                                      ? primaryColor
-                                                      : borderColor),
-                                            ),
-                                            child: CachedNetworkImage(
-                                              imageUrl: pgProvider
-                                                  .paymentList[index]['image'],
-                                              placeholder: (context, url) {
-                                                return Image.asset(
-                                                    'assets/images/placeholder.png');
-                                              },
-                                              // fit: BoxFit.fitWidth,
-                                            ),
-                                          ),
-                                          selectedMethod == index
-                                              ? Positioned(
-                                                  right: -7,
-                                                  top: -9,
-                                                  child: checkCircle())
-                                              : Container()
+                                          paragraphCommon(ln.getString(
+                                              ConstString.iAgreeTerms)),
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const TermsConditionPage()));
+                                            },
+                                            child: paragraphCommon(
+                                                '(Click to see)',
+                                                fontweight: FontWeight.w600,
+                                                color: Colors.blue),
+                                          )
                                         ],
                                       ),
-                                    );
+                                    ],
+                                  ),
+
+                                  //pay button =============>
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  buttonPrimary(ConstString.payConfirmOrder,
+                                      () {
+                                    if (termsAgree == false) {
+                                      showToast(
+                                          ln.getString(
+                                              ConstString.youMustAgreeTerms),
+                                          Colors.black);
+
+                                      return;
+                                    }
+                                    if (selectedMethod < 0) {
+                                      showToast(
+                                          'You must select a payment method',
+                                          Colors.black);
+                                      return;
+                                    }
+                                    if (provider.isloading == true) {
+                                      return;
+                                    }
+
+                                    payAction(
+                                        pgProvider.paymentList[selectedMethod]
+                                            ['name'],
+                                        context,
+                                        //if user selected bank transfer
+                                        pgProvider.paymentList[selectedMethod]
+                                                    ['name'] ==
+                                                'manual_payment'
+                                            ? Provider.of<BankTransferService>(
+                                                    context,
+                                                    listen: false)
+                                                .pickedImage
+                                            : null);
                                   },
-                                ),
+                                      isloading: provider.isloading == false
+                                          ? false
+                                          : true),
 
-                                if (selectedMethod > 0)
-                                  pgProvider.paymentList[selectedMethod]
-                                              ['name'] ==
-                                          'manual_payment'
-                                      ?
-                                      //pick image ==========>
-                                      Consumer<BankTransferService>(
-                                          builder:
-                                              (context, btProvider, child) =>
-                                                  Column(
-                                                    children: [
-                                                      //pick image button =====>
-                                                      Column(
-                                                        children: [
-                                                          const SizedBox(
-                                                            height: 30,
-                                                          ),
-                                                          buttonPrimary(
-                                                              ln.getString(
-                                                                  ConstString
-                                                                      .chooseImages),
-                                                              () {
-                                                            btProvider
-                                                                .pickImage(
-                                                                    context);
-                                                          }),
-                                                        ],
-                                                      ),
-                                                      btProvider.pickedImage !=
-                                                              null
-                                                          ? Column(
-                                                              children: [
-                                                                const SizedBox(
-                                                                  height: 30,
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 80,
-                                                                  child:
-                                                                      ListView(
-                                                                    clipBehavior:
-                                                                        Clip.none,
-                                                                    scrollDirection:
-                                                                        Axis.horizontal,
-                                                                    shrinkWrap:
-                                                                        true,
-                                                                    children: [
-                                                                      InkWell(
-                                                                        onTap:
-                                                                            () {},
-                                                                        child:
-                                                                            Column(
-                                                                          children: [
-                                                                            Container(
-                                                                              margin: const EdgeInsets.only(right: 10),
-                                                                              child: Image.file(
-                                                                                File(btProvider.pickedImage.path),
-                                                                                height: 80,
-                                                                                width: 80,
-                                                                                fit: BoxFit.cover,
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            )
-                                                          : Container(),
-                                                    ],
-                                                  ))
-                                      : Container(),
-
-                                //Agreement checkbox ===========>
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 55,
-                                      child: CheckboxListTile(
-                                        checkColor: Colors.white,
-                                        activeColor: primaryColor,
-                                        contentPadding: const EdgeInsets.all(0),
-                                        value: termsAgree,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            termsAgree = !termsAgree;
-                                          });
-                                        },
-                                        controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                      ),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        paragraphCommon(ln.getString(
-                                            ConstString.iAgreeTerms)),
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const TermsConditionPage()));
-                                          },
-                                          child: paragraphCommon(
-                                              '(Click to see)',
-                                              fontweight: FontWeight.w600,
-                                              color: Colors.blue),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-
-                                //pay button =============>
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                buttonPrimary(ConstString.payConfirmOrder, () {
-                                  if (termsAgree == false) {
-                                    showToast(
-                                        ln.getString(
-                                            ConstString.youMustAgreeTerms),
-                                        Colors.black);
-
-                                    return;
-                                  }
-                                  if (selectedMethod < 0) {
-                                    showToast(
-                                        'You must select a payment method',
-                                        Colors.black);
-                                    return;
-                                  }
-                                  if (provider.isloading == true) {
-                                    return;
-                                  }
-
-                                  payAction(
-                                      pgProvider.paymentList[selectedMethod]
-                                          ['name'],
-                                      context,
-                                      //if user selected bank transfer
-                                      pgProvider.paymentList[selectedMethod]
-                                                  ['name'] ==
-                                              'manual_payment'
-                                          ? Provider.of<BankTransferService>(
-                                                  context,
-                                                  listen: false)
-                                              .pickedImage
-                                          : null);
-                                },
-                                    isloading: provider.isloading == false
-                                        ? false
-                                        : true),
-
-                                const SizedBox(
-                                  height: 30,
-                                )
-                              ]),
-                        )
-                      : Container(
-                          margin: const EdgeInsets.only(top: 60),
-                          child: showLoading(primaryColor),
-                        ),
+                                  const SizedBox(
+                                    height: 30,
+                                  )
+                                ]),
+                          )
+                        : Container(
+                            margin: const EdgeInsets.only(top: 60),
+                            child: showLoading(primaryColor),
+                          ),
+                  ),
                 ),
               ),
             ),

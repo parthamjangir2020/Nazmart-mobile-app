@@ -77,6 +77,11 @@ class PlaceOrderService with ChangeNotifier {
     dio.options.headers['x-api-key'] = xApiKey;
     dio.options.headers['Authorization'] = "Bearer $token";
 
+    print(stateId);
+    print(countryId);
+    print(selectedShipId);
+    print(selectedPaymentMethodName);
+
     formData = FormData.fromMap({
       'name': address['name'],
       'email': address['email'],

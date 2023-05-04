@@ -9,6 +9,7 @@ var translateStrings = {
   ConstString.pass: ConstString.pass,
   ConstString.plzEnterPass: ConstString.plzEnterPass,
   ConstString.settingShipChargePlzWait: ConstString.settingShipChargePlzWait,
+  ConstString.plzWaitOrderProcessed: ConstString.plzWaitOrderProcessed,
   ConstString.enterPass: ConstString.enterPass,
   ConstString.rememberMe: ConstString.rememberMe,
   ConstString.forgotPass: ConstString.forgotPass,
