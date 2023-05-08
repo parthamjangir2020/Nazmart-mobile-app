@@ -4,6 +4,7 @@ import 'package:no_name_ecommerce/services/search_product_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/search/components/product_filter.dart';
 import 'package:no_name_ecommerce/view/utils/const_strings.dart';
+import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constant_colors.dart';
@@ -59,6 +60,8 @@ class SearchBar extends StatelessWidget {
                 ),
               ),
 
+              gapW(10),
+
               productFilterIcon(context),
             ],
           ),
@@ -81,7 +84,6 @@ InkWell productFilterIcon(BuildContext context) {
     },
     child: Container(
         padding: const EdgeInsets.all(12),
-        margin: const EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(7),
             border: Border.all(color: inputFieldBorderColor)),

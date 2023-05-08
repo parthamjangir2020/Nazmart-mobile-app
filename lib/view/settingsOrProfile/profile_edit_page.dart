@@ -83,7 +83,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         Row(
           children: [
             Container(
-              margin: const EdgeInsets.only(right: 25),
+              margin: const EdgeInsets.symmetric(horizontal: 25),
               width: 114,
               height: 35,
               child: borderButtonPrimary(ConstString.deleteAccount, () {
