@@ -11,6 +11,7 @@ import 'package:no_name_ecommerce/services/payment_services/stripe_service.dart'
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
 import 'package:no_name_ecommerce/services/recent_product_service.dart';
+import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/services/slider_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/product/product_details_page.dart';
@@ -70,6 +71,9 @@ runAtHomeScreen(BuildContext context) {
 runAtStart(BuildContext context) {
   Provider.of<TranslateStringService>(context, listen: false)
       .fetchTranslatedStrings(context);
+
+  Provider.of<RtlService>(context, listen: false).fetchCurrency();
+  Provider.of<RtlService>(context, listen: false).fetchDirection();
 
   startStripe();
 }

@@ -145,11 +145,11 @@ class _RefundTicketChatPageState extends State<RefundTicketChatPage> {
                                                     ['type'] ==
                                                 "admin"
                                             ? 10
-                                            : 90,
+                                            : 160,
                                         right: provider.messagesList[index]
                                                     ['type'] ==
                                                 "admin"
-                                            ? 130
+                                            ? 160
                                             : 10,
                                         top: 10,
                                         bottom: 10),
@@ -169,6 +169,7 @@ class _RefundTicketChatPageState extends State<RefundTicketChatPage> {
                                         children: [
                                           //the message ==========>
                                           Container(
+                                            alignment: Alignment.centerRight,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(20),

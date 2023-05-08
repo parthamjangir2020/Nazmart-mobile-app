@@ -68,13 +68,13 @@ class OrderDetailsPage extends StatelessWidget {
                                       '${ConstString.payment}: ${op.orderDetails?.data.paymentStatus}',
                                       (() {}),
                                       paddingVertical: 10,
-                                      bgColor: Colors.yellow[800]),
+                                      bgColor: Colors.green[800]),
                                   gapH(10),
                                   buttonPrimary(
                                       '${ConstString.order}: ${op.orderDetails?.data.status}',
                                       (() {}),
                                       paddingVertical: 10,
-                                      bgColor: Colors.green[800]),
+                                      bgColor: Colors.yellow[800]),
                                 ],
                               ))
                             ],

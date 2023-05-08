@@ -63,7 +63,7 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                 padding: const EdgeInsets.symmetric(
                   vertical: 9,
                 ),
-                margin: const EdgeInsets.only(right: 25),
+                margin: const EdgeInsets.symmetric(horizontal: 25),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
@@ -75,10 +75,7 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                     );
                   },
                   child: Container(
-                      // width: double.infinity,
-
                       alignment: Alignment.center,
-                      // padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(8)),
@@ -193,7 +190,7 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                                                         await Future.delayed(
                                                             Duration.zero);
                                                         popupMenuActions(
-                                                            menuIndex, provider,
+                                                            menuIndex,
                                                             ticketId: provider
                                                                     .ticketList[
                                                                 i]['id']);
@@ -249,19 +246,12 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
         ));
   }
 
-  List popupMenuTexts = [
-    ConstString.chat,
-    ConstString.changePriority,
-    ConstString.changeStatus
-  ];
+  List popupMenuTexts = [ConstString.changePriority, ConstString.changeStatus];
 
-  popupMenuActions(int i, provider, {required ticketId}) {
+  popupMenuActions(int i, {required ticketId}) {
     if (i == 0) {
-      provider.goToMessagePage(context, provider.ticketList[i]['subject'],
-          provider.ticketList[i]['id']);
-    } else if (i == 1) {
       SupportTicketHelper().changePriorityPopup(context, ticketId);
-    } else if (i == 2) {
+    } else if (i == 1) {
       SupportTicketHelper().changeStatusPopup(context, ticketId);
     }
   }

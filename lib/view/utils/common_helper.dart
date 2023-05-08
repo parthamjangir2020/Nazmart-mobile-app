@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:no_name_ecommerce/services/rtl_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -24,14 +25,19 @@ appbarCommon(String title, BuildContext context, VoidCallback pressed,
     backgroundColor: Colors.transparent,
     elevation: 0,
     actions: actions,
+    leadingWidth: 75,
     leading: hasBackButton
         ? InkWell(
             onTap: pressed,
-            child: Container(
-              margin: const EdgeInsets.only(left: 20),
-              child: SvgPicture.asset(
-                'assets/svg/arrow-back-circle.svg',
-                height: 40,
+            child: Consumer<RtlService>(
+              builder: (context, rtl, child) => Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: SvgPicture.asset(
+                  rtl.direction == 'ltr'
+                      ? 'assets/svg/arrow-back-circle.svg'
+                      : 'assets/svg/arrow-forward-circle.svg',
+                  height: 40,
+                ),
               ),
             ),
           )

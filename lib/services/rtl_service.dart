@@ -6,7 +6,7 @@ import 'package:no_name_ecommerce/view/utils/api_url.dart';
 
 class RtlService with ChangeNotifier {
   /// RTL support
-  String direction = 'ltr';
+  String direction = 'rtl';
 
   String currency = '\$';
   String currencyDirection = 'left';

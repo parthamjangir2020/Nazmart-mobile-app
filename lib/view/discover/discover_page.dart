@@ -36,7 +36,6 @@ class _DiscoverPageState extends State<DiscoverPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          // centerTitle: true,
           iconTheme: const IconThemeData(color: greyPrimary),
           title: Consumer<TranslateStringService>(
             builder: (context, ln, child) => Container(
@@ -53,12 +52,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
           actions: [
             Row(
               children: [
+                const SizedBox(height: 45, child: CartIcon()),
                 Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    height: 45,
-                    child: const CartIcon()),
-                Container(
-                  margin: const EdgeInsets.only(right: 25),
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
                   height: 45,
                   child: productFilterIcon(context),
                 ),

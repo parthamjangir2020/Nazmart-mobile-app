@@ -75,7 +75,7 @@ class HomeTop extends StatelessWidget {
                                 });
                           },
                           child: Container(
-                            margin: const EdgeInsets.only(left: 25),
+                            margin: const EdgeInsets.symmetric(horizontal: 25),
                             child: SvgPicture.asset(
                               'assets/svg/category-2.svg',
                               height: 25,

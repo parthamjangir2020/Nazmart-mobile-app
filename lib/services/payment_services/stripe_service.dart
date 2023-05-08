@@ -152,10 +152,10 @@ class StripeService with ChangeNotifier {
     };
 
     var response =
-        await http.post(Uri.parse(ApiUrl.gatewayListUri), headers: header);
-    print(response.statusCode);
+        await http.get(Uri.parse(ApiUrl.gatewayListUri), headers: header);
+    print('stripe ---- ${response.body}');
     if (response.statusCode == 201 || response.statusCode == 200) {
-      var paymentList = jsonDecode(response.body)['gateway_list'];
+      var paymentList = jsonDecode(response.body)['data'];
       var publicKey;
 
       for (int i = 0; i < paymentList.length; i++) {

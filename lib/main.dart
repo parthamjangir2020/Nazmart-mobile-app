@@ -128,6 +128,16 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Nazmart',
+        builder: (context, rtlchild) {
+          return Consumer<RtlService>(
+            builder: (context, rtlP, child) => Directionality(
+              textDirection: rtlP.direction == 'ltr'
+                  ? TextDirection.ltr
+                  : TextDirection.rtl,
+              child: rtlchild!,
+            ),
+          );
+        },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           pageTransitionsTheme: const PageTransitionsTheme(builders: {

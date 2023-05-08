@@ -62,7 +62,7 @@ class _RefundTicketsPageState extends State<RefundTicketsPage> {
                 padding: const EdgeInsets.symmetric(
                   vertical: 9,
                 ),
-                margin: const EdgeInsets.only(right: 25),
+                margin: const EdgeInsets.symmetric(horizontal: 25),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
@@ -171,32 +171,6 @@ class _RefundTicketsPageState extends State<RefundTicketsPage> {
                                                 color: primaryColor,
                                               ),
                                             ),
-                                            // put the hamburger icon here
-                                            // PopupMenuButton(
-                                            //   // initialValue: 2,
-                                            //   child:
-                                            //       const Icon(Icons.more_vert),
-                                            //   itemBuilder: (context) {
-                                            //     return List.generate(
-                                            //         popupMenuTexts.length,
-                                            //         (menuIndex) {
-                                            //       return PopupMenuItem(
-                                            //         onTap: () async {
-                                            //           await Future.delayed(
-                                            //               Duration.zero);
-                                            //           popupMenuActions(
-                                            //               menuIndex, provider,
-                                            //               ticketId: provider
-                                            //                       .ticketList[i]
-                                            //                   ['id']);
-                                            //         },
-                                            //         value: menuIndex,
-                                            //         child: Text(popupMenuTexts[
-                                            //             menuIndex]),
-                                            //       );
-                                            //     });
-                                            //   },
-                                            // )
                                           ],
                                         ),
 

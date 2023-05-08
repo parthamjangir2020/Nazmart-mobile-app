@@ -44,7 +44,7 @@ class ShippingSelect extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      padding: const EdgeInsets.fromLTRB(0, 12, 20, 9),
+                      padding: const EdgeInsets.fromLTRB(0, 12, 0, 9),
                       child: Text(
                         ln.getString(ConstString.addDeliveryAddress),
                         style: const TextStyle(

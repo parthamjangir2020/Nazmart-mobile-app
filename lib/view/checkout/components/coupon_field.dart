@@ -38,7 +38,7 @@ class CouponField extends StatelessWidget {
                   marginBottom: 0,
                 )),
                 Container(
-                  margin: const EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                   width: 100,
                   child: buttonPrimary(ConstString.apply, () {
                     if (couponController.text.isEmpty) {
