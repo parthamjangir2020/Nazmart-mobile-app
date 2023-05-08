@@ -40,7 +40,7 @@ class ShippingOption extends StatelessWidget {
               children: [
                 Text(
                   dProvider.shippingCostDetails.shippingOptions[i].name +
-                      " (${cP.currency}${dProvider.shippingCostDetails.shippingOptions[i].options.cost})",
+                      " (${cP.currency}${dProvider.shippingCostDetails.shippingOptions[i].options.cost ?? 0})",
                   style: const TextStyle(
                     color: greyFour,
                     fontWeight: FontWeight.w600,

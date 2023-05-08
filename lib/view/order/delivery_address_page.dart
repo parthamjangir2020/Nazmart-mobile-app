@@ -236,7 +236,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                   var minOrder = dProvider
                                                           .shippingCostDetails
                                                           ?.defaultShippingOptions
-                                                          .options
+                                                          ?.options
                                                           ?.minimumOrderAmount ??
                                                       0;
                                                   var couponNeeded = dProvider
@@ -244,7 +244,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                           dProvider
                                                               .shippingCostDetails
                                                               ?.defaultShippingOptions
-                                                              .options
+                                                              ?.options
                                                               ?.coupon,
                                                           context);
                                                   if (cProvider.subTotal <
@@ -269,18 +269,18 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                       dProvider
                                                           .shippingCostDetails
                                                           ?.defaultShippingOptions
-                                                          .options
+                                                          ?.options
                                                           ?.shippingMethodId,
                                                       dProvider
                                                               .shippingCostDetails
                                                               ?.defaultShippingOptions
-                                                              .options
+                                                              ?.options
                                                               ?.cost ??
                                                           0,
                                                       dProvider
                                                           .shippingCostDetails
                                                           ?.defaultShippingOptions
-                                                          .name,
+                                                          ?.name,
                                                       context);
 
                                                   setState(() {
@@ -310,7 +310,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                     dProvider
                                                         .shippingCostDetails!
                                                         .defaultShippingOptions
-                                                        .id)
+                                                        ?.id)
                                                   InkWell(
                                                     onTap: () {
                                                       var minOrder = dProvider

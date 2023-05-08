@@ -91,9 +91,9 @@ class DeliveryAddressService with ChangeNotifier {
 
   setShipIdAndCosts(shipId, shipCost, shipName, BuildContext context) {
     var oldShipCost = selectedShipCost;
-    selectedShipId = shipId;
-    selectedShipName = shipName;
-    selectedShipCost = shipCost;
+    selectedShipId = shipId ?? 0;
+    selectedShipName = shipName ?? '-';
+    selectedShipCost = shipCost ?? 0;
     notifyListeners();
     debugPrint('selected shipping id $selectedShipId');
     debugPrint('selected shipping cost $selectedShipCost');
@@ -148,14 +148,14 @@ class DeliveryAddressService with ChangeNotifier {
       shippingCostDetails = data;
 
       setShipIdAndCosts(
-          data.defaultShippingOptions.options?.shippingMethodId ?? 0,
-          data.defaultShippingOptions.options?.cost,
-          data.defaultShippingOptions.name,
+          data.defaultShippingOptions?.options?.shippingMethodId ?? 0,
+          data.defaultShippingOptions?.options?.cost,
+          data.defaultShippingOptions?.name,
           context);
 
       defaultShipId =
-          data.defaultShippingOptions.options?.shippingMethodId ?? 0;
-      defaultShipName = data.defaultShippingOptions.name ?? '';
+          data.defaultShippingOptions?.options?.shippingMethodId ?? 0;
+      defaultShipName = data.defaultShippingOptions?.name ?? '';
 
       setVatAndincreaseTotal(data.tax?.toDouble() ?? 0, context);
 

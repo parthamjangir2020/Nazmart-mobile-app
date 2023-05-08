@@ -32,7 +32,7 @@ class FreeShipOption extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${dProvider.shippingCostDetails?.defaultShippingOptions.name} (\$${dProvider.shippingCostDetails?.defaultShippingOptions.options?.cost})',
+                '${dProvider.shippingCostDetails?.defaultShippingOptions?.name ?? 'Shipping'} (\$${dProvider.shippingCostDetails?.defaultShippingOptions?.options?.cost ?? 0})',
                 style: const TextStyle(
                   color: greyFour,
                   fontWeight: FontWeight.w600,
