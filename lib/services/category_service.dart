@@ -47,7 +47,6 @@ class CategoryService with ChangeNotifier {
     if (categoryDropdownList.isNotEmpty) return;
 
     var response = await http.get(Uri.parse(ApiUrl.categoryUri));
-    print(response.body);
 
     setDummyValue();
 
@@ -76,7 +75,6 @@ class CategoryService with ChangeNotifier {
     if (categoryHome.isNotEmpty) return;
 
     var response = await http.get(Uri.parse(ApiUrl.categoryUri));
-    print(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = CategoryModel.fromJson(jsonDecode(response.body));

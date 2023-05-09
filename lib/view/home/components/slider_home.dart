@@ -55,8 +55,8 @@ class SliderHome extends StatelessWidget {
                     ),
                     Consumer<RtlService>(
                       builder: (context, rtlP, child) => Positioned(
-                          left: rtlP.direction == 'ltr' ? 25 : 0,
-                          right: rtlP.direction == 'ltr' ? 0 : 25,
+                          left: rtlP.rtl == false ? 25 : 0,
+                          right: rtlP.rtl == false ? 0 : 25,
                           top: 20,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

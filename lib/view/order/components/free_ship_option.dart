@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +33,7 @@ class FreeShipOption extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${dProvider.shippingCostDetails?.defaultShippingOptions?.name ?? 'Shipping'} (\$${dProvider.shippingCostDetails?.defaultShippingOptions?.options?.cost ?? 0})',
+                '${dProvider.shippingCostDetails?.defaultShippingOptions?.name ?? 'Shipping'} (${showWithCurrency(context, dProvider.shippingCostDetails?.defaultShippingOptions?.options?.cost ?? 0)})',
                 style: const TextStyle(
                   color: greyFour,
                   fontWeight: FontWeight.w600,

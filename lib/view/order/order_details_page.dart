@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/order/components/order_details_section.dart';
@@ -54,7 +55,10 @@ class OrderDetailsPage extends StatelessWidget {
                                               ' #${op.orderDetails?.data.id}'),
                                       gapH(10),
                                       paragraphCommon(
-                                          '\$${op.orderDetails?.data.totalAmount}',
+                                          showWithCurrency(
+                                              context,
+                                              op.orderDetails?.data
+                                                  .totalAmount),
                                           fontsize: 30,
                                           color: primaryColor),
                                     ]),

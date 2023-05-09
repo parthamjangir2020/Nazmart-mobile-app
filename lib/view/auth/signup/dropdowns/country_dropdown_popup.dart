@@ -144,10 +144,9 @@ class CountryDropdownPopup extends StatelessWidget {
                                                                   greyFive))),
                                                   child: paragraphCommon(
                                                     '${p.countryDropdownList[i]}',
-                                                    textAlign:
-                                                        rtl.direction == 'ltr'
-                                                            ? TextAlign.left
-                                                            : TextAlign.right,
+                                                    textAlign: rtl.rtl == false
+                                                        ? TextAlign.left
+                                                        : TextAlign.right,
                                                   ),
                                                 ),
                                               );

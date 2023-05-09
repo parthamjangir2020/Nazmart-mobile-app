@@ -57,7 +57,7 @@ class ApiUrl {
   static const String updateProfileUri = '$baseUri/user/update-profile';
   static const String profileDataUri = '$baseUri/user/profile';
   static const String deleteAccountUri = '$baseUri/user/account/delete';
-  static const String rtlUri = '$baseUri/currency';
+  static const String rtlUri = '$baseUri/site-currency-symbol';
   static const String languageUri = '$baseUri/language';
   static const String searchUri = '$baseUri/product';
   static const String sliderUri = '$baseUri/mobile-slider';

@@ -71,9 +71,7 @@ runAtHomeScreen(BuildContext context) {
 runAtStart(BuildContext context) {
   Provider.of<TranslateStringService>(context, listen: false)
       .fetchTranslatedStrings(context);
-
-  Provider.of<RtlService>(context, listen: false).fetchCurrency();
-  Provider.of<RtlService>(context, listen: false).fetchDirection();
+  Provider.of<RtlService>(context, listen: false).fetchCurrencyAndDirection();
 
   startStripe();
 }
@@ -105,4 +103,16 @@ startStripe() async {
 firstAppOpenSet() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setBool('firstRun', false);
+}
+
+showWithCurrency(BuildContext context, data) {
+  bool currencyAtLeft =
+      Provider.of<RtlService>(context, listen: false).currencyAtLeft;
+  String currency = Provider.of<RtlService>(context, listen: false).currency;
+
+  if (currencyAtLeft) {
+    return "$currency$data";
+  } else {
+    return "$data$currency";
+  }
 }

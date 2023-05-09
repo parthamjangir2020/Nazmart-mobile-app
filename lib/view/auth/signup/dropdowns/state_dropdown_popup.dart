@@ -138,10 +138,9 @@ class StateDropdownPopup extends StatelessWidget {
                                                                   greyFive))),
                                                   child: paragraphCommon(
                                                     '${p.statesDropdownList[i]}',
-                                                    textAlign:
-                                                        rtl.direction == 'ltr'
-                                                            ? TextAlign.left
-                                                            : TextAlign.right,
+                                                    textAlign: rtl.rtl == false
+                                                        ? TextAlign.left
+                                                        : TextAlign.right,
                                                   ),
                                                 ),
                                               );

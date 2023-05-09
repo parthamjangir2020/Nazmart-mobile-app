@@ -56,7 +56,6 @@ class ProfileService with ChangeNotifier {
   }
 
   Future<bool> fetchData(BuildContext context) async {
-    print('fetching profile data');
     var connection = await checkConnection(context);
     if (!connection) return false;
     SharedPreferences prefs = await SharedPreferences.getInstance();

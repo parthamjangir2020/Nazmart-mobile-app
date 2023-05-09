@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
@@ -42,21 +43,29 @@ class OrderDetailsSection extends StatelessWidget {
 
                             // bRow('Date', op.orderDetails.data.),
 
-                            bRow(ConstString.subtotal, '\$${meta['subtotal']}'),
+                            bRow(ConstString.subtotal,
+                                showWithCurrency(context, meta['subtotal'])),
 
-                            bRow(ConstString.couponDiscount,
-                                '\$${meta['coupon_discounted'] ?? '0'}'),
+                            bRow(
+                                ConstString.couponDiscount,
+                                showWithCurrency(
+                                    context, meta['coupon_discounted'] ?? '0')),
 
-                            bRow(ConstString.tax, '${meta['product_tax']}'),
+                            bRow(ConstString.tax,
+                                showWithCurrency(context, meta['product_tax'])),
 
-                            bRow(ConstString.shippingCost,
-                                '\$${meta['shipping_cost']}'),
+                            bRow(
+                                ConstString.shippingCost,
+                                showWithCurrency(
+                                    context, meta['shipping_cost'])),
 
                             bRow(ConstString.paymentMethod,
-                                '${op.orderDetails?.data.paymentGateway}'),
+                                "${op.orderDetails?.data.paymentGateway}"),
 
-                            bRow(ConstString.total,
-                                '\$${op.orderDetails?.data.totalAmount}'),
+                            bRow(
+                                ConstString.total,
+                                showWithCurrency(context,
+                                    op.orderDetails?.data.totalAmount)),
                           ]),
                     ),
                   ],

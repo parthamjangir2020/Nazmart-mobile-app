@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 
 import 'package:no_name_ecommerce/services/payment_services/bank_transfer_service.dart';
@@ -89,7 +90,9 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                           ln.getString(ConstString.total) +
                                               ' :',
                                           fontsize: 17),
-                                      paragraphCommon('\$${cP.totalPrice}',
+                                      paragraphCommon(
+                                          showWithCurrency(
+                                              context, cP.totalPrice),
                                           fontweight: FontWeight.w600,
                                           fontsize: 18)
                                     ],

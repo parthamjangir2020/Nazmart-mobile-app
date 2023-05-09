@@ -68,8 +68,8 @@ class _CampaignListState extends State<CampaignList> {
                               alignment: Alignment.center,
                               width: 300,
                               margin: EdgeInsets.only(
-                                right: rtlP.direction == 'ltr' ? 20 : 0,
-                                left: rtlP.direction == 'ltr' ? 0 : 20,
+                                right: rtlP.rtl == false ? 20 : 0,
+                                left: rtlP.rtl == false ? 0 : 20,
                               ),
                               decoration: BoxDecoration(
                                   color: Colors.white,

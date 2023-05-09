@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -6,40 +8,27 @@ import 'package:no_name_ecommerce/view/utils/api_url.dart';
 
 class RtlService with ChangeNotifier {
   /// RTL support
-  String direction = 'rtl';
+  bool rtl = false;
 
   String currency = '\$';
-  String currencyDirection = 'left';
+  bool currencyAtLeft = true;
 
-  bool alreadyCurrencyLoaded = false;
-  bool alreadyRtlLoaded = false;
+  bool alreadyLoaded = false;
 
-  fetchCurrency() async {
-    if (alreadyCurrencyLoaded == false) {
+  fetchCurrencyAndDirection() async {
+    if (alreadyLoaded == false) {
       var response = await http.get(Uri.parse(ApiUrl.rtlUri));
-      if (response.statusCode == 201) {
-        currency = jsonDecode(response.body)['currency']['symbol'];
-        currencyDirection = jsonDecode(response.body)['currency']['position'];
-        alreadyCurrencyLoaded == true;
-        notifyListeners();
-      } else {
-        print('failed loading currency');
-        print(response.body);
-      }
-    } else {
-      //already loaded from server. no need to load again
-    }
-  }
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        currency = data['symbol'];
+        currencyAtLeft = data['currencyPosition'] == "left" ? true : false;
 
-  fetchDirection() async {
-    if (alreadyRtlLoaded == false) {
-      var response = await http.get(Uri.parse(ApiUrl.languageUri));
-      if (response.statusCode == 201) {
-        direction = jsonDecode(response.body)['language']['direction'];
-        alreadyRtlLoaded == true;
+        rtl = data['rtl'];
+
+        alreadyLoaded == true;
         notifyListeners();
       } else {
-        print('failed loading language direction');
+        print('failed loading currency and rtl');
         print(response.body);
       }
     } else {

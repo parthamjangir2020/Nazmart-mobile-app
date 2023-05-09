@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/common_service.dart';
-import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
@@ -50,189 +49,187 @@ class _FavouriteItemListPageState extends State<FavouriteItemListPage> {
                   Consumer<FavouriteService>(
                 builder: (context, fProvider, child) => fProvider
                         .favItemList.isNotEmpty
-                    ? Consumer<CurrencyService>(
-                        builder: (context, cP, child) => Column(children: [
-                          gapH(10),
-                          for (int i = 0; i < fProvider.favItemList.length; i++)
-                            InkWell(
-                              onTap: () {
-                                gotoProductDetails(context,
-                                    fProvider.favItemList[i]['productId']);
-                              },
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      //title image price
-                                      Expanded(
-                                          child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          commonImage(
-                                              fProvider.favItemList[i]
-                                                  ['thumbnail'],
-                                              55,
-                                              55),
+                    ? Column(children: [
+                        gapH(10),
+                        for (int i = 0; i < fProvider.favItemList.length; i++)
+                          InkWell(
+                            onTap: () {
+                              gotoProductDetails(context,
+                                  fProvider.favItemList[i]['productId']);
+                            },
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    //title image price
+                                    Expanded(
+                                        child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        commonImage(
+                                            fProvider.favItemList[i]
+                                                ['thumbnail'],
+                                            55,
+                                            55),
 
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          //title and price
-                                          Flexible(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  '${fProvider.favItemList[i]['title']}',
-                                                  textAlign: TextAlign.left,
-                                                  maxLines: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                      color: blackCustomColor,
-                                                      fontSize: 13,
-                                                      height: 1.4,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        //title and price
+                                        Flexible(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '${fProvider.favItemList[i]['title']}',
+                                                textAlign: TextAlign.left,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                    color: blackCustomColor,
+                                                    fontSize: 13,
+                                                    height: 1.4,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
 
-                                                //Price and stock
-                                                const SizedBox(
-                                                  height: 6,
-                                                ),
-                                                Text(
-                                                  "\$${fProvider.favItemList[i]['discountPrice']}",
-                                                  textAlign: TextAlign.left,
-                                                  maxLines: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                      color: primaryColor,
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-
-                                      //popup
-                                      // ========>
-
-                                      PopupMenuButton(
-                                        itemBuilder: (BuildContext context) =>
-                                            <PopupMenuEntry>[
-                                          //view details
-                                          PopupMenuItem(
-                                            onTap: () {
-                                              Future.delayed(Duration.zero, () {
-                                                gotoProductDetails(
+                                              //Price and stock
+                                              const SizedBox(
+                                                height: 6,
+                                              ),
+                                              Text(
+                                                showWithCurrency(
                                                     context,
                                                     fProvider.favItemList[i]
-                                                        ['productId']);
-                                              });
-                                            },
-                                            child: Text(
-                                                ln.getString(favPopupList[0])),
+                                                        ['discountPrice']),
+                                                textAlign: TextAlign.left,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                    color: primaryColor,
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
+                                        ),
+                                      ],
+                                    )),
 
-                                          //add to cart
+                                    //popup
+                                    // ========>
 
-                                          if (jsonDecode(fProvider
-                                                  .favItemList[i]['attributes'])
-                                              .isEmpty)
-                                            PopupMenuItem(
-                                              onTap: () {
-                                                Future.delayed(Duration.zero,
-                                                    () {
-                                                  var cProvider =
-                                                      Provider.of<CartService>(
-                                                          context,
-                                                          listen: false);
+                                    PopupMenuButton(
+                                      itemBuilder: (BuildContext context) =>
+                                          <PopupMenuEntry>[
+                                        //view details
+                                        PopupMenuItem(
+                                          onTap: () {
+                                            Future.delayed(Duration.zero, () {
+                                              gotoProductDetails(
+                                                  context,
+                                                  fProvider.favItemList[i]
+                                                      ['productId']);
+                                            });
+                                          },
+                                          child: Text(
+                                              ln.getString(favPopupList[0])),
+                                        ),
 
-                                                  cProvider.addToCartOrUpdateQty(context,
-                                                      title: fProvider.favItemList[i]
-                                                          ['title'],
-                                                      thumbnail: fProvider.favItemList[i]
-                                                          ['thumbnail'],
-                                                      discountPrice: fProvider
-                                                          .favItemList[i]
-                                                              ['discountPrice']
-                                                          .toString(),
-                                                      oldPrice: fProvider.favItemList[i]
-                                                              ['oldPrice']
-                                                          .toString(),
-                                                      priceWithAttr:
-                                                          fProvider.favItemList[i]
-                                                              ['priceWithAttr'],
-                                                      qty: 1,
-                                                      color: null,
-                                                      size: null,
-                                                      productId: fProvider
-                                                          .favItemList[i]['productId']
-                                                          .toString(),
-                                                      category: fProvider.favItemList[i]['category'],
-                                                      subcategory: fProvider.favItemList[i]['subcategory'],
-                                                      childCategory: fProvider.favItemList[i]['childCategory'],
-                                                      attributes: {},
-                                                      variantId: fProvider.favItemList[i]['variantId'],
-                                                      ignoreAttribute: true);
-                                                });
-                                              },
-                                              child: Text(ln
-                                                  .getString(favPopupList[1])),
-                                            ),
+                                        //add to cart
 
-                                          //remove from favourite
+                                        if (jsonDecode(fProvider.favItemList[i]
+                                                ['attributes'])
+                                            .isEmpty)
                                           PopupMenuItem(
                                             onTap: () {
                                               Future.delayed(Duration.zero, () {
-                                                //Delete
-                                                fProvider.addOrRemoveFavourite(
-                                                    context,
-                                                    productId:
+                                                var cProvider =
+                                                    Provider.of<CartService>(
+                                                        context,
+                                                        listen: false);
+
+                                                cProvider.addToCartOrUpdateQty(context,
+                                                    title: fProvider.favItemList[i]
+                                                        ['title'],
+                                                    thumbnail: fProvider.favItemList[i]
+                                                        ['thumbnail'],
+                                                    discountPrice: fProvider
+                                                        .favItemList[i]
+                                                            ['discountPrice']
+                                                        .toString(),
+                                                    oldPrice: fProvider.favItemList[i]
+                                                            ['oldPrice']
+                                                        .toString(),
+                                                    priceWithAttr:
                                                         fProvider.favItemList[i]
-                                                            ['productId'],
-                                                    thumbnail: '',
-                                                    discountPrice: '',
-                                                    oldPrice: '',
-                                                    title:
-                                                        fProvider.favItemList[i]
-                                                                ['title'] ??
-                                                            '',
-                                                    attributes: null,
-                                                    category: null,
-                                                    childCategory: null,
-                                                    color: null,
-                                                    priceWithAttr: null,
+                                                            ['priceWithAttr'],
                                                     qty: 1,
+                                                    color: null,
                                                     size: null,
-                                                    subcategory: null,
-                                                    variantId: null);
+                                                    productId: fProvider
+                                                        .favItemList[i]['productId']
+                                                        .toString(),
+                                                    category: fProvider.favItemList[i]['category'],
+                                                    subcategory: fProvider.favItemList[i]['subcategory'],
+                                                    childCategory: fProvider.favItemList[i]['childCategory'],
+                                                    attributes: {},
+                                                    variantId: fProvider.favItemList[i]['variantId'],
+                                                    ignoreAttribute: true);
                                               });
                                             },
                                             child: Text(
-                                                ln.getString(favPopupList[2])),
+                                                ln.getString(favPopupList[1])),
                                           ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: dividerCommon(),
-                                  )
-                                ],
-                              ),
+
+                                        //remove from favourite
+                                        PopupMenuItem(
+                                          onTap: () {
+                                            Future.delayed(Duration.zero, () {
+                                              //Delete
+                                              fProvider.addOrRemoveFavourite(
+                                                  context,
+                                                  productId:
+                                                      fProvider.favItemList[i]
+                                                          ['productId'],
+                                                  thumbnail: '',
+                                                  discountPrice: '',
+                                                  oldPrice: '',
+                                                  title:
+                                                      fProvider.favItemList[i]
+                                                              ['title'] ??
+                                                          '',
+                                                  attributes: null,
+                                                  category: null,
+                                                  childCategory: null,
+                                                  color: null,
+                                                  priceWithAttr: null,
+                                                  qty: 1,
+                                                  size: null,
+                                                  subcategory: null,
+                                                  variantId: null);
+                                            });
+                                          },
+                                          child: Text(
+                                              ln.getString(favPopupList[2])),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 15),
+                                  child: dividerCommon(),
+                                )
+                              ],
                             ),
-                          gapH(30)
-                        ]),
-                      )
+                          ),
+                        gapH(30)
+                      ])
                     : Container(
                         alignment: Alignment.center,
                         height: getScreenHeight(context) - 200,

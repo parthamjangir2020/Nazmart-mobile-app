@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/product_details_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
@@ -125,7 +126,8 @@ class _ProductDetailsTopState extends State<ProductDetailsTop> {
                     children: [
                       //Price
                       titleCommon(
-                          '\$${provider.productDetails?.product?.salePrice}',
+                          showWithCurrency(context,
+                              provider.productDetails?.product?.salePrice),
                           color: primaryColor,
                           fontsize: 16),
 
@@ -135,7 +137,8 @@ class _ProductDetailsTopState extends State<ProductDetailsTop> {
 
                       //old price
                       Text(
-                        '\$${provider.productDetails?.product?.price}',
+                        showWithCurrency(
+                            context, provider.productDetails?.product?.price),
                         style: TextStyle(
                             color: Colors.grey[600],
                             fontSize: 15,

@@ -25,7 +25,6 @@ import 'package:no_name_ecommerce/services/bottom_nav_service.dart';
 import 'package:no_name_ecommerce/services/campaign_service.dart';
 import 'package:no_name_ecommerce/services/category_service.dart';
 import 'package:no_name_ecommerce/services/child_category_service.dart';
-import 'package:no_name_ecommerce/services/currency_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/favourite_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/priority_and_department_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/ticket_status_dropdown_service.dart';
@@ -94,7 +93,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CartService()),
         ChangeNotifierProvider(create: (_) => SearchProductService()),
         ChangeNotifierProvider(create: (_) => FavouriteService()),
-        ChangeNotifierProvider(create: (_) => CurrencyService()),
         ChangeNotifierProvider(create: (_) => ProfileEditService()),
         ChangeNotifierProvider(create: (_) => BottomNavService()),
         ChangeNotifierProvider(create: (_) => SubCategoryService()),
@@ -131,9 +129,8 @@ class MyApp extends StatelessWidget {
         builder: (context, rtlchild) {
           return Consumer<RtlService>(
             builder: (context, rtlP, child) => Directionality(
-              textDirection: rtlP.direction == 'ltr'
-                  ? TextDirection.ltr
-                  : TextDirection.rtl,
+              textDirection:
+                  rtlP.rtl == false ? TextDirection.ltr : TextDirection.rtl,
               child: rtlchild!,
             ),
           );

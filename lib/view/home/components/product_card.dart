@@ -58,8 +58,8 @@ class ProductCard extends StatelessWidget {
             alignment: Alignment.center,
             width: width,
             margin: EdgeInsets.only(
-              right: rtlP.direction == 'ltr' ? marginRight : 0,
-              left: rtlP.direction == 'ltr' ? 0 : marginRight,
+              right: rtlP.rtl == false ? marginRight : 0,
+              left: rtlP.rtl == false ? 0 : marginRight,
             ),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(9)),
@@ -119,7 +119,8 @@ class ProductCard extends StatelessWidget {
                     //Price
                     Row(
                       children: [
-                        paragraphCommon('\$$discountPrice',
+                        paragraphCommon(
+                            showWithCurrency(context, discountPrice),
                             lineHeight: 1.2,
                             fontsize: 14,
                             color: primaryColor,
@@ -131,7 +132,7 @@ class ProductCard extends StatelessWidget {
 
                         //old price
                         Text(
-                          '\$$oldPrice',
+                          showWithCurrency(context, oldPrice),
                           style: TextStyle(
                               color: Colors.grey[600],
                               decoration: TextDecoration.lineThrough),

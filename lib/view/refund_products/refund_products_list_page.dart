@@ -99,7 +99,7 @@ class _RefundProductsListPageState extends State<RefundProductsListPage> {
                                             fontsize: 15),
                                         gapH(8),
                                         paragraphCommon(
-                                            '${ln.getString(ConstString.orderId)}:#${rp.productList[i].product?.id}'),
+                                            '${ln.getString(ConstString.orderId)}: ${rp.productList[i].product?.id}'),
                                         gapH(6),
                                         paragraphCommon(
                                             '${ln.getString(ConstString.status)}: ${rp.productList[i].status == 0 ? ln.getString(ConstString.pending) : ln.getString(ConstString.completed)}',

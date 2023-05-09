@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/view/utils/common_helper.dart';
 import 'package:no_name_ecommerce/view/utils/constant_colors.dart';
 import 'package:no_name_ecommerce/view/utils/constant_styles.dart';
@@ -51,7 +52,10 @@ class CartProducts extends StatelessWidget {
                               gapH(2),
 
                               paragraphCommon(
-                                  '\$${cProvider.cartItemList[i]['priceWithAttr']}',
+                                  showWithCurrency(
+                                      context,
+                                      cProvider.cartItemList[i]
+                                          ['priceWithAttr']),
                                   fontsize: 13,
                                   color: primaryColor,
                                   fontweight: FontWeight.w600),

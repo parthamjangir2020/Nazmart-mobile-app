@@ -153,7 +153,6 @@ class StripeService with ChangeNotifier {
 
     var response =
         await http.get(Uri.parse(ApiUrl.gatewayListUri), headers: header);
-    print('stripe ---- ${response.body}');
     if (response.statusCode == 201 || response.statusCode == 200) {
       var paymentList = jsonDecode(response.body)['data'];
       var publicKey;
@@ -163,7 +162,6 @@ class StripeService with ChangeNotifier {
           publicKey = paymentList[i]['credentials']['public_key'];
         }
       }
-      print('stripe public key is $publicKey');
       if (publicKey == null) {
         return defaultPublicKey;
       } else {

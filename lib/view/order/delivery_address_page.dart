@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/auth_services/signup_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/country_dropdown_service.dart';
 import 'package:no_name_ecommerce/services/dropdown_services/state_dropdown_services.dart';
 import 'package:no_name_ecommerce/services/profile_service.dart';
@@ -252,7 +253,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                     showToast(
                                                         ln.getString(ConstString
                                                                 .minimum) +
-                                                            ' \$$minOrder ' +
+                                                            ' \$${showWithCurrency(context, minOrder)} ' +
                                                             ln.getString(ConstString
                                                                 .orderIsNeeded),
                                                         Colors.black);
@@ -335,7 +336,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                             ln.getString(
                                                                     ConstString
                                                                         .minimum) +
-                                                                ' \$$minOrder ' +
+                                                                ' \$${showWithCurrency(context, minOrder)} ' +
                                                                 ln.getString(
                                                                     ConstString
                                                                         .orderIsNeeded),
@@ -377,7 +378,6 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                                                     child: ShippingOption(
                                                         selectedShipping: dProvider
                                                             .selectedShippingIndex,
-                                                        dProvider: dProvider,
                                                         i: i),
                                                   ),
                                             ],

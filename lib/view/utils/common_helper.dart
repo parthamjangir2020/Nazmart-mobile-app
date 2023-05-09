@@ -33,7 +33,7 @@ appbarCommon(String title, BuildContext context, VoidCallback pressed,
               builder: (context, rtl, child) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: SvgPicture.asset(
-                  rtl.direction == 'ltr'
+                  rtl.rtl == false
                       ? 'assets/svg/arrow-back-circle.svg'
                       : 'assets/svg/arrow-forward-circle.svg',
                   height: 40,

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/order_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/order/order_details_page.dart';
@@ -185,7 +186,11 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                                                               height: 6,
                                                             ),
                                                             Text(
-                                                              "\$${op.productList[i][j]['price']}",
+                                                              showWithCurrency(
+                                                                  context,
+                                                                  op.productList[
+                                                                          i][j][
+                                                                      'price']),
                                                               textAlign:
                                                                   TextAlign
                                                                       .left,

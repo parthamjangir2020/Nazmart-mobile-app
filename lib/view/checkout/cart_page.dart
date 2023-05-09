@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_name_ecommerce/services/cart_services/cart_service.dart';
 import 'package:no_name_ecommerce/services/cart_services/delivery_address_service.dart';
-import 'package:no_name_ecommerce/services/currency_service.dart';
+import 'package:no_name_ecommerce/services/common_service.dart';
 import 'package:no_name_ecommerce/services/translate_string_service.dart';
 import 'package:no_name_ecommerce/view/checkout/components/cart_products.dart';
 import 'package:no_name_ecommerce/view/checkout/components/coupon_field.dart';
@@ -53,89 +53,97 @@ class _CartpageState extends State<Cartpage> {
                     builder: (context, cProvider, child) => cProvider
                             .cartItemList.isNotEmpty
                         ? Consumer<DeliveryAddressService>(
-                            builder: (context, dProvider, child) => Consumer<
-                                    CurrencyService>(
-                                builder: (context, cP, child) =>
-                                    Consumer<TranslateStringService>(
-                                      builder: (context, ln, child) =>
-                                          Column(children: [
-                                        //Products
-                                        //==========>
-                                        gapH(13),
-                                        const CartProducts(),
+                            builder: (context, dProvider, child) =>
+                                Consumer<TranslateStringService>(
+                              builder: (context, ln, child) =>
+                                  Column(children: [
+                                //Products
+                                //==========>
+                                gapH(13),
+                                const CartProducts(),
 
-                                        // Calculations
-                                        // ========>
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              top: 70, bottom: 18),
-                                          child: dividerCommon(),
-                                        ),
-                                        detailsRow(ConstString.subtotal, 0,
-                                            cProvider.subTotal.toString()),
-                                        gapH(15),
-                                        detailsRow(ConstString.discount, 0,
-                                            '${cProvider.couponDiscount}'),
-                                        gapH(15),
-                                        detailsRow(ConstString.vat, 0,
-                                            '(+${dProvider.vatPercentage}%) ${dProvider.vatAmount}'),
-                                        gapH(15),
-                                        detailsRow(ConstString.shipping, 0,
-                                            '${dProvider.selectedShipCost}'),
+                                // Calculations
+                                // ========>
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      top: 70, bottom: 18),
+                                  child: dividerCommon(),
+                                ),
+                                detailsRow(
+                                    ConstString.subtotal,
+                                    0,
+                                    showWithCurrency(
+                                        context, cProvider.subTotal)),
+                                gapH(15),
+                                detailsRow(
+                                    ConstString.discount,
+                                    0,
+                                    showWithCurrency(
+                                        context, cProvider.couponDiscount)),
+                                gapH(15),
+                                detailsRow(ConstString.vat, 0,
+                                    '(+${dProvider.vatPercentage}%) ${dProvider.vatAmount}'),
+                                gapH(15),
+                                detailsRow(
+                                    ConstString.shipping,
+                                    0,
+                                    showWithCurrency(
+                                        context, dProvider.selectedShipCost)),
 
-                                        gapH(15),
+                                gapH(15),
 
-                                        //shipping select
-                                        const ShippingSelect(),
+                                //shipping select
+                                const ShippingSelect(),
 
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 20),
-                                          child: dividerCommon(),
-                                        ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 20),
+                                  child: dividerCommon(),
+                                ),
 
-                                        //Total price
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            titleCommon(
-                                                ln.getString(ConstString.total),
-                                                fontsize: 14),
-                                            titleCommon(
-                                                '\$${cProvider.totalPrice.toStringAsFixed(2)}',
-                                                fontsize: 18)
-                                          ],
-                                        ),
-
-                                        //Apply promo ===========>
-                                        CouponField(
-                                          cartItemList: cProvider.cartItemList,
-                                          couponController: couponController,
-                                        ),
-
-                                        gapH(25),
-                                        buttonPrimary(ConstString.checkout, () {
-                                          if (dProvider
-                                              .enteredDeliveryAddress.isEmpty) {
-                                            showToast(
-                                                ConstString
-                                                    .plzEnterDeliveryAndSave,
-                                                Colors.black);
-                                            return;
-                                          }
-                                          Navigator.push(
+                                //Total price
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    titleCommon(ln.getString(ConstString.total),
+                                        fontsize: 14),
+                                    titleCommon(
+                                        showWithCurrency(
                                             context,
-                                            MaterialPageRoute<void>(
-                                              builder: (BuildContext context) =>
-                                                  const PaymentChoosePage(),
-                                            ),
-                                          );
-                                        }, borderRadius: 100),
+                                            cProvider.totalPrice
+                                                .toStringAsFixed(2)),
+                                        fontsize: 18)
+                                  ],
+                                ),
 
-                                        gapH(30)
-                                      ]),
-                                    )),
+                                //Apply promo ===========>
+                                CouponField(
+                                  cartItemList: cProvider.cartItemList,
+                                  couponController: couponController,
+                                ),
+
+                                gapH(25),
+                                buttonPrimary(ConstString.checkout, () {
+                                  if (dProvider
+                                      .enteredDeliveryAddress.isEmpty) {
+                                    showToast(
+                                        ConstString.plzEnterDeliveryAndSave,
+                                        Colors.black);
+                                    return;
+                                  }
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const PaymentChoosePage(),
+                                    ),
+                                  );
+                                }, borderRadius: 100),
+
+                                gapH(30)
+                              ]),
+                            ),
                           )
                         : Container(
                             alignment: Alignment.center,
