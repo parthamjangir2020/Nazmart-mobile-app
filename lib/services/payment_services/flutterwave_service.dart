@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:flutterwave_standard/models/subaccount.dart';
@@ -105,7 +107,7 @@ class FlutterwaveService {
         redirectUrl: "https://www.google.com",
         isTestMode: false);
     var response = await flutterwave.charge();
-    if (response != null) {
+    if (response.success != false) {
       showLoading(response.status!, context);
       print('flutterwave payment successfull');
       Provider.of<PlaceOrderService>(context, listen: false)
