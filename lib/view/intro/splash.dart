@@ -20,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
       screenSizeAndPlatform(context);
     });
     SplashService().loginOrGoHome(context);
+
     runAtStart(context);
   }
 

@@ -14,6 +14,7 @@ class SplashService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? keepLogin = prefs.getBool('keepLoggedIn');
     bool? firstRun = prefs.getBool('firstRun');
+
     if (firstRun == null) {
       //that means user is opening the app for the first time.. so , show the intro
       await Provider.of<IntroService>(context, listen: false)

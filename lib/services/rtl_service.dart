@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -15,7 +15,7 @@ class RtlService with ChangeNotifier {
 
   bool alreadyLoaded = false;
 
-  fetchCurrencyAndDirection() async {
+  fetchCurrencyAndDirection(BuildContext context) async {
     if (alreadyLoaded == false) {
       var response = await http.get(Uri.parse(ApiUrl.rtlUri));
       if (response.statusCode == 201 || response.statusCode == 200) {

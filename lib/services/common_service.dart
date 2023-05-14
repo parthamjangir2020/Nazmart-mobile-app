@@ -51,7 +51,7 @@ hideKeyboard(BuildContext context) {
 runAtHomeScreen(BuildContext context) {
   Provider.of<CartService>(context, listen: false).fetchCartProductNumber();
 
-  Provider.of<SliderService>(context, listen: false).fetchSlider();
+  Provider.of<SliderService>(context, listen: false).fetchSlider(context);
   Provider.of<CampaignService>(context, listen: false)
       .fetchCampaignList(context);
   Provider.of<FeaturedProductService>(context, listen: false)
@@ -71,7 +71,8 @@ runAtHomeScreen(BuildContext context) {
 runAtStart(BuildContext context) {
   Provider.of<TranslateStringService>(context, listen: false)
       .fetchTranslatedStrings(context);
-  Provider.of<RtlService>(context, listen: false).fetchCurrencyAndDirection();
+  Provider.of<RtlService>(context, listen: false)
+      .fetchCurrencyAndDirection(context);
 
   startStripe();
 }
