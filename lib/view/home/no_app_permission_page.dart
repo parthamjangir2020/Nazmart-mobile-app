@@ -25,7 +25,8 @@ class NoAppPermissionPage extends StatelessWidget {
             ),
             gapH(10),
             paragraphCommon(
-                'You do not have permission to use mobile app API. Kindly upgrade your plan')
+                'You do not have permission to use mobile app API. Kindly upgrade your plan',
+                fontsize: 15)
           ],
         ),
       ),
