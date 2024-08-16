@@ -1,6 +1,6 @@
-# no_name_ecommerce
+# Nazmart Bhadracity.shop | Designed By Rakebig Services 
 
-A new Flutter project.
+Bhadracity.shop offer ecommerce saas system.
 
 ## Getting Started
 
